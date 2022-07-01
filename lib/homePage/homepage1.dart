@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:oo/dashboardItems/mymatches.dart';
+import 'package:oo/homePage/sportAcademy.dart';
 
 
+import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
 import '../screens/login.dart';
+import 'court.dart';
 import 'homeitem.dart';
 import 'navigator.dart';
 
@@ -36,17 +40,23 @@ class _HomePageState extends State<HomePage> {
           title: Row(
             children: [
               SizedBox(
-                width: 170,
+                width: 180,
               ),
               Container(child: Image.asset("assets/images/search.png")),
               SizedBox(
-                width: 20,
+                width: 30,
               ),
               Container(child: Image.asset("assets/images/notification.png")),
               SizedBox(
-                width: 20,
+                width: 30,
               ),
-              Container(child: Image.asset("assets/images/chat.png")),
+              GestureDetector(onTap:(){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  ChatScreen()),
+                );
+              },
+                  child: Container(child: Image.asset("assets/images/chat.png"))),
             ],
           ),
         ),
@@ -84,12 +94,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "My Matches",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.grey[900],
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(onTap: (){
+                      print("hg");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  mymatches()),
+                      );
+                    },
+                      child: Text(
+                        "My Matches",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey[900],
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ]),
@@ -521,206 +539,173 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Align(
                                       alignment: Alignment.topLeft,
-                                      child: Container(
-                                        height: getVerticalSize(
-                                          190.00,
-                                        ),
-                                        width: getHorizontalSize(
-                                          320.00,
-                                        ),
-                                        margin: EdgeInsets.only(
-                                          bottom: getVerticalSize(
-                                            10.00,
+                                      child: GestureDetector(onTap: () { Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>  CourtScreen()),
+                                      );},child: Container(
+                                          height: getVerticalSize(
+                                            190.00,
                                           ),
-                                        ),
-                                        child: Card(
-                                          clipBehavior: Clip.antiAlias,
-                                          elevation: 0,
-                                          margin: EdgeInsets.all(0),
-                                          color: ColorConstant.black900,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(
-                                                getHorizontalSize(
-                                                  15.00,
+                                          width: getHorizontalSize(
+                                            320.00,
+                                          ),
+                                          margin: EdgeInsets.only(
+                                            bottom: getVerticalSize(
+                                              10.00,
+                                            ),
+                                          ),
+                                          child: Card(
+                                            clipBehavior: Clip.antiAlias,
+                                            elevation: 0,
+                                            margin: EdgeInsets.all(0),
+                                            color: ColorConstant.black900,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                  getHorizontalSize(
+                                                    15.00,
+                                                  ),
                                                 ),
-                                              ),
-                                              topRight: Radius.circular(
-                                                getHorizontalSize(
-                                                  15.00,
+                                                topRight: Radius.circular(
+                                                  getHorizontalSize(
+                                                    15.00,
+                                                  ),
                                                 ),
-                                              ),
-                                              bottomLeft: Radius.circular(
-                                                getHorizontalSize(
-                                                  0.00,
+                                                bottomLeft: Radius.circular(
+                                                  getHorizontalSize(
+                                                    0.00,
+                                                  ),
                                                 ),
-                                              ),
-                                              bottomRight: Radius.circular(
-                                                getHorizontalSize(
-                                                  0.00,
+                                                bottomRight: Radius.circular(
+                                                  getHorizontalSize(
+                                                    0.00,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                          child: Stack(
-                                            alignment: Alignment.centerLeft,
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Image.asset(
-                                                  "assets/images/seasonalchampionship.png",
-                                                  height: getVerticalSize(
-                                                    190.00,
+                                            child: Stack(
+                                              alignment: Alignment.centerLeft,
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Image.asset(
+                                                    "assets/images/seasonalchampionship.png",
+                                                    height: getVerticalSize(
+                                                      190.00,
+                                                    ),
+                                                    width: getHorizontalSize(
+                                                      320.00,
+                                                    ),
+                                                    fit: BoxFit.fill,
                                                   ),
-                                                  width: getHorizontalSize(
-                                                    320.00,
-                                                  ),
-                                                  fit: BoxFit.fill,
                                                 ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: getHorizontalSize(
-                                                      20.00,
-                                                    ),
-                                                    top: getVerticalSize(
-                                                      35.00,
-                                                    ),
-                                                    right: getHorizontalSize(
-                                                      145.00,
-                                                    ),
-                                                    bottom: getVerticalSize(
-                                                      20.00,
-                                                    ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                    MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment
-                                                        .start,
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                    children: [
-                                                      Container(
-                                                        width:
-                                                        getHorizontalSize(
-                                                          166.00,
-                                                        ),
-                                                        margin: EdgeInsets.only(
-                                                          right:
-                                                          getHorizontalSize(
-                                                            10.00,
-                                                          ),
-                                                        ),
-                                                        child: Text(
-                                                          "Seasonal\nChampionship",
-                                                          maxLines: null,
-                                                          textAlign:
-                                                          TextAlign.left,
-                                                          style: TextStyle(
-                                                            color: ColorConstant
-                                                                .whiteA700,
-                                                            fontSize:
-                                                            getFontSize(
-                                                              22,
-                                                            ),
-                                                            fontFamily: 'Inter',
-                                                            fontWeight:
-                                                            FontWeight.w400,
-                                                          ),
-                                                        ),
+                                                Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(
+                                                      left: getHorizontalSize(
+                                                        20.00,
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                        EdgeInsets.only(
-                                                          top: getVerticalSize(
-                                                            20.00,
+                                                      top: getVerticalSize(
+                                                        35.00,
+                                                      ),
+                                                      right: getHorizontalSize(
+                                                        145.00,
+                                                      ),
+                                                      bottom: getVerticalSize(
+                                                        20.00,
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                      MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                          getHorizontalSize(
+                                                            166.00,
+                                                          ),
+                                                          margin: EdgeInsets.only(
+                                                            right:
+                                                            getHorizontalSize(
+                                                              10.00,
+                                                            ),
+                                                          ),
+                                                          child: Text(
+                                                            "Seasonal\nChampionship",
+                                                            maxLines: null,
+                                                            textAlign:
+                                                            TextAlign.left,
+                                                            style: TextStyle(
+                                                              color: ColorConstant
+                                                                  .whiteA700,
+                                                              fontSize:
+                                                              getFontSize(
+                                                                22,
+                                                              ),
+                                                              fontFamily: 'Inter',
+                                                              fontWeight:
+                                                              FontWeight.w400,
+                                                            ),
                                                           ),
                                                         ),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisSize:
-                                                          MainAxisSize.max,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                              EdgeInsets
-                                                                  .only(
-                                                                bottom:
-                                                                getVerticalSize(
-                                                                  13.00,
-                                                                ),
-                                                              ),
-                                                              child: Container(
-                                                                  height:
-                                                                  getSize(
-                                                                    20.00,
-                                                                  ),
-                                                                  width:
-                                                                  getSize(
-                                                                    20.00,
-                                                                  ),
-                                                                  child: Image
-                                                                      .asset(
-                                                                      "assets/images/location.png")),
+                                                        Padding(
+                                                          padding:
+                                                          EdgeInsets.only(
+                                                            top: getVerticalSize(
+                                                              20.00,
                                                             ),
-                                                            Column(
-                                                              mainAxisSize:
-                                                              MainAxisSize
-                                                                  .min,
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                              children: [
-                                                                Text(
-                                                                  "Club Name/ Sports Center",
-                                                                  overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                                  textAlign:
-                                                                  TextAlign
-                                                                      .left,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: ColorConstant
-                                                                        .whiteA700,
-                                                                    fontSize:
-                                                                    getFontSize(
-                                                                      13,
-                                                                    ),
-                                                                    fontFamily:
-                                                                    'Inter',
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            mainAxisSize:
+                                                            MainAxisSize.max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                EdgeInsets
+                                                                    .only(
+                                                                  bottom:
+                                                                  getVerticalSize(
+                                                                    13.00,
                                                                   ),
                                                                 ),
-                                                                Padding(
-                                                                  padding:
-                                                                  EdgeInsets
-                                                                      .only(
-                                                                    top:
-                                                                    getVerticalSize(
-                                                                      2.00,
+                                                                child: Container(
+                                                                    height:
+                                                                    getSize(
+                                                                      20.00,
                                                                     ),
-                                                                    right:
-                                                                    getHorizontalSize(
-                                                                      10.00,
+                                                                    width:
+                                                                    getSize(
+                                                                      20.00,
                                                                     ),
-                                                                  ),
-                                                                  child: Text(
-                                                                    "3.5 km away",
+                                                                    child: Image
+                                                                        .asset(
+                                                                        "assets/images/location.png")),
+                                                              ),
+                                                              Column(
+                                                                mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                                crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                                mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                                children: [
+                                                                  Text(
+                                                                    "Club Name/ Sports Center",
                                                                     overflow:
                                                                     TextOverflow
                                                                         .ellipsis,
@@ -733,7 +718,7 @@ class _HomePageState extends State<HomePage> {
                                                                           .whiteA700,
                                                                       fontSize:
                                                                       getFontSize(
-                                                                        12,
+                                                                        13,
                                                                       ),
                                                                       fontFamily:
                                                                       'Inter',
@@ -742,140 +727,179 @@ class _HomePageState extends State<HomePage> {
                                                                           .w400,
                                                                     ),
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
+                                                                  Padding(
+                                                                    padding:
+                                                                    EdgeInsets
+                                                                        .only(
+                                                                      top:
+                                                                      getVerticalSize(
+                                                                        2.00,
+                                                                      ),
+                                                                      right:
+                                                                      getHorizontalSize(
+                                                                        10.00,
+                                                                      ),
+                                                                    ),
+                                                                    child: Text(
+                                                                      "3.5 km away",
+                                                                      overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                      textAlign:
+                                                                      TextAlign
+                                                                          .left,
+                                                                      style:
+                                                                      TextStyle(
+                                                                        color: ColorConstant
+                                                                            .whiteA700,
+                                                                        fontSize:
+                                                                        getFontSize(
+                                                                          12,
+                                                                        ),
+                                                                        fontFamily:
+                                                                        'Inter',
+                                                                        fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: Container(
+                                        ),
+                                        ),
+                                        Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Container(
                                         margin: EdgeInsets.only(
-                                          left: getHorizontalSize(
-                                            11.00,
-                                          ),
-                                          top: getVerticalSize(
-                                            10.00,
-                                          ),
-                                          right: getHorizontalSize(
-                                            11.00,
-                                          ),
+                                        left: getHorizontalSize(
+                                        11.00,
+                                        ),
+                                        top: getVerticalSize(
+                                        10.00,
+                                        ),
+                                        right: getHorizontalSize(
+                                        11.00,
+                                        ),
                                         ),
                                         decoration: BoxDecoration(
-                                          color: ColorConstant.orange900,
-                                          borderRadius: BorderRadius.circular(
-                                            getHorizontalSize(
-                                              10.00,
-                                            ),
-                                          ),
+                                        color: ColorConstant.orange900,
+                                        borderRadius: BorderRadius.circular(
+                                        getHorizontalSize(
+                                        10.00,
+                                        ),
+                                        ),
                                         ),
                                         child: Row(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: getHorizontalSize(
-                                                  17.00,
-                                                ),
-                                                top: getVerticalSize(
-                                                  17.00,
-                                                ),
-                                                bottom: getVerticalSize(
-                                                  17.00,
-                                                ),
-                                              ),
-                                              child: Container(
-                                                height: getSize(
-                                                  15.00,
-                                                ),
-                                                width: getSize(
-                                                  15.00,
-                                                ),
-                                                child: Image.asset(
-                                                  "assets/images/calender.png",
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                left: getHorizontalSize(
-                                                  8.00,
-                                                ),
-                                                top: getVerticalSize(
-                                                  9.00,
-                                                ),
-                                                right: getHorizontalSize(
-                                                  16.00,
-                                                ),
-                                                bottom: getVerticalSize(
-                                                  9.00,
-                                                ),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Monday",
-                                                    overflow:
-                                                    TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .whiteA700,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                      FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top: getVerticalSize(
-                                                        1.00,
-                                                      ),
-                                                      right: getHorizontalSize(
-                                                        10.00,
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      "19.00",
-                                                      overflow:
-                                                      TextOverflow.ellipsis,
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: ColorConstant
-                                                            .whiteA700,
-                                                        fontSize: getFontSize(
-                                                          12,
-                                                        ),
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                        FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                        Padding(
+                                        padding: EdgeInsets.only(
+                                        left: getHorizontalSize(
+                                        17.00,
+                                        ),
+                                        top: getVerticalSize(
+                                        17.00,
+                                        ),
+                                        bottom: getVerticalSize(
+                                        17.00,
+                                        ),
+                                        ),
+                                        child: Container(
+                                        height: getSize(
+                                        15.00,
+                                        ),
+                                        width: getSize(
+                                        15.00,
+                                        ),
+                                        child: Image.asset(
+                                        "assets/images/calender.png",
+                                        fit: BoxFit.fill,
+                                        ),
+                                        ),
+                                        ),
+                                        Padding(
+                                        padding: EdgeInsets.only(
+                                        left: getHorizontalSize(
+                                        8.00,
+                                        ),
+                                        top: getVerticalSize(
+                                        9.00,
+                                        ),
+                                        right: getHorizontalSize(
+                                        16.00,
+                                        ),
+                                        bottom: getVerticalSize(
+                                        9.00,
+                                        ),
+                                        ),
+                                        child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        children: [
+                                        Text(
+                                        "Monday",
+                                        overflow:
+                                        TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                        color: ColorConstant
+                                            .whiteA700,
+                                        fontSize: getFontSize(
+                                        12,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight:
+                                        FontWeight.w400,
+                                        ),
+                                        ),
+                                        Padding(
+                                        padding: EdgeInsets.only(
+                                        top: getVerticalSize(
+                                        1.00,
+                                        ),
+                                        right: getHorizontalSize(
+                                        10.00,
+                                        ),
+                                        ),
+                                        child: Text(
+                                        "19.00",
+                                        overflow:
+                                        TextOverflow.ellipsis,
+                                        textAlign:
+                                        TextAlign.center,
+                                        style: TextStyle(
+                                        color: ColorConstant
+                                            .whiteA700,
+                                        fontSize: getFontSize(
+                                        12,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight:
+                                        FontWeight.w400,
+                                        ),
+                                        ),
+                                        ),
+                                        ],
+                                        )
+
+
                                             ),
                                           ],
                                         ),
@@ -1074,6 +1098,216 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: getVerticalSize(
+                            173.00,
+                          ),
+                          width: getHorizontalSize(
+                            320.00,
+                          ),
+                          margin: EdgeInsets.only(
+                            left: getHorizontalSize(
+                              20.00,
+                            ),
+                            top: getVerticalSize(
+                              27.00,
+                            ),
+                            right: getHorizontalSize(
+                              20.00,
+                            ),
+                          ),
+                          child: Stack(
+                            alignment: Alignment.topCenter,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    getHorizontalSize(
+                                      10.00,
+                                    ),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/academy.png",
+                                    height: getVerticalSize(
+                                      173.00,
+                                    ),
+                                    width: getHorizontalSize(
+                                      320.00,
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: getHorizontalSize(
+                                      20.00,
+                                    ),
+                                    top: getVerticalSize(
+                                      9.00,
+                                    ),
+                                    right: getHorizontalSize(
+                                      20.00,
+                                    ),
+                                    bottom: getVerticalSize(
+                                      10.00,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          top: getVerticalSize(
+                                            16.00,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.center,
+                                              child: Container(
+                                                width: getHorizontalSize(
+                                                  206.00,
+                                                ),
+                                                margin: EdgeInsets.only(
+                                                  right: getHorizontalSize(
+                                                    2.00,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "Wonder of Nation \nSports Academy ",
+                                                  maxLines: null,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                    color:
+                                                    ColorConstant.whiteA700,
+                                                    fontSize: getFontSize(
+                                                      24,
+                                                    ),
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                top: getVerticalSize(
+                                                  11.00,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                "International Sports Academy In India",
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color:
+                                                  ColorConstant.whiteA700,
+                                                  fontSize: getFontSize(
+                                                    12,
+                                                  ),
+                                                  fontFamily: 'Inter',
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                left: getHorizontalSize(
+                                                  1.00,
+                                                ),
+                                                top: getVerticalSize(
+                                                  13.00,
+                                                ),
+                                                right: getHorizontalSize(
+                                                  10.00,
+                                                ),
+                                              ),
+                                              child: GestureDetector(onTap:(){
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) =>  WonScreen()),
+                                                );
+                                              },
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  height: getVerticalSize(
+                                                    32.00,
+                                                  ),
+                                                  width: getHorizontalSize(
+                                                    131.00,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                    ColorConstant.orange900,
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                      getHorizontalSize(
+                                                        5.00,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    "Book your seat now",
+                                                    textAlign: TextAlign.left,
+                                                    style: TextStyle(
+                                                      color:
+                                                      ColorConstant.whiteA700,
+                                                      fontSize: getFontSize(
+                                                        12,
+                                                      ),
+                                                      fontFamily: 'Inter',
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                          left: getHorizontalSize(
+                                            48.00,
+                                          ),
+                                          bottom: getVerticalSize(
+                                            113.00,
+                                          ),
+                                        ),
+                                        child: Image.asset(
+                                          "assets/images/icon.png",
+                                          height: getVerticalSize(
+                                            32.00,
+                                          ),
+                                          width: getHorizontalSize(
+                                            15.00,
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -2406,3 +2640,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+                              

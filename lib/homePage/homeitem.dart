@@ -39,7 +39,7 @@ class HomeItemWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(
                 left: getHorizontalSize(
-                  14.00,
+                  0.00,
                 ),
                 top: getVerticalSize(
                   19.00,
@@ -56,7 +56,7 @@ class HomeItemWidget extends StatelessWidget {
                 width: getHorizontalSize(
                   55.00,
                 ),
-                fit: BoxFit.fill,
+
               ),
             ),
             Padding(
