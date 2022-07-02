@@ -3,6 +3,9 @@ import 'package:oo/dashboardItems/mymatches.dart';
 import 'package:oo/homePage/sportAcademy.dart';
 
 
+import '../addClubs/addclubs.dart';
+import '../addClubs/myclubs.dart';
+import '../addfriends/addfried.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
@@ -130,12 +133,16 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "My Clubs",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
+                    GestureDetector(onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>Myclubs()));
+
+                    },
+                      child: Text(
+                        "My Clubs",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
                     ),
                   ]),
                   onTap: () {
@@ -1402,15 +1409,22 @@ class _HomePageState extends State<HomePage> {
                                           25.00,
                                         ),
                                       ),
-                                      child: Container(
-                                        height: getSize(
-                                          50.00,
+                                      child: GestureDetector(onTap:(){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>  AddFriends()),
+                                        );
+                                      },
+                                        child: Container(
+                                          height: getSize(
+                                            50.00,
+                                          ),
+                                          width: getSize(
+                                            50.00,
+                                          ),
+                                          child: Image.asset(
+                                              "assets/images/add.png"),
                                         ),
-                                        width: getSize(
-                                          50.00,
-                                        ),
-                                        child: Image.asset(
-                                            "assets/images/add.png"),
                                       ),
                                     ),
                                     Align(
@@ -1463,7 +1477,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   scrollDirection: Axis.horizontal,
                                   physics: BouncingScrollPhysics(),
-                                  itemCount: 2,
+                                  itemCount: 3,
                                   itemBuilder: (context, index) {
                                     return HomeItemWidget();
                                   },
