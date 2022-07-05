@@ -47,6 +47,7 @@ dependencies:
   flutter_chat_ui: ^1.6.3
   file_picker: ^3.0.4
   mime: ^1.0.2
+  date_time_picker: ^2.1.0
 
 dev_dependencies:
   flutter_test:

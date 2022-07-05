@@ -9,6 +9,7 @@ import '../addfriends/addfried.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
+import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
 import 'court.dart';
 import 'homeitem.dart';
@@ -162,12 +163,16 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "My Results",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
+                    GestureDetector(onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gamedetail()));
+                    },
+                      child: Text(
+                        "My Results",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
                     ),
                   ]),
                   onTap: () {

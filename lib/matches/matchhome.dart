@@ -1,5 +1,7 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/homePage/navigator.dart';
 
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
@@ -9,16 +11,37 @@ class Matchhome extends StatefulWidget {
 
   @override
   State<Matchhome> createState() => _MatchhomeState();
+
 }
 
 class _MatchhomeState extends State<Matchhome> {
+  String? _selectedTime;
+
+  Future<void> _show() async {
+    final TimeOfDay? result =
+    await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    if (result != null) {
+      setState(() {
+        _selectedTime = result.format(context);
+      });
+    }
+  }
 
   @override
 
   List<String> dropdownItemList = ["test", "test1", "test2", "test3"];
+  TextEditingController dateinputcontroller=new TextEditingController(
+      text: DateTime.now().toString());
+
+  var date;
+  var _valueToValidate3;
+  var _valueChanged4;
+  var _valueToValidate4;
+  var _valueSaved4;
 
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -27,32 +50,40 @@ class _MatchhomeState extends State<Matchhome> {
         iconTheme: const IconThemeData(
           color: Colors.indigo,
         ),
+        leading: IconButton(onPressed: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => DashBoard()));
+        }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
-              width: 180,
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(child: Image.asset("assets/images/search.png")),
             ),
-            Container(child: Image.asset("assets/images/search.png")),
-            SizedBox(
-              width: 30,
+            SizedBox(width: 5,),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(child: Image.asset("assets/images/notification.png")),
             ),
-            Container(child: Image.asset("assets/images/notification.png")),
-            SizedBox(
-              width: 30,
+            SizedBox(width: 5,),
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(child: Image.asset("assets/images/chat.png")),
             ),
-            Container(child: Image.asset("assets/images/chat.png")),
+
           ],
         ),
       ),
       body: SingleChildScrollView(
         child: Padding( padding: EdgeInsets.only(
-                    top: getVerticalSize(
-                      33.50,
-                    ),
-                    bottom: getVerticalSize(
-                      20.00,
-                    ),
-                  ),
+          top: getVerticalSize(
+            33.50,
+          ),
+          bottom: getVerticalSize(
+            20.00,
+          ),
+        ),
 
           child: Column(
             children: [
@@ -100,15 +131,15 @@ class _MatchhomeState extends State<Matchhome> {
               ),
               Padding(
 
-                           padding: EdgeInsets.only(
-                             top: getVerticalSize(
-                               24.00,
-                             ),
-                         ),
+                padding: EdgeInsets.only(
+                  top: getVerticalSize(
+                    24.00,
+                  ),
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Container(
                       height: getVerticalSize(
@@ -206,132 +237,62 @@ class _MatchhomeState extends State<Matchhome> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: getHorizontalSize(
-                          10.00,
-                        ),
-                        bottom: getVerticalSize(
-                          1.00,
-                        ),
-                      ),
-                      child: GestureDetector(onTap: (){
-                        print("hg");
-                        showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2019, 1),
-                          lastDate: DateTime(2021,12),
-                        );
-                      },
-                        child: Container(
-                          height: getVerticalSize(
-                            40.00,
-                          ),
-                          width: getHorizontalSize(
-                            100.00,
-                          ),
-                          child: TextFormField(
-                            focusNode: FocusNode(),
-                            decoration: InputDecoration(
-                              hintText: '11.07.22',
-                              hintStyle: TextStyle(
-                                fontSize: getFontSize(
-                                  12.0,
-                                ),
-                                color: ColorConstant.black900,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    10.00,
-                                  ),
-                                ),
-                                borderSide: BorderSide(
-                                  color: ColorConstant.indigo900,
-                                  width: 1,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    10.00,
-                                  ),
-                                ),
-                                borderSide: BorderSide(
-                                  color: ColorConstant.indigo900,
-                                  width: 1,
-                                ),
-                              ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    10.00,
-                                  ),
-                                ),
-                                borderSide: BorderSide(
-                                  color: ColorConstant.indigo900,
-                                  width: 1,
-                                ),
-                              ),
-                              prefixIcon: Container(
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    10.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    13.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    9.00,
-                                  ),
-                                  bottom: getVerticalSize(
-                                    12.00,
-                                  ),
-                                ),
-                                child: Container(
-                                  height: getSize(
-                                    15.00,
-                                  ),
-                                  width: getSize(
-                                    15.00,
-                                  ),
-                                  child: Image.asset(
-                                 "assets/images/calender.png",color: Colors.black,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                              prefixIconConstraints: BoxConstraints(
-                                minWidth: getSize(
-                                  15.00,
-                                ),
-                                minHeight: getSize(
-                                  15.00,
-                                ),
-                              ),
-                              filled: true,
-                              fillColor: ColorConstant.whiteA700,
-                              isDense: true,
-                              contentPadding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  13.00,
-                                ),
-                                right: getHorizontalSize(
-                                  21.00,
-                                ),
-                                bottom: getVerticalSize(
-                                  12.00,
-                                ),
-                              ),
+                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 120,
+                      height: 35,
+                      child: DateTimePicker(
+                        decoration:  InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 1.0),
+                          prefixIcon: Icon(Icons.calendar_month,color: Colors.orange[700],size: 15,),
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: ColorConstant.indigo900,
                             ),
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                12.0,
-                              ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: ColorConstant.indigo900,
+                            ),
+                          ),
+                        ),
+                        type: DateTimePickerType.date,
+                        dateMask: 'dd.MM.yy',
+                        controller:dateinputcontroller ,
+                        //initialValue: _initialValue,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime(2060),
+                        onChanged: (val) => setState(() => date = val),
+                        validator: (val) {
+                          setState(() => _valueToValidate3 = val ?? '');
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 5,),
+                    SizedBox(
+                      width: 100,
+                      height: 35,
+                      child: TextFormField(
+                        decoration:  InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0.5, horizontal: 1.0),
+                          prefixIcon: IconButton(onPressed: _show, icon: Icon(Icons.access_time,color: Colors.orange[700],size: 20,)),
+                          label: Text(_selectedTime != null ? _selectedTime! : 'Select',
+                            style: TextStyle(fontSize: 13,color: Colors.black),),
+                          fillColor: Colors.white,
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: ColorConstant.indigo900,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: ColorConstant.indigo900,
                             ),
                           ),
                         ),
@@ -339,7 +300,8 @@ class _MatchhomeState extends State<Matchhome> {
                     ),
                   ],
                 ),
-              )
+              ),
+
             ],
           ),
         ),
