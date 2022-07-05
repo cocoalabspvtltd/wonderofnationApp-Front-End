@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oo/homePage/register.dart';
 
 
 import '../constants/colors.dart';
@@ -14,7 +15,11 @@ import '../constants/mathUtils.dart';
 
 class RegisterProfile extends StatefulWidget {
   const RegisterProfile({Key? key}) : super(key: key);
+  void initState() {
+    print("username->${username}");
 
+
+  }
   @override
   State<RegisterProfile> createState() => _RegisterProfileState();
 }
@@ -89,7 +94,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: 'Andria',
+                                    text:" ${username}",
                                     style: TextStyle(
                                       color: ColorConstant.orange900,
                                       fontSize: getFontSize(

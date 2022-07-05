@@ -1,17 +1,83 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/homePage/registerprofile.dart';
 
+import 'package:http/http.dart' as http;
 
 
+import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../dropdowns/gamesdropdown.dart';
 import '../screens/login.dart';
 
-
-
+TextEditingController usernameController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController mobileController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController confirmpassController = TextEditingController();
+String username = "";
 class RegisterScreen extends StatelessWidget {
+
+  void initState() {
+    usernameController.clear();
+    mobileController.clear() ;
+    emailController.clear();
+    passwordController.clear() ;
+    confirmpassController.clear();
+
+
+  }
   @override
+  // drLOginRepository registerapi = drLOginRepository();
+  late Map EditResponse ;
+ Future register(String name,email,mobile,pass,conpass,context) async {
+    Map data = {
+      'name': name,
+      'email': email,
+      'phone': mobile,
+      'password': pass,
+      'password_confirmation': conpass,
+    };
+    print(data);
+    print("---body-->>>${data}");
+    var response = await http.post(
+      Uri.parse('https://68ea-59-98-48-61.ngrok.io/api/create'),
+      body:data,
+      headers: {
+        "accept": "application/json",
+      },
+    );
+
+ EditResponse = json.decode(response.body);
+    print("resoo000>>>>>>${EditResponse}");
+     username = EditResponse["user"]["name"];
+    print("username>>>>>>${username}");
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  Marketdropdown()),
+      );
+      print('success');
+
+    } else {
+      Fluttertoast.showToast(
+        msg: "${EditResponse["message"]}",
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      print('error');
+    }
+  }
+
+
+
+
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -179,7 +245,7 @@ class RegisterScreen extends StatelessWidget {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextFormField(controller: usernameController,
                                 decoration: InputDecoration(
                                   hintText: 'Enter your name',
                                   hintStyle: TextStyle(
@@ -284,7 +350,7 @@ class RegisterScreen extends StatelessWidget {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextFormField(controller: emailController,
                                 decoration: InputDecoration(
                                   hintText: 'Enter your email id',
                                   hintStyle: TextStyle(
@@ -389,7 +455,7 @@ class RegisterScreen extends StatelessWidget {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller: mobileController,
                                 decoration: InputDecoration(
                                   hintText: 'Enter your mobile no.',
                                   hintStyle: TextStyle(
@@ -514,7 +580,7 @@ class RegisterScreen extends StatelessWidget {
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child: TextFormField(
+                                  child: TextField(controller: passwordController,
                                     decoration: InputDecoration(
                                       hintText: 'Enter your password',
                                       hintStyle: TextStyle(
@@ -648,7 +714,7 @@ class RegisterScreen extends StatelessWidget {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextFormField(controller: confirmpassController,
                                 decoration: InputDecoration(
                                   hintText: 'Enter your password',
                                   hintStyle: TextStyle(
@@ -745,10 +811,9 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                             child: GestureDetector(onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>  RegisterProfile()),
-                              );
+                             // registerapi.getlabTest();
+                             // postTest();
+                              register(usernameController.text,emailController.text,mobileController.text,passwordController.text,confirmpassController.text,context);
                             },
                               child: Container(
                                 alignment: Alignment.center,

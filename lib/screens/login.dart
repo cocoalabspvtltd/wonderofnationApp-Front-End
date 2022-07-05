@@ -1,13 +1,17 @@
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/screens/googlesignin.dart';
 
-
+import 'package:http/http.dart' as http;
 
 import '../constants/app_textbox.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../homePage/homepage1.dart';
 import '../homePage/navigator.dart';
 import '../homePage/register.dart';
 
@@ -34,15 +38,49 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email = "";
   String _pass = "";
+  Future login(String email,pass,context) async {
+    Map data = {
+      'name': email,
+      'password': pass,
 
-  _showSnackbar() {
-    var snackBar = new SnackBar(content: Text("Login Successful"));
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  DashBoard()),
+    };
+    print(data);
+    print("---body-->>>${data}");
+    var response = await http.post(
+      Uri.parse('https://68ea-59-98-48-61.ngrok.io/api/login'),
+      body:data,
+      headers: {
+        "accept": "application/json",
+      },
     );
-    scaffoldKey.currentState?.showSnackBar(snackBar);
+
+    Map EditResponse = json.decode(response.body);
+    print("resoo000>>>>>>${EditResponse}");
+    username = EditResponse["user"]["name"];
+    print("username>>>>>>${username}");
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  HomePage()),
+      );
+      print('success');
+
+    } else {
+      Fluttertoast.showToast(
+        msg: "Username or password is not registerd",
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      print('error');
+    }
   }
+  // _showSnackbar() {
+  //   var snackBar = new SnackBar(content: Text("Login Successful"));
+  //
+  //   scaffoldKey.currentState?.showSnackBar(snackBar);
+  // }
 
   Widget build(BuildContext context) {
 
@@ -403,6 +441,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                     child: GestureDetector(onTap: () {
+                                      login(emailController.text, passwordController.text, context);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) =>  DashBoard()),
+                                      );
                                       // setState(() {
                                       //   print("-->>>>Form was Submitted Successfully");
                                       //   if (_formKey.currentState!.validate()) {
@@ -415,12 +458,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                       //   }
                                       //
                                       // });
-
-                                      if (formKey.currentState!.validate()) {
-                                        formKey.currentState!.save();
-
-                                        _showSnackbar();
-                                      }
+                                      //
+                                      // if (formKey.currentState!.validate()) {
+                                      //   formKey.currentState!.save();
+                                      //
+                                      //   _showSnackbar();
+                                      // }
 
                                     },
                                       child: Container(
