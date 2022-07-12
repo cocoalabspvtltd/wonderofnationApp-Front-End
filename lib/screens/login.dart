@@ -8,9 +8,13 @@ import 'package:oo/screens/googlesignin.dart';
 
 import 'package:http/http.dart' as http;
 
+
+
+import '../apis/repositories/registerRepositories.dart';
 import '../constants/app_textbox.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../forgotpassword/forgotpasswordscreen.dart';
 import '../homePage/homepage1.dart';
 import '../homePage/navigator.dart';
 import '../homePage/register.dart';
@@ -33,21 +37,25 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordVisible = false;
 
   }
+
+  bool _validate = false;
+  bool _validatePassword = false;
+  bool _isobsucure = true;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
-
+  drLOginRepository loginApiCall = new drLOginRepository();
   String _email = "";
   String _pass = "";
-  Future login(String email,pass,context) async {
+  Future login() async {
     Map data = {
-      'name': email,
-      'password': pass,
+      'name': emailController.text,
+      'password': passwordController.text,
 
     };
     print(data);
     print("---body-->>>${data}");
     var response = await http.post(
-      Uri.parse('https://68ea-59-98-48-61.ngrok.io/api/login'),
+      Uri.parse('https://1526-59-98-51-243.ngrok.io/api/login'),
       body:data,
       headers: {
         "accept": "application/json",
@@ -56,8 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     Map EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-    username = EditResponse["user"]["name"];
-    print("username>>>>>>${username}");
+
     print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -76,11 +83,6 @@ class _LoginScreenState extends State<LoginScreen> {
       print('error');
     }
   }
-  // _showSnackbar() {
-  //   var snackBar = new SnackBar(content: Text("Login Successful"));
-  //
-  //   scaffoldKey.currentState?.showSnackBar(snackBar);
-  // }
 
   Widget build(BuildContext context) {
 
@@ -89,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
       key: formKey,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: ColorConstant.indigo900,
+          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Container(
               width: size.width,
@@ -98,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
 
                   decoration: BoxDecoration(
-                    color: ColorConstant.indigo900,
+                    color: Colors.white,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -197,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
-                                              color: ColorConstant.whiteA700,
+                                              color: Colors.black,
                                               fontSize: getFontSize(
                                                 18,
                                               ),
@@ -261,40 +263,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   child:
 
-                                  TextFormField(style: TextStyle(color: ColorConstant.gray400,fontSize: 15),
-                                    validator: (val) => !val!.contains("@") ? "Email Id is not Valid" : null ,
-                                    onSaved: (val) => _email = val!,
-                                    decoration: InputDecoration( contentPadding: EdgeInsets.all(7.0),
-                                      hintStyle: TextStyle(
-                                          color: ColorConstant.gray400,fontSize: 12
-                                      ),
-                                      hintText: "Enter Your mail Id",
+                                  TextFormField(
+                                    controller: emailController,
+                                    decoration: InputDecoration(
 
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
 
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 9, horizontal: 17),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: "Enter your emailId",
+                                      hintStyle: TextStyle(fontSize: 10,),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12.0),
                                       ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      prefixIcon: Icon(Icons.email_outlined,color: Colors.grey,)
+                                      errorText: _validatePassword ? 'Please fill this field' : null,
                                     ),
+                                    keyboardType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "* Required";
+                                      } else
+                                        return null;
+                                    },
+                                    onSaved: (value) => emailController.text = value!,
                                   ),
 
                                 ),
@@ -350,49 +341,38 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child:
 
                                   TextFormField(
-                                    style: TextStyle(color: ColorConstant.gray400,fontSize: 15),
-                                    obscureText: _passwordVisible,
-
-                                    onSaved: (val) => _pass = val!,
-                                    validator: (val) => val!.length < 8  ? "Password length should be Greater than 6" : null ,
+                                    controller: passwordController,
                                     decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(7.0),
-                                      hintStyle: TextStyle(
-                                          color: ColorConstant.gray400,fontSize: 12
-                                      ),
-                                      hintText: "Enter your Password",
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      suffixIcon: IconButton(
-                                          icon: Icon(_passwordVisible ? Icons.visibility:Icons.visibility_off,color: Colors.white,size: 14,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _passwordVisible = !_passwordVisible;
-                                            });
-                                          }),
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        //contentPadding: EdgeInsets.all(5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(12.0)),
+                                        hintText: "Enter Your Password",
+                                        hintStyle: TextStyle(fontSize: 10,),
+                                        errorText:
+                                        _validatePassword ? 'Please fill this field' : null,
+                                        contentPadding:
+                                        EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                        suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _isobsucure ? Icons.visibility : Icons.visibility_off,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _isobsucure = !_isobsucure;
+                                              });
+                                            })
                                     ),
+                                    obscureText: _isobsucure,
+                                    keyboardType: TextInputType.text,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "* Required";
+                                      } else
+                                        return null;
+                                    },
+                                    onSaved: (value) => passwordController.text = value!,
                                   ),
                                 ),
                               ),
@@ -410,17 +390,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                       20.00,
                                     ),
                                   ),
-                                  child: Text(
-                                    "Forgot Password?",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      color: ColorConstant.orange900,
-                                      fontSize: getFontSize(
-                                        10,
+                                  child: GestureDetector(onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  ForgotPasswordScreen()),
+                                    );
+                                  },
+                                    child: Text(
+                                      "Forgot Password?",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.orange900,
+                                        fontSize: getFontSize(
+                                          10,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
@@ -431,67 +418,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                       left: getHorizontalSize(
-                                        20.00,
+                                        0.00,
                                       ),
                                       top: getVerticalSize(
                                         26.00,
                                       ),
                                       right: getHorizontalSize(
-                                        20.00,
+                                        0.00,
                                       ),
                                     ),
-                                    child: GestureDetector(onTap: () {
-                                      login(emailController.text, passwordController.text, context);
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>  DashBoard()),
-                                      );
-                                      // setState(() {
-                                      //   print("-->>>>Form was Submitted Successfully");
-                                      //   if (_formKey.currentState!.validate()) {
-                                      //     print("Form was Submitted Successfully");
-                                      //     NameController.text.isEmpty ? _validate = true : _validate = false;
-                                      //     print("Form was Submitted Successfully");
-                                      //     EmailControler.text.isEmpty
-                                      //         ? _validatePassword = true
-                                      //         : _validatePassword = false;
-                                      //   }
-                                      //
-                                      // });
-                                      //
-                                      // if (formKey.currentState!.validate()) {
-                                      //   formKey.currentState!.save();
-                                      //
-                                      //   _showSnackbar();
-                                      // }
-
-                                    },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: getVerticalSize(
-                                          42.00,
-                                        ),
-                                        width: getHorizontalSize(
-                                          320.00,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: ColorConstant.orange900,
-                                          borderRadius: BorderRadius.circular(
-                                            getHorizontalSize(
-                                              5.00,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          "Login",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: ColorConstant.whiteA700,
-                                            fontSize: getFontSize(
-                                              14,
-                                            ),
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w400,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (_formKey.currentState!.validate()) {
+                                            print("Form was Submitted Successfully");
+                                            passwordController.text.isEmpty
+                                                ? _validate = true
+                                                : _validate = false;
+                                            passwordController.text.isEmpty
+                                                ? _validatePassword = true
+                                                : _validatePassword = false;
+                                          }
+                                          loginApiCall.createUser(emailController.text,
+                                              passwordController.text, context);
+                                        });
+                                      },
+                                      child: Container(color: ColorConstant.orange900,height: 40,width: 360,
+                                        child: Center(
+                                          child: Text(
+                                            "LOGIN",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                //fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                         ),
                                       ),

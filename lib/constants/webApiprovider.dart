@@ -3,12 +3,9 @@ import 'package:dio/dio.dart';
 import 'baseurls.dart';
 
 
-
-
-
 class WebApiProvider {
   Dio _dio = Dio();
-  final String _endpoint = baseurl;
+  final String _endpoint = baseurl1;
 
   WebApiProvider() {
     BaseOptions options =
@@ -21,6 +18,7 @@ class WebApiProvider {
     required String url,
     required bool isPost,
     String? token,
+
     Map<String, dynamic>? queryParameters,
     required bool isQueryParmeter,
     String? summerpath,

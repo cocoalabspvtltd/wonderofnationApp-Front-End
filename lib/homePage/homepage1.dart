@@ -6,6 +6,7 @@ import 'package:oo/homePage/sportAcademy.dart';
 import '../addClubs/addclubs.dart';
 import '../addClubs/myclubs.dart';
 import '../addfriends/addfried.dart';
+import '../apis/repositories/registerRepositories.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
@@ -417,7 +418,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: 'Andria',
+                                  text: "${name.toUpperCase()}",
                                   style: TextStyle(
                                     color: ColorConstant.orange900,
                                     fontSize: getFontSize(
@@ -547,6 +548,7 @@ class _HomePageState extends State<HomePage> {
                                   320.00,
                                 ),
                                 child: Stack(
+                                 
                                   alignment: Alignment.bottomRight,
                                   children: [
                                     Align(
@@ -554,7 +556,9 @@ class _HomePageState extends State<HomePage> {
                                       child: GestureDetector(onTap: () { Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) =>  CourtScreen()),
-                                      );},child: Container(
+                                      );},
+                                        child:
+                                      Container(
                                           height: getVerticalSize(
                                             190.00,
                                           ),

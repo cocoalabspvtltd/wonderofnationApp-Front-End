@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/homePage/registerprofile.dart';
 import 'package:http/http.dart' as http;
-import '../apis/repositories/registerRepositories.dart';
+
+import '../constants/baseurls.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
@@ -40,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
     print(data);
     print("---body-->>>${data}");
     var response = await http.post(
-      Uri.parse('https://68ea-59-98-48-61.ngrok.io/api/create'),
+      Uri.parse('${baseurl}create'),
       body:data,
       headers: {
         "accept": "application/json",
@@ -56,7 +57,7 @@ class RegisterScreen extends StatelessWidget {
     if (response.statusCode == 200) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  Marketdropdown()),
+        MaterialPageRoute(builder: (context) =>  RegisterProfile()),
       );
       print('success');
 

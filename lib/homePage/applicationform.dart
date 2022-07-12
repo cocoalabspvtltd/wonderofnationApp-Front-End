@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../dropdowns/gamesdropdown.dart';
 import 'applicationformSubmitted.dart';
 
 class ApplicationFormScreen extends StatelessWidget {
@@ -157,59 +158,7 @@ class ApplicationFormScreen extends StatelessWidget {
                                   11.00,
                                 ),
                               ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButtonFormField(
-                                  focusNode: FocusNode(),
-                                  icon: Image.asset(
-                                    "assets/images/dropdown.png",
-                                    height: getSize(
-                                      4.17,
-                                    ),
-                                    width: getSize(
-                                      9.33,
-                                    ),
-
-                                  ),
-                                  style: TextStyle(
-                                    color:
-                                    ColorConstant.indigo900,
-                                    fontSize: getFontSize(
-                                      12,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  onChanged: (value) {},
-                                  items: dropdownItemList.map<
-                                      DropdownMenuItem<
-                                          String>>(
-                                          (String value) {
-                                        return DropdownMenuItem<
-                                            String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            textAlign:
-                                            TextAlign.center,
-                                          ),
-                                        );
-                                      }).toList(),
-                                  decoration: InputDecoration(
-                                    hintText: 'Tennis',
-                                    hintStyle: TextStyle(
-                                      fontSize: getFontSize(
-                                        12.0,
-                                      ),
-                                      color:
-                                      ColorConstant.indigo900,
-                                    ),
-                                    border: InputBorder.none,
-                                    isDense: true,
-                                    contentPadding:
-                                    EdgeInsets.all(0),
-                                  ),
-                                ),
-                              ),
+                             child: designationdropdown()
 
                             ),
                           ),
