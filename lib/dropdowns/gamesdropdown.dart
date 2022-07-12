@@ -185,9 +185,11 @@ class _MyHomePageState15 extends State<designationdropdown> {
     );
     print(response.statusCode);
     if (response.statusCode == 200) {
-      Map jsonResponse = json.decode(response.body);
+      List jsonResponse = json.decode(response.body);
       print("jsonResponse->>>>>>>>${jsonResponse}");
-      return newdesignationdropdropdmnDetails.fromJson(jsonResponse);
+      return jsonResponse
+          .map((job) => new newdesignationdropdropdmnDetails.fromJson(job))
+          .toList();
     } else {
       throw Exception('Failed to load jobs from API');
     }
@@ -204,15 +206,12 @@ class _MyHomePageState15 extends State<designationdropdown> {
             builder: (context, snapshot) {
               print("holooo->>>>>${snapshot.data}");
               if (snapshot.hasData) {
-     var newbookingagentid = snapshot.data! as List<newdesignationdropdropdmnDetails> ;
+           var newbookingagentid = snapshot.data! as List<newdesignationdropdropdmnDetails> ;
                 print("dataedfghjk->>>>>>${newbookingagentid}");
                 if (MySelectionemployee == "") {
                   MySelectionemployee = newbookingagentid![0].sport ;
                   print("dataedfghjk->>>>>>${MySelectionemployee}");
                 }
-
-
-
 
                 else{
                   MySelectionemployee = MySelectionemployee;
@@ -226,7 +225,7 @@ class _MyHomePageState15 extends State<designationdropdown> {
 
                         decoration: BoxDecoration(
 
-                          border: Border.all(color: Colors.black54),
+
                           borderRadius: BorderRadius.circular(7),
 
                         ),

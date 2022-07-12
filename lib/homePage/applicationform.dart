@@ -1,5 +1,11 @@
+//
+
+
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 
 
 import '../constants/colors.dart';
@@ -7,40 +13,61 @@ import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
 import 'applicationformSubmitted.dart';
 
-class ApplicationFormScreen extends StatelessWidget {
-  List<String> dropdownItemList = ["test", "test1", "test2", "test3"];
+class ApplicationFormScreen extends StatefulWidget {
+  const ApplicationFormScreen({Key? key}) : super(key: key);
 
   @override
+  State<ApplicationFormScreen> createState() => _ApplicationFormScreenState();
+}
+
+class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
+  @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    String dropdownvalue = 'Select';
+
+
+    late final Function()? onChanged;
+    var items = [
+      'Select',
+      'Algeria',
+      "Afghanistan",
+      "Andorra",
+
+    ];
+    File imageFile;
+    List<String> dropdownItemList = ["Female", "Male", "others", ""];
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-            elevation: 1,
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            iconTheme: const IconThemeData(color: Colors.black),
-            title: Row(
-              children: [
-                Container(
-                  width: width * 0.64,
-                  height: 30,
-                  margin: const EdgeInsets.symmetric(vertical: 10,),
-                  child: Center(
-                      child: Text(
-                        "Application Form",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      )),
-                ),
-                SizedBox(
-                  width: 27,
-                ),
-              ],
-            ),
-           ),
+          elevation: 1,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: Row(
+            children: [
+              Container(
+                width: width * 0.64,
+                height: 30,
+                margin: const EdgeInsets.symmetric(vertical: 10,),
+                child: Center(
+                    child: Text(
+                      "Application Form",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
+              ),
+              SizedBox(
+                width: 27,
+              ),
+            ],
+          ),
+        ),
         backgroundColor: ColorConstant.whiteA700,
         body: Container(
           decoration: BoxDecoration(
@@ -147,18 +174,18 @@ class ApplicationFormScreen extends StatelessWidget {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  10.00,
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    10.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    10.00,
+                                  ),
+                                  bottom: getVerticalSize(
+                                    11.00,
+                                  ),
                                 ),
-                                top: getVerticalSize(
-                                  10.00,
-                                ),
-                                bottom: getVerticalSize(
-                                  11.00,
-                                ),
-                              ),
-                             child: designationdropdown()
+                                child: designationdropdown()
 
                             ),
                           ),
@@ -379,27 +406,16 @@ class ApplicationFormScreen extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: getVerticalSize(
-                                21.00,
-                              ),
-                              right: getHorizontalSize(
-                                10.00,
-                              ),
-                            ),
-                            child: Text(
-                              "Gender",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.black900,
-                                fontSize: getFontSize(
-                                  12,
+                              padding: EdgeInsets.only(
+                                top: getVerticalSize(
+                                  21.00,
                                 ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
+                                right: getHorizontalSize(
+                                  10.00,
+                                ),
                               ),
-                            ),
+
+                              child: Text("Gender")
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -407,82 +423,47 @@ class ApplicationFormScreen extends StatelessWidget {
                                 14.00,
                               ),
                             ),
-                            child: Container(
+                            child:
+                            Container(
                               height: getVerticalSize(
                                 39.00,
                               ),
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
-                                focusNode: FocusNode(),
-                                decoration: InputDecoration(
-                                  hintText: 'Female',
-                                  hintStyle: TextStyle(
-                                    fontSize: getFontSize(
-                                      12.0,
-                                    ),
-                                    color: ColorConstant.gray400,
+                              margin: EdgeInsets.only(
+                                top: getVerticalSize(
+                                  13.00,
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: ColorConstant.whiteA700,
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
+                                ),
+                                border: Border.all(
+                                  color: ColorConstant.bluegray100,
+                                  width: getHorizontalSize(
+                                    1.00,
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorConstant.whiteA700,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.only(
+                                ),
+                              ),
+                              child: Padding(
+                                  padding: EdgeInsets.only(
                                     left: getHorizontalSize(
-                                      18.00,
+                                      10.00,
                                     ),
                                     top: getVerticalSize(
-                                      12.00,
-                                    ),
-                                    right: getHorizontalSize(
-                                      30.00,
+                                      10.00,
                                     ),
                                     bottom: getVerticalSize(
-                                      12.00,
+                                      11.00,
                                     ),
                                   ),
-                                ),
-                                style: TextStyle(
-                                  color: ColorConstant.gray400,
-                                  fontSize: getFontSize(
-                                    12.0,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                  child: MyHomePage14()
+
                               ),
                             ),
                           ),
@@ -810,6 +791,53 @@ class ApplicationFormScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                21.00,
+                              ),
+                              right: getHorizontalSize(
+                                10.00,
+                              ),
+                            ),
+                            child: Text(
+                              "Upload photo",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black900,
+                                fontSize: getFontSize(
+                                  12,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Container(
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                child: MyPage()
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 308.0),
+                              //   child: GestureDetector(onTap: (){
+                              //     MyPage();
+                              //   },
+                              //       child: Icon(Icons.attachment)),
+                              // )
+
+                            ),
+                          ),
                           Container(
                             width: getHorizontalSize(
                               307.00,
@@ -895,9 +923,13 @@ class ApplicationFormScreen extends StatelessWidget {
                                         width: getSize(
                                           33.33,
                                         ),
-                                        child: Image.asset(
-                                        "assets/images/upload.png",
-                                          fit: BoxFit.fill,
+                                        child: GestureDetector(onTap: (){
+
+                                        },
+                                          child: Image.asset(
+                                            "assets/images/upload.png",
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -912,10 +944,11 @@ class ApplicationFormScreen extends StatelessWidget {
                                 50.00,
                               ),
                             ),
-                            child: GestureDetector(onTap: (){
+                            child: GestureDetector(onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Won1Screen()),
+                                MaterialPageRoute(
+                                    builder: (context) => Won1Screen()),
                               );
                             },
                               child: Container(
@@ -959,4 +992,136 @@ class ApplicationFormScreen extends StatelessWidget {
       ),
     );
   }
+  // File ?_video;
+  // final picker = ImagePicker();
+  // late VideoPlayerController _videoPlayerController;
+  // _pickVideo() async {
+  //   PickedFile? pickedFile = await picker.getVideo(source: ImageSource.gallery);
+  //   _video = File(pickedFile!.path);
+  //   _videoPlayerController = VideoPlayerController.file(_video)
+  //     ..initialize().then((_) {
+  //       setState(() {});
+  //       _videoPlayerController.play();
+  //     });
+  // }
+}
+class MyHomePage14 extends StatefulWidget {
+  @override
+  _MyHomePageState14 createState() => _MyHomePageState14();
+}
+
+class _MyHomePageState14 extends State<MyHomePage14> {
+  String dropdownvalue = 'Select';  late final Function()? onChanged;
+  var items = [
+    'Select',
+    'Female',
+    "Male",
+    "Others",
+  ];
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 25,
+      margin: EdgeInsets.only(left:8),
+
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton(
+          value: dropdownvalue,
+          hint: Icon(Icons.keyboard_arrow_down),
+          items: items.map((String items) {
+            return DropdownMenuItem(
+                value: items,
+                child: Text(
+                  items,
+                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                ));
+          }).toList(),
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownvalue = newValue!;
+              print("value->..>>..>>>>>${newValue}");
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class MyPage extends StatefulWidget {
+  @override
+  _MyPageState createState() => _MyPageState();
+}
+class _MyPageState extends State<MyPage> {
+  /// Variables
+ File? imageFile;
+
+  /// Widget
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+        body: Container(
+            child: imageFile == null
+                ? Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 300.0),
+                    child: Container(height: 20,width: 50,
+                      child: RaisedButton(
+
+                        onPressed: () {
+                          _getFromGallery();
+                        },
+                        child: Center(child: Icon(Icons.attachment_outlined)),
+
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+            ): Container(
+              child: Image.file(
+                imageFile!,
+                fit: BoxFit.cover,
+              ),
+            )));
+  }
+
+  /// Get from gallery
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  /// Get from Camera
+  _getFromCamera() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
 }
