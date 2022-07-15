@@ -11,6 +11,8 @@ import 'package:oo/homePage/register.dart';
 
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../dropdowns/gamesdropdown.dart';
+import 'levellingRegister1.dart';
 
 
 class RegisterProfile extends StatefulWidget {
@@ -220,263 +222,71 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  51.00,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        45.00,
-                                      ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 30.0,right: 30,top: 60),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  color: ColorConstant.whiteA700,
+                                  borderRadius: BorderRadius.circular(
+                                    getHorizontalSize(
+                                      5.00,
                                     ),
-                                    child: GestureDetector(onTap: (){
+                                  ),
+                                  border: Border.all(
+                                    color: ColorConstant.bluegray100,
+                                    width: getHorizontalSize(
+                                      1.00,
+                                    ),
+                                  ),
+                                ),
+                                child: designationdropdown()),
+                          ),
 
-                                    },
-                                      child: GestureDetector(onTap: (){
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(builder: (context) =>  levelling1()),
-                                        // );
-                                      },
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: getVerticalSize(
-                                            35.00,
-                                          ),
-                                          width: getHorizontalSize(
-                                            125.00,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: ColorConstant.indigo900,
-                                            borderRadius: BorderRadius.circular(
-                                              getHorizontalSize(
-                                                10.00,
-                                              ),
-                                            ),
-                                            border: Border.all(
-                                              color: ColorConstant.bluegray100,
-                                              width: getHorizontalSize(
-                                                1.00,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "Cricket",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: ColorConstant.whiteA700,
-                                              fontSize: getFontSize(
-                                                12,
-                                              ),
-                                              fontFamily: 'Inter',
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        21.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        44.00,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: getVerticalSize(
-                                        35.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        125.00,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ColorConstant.indigo900,
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            10.00,
-                                          ),
-                                        ),
-                                        border: Border.all(
-                                          color: ColorConstant.bluegray100,
-                                          width: getHorizontalSize(
-                                            1.00,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Tennis",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: ColorConstant.whiteA700,
-                                          fontSize: getFontSize(
-                                            12,
-                                          ),
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  36.00,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        45.00,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: getVerticalSize(
-                                        35.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        125.00,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ColorConstant.indigo900,
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            10.00,
-                                          ),
-                                        ),
-                                        border: Border.all(
-                                          color: ColorConstant.bluegray100,
-                                          width: getHorizontalSize(
-                                            1.00,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Football",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: ColorConstant.whiteA700,
-                                          fontSize: getFontSize(
-                                            12,
-                                          ),
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        21.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        44.00,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      height: getVerticalSize(
-                                        35.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        125.00,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ColorConstant.indigo900,
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            10.00,
-                                          ),
-                                        ),
-                                        border: Border.all(
-                                          color: ColorConstant.bluegray100,
-                                          width: getHorizontalSize(
-                                            1.00,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "Golf",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: ColorConstant.whiteA700,
-                                          fontSize: getFontSize(
-                                            12,
-                                          ),
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                           Padding(
                             padding: EdgeInsets.only(
                               left: getHorizontalSize(
                                 20.00,
                               ),
                               top: getVerticalSize(
-                                36.00,
+                                100.00,
                               ),
                               right: getHorizontalSize(
                                 20.00,
                               ),
                             ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: getVerticalSize(
-                                42.00,
-                              ),
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ColorConstant.orange900,
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    5.00,
+                            child: GestureDetector(onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids)),
+                              );
+                            },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: getVerticalSize(
+                                  42.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: ColorConstant.orange900,
+                                  borderRadius: BorderRadius.circular(
+                                    getHorizontalSize(
+                                      5.00,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              child: Text(
-                                "Register",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    14,
+                                child: Text(
+                                  "Register",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.whiteA700,
+                                    fontSize: getFontSize(
+                                      14,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),

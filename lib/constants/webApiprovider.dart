@@ -57,10 +57,10 @@ class WebApiProvider {
         }
       } else {
         if (isQueryParmeter) {
-          response = await _dio.get("http://" + _endpoint + url,
+          response = await _dio.get("https://" + _endpoint + url,
               queryParameters: queryParameters);
         } else {
-          response = await _dio.get("http://" + _endpoint + url);
+          response = await _dio.get("https://" + _endpoint + url);
         }
       }
 

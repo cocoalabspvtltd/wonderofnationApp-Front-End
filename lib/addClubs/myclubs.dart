@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:oo/apis/bloc/joinedclubbloc.dart';
+import 'package:oo/apis/repositories/joinedclublist.dart';
 
+import '../apis/modelclass/clublistmodel.dart';
+import '../apis/modelclass/joinedclubModel.dart';
+import '../constants/response.dart';
 import '../homePage/navigator.dart';
+import '../screens/shimmer.dart';
 import 'addclubs.dart';
 
 
@@ -12,7 +18,113 @@ class Myclubs extends StatefulWidget {
 }
 
 class _MyclubsState extends State<Myclubs> {
+  late MyClubDetailsBloc _bloc;
+
+  List<JoinedClubModel> JoinedClubsearchdata = [];
+  List<JoinedClubModel> JoinedClubserachlist = [];
+  TextEditingController JoinedClubController = TextEditingController();
+  MyClubRepository joinclubapi = MyClubRepository();
+  void initState() {
+    super.initState();
+    _bloc = MyClubDetailsBloc();
+
+    setState(() {});
+  }
+  onSearchTextChanged(String text) async {
+    JoinedClubserachlist.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    JoinedClubsearchdata.forEach((data) {
+      if (data.name!.toLowerCase().contains(text) ||
+          data.name!.contains(text))
+        JoinedClubserachlist.add(data);
+    });
+
+    setState(() {});
+  }
   @override
+  ListView _jobsListView(data) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          print("data->>>>>>${data.length}");
+          return _tile(data[index].name, data[index].email,
+            data[index].id );
+        });
+  }
+  SizedBox _tile(
+      String title, String subtitle,  int clubid) =>
+  SizedBox(height: 300,
+  child: Card(
+    clipBehavior: Clip.antiAlias,
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(15),
+      ),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Image.asset("assets/images/myclubimg.png",
+            height: 170, width: 360, fit: BoxFit.fitWidth,),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize:
+            MainAxisSize.min,
+            crossAxisAlignment:
+            CrossAxisAlignment
+                .start,
+            mainAxisAlignment:
+            MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Text("${title}", textAlign:
+                  TextAlign.left,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),),
+                ),
+              ),
+              Row(
+                children: [
+                  SizedBox(width: 7,),
+                  Icon(Icons.location_on_outlined, size: 13),
+                  SizedBox(width: 3,),
+                  Text("Kochi,Ernakulam,Kerala", style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),),
+                  SizedBox(width: 160,),
+                  Text("5 Km", style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400),),
+                  SizedBox(width: 7,),
+                ],
+              ),
+              SizedBox(height: 7,),
+            ],
+          ),
+        )
+      ],
+    ),
+  ),
+  );
+
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,113 +159,89 @@ class _MyclubsState extends State<Myclubs> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(children: [
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: TextFormField(
-                controller: searchcontroller,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 3.0),
-                  border: new OutlineInputBorder(
-                    borderRadius: new BorderRadius.circular(13.0),
-                    borderSide: new BorderSide(),
-                  ),
-                  labelText: 'Search',
-                  prefixIcon: Icon(Icons.search),
-                ),
+    body:    StreamBuilder<Response>(
+            stream: _bloc.MyClubDataStream,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                print("sdfghjk");
+                switch (snapshot.data!.status) {
+                  case Status.LOADING:
+                    return LessonViewShimmer(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                    break;
+                  case Status.SUCCESS:
+                    var patientappointmentList =
+                        snapshot.data!.data;
+                    JoinedClubsearchdata = patientappointmentList;
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              width: 370,
 
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 2,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only
-                        (top: 10.0),
-                      child: Card(
-                        clipBehavior: Clip.antiAlias,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Image.asset("assets/images/myclubimg.png",
-                                height: 170, width: 360, fit: BoxFit.fitWidth,),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Column(
-                                mainAxisSize:
-                                MainAxisSize.min,
-                                crossAxisAlignment:
-                                CrossAxisAlignment
-                                    .start,
-                                mainAxisAlignment:
-                                MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: Text("Football Club", textAlign:
-                                      TextAlign.left,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400),),
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(width: 7,),
-                                      Icon(Icons.location_on_outlined, size: 13),
-                                      SizedBox(width: 3,),
-                                      Text("Kochi,Ernakulam,Kerala", style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400),),
-                                      SizedBox(width: 160,),
-                                      Text("5 Km", style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w400),),
-                                      SizedBox(width: 7,),
+                              color: Colors.white,
+                              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.all(15),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: Material(
+                                  color: Colors.white,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: TextField(
+                                            controller:
+                                            JoinedClubController,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                            ),
+                                            decoration: InputDecoration(
+                                                contentPadding: EdgeInsets.only(
+                                                  left: 80,
+                                                ),
+                                                prefixIcon: Icon(Icons.search),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black54,
+                                                        width: 32.0),
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(5.0)),
+                                                focusedBorder:
+                                                OutlineInputBorder(
+                                                    borderSide:
+                                                    BorderSide(
+                                                        color: Colors
+                                                            .black54,
+                                                        width: 32.0),
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        25.0))),
+                                            onChanged: onSearchTextChanged),
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: 7,),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                                ),
+                              )),
+                          JoinedClubserachlist.length != 0 ||
+                              JoinedClubController.text.isNotEmpty
+                              ? _jobsListView(JoinedClubserachlist)
+                              : _jobsListView(JoinedClubsearchdata)
+                        ],
                       ),
                     );
-                  }
-              ),
-            ),
-          ]),
-        ),
-      ),
+
+                    break;
+                  case Status.ERROR:
+                    return LessonViewShimmer();
+                }
+              }
+              return LessonViewShimmer();
+            })
     );
   }
 }

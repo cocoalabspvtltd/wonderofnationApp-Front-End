@@ -50,7 +50,7 @@ class RegisterScreen extends StatelessWidget {
 
  EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-     username = EditResponse["user"]["name"];
+     // username = EditResponse["user"]["name"];
     print("username>>>>>>${username}");
     print(response.statusCode);
 
