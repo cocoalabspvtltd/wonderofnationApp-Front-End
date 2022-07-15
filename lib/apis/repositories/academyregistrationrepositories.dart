@@ -2,46 +2,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/registerRepositories.dart';
-import 'package:oo/dropdowns/gamesdropdown.dart';
-import 'package:oo/homePage/levellingRegister1.dart';
-import 'package:oo/homePage/register.dart';
 
 import '../../addClubs/myclubs.dart';
 import '../../constants/webApiprovider.dart';
-import '../../dropdowns/registergamedropdown.dart';
-import '../../homePage/levelling2.dart';
 import '../../homePage/navigator.dart';
 import 'clublistrepositories.dart';
 
 
 
-class LevellingRegisterRepository{
-  getLevel1port( context,) async {
+class AcademyRegistrationRepository{
+  getacademyregistration( context, int sportid,String Name, ) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-      "sport_id":designatioids1,
-      "q1":answers1,
-      "q2":answers2,
-      "q3":answers3,
-      "q4":answers4,
-      "q5":answers5
+    "sport_id":2,
+    "name":anjana,
+    "dob":1999/07/27
+    "gender":f
+    "address":faasfsdfsfdfdfsd
+    "phone":7012733764
+    "email":anjanam@gmail.com
 
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
       final response = await WebApiProvider().getData(
-          url: "level/store",
+          url: "club/join",
           isPost: true,
-          token: Token1,
+          token: TOKEN,
           queryParameters: _queryParameters,
           isQueryParmeter: true);
       print("object0->>>>${response}");
-      if (response["message"] == "Successfully added") {
+      if (response["message"] == "success") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard()),
+          MaterialPageRoute(builder: (context) =>  Myclubs()),
         );
       } else {
-        throw response["message"];
+        throw response.statusCode;
       }
     } catch (error) {
       print(error);

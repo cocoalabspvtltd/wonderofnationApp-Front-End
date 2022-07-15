@@ -133,18 +133,19 @@ import 'package:http/http.dart' as http;
 
 import '../apis/repositories/registerRepositories.dart';
 import '../constants/baseurls.dart';
-int designatioids = 0;
-String marketname = "";
-String MySelectionemployee = "";
-class newdesignationdropdropdmnDetails {
+import '../homePage/register.dart';
+int designatioids1 = 0;
+String marketname1 = "";
+String MySelectionemployee1 = "";
+class newdesignationdropdropdmnDetails1 {
 
 
   final int id;
   final String sport;
 
-  newdesignationdropdropdmnDetails(this.id, this.sport);
+  newdesignationdropdropdmnDetails1(this.id, this.sport);
 
-  newdesignationdropdropdmnDetails.fromJson(Map jsonMap)
+  newdesignationdropdropdmnDetails1.fromJson(Map jsonMap)
       : id = jsonMap['id'],
         sport = jsonMap['sport'];
   Map toMapData(){
@@ -158,12 +159,12 @@ class newdesignationdropdropdmnDetails {
 
 
 
-class designationdropdown extends StatefulWidget {
+class designationdropdown1 extends StatefulWidget {
   @override
   _MyHomePageState15 createState() => _MyHomePageState15();
 }
 
-class _MyHomePageState15 extends State<designationdropdown> {
+class _MyHomePageState15 extends State<designationdropdown1> {
   String dropdownvalue = 'Select';
   String marketypessss = "";
 
@@ -179,7 +180,7 @@ class _MyHomePageState15 extends State<designationdropdown> {
           '${baseurl}get/sports'),
       headers: <String, String>{
         'Accept': "appilication/json",
-        'Authorization': 'Bearer $TOKEN',
+        'Authorization': 'Bearer $Token1',
 
       },
     );
@@ -188,7 +189,7 @@ class _MyHomePageState15 extends State<designationdropdown> {
       List jsonResponse = json.decode(response.body);
       print("jsonResponse->>>>>>>>${jsonResponse}");
       return jsonResponse
-          .map((job) => new newdesignationdropdropdmnDetails.fromJson(job))
+          .map((job) => new newdesignationdropdropdmnDetails1.fromJson(job))
           .toList();
     } else {
       throw Exception('Failed to load jobs from API');
@@ -206,15 +207,15 @@ class _MyHomePageState15 extends State<designationdropdown> {
             builder: (context, snapshot) {
               print("holooo->>>>>${snapshot.data}");
               if (snapshot.hasData) {
-           var newbookingagentid = snapshot.data! as List<newdesignationdropdropdmnDetails> ;
+                var newbookingagentid = snapshot.data! as List<newdesignationdropdropdmnDetails1> ;
                 print("dataedfghjk->>>>>>${newbookingagentid}");
-                if (MySelectionemployee == "") {
-                  MySelectionemployee = newbookingagentid![0].sport ;
-                  print("dataedfghjk->>>>>>${MySelectionemployee}");
+                if (MySelectionemployee1 == "") {
+                  MySelectionemployee1 = newbookingagentid![0].sport ;
+                  print("dataedfghjk->>>>>>${MySelectionemployee1}");
                 }
 
                 else{
-                  MySelectionemployee = MySelectionemployee;
+                  MySelectionemployee1 = MySelectionemployee1;
                 }
 
                 return StatefulBuilder(
@@ -231,16 +232,16 @@ class _MyHomePageState15 extends State<designationdropdown> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
-                            value: MySelectionemployee,
+                            value: MySelectionemployee1,
 
-                            items: newbookingagentid.map((items) {
+                            items: newbookingagentid!.map((items) {
                               return DropdownMenuItem(
                                   onTap: (){setState((){
                                     id = items.id;
-                                    designatioids = id;
+                                    designatioids1 = id;
 
 
-                                    print("designatioids->>>>>>${designatioids}");
+                                    print("designatioids->>>>>>${designatioids1}");
                                   });},
 
                                   value: items.sport,
@@ -257,8 +258,8 @@ class _MyHomePageState15 extends State<designationdropdown> {
                             }).toList(),
                             onChanged: (newValue) {
                               setState(() {
-                                MySelectionemployee = newValue as String;
-                                print("MySelection->>>>>>${MySelectionemployee}");
+                                MySelectionemployee1 = newValue as String;
+                                print("MySelection->>>>>>${MySelectionemployee1}");
                               });
                             },
                           ),

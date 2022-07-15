@@ -16,6 +16,7 @@ TextEditingController mobileController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController confirmpassController = TextEditingController();
 String username = "";
+String Token1 = "";
 class RegisterScreen extends StatelessWidget {
 
   void initState() {
@@ -50,8 +51,9 @@ class RegisterScreen extends StatelessWidget {
 
  EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-     // username = EditResponse["user"]["name"];
-    print("username>>>>>>${username}");
+   username = EditResponse["user"]["name"];
+    Token1 = EditResponse["token"];
+    print("username>>>>>>${Token1}");
     print(response.statusCode);
 
     if (response.statusCode == 200) {

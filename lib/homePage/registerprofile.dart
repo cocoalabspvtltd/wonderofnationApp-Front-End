@@ -12,6 +12,7 @@ import 'package:oo/homePage/register.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
+import '../dropdowns/registergamedropdown.dart';
 import 'levellingRegister1.dart';
 
 
@@ -239,7 +240,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                 ),
-                                child: designationdropdown()),
+                                child: designationdropdown1()),
                           ),
 
                           Padding(
@@ -257,7 +258,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids)),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids1)),
                               );
                             },
                               child: Container(

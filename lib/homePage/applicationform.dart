@@ -5,6 +5,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oo/homePage/videouploaded.dart';
+import 'package:video_player/video_player.dart';
 
 
 
@@ -838,6 +840,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
 
                             ),
                           ),
+
                           Container(
                             width: getHorizontalSize(
                               307.00,
@@ -864,7 +867,98 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               ),
                             ),
                           ),
-                          Container(
+//                           Container(
+//                             height: getVerticalSize(
+//                               80.00,
+//                             ),
+//                             width: getHorizontalSize(
+//                               130.00,
+//                             ),
+//                             margin: EdgeInsets.only(
+//                               top: getVerticalSize(
+//                                 21.00,
+//                               ),
+//                               right: getHorizontalSize(
+//                                 10.00,
+//                               ),
+//                             ),
+//                             child: Card(
+//                               clipBehavior: Clip.antiAlias,
+//                               elevation: 0,
+//                               margin: EdgeInsets.all(0),
+//                               color: ColorConstant.whiteA700,
+//                               shape: RoundedRectangleBorder(
+//                                 side: BorderSide(
+//                                   color: ColorConstant.bluegray100,
+//                                   width: getHorizontalSize(
+//                                     1.00,
+//                                   ),
+//                                 ),
+//                                 borderRadius: BorderRadius.circular(
+//                                   getHorizontalSize(
+//                                     5.00,
+//                                   ),
+//                                 ),
+//                               ),
+//                               child: Stack(
+//                                 children: [
+//                                   Align(
+//                                     alignment: Alignment.center,
+//                                     child: Padding(
+//                                       padding: EdgeInsets.only(
+//                                         left: getHorizontalSize(
+//                                           40.00,
+//                                         ),
+//                                         top: getVerticalSize(
+//                                           23.33,
+//                                         ),
+//                                         right: getHorizontalSize(
+//                                           40.00,
+//                                         ),
+//                                         bottom: getVerticalSize(
+//                                           23.34,
+//                                         ),
+//                                       ),
+//                                       child: Container(
+//                                         height: getSize(
+//                                           33.33,
+//                                         ),
+//                                         width: getSize(
+//                                           33.33,
+//                                         ),
+//                                         child: GestureDetector(onTap: (){
+// Videoupload();
+//                                         },
+//                                           child: Image.asset(
+//                                             "assets/images/upload.png",
+//                                             fit: BoxFit.fill,
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ),
+                          Column(
+                            children: [
+                              SizedBox(height: 30,),
+                              if(_video != null)
+                                _videoPlayerController!.value.isInitialized
+                                    ? AspectRatio(
+                                  aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                  child: VideoPlayer(_videoPlayerController!,),
+                                )
+                                    : Container()
+                              else
+                                GestureDetector(
+                                  onTap: () {
+                                    _pickVideo();
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,right: 20),
+                                    child:   Container(
                             height: getVerticalSize(
                               80.00,
                             ),
@@ -924,7 +1018,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                           33.33,
                                         ),
                                         child: GestureDetector(onTap: (){
-
+Videoupload();
                                         },
                                           child: Image.asset(
                                             "assets/images/upload.png",
@@ -937,6 +1031,10 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                 ],
                               ),
                             ),
+                          ),
+                                  ),
+                                ),
+                            ],
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -992,18 +1090,19 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       ),
     );
   }
-  // File ?_video;
-  // final picker = ImagePicker();
-  // late VideoPlayerController _videoPlayerController;
-  // _pickVideo() async {
-  //   PickedFile? pickedFile = await picker.getVideo(source: ImageSource.gallery);
-  //   _video = File(pickedFile!.path);
-  //   _videoPlayerController = VideoPlayerController.file(_video)
-  //     ..initialize().then((_) {
-  //       setState(() {});
-  //       _videoPlayerController.play();
-  //     });
-  // }
+  File? _video;
+  final picker =ImagePicker();
+  VideoPlayerController? _videoPlayerController;
+  _pickVideo() async {
+    PickedFile? pickedFile = await picker.getVideo(source: ImageSource.gallery);
+    _video = File(pickedFile!.path);
+
+    _videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((_) {
+      setState(() { });
+      _videoPlayerController!.play();
+      print("_videopath->>>>>>>>>>>>${_video!.path}");
+    });
+  }
 }
 class MyHomePage14 extends StatefulWidget {
   @override
@@ -1110,19 +1209,4 @@ class _MyPageState extends State<MyPage> {
       });
     }
   }
-
-  /// Get from Camera
-  _getFromCamera() async {
-    PickedFile? pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }
-
 }

@@ -24,3 +24,4 @@ class AppointementmeasurmentModel {
         return data;
     }
 }
+
