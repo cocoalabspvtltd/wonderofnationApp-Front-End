@@ -170,7 +170,7 @@ class _AddclubsState extends State<Addclubs> {
                 print("sdfghjk");
                 switch (snapshot.data!.status) {
                   case Status.LOADING:
-                    return LessonViewShimmer(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                    return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                     break;
                   case Status.SUCCESS:
                     List<ClubModel> patientappointmentList =
@@ -241,10 +241,10 @@ class _AddclubsState extends State<Addclubs> {
 
                     break;
                   case Status.ERROR:
-                    return LessonViewShimmer();
+                    return Container();
                 }
               }
-              return LessonViewShimmer();
+              return Container();
             })
     );
   }

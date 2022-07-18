@@ -18,22 +18,21 @@ import 'clublistrepositories.dart';
 class LevellingRegisterRepository{
   getLevel1port( context,) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-      "sport_id":designatioids1,
+      "sport_id":designatioids,
       "q1":answers1,
       "q2":answers2,
       "q3":answers3,
       "q4":answers4,
       "q5":answers5
-
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
       final response = await WebApiProvider().getData(
-          url: "level/store",
-          isPost: true,
-          token: Token1,
-          queryParameters: _queryParameters,
-          isQueryParmeter: true);
+          url:"level/store",
+          isPost:true,
+          token:TOKEN,
+          queryParameters:_queryParameters,
+          isQueryParmeter:true);
       print("object0->>>>${response}");
       if (response["message"] == "Successfully added") {
         Navigator.push(

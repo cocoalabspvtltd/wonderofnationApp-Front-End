@@ -166,7 +166,7 @@ class _MyclubsState extends State<Myclubs> {
                 print("sdfghjk");
                 switch (snapshot.data!.status) {
                   case Status.LOADING:
-                    return LessonViewShimmer(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                    return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                     break;
                   case Status.SUCCESS:
                     var patientappointmentList =
@@ -237,10 +237,14 @@ class _MyclubsState extends State<Myclubs> {
 
                     break;
                   case Status.ERROR:
-                    return LessonViewShimmer();
+                    return Container(
+                      child: Center(child: Text("Currently no clubs added")),
+                    );
                 }
               }
-              return LessonViewShimmer();
+              return Container(
+                child: Center(child: Text("Currently no clubs added")),
+              );
             })
     );
   }

@@ -10,6 +10,7 @@ import 'package:video_player/video_player.dart';
 
 
 
+import '../apis/repositories/academyregistrationrepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
@@ -30,8 +31,15 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
         .size
         .width;
     String dropdownvalue = 'Select';
+    TextEditingController NameController = TextEditingController();
+    TextEditingController DateOfBiirthController = TextEditingController();
+    TextEditingController AddressController  = TextEditingController();
+    TextEditingController Mobilenumbercontroller  = TextEditingController();
+    TextEditingController EmailController = TextEditingController();
 
 
+
+    AcademyRegistrationRepository academyregistration = AcademyRegistrationRepository();
     late final Function()? onChanged;
     var items = [
       'Select',
@@ -86,7 +94,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   child: SingleChildScrollView(
                     padding: EdgeInsets.only(
                       top: getVerticalSize(
-                        35.00,
+                        0.00,
                       ),
                       bottom: getVerticalSize(
                         20.00,
@@ -119,10 +127,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 16.00,
                               ),
-                              // child: SvgPicture.asset(
-                              //   ImageConstant.imgVector12,
-                              //   fit: BoxFit.fill,
-                              // ),
+
                             ),
                           ),
 
@@ -227,7 +232,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller:NameController ,
                                 focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'Andria Jacob',
@@ -335,7 +340,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller: DateOfBiirthController,
                                 focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: '11/12/2000',
@@ -505,7 +510,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller: AddressController,
                                 focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'Enter your adress',
@@ -613,7 +618,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller: Mobilenumbercontroller,
                                 focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: '+91 8546321557',
@@ -721,7 +726,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               width: getHorizontalSize(
                                 320.00,
                               ),
-                              child: TextFormField(
+                              child: TextField(controller: EmailController,
                                 focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'andriajacob2000@gmail.com',
@@ -867,80 +872,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               ),
                             ),
                           ),
-//                           Container(
-//                             height: getVerticalSize(
-//                               80.00,
-//                             ),
-//                             width: getHorizontalSize(
-//                               130.00,
-//                             ),
-//                             margin: EdgeInsets.only(
-//                               top: getVerticalSize(
-//                                 21.00,
-//                               ),
-//                               right: getHorizontalSize(
-//                                 10.00,
-//                               ),
-//                             ),
-//                             child: Card(
-//                               clipBehavior: Clip.antiAlias,
-//                               elevation: 0,
-//                               margin: EdgeInsets.all(0),
-//                               color: ColorConstant.whiteA700,
-//                               shape: RoundedRectangleBorder(
-//                                 side: BorderSide(
-//                                   color: ColorConstant.bluegray100,
-//                                   width: getHorizontalSize(
-//                                     1.00,
-//                                   ),
-//                                 ),
-//                                 borderRadius: BorderRadius.circular(
-//                                   getHorizontalSize(
-//                                     5.00,
-//                                   ),
-//                                 ),
-//                               ),
-//                               child: Stack(
-//                                 children: [
-//                                   Align(
-//                                     alignment: Alignment.center,
-//                                     child: Padding(
-//                                       padding: EdgeInsets.only(
-//                                         left: getHorizontalSize(
-//                                           40.00,
-//                                         ),
-//                                         top: getVerticalSize(
-//                                           23.33,
-//                                         ),
-//                                         right: getHorizontalSize(
-//                                           40.00,
-//                                         ),
-//                                         bottom: getVerticalSize(
-//                                           23.34,
-//                                         ),
-//                                       ),
-//                                       child: Container(
-//                                         height: getSize(
-//                                           33.33,
-//                                         ),
-//                                         width: getSize(
-//                                           33.33,
-//                                         ),
-//                                         child: GestureDetector(onTap: (){
-// Videoupload();
-//                                         },
-//                                           child: Image.asset(
-//                                             "assets/images/upload.png",
-//                                             fit: BoxFit.fill,
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ),
+
                           Column(
                             children: [
                               SizedBox(height: 30,),
@@ -1043,11 +975,12 @@ Videoupload();
                               ),
                             ),
                             child: GestureDetector(onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Won1Screen()),
-                              );
+                              academyregistration.getacademyregistration(context, designatioids, NameController.text, DateOfBiirthController.text, dropdownvalue, AddressController.text, Mobilenumbercontroller.text, EmailController.text,path,Imagepth);
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => Won1Screen()),
+                              // );
                             },
                               child: Container(
                                 alignment: Alignment.center,
@@ -1090,6 +1023,7 @@ Videoupload();
       ),
     );
   }
+  String path = "";
   File? _video;
   final picker =ImagePicker();
   VideoPlayerController? _videoPlayerController;
@@ -1100,17 +1034,19 @@ Videoupload();
     _videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((_) {
       setState(() { });
       _videoPlayerController!.play();
-      print("_videopath->>>>>>>>>>>>${_video!.path}");
+      path = _video!.path;
+      print("_videopath->>>>>>>>>>>>${path}");
     });
   }
 }
+String dropdownvalue = 'Select';
 class MyHomePage14 extends StatefulWidget {
   @override
   _MyHomePageState14 createState() => _MyHomePageState14();
 }
 
 class _MyHomePageState14 extends State<MyHomePage14> {
-  String dropdownvalue = 'Select';  late final Function()? onChanged;
+  late final Function()? onChanged;
   var items = [
     'Select',
     'Female',
@@ -1150,14 +1086,15 @@ class _MyHomePageState14 extends State<MyHomePage14> {
     );
   }
 }
-
+File? imageFile;
+String Imagepth = "";
 class MyPage extends StatefulWidget {
   @override
   _MyPageState createState() => _MyPageState();
 }
 class _MyPageState extends State<MyPage> {
   /// Variables
- File? imageFile;
+
 
   /// Widget
   @override
@@ -1206,6 +1143,8 @@ class _MyPageState extends State<MyPage> {
     if (pickedFile != null) {
       setState(() {
         imageFile = File(pickedFile.path);
+
+        Imagepth = pickedFile.path;
       });
     }
   }

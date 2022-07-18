@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
   drLOginRepository loginApiCall = new drLOginRepository();
+  TextEditingController EmailLoginController = TextEditingController();
   String _email = "";
   String _pass = "";
   Future login() async {
@@ -221,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       25.00,
                                     ),
                                     top: getVerticalSize(
-                                      30.00,
+                                      60.00,
                                     ),
                                     right: getHorizontalSize(
                                       20.00,
@@ -232,7 +233,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: ColorConstant.whiteA700,
+                                      color: ColorConstant.black900,
                                       fontSize: getFontSize(
                                         12,
                                       ),
@@ -264,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child:
 
                                   TextFormField(
-                                    controller: emailController,
+                                    controller: EmailLoginController,
                                     decoration: InputDecoration(
 
 
@@ -309,7 +310,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: ColorConstant.whiteA700,
+                                      color: ColorConstant.black900,
                                       fontSize: getFontSize(
                                         12,
                                       ),
@@ -439,7 +440,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ? _validatePassword = true
                                                 : _validatePassword = false;
                                           }
-                                          loginApiCall.createUser(emailController.text,
+                                          loginApiCall.createUser(EmailLoginController.text,
                                               passwordController.text, context);
                                         });
                                       },

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/homePage/registerprofile.dart';
 import 'package:http/http.dart' as http;
 
+import '../apis/repositories/registerRepositories.dart';
 import '../constants/baseurls.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
@@ -17,21 +18,20 @@ TextEditingController passwordController = TextEditingController();
 TextEditingController confirmpassController = TextEditingController();
 String username = "";
 String Token1 = "";
-class RegisterScreen extends StatelessWidget {
 
-  void initState() {
-    usernameController.clear();
-    mobileController.clear() ;
-    emailController.clear();
-    passwordController.clear() ;
-    confirmpassController.clear();
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
-
-  }
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   // drLOginRepository registerapi = drLOginRepository();
-  late Map EditResponse ;
- Future register(String name,email,mobile,pass,conpass,context) async {
+  late Map EditResponse;
+  bool _validate = false;
+
+  Future register(String name, email, mobile, pass, conpass, context) async {
     Map data = {
       'name': name,
       'email': email,
@@ -43,26 +43,25 @@ class RegisterScreen extends StatelessWidget {
     print("---body-->>>${data}");
     var response = await http.post(
       Uri.parse('${baseurl}create'),
-      body:data,
+      body: data,
       headers: {
         "accept": "application/json",
       },
     );
 
- EditResponse = json.decode(response.body);
+    EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-   username = EditResponse["user"]["name"];
-    Token1 = EditResponse["token"];
+    name = EditResponse["user"]["name"];
+    TOKEN = EditResponse["token"];
     print("username>>>>>>${Token1}");
     print(response.statusCode);
 
     if (response.statusCode == 200) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  RegisterProfile()),
+        MaterialPageRoute(builder: (context) => RegisterProfile()),
       );
       print('success');
-
     } else {
       Fluttertoast.showToast(
         msg: "${EditResponse["message"]}",
@@ -73,92 +72,121 @@ class RegisterScreen extends StatelessWidget {
     }
   }
 
-
-
+  bool _validatePassword = false;
+  bool _isobsucure = true;
+  final _formKey = GlobalKey<FormState>();
 
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorConstant.indigo900,
-        body: Container(
-          width: size.width,
-          child: SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                color: ColorConstant.indigo900,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        top: getVerticalSize(
-                          12.00,
-                        ),
-                        bottom: getVerticalSize(
-                          20.00,
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: Image.asset(
-                              "assets/images/img_rectangle180.png",
-                              height: getVerticalSize(
-                                113.00,
-                              ),
-                              width: getHorizontalSize(
-                                154.00,
-                              ),
-
-                            ),
+    return Form(
+      key: _formKey,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: ColorConstant.whiteA700,
+          body: Container(
+            width: size.width,
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: ColorConstant.whiteA700,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: getVerticalSize(
+                            12.00,
                           ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
+                          bottom: getVerticalSize(
+                            20.00,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  9.00,
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        99.00,
+                              child: Image.asset(
+                                "assets/images/img_rectangle180.png",
+                                height: getVerticalSize(
+                                  113.00,
+                                ),
+                                width: getHorizontalSize(
+                                  154.00,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: getVerticalSize(
+                                    9.00,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: getHorizontalSize(
+                                          99.00,
+                                        ),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    LoginScreen()),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Login",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: ColorConstant.black900,
+                                            fontSize: getFontSize(
+                                              18,
+                                            ),
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    child: GestureDetector(onTap: (){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                                      );
-                                    },
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                        left: getHorizontalSize(
+                                          80.00,
+                                        ),
+                                        right: getHorizontalSize(
+                                          76.00,
+                                        ),
+                                      ),
                                       child: Text(
-                                        "Login",
+                                        "Register",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          color: ColorConstant.whiteA700,
+                                          color: ColorConstant.orange900,
                                           fontSize: getFontSize(
                                             18,
                                           ),
@@ -167,675 +195,32 @@ class RegisterScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        44.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        99.00,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "Register",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: ColorConstant.orange900,
-                                        fontSize: getFontSize(
-                                          18,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  20.00,
-                                ),
-                                top: getVerticalSize(
-                                  39.00,
-                                ),
-                                right: getHorizontalSize(
-                                  20.00,
-                                ),
-                              ),
-                              child: Text(
-                                "User Name",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
+                                  ],
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                14.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getVerticalSize(
-                                39.00,
-                              ),
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              child: TextFormField(controller: usernameController,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your name',
-                                  hintStyle: TextStyle(
-                                    fontSize: getFontSize(
-                                      12.0,
-                                    ),
-                                    color: ColorConstant.gray400,
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    25.00,
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorConstant.indigo900,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      18.00,
-                                    ),
-                                    top: getVerticalSize(
-                                      13.03,
-                                    ),
-                                    bottom: getVerticalSize(
-                                      13.03,
-                                    ),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  color: ColorConstant.gray400,
-                                  fontSize: getFontSize(
-                                    12.0,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  20.00,
-                                ),
-                                top: getVerticalSize(
-                                  20.00,
-                                ),
-                                right: getHorizontalSize(
-                                  20.00,
-                                ),
-                              ),
-                              child: Text(
-                                "Email Id",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                14.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getVerticalSize(
-                                39.00,
-                              ),
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              child: TextFormField(controller: emailController,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your email id',
-                                  hintStyle: TextStyle(
-                                    fontSize: getFontSize(
-                                      12.0,
-                                    ),
-                                    color: ColorConstant.gray400,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorConstant.indigo900,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      18.00,
-                                    ),
-                                    top: getVerticalSize(
-                                      13.03,
-                                    ),
-                                    bottom: getVerticalSize(
-                                      13.03,
-                                    ),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  color: ColorConstant.gray400,
-                                  fontSize: getFontSize(
-                                    12.0,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  20.00,
-                                ),
-                                top: getVerticalSize(
-                                  21.00,
-                                ),
-                                right: getHorizontalSize(
-                                  20.00,
-                                ),
-                              ),
-                              child: Text(
-                                "Mobile No.",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                14.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getVerticalSize(
-                                39.00,
-                              ),
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              child: TextField(controller: mobileController,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your mobile no.',
-                                  hintStyle: TextStyle(
-                                    fontSize: getFontSize(
-                                      12.0,
-                                    ),
-                                    color: ColorConstant.gray400,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorConstant.indigo900,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      18.00,
-                                    ),
-                                    top: getVerticalSize(
-                                      13.03,
-                                    ),
-                                    bottom: getVerticalSize(
-                                      13.03,
-                                    ),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  color: ColorConstant.gray400,
-                                  fontSize: getFontSize(
-                                    12.0,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  20.00,
-                                ),
-                                top: getVerticalSize(
-                                  20.00,
-                                ),
-                                right: getHorizontalSize(
-                                  20.00,
-                                ),
-                              ),
-                              child: Text(
-                                "Password",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                14.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            decoration: BoxDecoration(
-                              color: ColorConstant.gray200,
-                              borderRadius: BorderRadius.circular(
-                                getHorizontalSize(
-                                  5.00,
-                                ),
-                              ),
-                              border: Border.all(
-                                color: ColorConstant.bluegray100,
-                                width: getHorizontalSize(
-                                  1.00,
-                                ),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  height: getVerticalSize(
+                                  top: getVerticalSize(
                                     39.00,
                                   ),
-                                  width: getHorizontalSize(
-                                    320.00,
-                                  ),
-                                  child: TextField(controller: passwordController,
-                                    decoration: InputDecoration(
-                                      hintText: 'Enter your password',
-                                      hintStyle: TextStyle(
-                                        fontSize: getFontSize(
-                                          12.0,
-                                        ),
-                                        color: ColorConstant.gray400,
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      suffixIcon: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: getHorizontalSize(
-                                            10.00,
-                                          ),
-                                          right: getHorizontalSize(
-                                            18.00,
-                                          ),
-                                        ),
-                                        child: Container(
-                                            height: getSize(
-                                              12.00,
-                                            ),
-                                            width: getSize(
-                                              12.00,
-                                            ),
-                                            child: Icon(Icons.visibility)
-                                        ),
-                                      ),
-                                      suffixIconConstraints: BoxConstraints(
-                                        minWidth: getSize(
-                                          12.00,
-                                        ),
-                                        minHeight: getSize(
-                                          12.00,
-                                        ),
-                                      ),
-                                      filled: true,
-                                      fillColor: ColorConstant.indigo900,
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.only(
-                                        left: getHorizontalSize(
-                                          18.00,
-                                        ),
-                                        top: getVerticalSize(
-                                          13.03,
-                                        ),
-                                        bottom: getVerticalSize(
-                                          13.03,
-                                        ),
-                                      ),
-                                    ),
-                                    style: TextStyle(
-                                      color: ColorConstant.gray400,
-                                      fontSize: getFontSize(
-                                        12.0,
-                                      ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  20.00,
-                                ),
-                                top: getVerticalSize(
-                                  20.00,
-                                ),
-                                right: getHorizontalSize(
-                                  20.00,
-                                ),
-                              ),
-                              child: Text(
-                                "Confirm Password",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.whiteA700,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                14.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getVerticalSize(
-                                39.00,
-                              ),
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              child: TextFormField(controller: confirmpassController,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter your password',
-                                  hintStyle: TextStyle(
-                                    fontSize: getFontSize(
-                                      12.0,
-                                    ),
-                                    color: ColorConstant.gray400,
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        5.00,
-                                      ),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
-                                      width: 1,
-                                    ),
-                                  ),
-                                  suffixIcon: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        10.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        18.00,
-                                      ),
-                                    ),
-                                    child: Container(
-                                        height: getSize(
-                                          12.00,
-                                        ),
-                                        width: getSize(
-                                          12.00,
-                                        ),
-                                        child: Icon(Icons.visibility)
-                                    ),
-                                  ),
-                                  suffixIconConstraints: BoxConstraints(
-                                    minWidth: getSize(
-                                      12.00,
-                                    ),
-                                    minHeight: getSize(
-                                      12.00,
-                                    ),
-                                  ),
-                                  filled: true,
-                                  fillColor: ColorConstant.indigo900,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      18.00,
-                                    ),
-                                    top: getVerticalSize(
-                                      13.03,
-                                    ),
-                                    bottom: getVerticalSize(
-                                      13.03,
-                                    ),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                  color: ColorConstant.gray400,
-                                  fontSize: getFontSize(
-                                    12.0,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                20.00,
-                              ),
-                              top: getVerticalSize(
-                                27.00,
-                              ),
-                              right: getHorizontalSize(
-                                20.00,
-                              ),
-                            ),
-                            child: GestureDetector(onTap: (){
-                             // registerapi.getlabTest();
-                             // postTest();
-                              register(usernameController.text,emailController.text,mobileController.text,passwordController.text,confirmpassController.text,context);
-                            },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: getVerticalSize(
-                                  42.00,
-                                ),
-                                width: getHorizontalSize(
-                                  320.00,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: ColorConstant.orange900,
-                                  borderRadius: BorderRadius.circular(
-                                    getHorizontalSize(
-                                      5.00,
-                                    ),
+                                  right: getHorizontalSize(
+                                    20.00,
                                   ),
                                 ),
                                 child: Text(
-                                  "Continue",
+                                  "User Name",
+                                  overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                    color: ColorConstant.whiteA700,
+                                    color: ColorConstant.black900,
                                     fontSize: getFontSize(
-                                      14,
+                                      12,
                                     ),
                                     fontFamily: 'Inter',
                                     fontWeight: FontWeight.w400,
@@ -843,92 +228,458 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              width: getHorizontalSize(
-                                320.00,
-                              ),
-                              margin: EdgeInsets.only(
+                            Padding(
+                              padding: EdgeInsets.only(
                                 left: getHorizontalSize(
-                                  26.00,
+                                  20.00,
                                 ),
                                 top: getVerticalSize(
-                                  8.00,
-                                ),
-                                right: getHorizontalSize(
                                   14.00,
                                 ),
-                              ),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                      'By registering you are accepting our ',
-                                      style: TextStyle(
-                                        color: ColorConstant.whiteA700,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.33,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'terms of use',
-                                      style: TextStyle(
-                                        color: ColorConstant.orange900,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.33,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: ' and ',
-                                      style: TextStyle(
-                                        color: ColorConstant.whiteA700,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.33,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'privacy policy',
-                                      style: TextStyle(
-                                        color: ColorConstant.orange900,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.33,
-                                      ),
-                                    ),
-                                  ],
+                                right: getHorizontalSize(
+                                  20.00,
                                 ),
-                                textAlign: TextAlign.left,
+                              ),
+                              child: Container(
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                child:  Container(
+                                  height: 40.0,
+                                  child: _createTextFormField(usernameController, "Enter your name", false, TextInputType.text),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    25.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    20.00,
+                                  ),
+                                  right: getHorizontalSize(
+                                    20.00,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Email Id",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      12,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  14.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              child: Container(
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                child:  Container(
+                                  height: 40.0,
+                                  child: _createTextFormField(emailController, "Enter your email", false, TextInputType.text),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    25.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    21.00,
+                                  ),
+                                  right: getHorizontalSize(
+                                    20.00,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Mobile No.",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      12,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  14.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              child: Container(
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                child:  Container(
+                                  height: 40.0,
+                                  child: _createTextFormField(mobileController, "Enter your mobile no", false, TextInputType.text),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    25.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    20.00,
+                                  ),
+                                  right: getHorizontalSize(
+                                    20.00,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Password",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      12,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              margin: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  14.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: ColorConstant.whiteA700,
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
+                                  ),
+                                ),
+                                border: Border.all(
+                                  color: ColorConstant.whiteA700,
+                                  width: getHorizontalSize(
+                                    1.00,
+                                  ),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: getVerticalSize(
+                                      39.00,
+                                    ),
+                                    width: getHorizontalSize(
+                                      320.00,
+                                    ),
+                                    child: Container(
+                                      height: 40.0,
+                                      child: _createTextFormField(
+                                          passwordController,
+                                          "Password",
+                                          true,
+                                          TextInputType.text),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    25.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    20.00,
+                                  ),
+                                  right: getHorizontalSize(
+                                    20.00,
+                                  ),
+                                ),
+                                child: Text(
+                                  "Confirm Password",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      12,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  14.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              child: Container(
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                child: Container(
+                                  height: 40.0,
+
+                                  child: _createTextFormField(
+                                      confirmpassController,
+                                      "Password",
+                                      true,
+                                      TextInputType.text,
+                                    ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  67.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (_formKey.currentState!.validate()) {
+                                      print("Form was Submitted Successfully");
+                                      passwordController.text.isEmpty
+                                          ? _validate = true
+                                          : _validate = false;
+                                      passwordController.text.isEmpty
+                                          ? _validatePassword = true
+                                          : _validatePassword = false;
+                                    }
+                                    register(
+                                        usernameController.text,
+                                        emailController.text,
+                                        mobileController.text,
+                                        passwordController.text,
+                                        confirmpassController.text,
+                                        context);
+                                  });
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: getVerticalSize(
+                                    42.00,
+                                  ),
+                                  width: getHorizontalSize(
+                                    320.00,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: ColorConstant.orange900,
+                                    borderRadius: BorderRadius.circular(
+                                      getHorizontalSize(
+                                        5.00,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Continue",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.whiteA700,
+                                      fontSize: getFontSize(
+                                        14,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                margin: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    26.00,
+                                  ),
+                                  top: getVerticalSize(
+                                    8.00,
+                                  ),
+                                  right: getHorizontalSize(
+                                    14.00,
+                                  ),
+                                ),
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            'By registering you are accepting our ',
+                                        style: TextStyle(
+                                          color: ColorConstant.black900,
+                                          fontSize: getFontSize(
+                                            12,
+                                          ),
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.33,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'terms of use',
+                                        style: TextStyle(
+                                          color: ColorConstant.orange900,
+                                          fontSize: getFontSize(
+                                            12,
+                                          ),
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.33,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: ' and ',
+                                        style: TextStyle(
+                                          color: ColorConstant.black900,
+                                          fontSize: getFontSize(
+                                            12,
+                                          ),
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.33,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'privacy policy',
+                                        style: TextStyle(
+                                          color: ColorConstant.orange900,
+                                          fontSize: getFontSize(
+                                            12,
+                                          ),
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.33,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _createTextFormField(TextEditingController controller, String hintText,
+      bool obscureText, TextInputType inputType, ) {
+    return TextFormField(
+      keyboardType: inputType,
+      controller: controller,
+      obscureText: obscureText,
+      style: TextStyle(
+          fontSize: 10.0,
+        ),
+      decoration: InputDecoration(  hintStyle: TextStyle(
+        fontSize: 10,
+      ),
+         contentPadding:
+              EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+
+        //hintText: hintText,
+        labelText: hintText,
+
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return '*Required';
+        }
+        return null;
+      },
     );
   }
 }

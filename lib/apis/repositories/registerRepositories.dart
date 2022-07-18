@@ -39,9 +39,9 @@ print("baseurl${baseurl}login");
 
       Map token = responseData.data;
       print("Response->>>>>${responseData.toString()}");
-    name = token["user"]["name"];
+      name = token["user"]["name"];
     TOKEN = token["token"];
-print("TOKEN->${TOKEN}");
+print("TOKEN->${username}");
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,

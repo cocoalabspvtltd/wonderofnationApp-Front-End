@@ -1,13 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:oo/apis/repositories/profilepagerepositories.dart';
 
 
+import '../apis/bloc/profilepagebloc.dart';
+import '../apis/modelclass/profilemodel.dart';
+import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';//
 
 import 'package:flutter/cupertino.dart';
 
 import '../homePage/navigator.dart';
+import '../homePage/register.dart';
 
 class ProfilrScreen extends StatefulWidget {
   const ProfilrScreen({Key? key}) : super(key: key);
@@ -19,6 +24,18 @@ class ProfilrScreen extends StatefulWidget {
 class _ProfilrScreenState extends State<ProfilrScreen> {
   @override
   List<String> dropdownItemList = ["test", "test1", "test2", "test3"];
+  late profilepageBloc _bloc;
+
+  List<ProfileModelClass> Profilesearchdata = [];
+  List<ProfileModelClass> Profileserachlist = [];
+  TextEditingController ProfileController = TextEditingController();
+
+  void initState() {
+    super.initState();
+    _bloc = profilepageBloc();
+
+    setState(() {});
+  }
   Widget build(BuildContext context) {print("hg");
   return SafeArea(
     child: Scaffold(
@@ -28,22 +45,32 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
         centerTitle: true,
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(
-          color: Colors.indigo,
+          color: Colors.black,
         ),
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
-              width: 230,
+
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Container(
+                  child:
+                  Icon(Icons.notifications_none_rounded,size: 25,color: ColorConstant.black901)
+              ),
             ),
-          
-            SizedBox(
-              width: 20,
-            ),
-            Container(child: Image.asset("assets/images/notification.png")),
-            SizedBox(
-              width: 20,
-            ),
-            Container(child: Image.asset("assets/images/chat.png")),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatScreen()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child:
+                  Container(
+                      child:Icon(Icons.chat_bubble_outline,size: 25,color: ColorConstant.black901)),
+                )),
           ],
         ),
       ),
@@ -242,31 +269,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                   // });
                 },
               ),
-              // ListTile(
-              //   title: Row(children: [
-              //     Padding(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: Icon(
-              //           Icons.,color:Colors.black
-              //       ),
-              //     ),
-              //     SizedBox(
-              //       width: 15,
-              //     ),
-              //     Text(
-              //       "Privacy & Security",
-              //       style: TextStyle(
-              //           fontSize: 18,
-              //           fontWeight: FontWeight.bold,
-              //           color: Colors.grey[900]),
-              //     ),
-              //   ]),
-              //   onTap: () {
-              //     // WidgetsBinding.instance!.addPostFrameCallback((_) {
-              //     //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-              //     // });
-              //   },
-              // ),
+
               ListTile(
                 title: Row(children: [
                   Padding(
@@ -297,6 +300,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
 
         ),
       ),
+//
       body: Column(
         children: [
           Expanded(
@@ -351,7 +355,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                     width: getHorizontalSize(
                                       16.00,
                                     ),
-                                  
+
                                   ),
                                 ),
                                 Padding(
@@ -439,7 +443,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                             ),
                                           ),
                                           child: Text(
-                                            "Andria Justi",
+                                            "${username.toUpperCase()}",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(

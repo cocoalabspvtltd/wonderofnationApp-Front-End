@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:oo/homePage/register.dart';
 
 
+import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
@@ -97,7 +98,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text:" ${username}",
+                                    text:" ${name}",
                                     style: TextStyle(
                                       color: ColorConstant.orange900,
                                       fontSize: getFontSize(
@@ -240,7 +241,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                 ),
-                                child: designationdropdown1()),
+                                child: designationdropdown()),
                           ),
 
                           Padding(
@@ -258,7 +259,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids1)),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids)),
                               );
                             },
                               child: Container(

@@ -1,31 +1,28 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/registerRepositories.dart';
-
+import 'package:oo/dropdowns/gamesdropdown.dart';
 import '../../addClubs/myclubs.dart';
 import '../../constants/webApiprovider.dart';
-import '../../homePage/navigator.dart';
-import 'clublistrepositories.dart';
-
 
 
 class AcademyRegistrationRepository{
-  getacademyregistration( context, int sportid,String Name, ) async {
+  getacademyregistration( context, int sportid,String Name,dateofbirth,gender,address,phone,email, imgpath,videopath) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-    "sport_id":2,
-    "name":anjana,
-    "dob":1999/07/27
-    "gender":f
-    "address":faasfsdfsfdfdfsd
-    "phone":7012733764
-    "email":anjanam@gmail.com
-
+      "sport_id":designatioids,
+      "name":Name,
+      "dob":dateofbirth,
+      "gender":gender,
+      "address":address,
+      "phone":phone,
+      "email":email,
+      "img":imgpath,
+      "video":videopath
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
       final response = await WebApiProvider().getData(
-          url: "club/join",
+          url: "store/applicant",
           isPost: true,
           token: TOKEN,
           queryParameters: _queryParameters,

@@ -221,7 +221,7 @@ class _MyHomePageState15 extends State<designationdropdown> {
                     builder: (context, setState) {
                       return Container(
 
-                        height: 60,
+                        height: 50,
 
                         decoration: BoxDecoration(
 
@@ -246,11 +246,11 @@ class _MyHomePageState15 extends State<designationdropdown> {
                                   value: items.sport,
                                   child: Row(
                                     children: [
-                                      SizedBox(width: 20,),
+                                      SizedBox(width: 10,),
                                       Text(
                                         items.sport,
                                         style: TextStyle(
-                                            color: Colors.black, fontSize: 15),
+                                            color: Colors.black, fontSize: 10),
                                       ),
                                     ],
                                   ));
