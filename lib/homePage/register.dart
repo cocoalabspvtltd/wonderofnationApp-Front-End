@@ -51,15 +51,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-    name = EditResponse["user"]["name"];
+     name = EditResponse["user"]["name"];
     TOKEN = EditResponse["token"];
-    print("username>>>>>>${Token1}");
+    print("username>>>>>>${name}");
     print(response.statusCode);
 
     if (response.statusCode == 200) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => RegisterProfile()),
+        MaterialPageRoute(builder: (context) => RegisterProfile(names: name,)),
       );
       print('success');
     } else {

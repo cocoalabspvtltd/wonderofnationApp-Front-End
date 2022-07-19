@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/registerRepositories.dart';
 import 'package:oo/dropdowns/gamesdropdown.dart';
+import 'package:oo/homePage/homepage1.dart';
 import 'package:oo/homePage/levellingRegister1.dart';
 import 'package:oo/homePage/register.dart';
 
@@ -16,7 +17,7 @@ import 'clublistrepositories.dart';
 
 
 class LevellingRegisterRepository{
-  getLevel1port( context,) async {
+  getLevel1port( context,name1) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "sport_id":designatioids,
       "q1":answers1,
@@ -37,7 +38,7 @@ class LevellingRegisterRepository{
       if (response["message"] == "Successfully added") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard()),
+          MaterialPageRoute(builder: (context) =>  HomePage(user3:name1 )),
         );
       } else {
         throw response["message"];

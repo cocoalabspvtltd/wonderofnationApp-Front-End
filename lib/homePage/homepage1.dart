@@ -19,8 +19,8 @@ import 'navigator.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  const HomePage({Key? key, required this.user3}) : super(key: key);
+final String user3;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -428,7 +428,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: "${username.toUpperCase()}",
+                                  text: "${name
+                                    .toUpperCase()}",
                                   style: TextStyle(
                                     color: ColorConstant.orange900,
                                     fontSize: getFontSize(
@@ -1488,19 +1489,7 @@ class _HomePageState extends State<HomePage> {
                                 width: getHorizontalSize(
                                   241.00,
                                 ),
-                                child: ListView.builder(
-                                  padding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      9.00,
-                                    ),
-                                  ),
-                                  scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
-                                  itemCount: 3,
-                                  itemBuilder: (context, index) {
-                                    return HomeItemWidget();
-                                  },
-                                ),
+                                child:HomeItemWidget()
                               ),
                             ],
                           ),

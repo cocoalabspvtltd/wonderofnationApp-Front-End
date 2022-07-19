@@ -18,7 +18,8 @@ import 'levellingRegister1.dart';
 
 
 class RegisterProfile extends StatefulWidget {
-  const RegisterProfile({Key? key}) : super(key: key);
+  const RegisterProfile( {Key? key, required this.names,}) : super(key: key);
+final  String names;
   void initState() {
     print("username->${username}");
 
@@ -98,7 +99,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text:" ${name}",
+                                    text:" ${widget.names}",
                                     style: TextStyle(
                                       color: ColorConstant.orange900,
                                       fontSize: getFontSize(
@@ -259,7 +260,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids)),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, user1: widget.names,)),
                               );
                             },
                               child: Container(

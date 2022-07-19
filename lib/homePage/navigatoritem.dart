@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 
 import '../Event/Events.dart';
+import '../apis/repositories/registerRepositories.dart';
 import '../matches/matchhome.dart';
 import '../profile/profileui.dart';
 import 'homepage1.dart';
@@ -25,7 +26,7 @@ class NavigatorItem {
 }
 List  <NavigatorItem>  navigatorItems = [
 
-  NavigatorItem("Home", 0, HomePage(),Icon(Icons.home_outlined,),),
+  NavigatorItem("Home", 0, HomePage(user3: name,),Icon(Icons.home_outlined,),),
   NavigatorItem(
       "Events", 1, events(),Icon(Icons.event_available,)),
   NavigatorItem("Match",  2, Matchhome(),Icon(Icons.add_card_outlined,)),

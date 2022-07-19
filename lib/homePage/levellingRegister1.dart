@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:oo/homePage/registerprofile.dart';
 
+import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
@@ -11,8 +12,8 @@ var answers1;
 var answers2;
 var answers3;
 class Levelingfirst extends StatefulWidget {
-  const Levelingfirst(int designatioids, {Key? key, }) : super(key: key);
-
+  const Levelingfirst(int designatioids, {Key? key, required this.user1, }) : super(key: key);
+final String user1;
   @override
   State<Levelingfirst> createState() => _LevelingfirstState();
 }
@@ -33,7 +34,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
             iconSize: 25,
             color: Colors.black,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterProfile()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterProfile(names: name,)));
             }
         ),
         title: Padding(
@@ -228,7 +229,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 ),
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Levelingsecond(designatioids)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Levelingsecond(designatioids, user2: widget.user1,)));
                   },
                   child: Container(
                     alignment: Alignment.center,

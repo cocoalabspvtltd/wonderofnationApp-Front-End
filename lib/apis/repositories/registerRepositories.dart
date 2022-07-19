@@ -17,7 +17,7 @@ class drLOginRepository {
 
 
   Future createUser(String username, String password, context) async {
-    print("sdfgh");
+
     var formData = {
       "email":username,
       "password":password
@@ -41,7 +41,7 @@ print("baseurl${baseurl}login");
       print("Response->>>>>${responseData.toString()}");
       name = token["user"]["name"];
     TOKEN = token["token"];
-print("TOKEN->${username}");
+print("TOKEN->${name}");
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,

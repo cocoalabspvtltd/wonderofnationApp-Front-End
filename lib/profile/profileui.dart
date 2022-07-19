@@ -5,6 +5,7 @@ import 'package:oo/apis/repositories/profilepagerepositories.dart';
 
 import '../apis/bloc/profilepagebloc.dart';
 import '../apis/modelclass/profilemodel.dart';
+import '../apis/repositories/registerRepositories.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';//
@@ -443,7 +444,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                             ),
                                           ),
                                           child: Text(
-                                            "${username.toUpperCase()}",
+                                            "${name.toUpperCase()}",
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(

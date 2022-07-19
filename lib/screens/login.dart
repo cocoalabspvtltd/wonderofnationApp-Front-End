@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (response.statusCode == 200) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  HomePage()),
+        MaterialPageRoute(builder: (context) =>  HomePage(user3: name,)),
       );
       print('success');
 

@@ -8,8 +8,8 @@ import '../constants/mathUtils.dart';
 var answers4;
 var answers5;
 class Levelingsecond extends StatefulWidget {
-  const Levelingsecond(int designatioids, {Key? key, }) : super(key: key);
-
+  const Levelingsecond(int designatioids, {Key? key, required this.user2, }) : super(key: key);
+final String user2;
   @override
   State<Levelingsecond> createState() => _LevelingsecondState();
 }
@@ -230,8 +230,9 @@ class _LevelingsecondState extends State<Levelingsecond> {
               padding: const EdgeInsets.only(right: 10),
               child: GestureDetector(
                 onTap: (){
+
                   //Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
-                  LevellingRedisteapi.getLevel1port(context);
+                  LevellingRedisteapi.getLevel1port(context,  widget.user2);
                 },
                 child: Container(
                   alignment: Alignment.center,
