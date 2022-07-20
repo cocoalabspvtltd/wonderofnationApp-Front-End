@@ -11,6 +11,7 @@ import '../apis/repositories/registerRepositories.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
+import '../dashboardItems/settingd.dart';
 import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
 import 'court.dart';
@@ -19,8 +20,8 @@ import 'navigator.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.user3}) : super(key: key);
-final String user3;
+  const HomePage({Key? key, }) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
@@ -175,7 +177,8 @@ class _HomePageState extends State<HomePage> {
                       width: 15,
                     ),
                     GestureDetector(onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Gamedetail()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>Gamedetail()));
                     },
                       child: Text(
                         "My Results",
@@ -229,12 +232,18 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Settings",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
+                    GestureDetector(onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) =>Settingpage()));
+
+                    },
+                      child: Text(
+                        "Settings",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
                     ),
                   ]),
                   onTap: () {

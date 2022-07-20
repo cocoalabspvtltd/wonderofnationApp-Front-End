@@ -260,7 +260,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, user1: widget.names,)),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, )),
                               );
                             },
                               child: Container(

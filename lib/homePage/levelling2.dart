@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:oo/homePage/navigator.dart';
+import 'package:oo/homePage/register.dart';
 import '../apis/repositories/levellingregister.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 var answers4;
 var answers5;
 class Levelingsecond extends StatefulWidget {
-  const Levelingsecond(int designatioids, {Key? key, required this.user2, }) : super(key: key);
-final String user2;
+  const Levelingsecond(int designatioids, {Key? key, }) : super(key: key);
+
   @override
   State<Levelingsecond> createState() => _LevelingsecondState();
 }
@@ -18,6 +19,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
   @override
   LevellingRegisterRepository  LevellingRedisteapi  = LevellingRegisterRepository();
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -166,7 +168,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
                 child: GestureDetector(
                   onTap: (){
                     // Navigator.push(context, MaterialPageRoute(builder: (context)=>Levelingfirst()));
-                    _showDialog(context);
+                    _showDialog(context,);
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -206,7 +208,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
       ),
     );
   }
-  _showDialog(BuildContext context) {
+  _showDialog(BuildContext context,) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -232,7 +234,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
                 onTap: (){
 
                   //Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
-                  LevellingRedisteapi.getLevel1port(context,  widget.user2);
+                  LevellingRedisteapi.getLevel1port(context );
                 },
                 child: Container(
                   alignment: Alignment.center,

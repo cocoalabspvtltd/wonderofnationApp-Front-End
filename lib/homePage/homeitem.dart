@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/usersuggestionmodel.dart';
 import 'package:oo/apis/repositories/usersuggestionrepositories.dart';
@@ -45,7 +46,7 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
         });
   }
   SizedBox _tile(
-      String title,String image) =>
+      String title,String profilePic) =>
       SizedBox(height: 300,
         child: IntrinsicWidth(
           child: Container(
@@ -85,7 +86,13 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                       1.00,
                     ),
                   ),
-                  child:image == null?Image.asset("assets/images/image1.png"): Image.network(image,
+
+                  child:CachedNetworkImage(
+                    placeholder: (context, url) => CircularProgressIndicator(),
+
+                    imageUrl:profilePic,
+                    errorWidget: (context, url, error) => Icon(Icons.account_box_outlined),
+
                     height: getVerticalSize(
                       50.00,
                     ),

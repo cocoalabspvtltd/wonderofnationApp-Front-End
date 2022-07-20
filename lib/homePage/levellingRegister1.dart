@@ -12,17 +12,19 @@ var answers1;
 var answers2;
 var answers3;
 class Levelingfirst extends StatefulWidget {
-  const Levelingfirst(int designatioids, {Key? key, required this.user1, }) : super(key: key);
-final String user1;
+  const Levelingfirst(int designatioids, {Key? key,  }) : super(key: key);
+//final String user1;
   @override
   State<Levelingfirst> createState() => _LevelingfirstState();
 }
 
 class _LevelingfirstState extends State<Levelingfirst> {
+
   @override
 
 
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -229,7 +231,9 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 ),
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Levelingsecond(designatioids, user2: widget.user1,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context)=>Levelingsecond(designatioids, )));
                   },
                   child: Container(
                     alignment: Alignment.center,

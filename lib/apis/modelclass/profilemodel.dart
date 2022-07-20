@@ -1,20 +1,28 @@
 class ProfileModelClass {
     int? followersCount;
     int ?followingCount;
+    List<Level>?levelList;
     int? id;
     String? name;
+    String? phone;
+    String? email;
     String? profilePic;
     String? sport;
 
-    ProfileModelClass({this.followersCount, this.followingCount, this.id, this.name, this.profilePic, this.sport});
+    ProfileModelClass({this.followersCount,this.phone,this.email, this.followingCount, this.id, this.name, this.profilePic, this.sport,this.levelList});
 
     factory ProfileModelClass.fromJson(Map<String, dynamic> json) {
         return ProfileModelClass(
             followersCount: json['followersCount'],
             followingCount: json['followingCount'],
             id: json['id'],
-   // levels: json['levels'] != null ? (json['levels'] as List).map((i) => Level.fromJson(i)).toList() : null,
+            levelList: json['labList'] != null
+                ? (json['labList'] as List).map((i) => Level.fromJson(i)).toList()
+                : null,
+
             name: json['name'],
+            phone: json['phone'],
+            email: json['email'],
             profilePic: json['profilePic'],
             sport: json['sport'],
         );
@@ -26,6 +34,8 @@ class ProfileModelClass {
         data['followingCount'] = this.followingCount;
         data['id'] = this.id;
         data['name'] = this.name;
+        data['phone'] = this.phone;
+        data['email'] = this.email;
         data['profilePic'] = this.profilePic;
         data['sport'] = this.sport;
 

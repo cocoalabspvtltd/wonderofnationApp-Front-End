@@ -38,8 +38,11 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
     setState(() {});
   }
   Widget build(BuildContext context) {print("hg");
+  double height = MediaQuery.of(context).size.height;
+  double width = MediaQuery.of(context).size.width;
   return SafeArea(
     child: Scaffold(
+
       backgroundColor: ColorConstant.whiteA700,
       appBar: AppBar(
         elevation: 0,
@@ -87,7 +90,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 260),
-                    
+
                     )),
               ),
               ListTile(
@@ -306,7 +309,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
         children: [
           Expanded(
             child: Container(
-              width: size.width,
+
               child: SingleChildScrollView(
                 child: Container(
                   decoration: BoxDecoration(
@@ -433,19 +436,15 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                         alignment: Alignment.center,
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                            left: getHorizontalSize(
-                                              79.00,
-                                            ),
+
                                             top: getVerticalSize(
                                               1.00,
                                             ),
-                                            right: getHorizontalSize(
-                                              79.00,
-                                            ),
+
                                           ),
                                           child: Text(
                                             "${name.toUpperCase()}",
-                                            overflow: TextOverflow.ellipsis,
+
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: ColorConstant.black900,

@@ -6,7 +6,7 @@ import 'package:oo/apis/repositories/registerRepositories.dart';
 import '../../constants/webApiprovider.dart';
 import '../modelclass/joinedclubModel.dart';
 import '../modelclass/profilemodel.dart';
-
+ String profilename  = "";
 
 class ProfilepageRepositories {
 
@@ -23,7 +23,7 @@ class ProfilepageRepositories {
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: false);
-    print("res->>>${response}");
+    print("responseee->>>${response}");
 
 
     return (response as List)
