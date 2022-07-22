@@ -50,6 +50,7 @@ dependencies:
   date_time_picker: ^2.1.0
   shimmer: ^2.0.0
   video_player: ^2.4.5
+  card_swiper: ^1.0.4
 
 
 dev_dependencies:

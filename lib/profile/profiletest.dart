@@ -1109,9 +1109,9 @@ class _profileuiState extends State<profileui> {
           elevation: 0,
           backgroundColor: Colors.white,
           title: Padding(
-            padding: const EdgeInsets.all(95.0),
+            padding: const EdgeInsets.only(left:125.0),
             child: Text(
-              "Join",
+              "Profile",
               style: TextStyle(color: Colors.black,fontSize: 15),
             ),
           ),

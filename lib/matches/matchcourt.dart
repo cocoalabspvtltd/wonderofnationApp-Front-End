@@ -1,35 +1,51 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oo/matches/matchhome.dart';
 import 'package:oo/matches/reservationcourt.dart';
-
-import 'package:razorpay_flutter/razorpay_flutter.dart';
-
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class Matchcourt extends StatefulWidget {
-  const Matchcourt({Key? key}) : super(key: key);
-
+  const Matchcourt({Key? key, required this.Imageurl, required this.clubName, required this.stateName, required this.cityName, required this.description}) : super(key: key);
+final String Imageurl;
+final String clubName;
+final String stateName;
+final String cityName;
+final String description;
   @override
   State<Matchcourt> createState() => _MatchcourtState();
 }
 
 class _MatchcourtState extends State<Matchcourt> {
+  List court = ["Court 1", "Court 2", "Court 3"];
+  int selectedIndex2 = 0;
+  List gallery=[
+    "assets/images/court.png",
+    "assets/images/past.png",
+    "assets/images/spash5.jpg",
+  ];
   @override
-  late Razorpay _razorpay;
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        toolbarHeight: 27.9,
         backgroundColor: ColorConstant.gray400,
-        body: Container(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+      ),
+      backgroundColor: ColorConstant.gray400,
+      body: SafeArea(
+        child: Container(
           width: size.width,
           child:
           Container(
             height: size.height,
             width: size.width,
             decoration: BoxDecoration(
-              color: ColorConstant.gray400,
+              color: ColorConstant.gray200,
             ),
             child: Stack(
               alignment: Alignment.bottomLeft,
@@ -38,7 +54,7 @@ class _MatchcourtState extends State<Matchcourt> {
                   alignment: Alignment.topLeft,
                   child: Container(
                     height: getVerticalSize(
-                      430.00,
+                      260.00,
                     ),
                     width: size.width,
                     margin: EdgeInsets.only(
@@ -49,19 +65,14 @@ class _MatchcourtState extends State<Matchcourt> {
                     child: Stack(
                       alignment: Alignment.topLeft,
                       children: [
-                        Padding(
-                            padding: const EdgeInsets.only(left: 8,top: 0.5),
-                            child: IconButton(onPressed: (){
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => Matchhome()));
-                            },icon: Icon(Icons.arrow_back,color: Colors.black,))
-                        ),
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Image.asset(
-                            "assets/images/img.png",
+                          child: CachedNetworkImage(
+                            imageUrl: widget.Imageurl,
+                            placeholder: (context, url) => CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Image.asset("assets/images/usersuggestiion.jpg"),
                             height: getVerticalSize(
-                              357.00,
+                              440.00,
                             ),
                             width: getHorizontalSize(
                               360.00,
@@ -111,11 +122,10 @@ class _MatchcourtState extends State<Matchcourt> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // SizedBox(height: 40,),
                         Padding(
                           padding: EdgeInsets.only(
                             top: getVerticalSize(
-                              67.00,
+                              20.00,
                             ),
                           ),
                           child: Row(
@@ -125,7 +135,7 @@ class _MatchcourtState extends State<Matchcourt> {
                             children: [
                               Container(
                                 width: getHorizontalSize(
-                                  160.00,
+                                  140.00,
                                 ),
                                 margin: EdgeInsets.only(
                                   left: getHorizontalSize(
@@ -133,7 +143,7 @@ class _MatchcourtState extends State<Matchcourt> {
                                   ),
                                 ),
                                 child: Text(
-                                  "Football court",
+                                  "${widget.clubName.toUpperCase()}",
                                   maxLines: null,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
@@ -149,7 +159,7 @@ class _MatchcourtState extends State<Matchcourt> {
                               Padding(
                                 padding: EdgeInsets.only(
                                   top: getVerticalSize(
-                                    23.00,
+                                    15.00,
                                   ),
                                   right: getHorizontalSize(
                                     30.00,
@@ -177,7 +187,7 @@ class _MatchcourtState extends State<Matchcourt> {
                         Padding(
                           padding: EdgeInsets.only(
                             top: getVerticalSize(
-                              37.00,
+                              30.00,
                             ),
                           ),
                           child: Row(
@@ -191,7 +201,7 @@ class _MatchcourtState extends State<Matchcourt> {
                                     33.33,
                                   ),
                                   top: getVerticalSize(
-                                    4.67,
+                                    1.67,
                                   ),
                                   bottom: getVerticalSize(
                                     11.66,
@@ -226,7 +236,7 @@ class _MatchcourtState extends State<Matchcourt> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Club Name/ Sports Center",
+                                      "${widget.stateName}/ ${widget.cityName}",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
@@ -252,7 +262,7 @@ class _MatchcourtState extends State<Matchcourt> {
                                         style: TextStyle(
                                           color: ColorConstant.black900,
                                           fontSize: getFontSize(
-                                            16,
+                                            15,
                                           ),
                                           fontFamily: 'Inter',
                                           fontWeight: FontWeight.w400,
@@ -265,14 +275,13 @@ class _MatchcourtState extends State<Matchcourt> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10,),
                         Padding(
                           padding: EdgeInsets.only(
                             left: getHorizontalSize(
                               30.00,
                             ),
                             top: getVerticalSize(
-                              32.00,
+                              22.00,
                             ),
                             right: getHorizontalSize(
                               30.00,
@@ -292,7 +301,6 @@ class _MatchcourtState extends State<Matchcourt> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 5,),
                         Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -311,13 +319,13 @@ class _MatchcourtState extends State<Matchcourt> {
                               ),
                             ),
                             child: Text(
-                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus in dolor volutpat facilisi fringilla amet aliquam  rhoncus elit. Eget bibendum proin habitant pellentesque  lectus ut vitae. Sed mollis euismod malesuada.",
+                              "${widget.description}",
                               maxLines: null,
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  11,
+                                  13,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -325,7 +333,92 @@ class _MatchcourtState extends State<Matchcourt> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 15,),
+                        Padding(
+                          padding: EdgeInsets.only(left: 27),
+                          child: Text(
+                            "Select Court",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: getFontSize(
+                                16,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 35),
+                          child: SizedBox(
+                            height: 45,
+                            child: ListView.separated(
+                                separatorBuilder: (BuildContext context, int index) {
+                                  return SizedBox(
+                                    width: 7,
+                                  );
+                                },
+                                physics: ClampingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: court.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: 45,
+                                    width: 90,
+                                    child: Card(
+                                        clipBehavior: Clip.antiAlias,
+                                        elevation: 0,
+                                        color: ColorConstant.gray200,
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide(color: selectedIndex2 == index ? Colors.white : Colors.black,width: 0.1),
+                                            borderRadius: BorderRadius.circular(5)),
+                                        child: ListTile(
+                                          selected: selectedIndex2 == index? true: false,
+                                          selectedTileColor: ColorConstant.orange900,
+                                          selectedColor:ColorConstant.gray200 ,
+                                          title: Padding(
+                                            padding: const EdgeInsets.only(bottom: 20),
+                                            child: Text(court[index],style: TextStyle(
+                                                color: selectedIndex2 == index ? Colors.white : Colors.black,fontSize: 15),),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              selectedIndex2 = index;
+                                            });
+                                          },
+                                        )),
+                                  );
+                                }),
+                          ),
+                        ),
+                        SizedBox(height: 15,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25,right: 20),
+                          child: Container(
+                            width: 310,
+                            height: 140,
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                return Image.asset(
+                                  gallery[index],
+                                  fit: BoxFit.fitWidth,
+                                );},
+                              autoplay: true,
+                              itemCount: gallery.length,
+                              pagination: SwiperPagination(
+                                  builder: DotSwiperPaginationBuilder(
+                                    color: Colors.white30,
+                                    activeColor: Colors.white,
+                                    size: 7,
+                                  )
+                              ),
+                            ),
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.center,
                           child: Padding(
@@ -363,7 +456,7 @@ class _MatchcourtState extends State<Matchcourt> {
                                   ),
                                 ),
                                 child: Text(
-                                  "Reservation Court",
+                                  "Reserve Court",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     color: ColorConstant.whiteA700,
@@ -378,7 +471,7 @@ class _MatchcourtState extends State<Matchcourt> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 15,),
                       ],
                     ),
                   ),
@@ -390,59 +483,5 @@ class _MatchcourtState extends State<Matchcourt> {
         ),
       ),
     );
-  }
-  void initState() {
-    super.initState();
-    _razorpay = Razorpay();
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _razorpay.clear();
-  }
-
-  void openCheckout() async {
-    var options = {
-      'key': 'rzp_live_ILgsfZCZoFIKMb',
-      'amount': 100,
-      'name': 'Acme Corp.',
-      'description': 'Fine T-Shirt',
-      'retry': {'enabled': true, 'max_count': 1},
-      'send_sms_hash': true,
-      'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-      'external': {
-        'wallets': ['paytm']
-      }
-    };
-
-    try {
-      _razorpay.open(options);
-    } catch (e) {
-      debugPrint('Error: e');
-    }
-  }
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print('Success Response: $response');
-    /*Fluttertoast.showToast(
-        msg: "SUCCESS: " + response.paymentId!,
-        toastLength: Toast.LENGTH_SHORT); */
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    print('Error Response: $response');
-    /* Fluttertoast.showToast(
-        msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-        toastLength: Toast.LENGTH_SHORT); */
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    print('External SDK Response: $response');
-    /* Fluttertoast.showToast(
-        msg: "EXTERNAL_WALLET: " + response.walletName!,
-        toastLength: Toast.LENGTH_SHORT); */
   }
 }

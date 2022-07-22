@@ -30,8 +30,7 @@ print("baseurl${baseurl}login");
       Response responseData = await dio.post("${baseurl}login",
           data: formData,
           options: Options(
-            headers: {
-              "Accept":  'application/json'},
+            headers: {"Accept":'application/json'},
           )
       );
       print("fdsf");

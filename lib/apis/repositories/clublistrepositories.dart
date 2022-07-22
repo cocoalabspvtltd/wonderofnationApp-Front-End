@@ -16,7 +16,7 @@ class ClubRepository {
     print("_queryParameters : " + _queryParameters.toString());
     print("token=${TOKEN}");
     final response = await WebApiProvider().getData(
-        url: "clubs/show",
+        url: "clubs/list/app",
         isPost: false,
         token: TOKEN,
         queryParameters: _queryParameters,

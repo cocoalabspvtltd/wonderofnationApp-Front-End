@@ -573,7 +573,7 @@ class _MatchhomeState extends State<Matchhome> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Matchcourt()));
+                        //  Navigator.push(context, MaterialPageRoute(builder: (context)=>Matchcourt()));
                         },
                         child: Container(
                           child: Column(
