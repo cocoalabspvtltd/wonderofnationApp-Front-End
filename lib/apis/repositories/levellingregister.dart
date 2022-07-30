@@ -17,7 +17,7 @@ import 'clublistrepositories.dart';
 
 
 class LevellingRegisterRepository{
-  getLevel1port( context,) async {
+  getLevel1port( context,userName) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "sport_id":designatioids,
       "q1":answers1,
@@ -38,7 +38,7 @@ class LevellingRegisterRepository{
       if (response["message"] == "Successfully added") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard()),
+          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: userName,)),
         );
       } else {
         throw response["message"];

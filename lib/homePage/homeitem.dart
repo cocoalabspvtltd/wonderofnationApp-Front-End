@@ -49,7 +49,12 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
       String title,String profilePic) =>
       SizedBox(height: 300,
         child: IntrinsicWidth(
-          child: Container(
+          child: Container( height: getSize(
+            51.00,
+          ),
+            width: getSize(
+              115.00,
+            ),
             margin: EdgeInsets.only(
               right: getHorizontalSize(
                 9.00,
@@ -63,7 +68,7 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                 ),
               ),
               border: Border.all(
-                color: ColorConstant.indigo900,
+                color: ColorConstant.black900,
                 width: getHorizontalSize(
                   1.00,
                 ),
@@ -152,7 +157,7 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                       92.00,
                     ),
                     decoration: BoxDecoration(
-                      color: ColorConstant.indigo900,
+                      color: ColorConstant.green6320,
                       borderRadius: BorderRadius.circular(
                         getHorizontalSize(
                           5.00,

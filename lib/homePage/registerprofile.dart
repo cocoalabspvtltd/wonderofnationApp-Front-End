@@ -1,6 +1,6 @@
 
 import 'dart:io';
-
+import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
 import '../dropdowns/registergamedropdown.dart';
+import '../profile/editprofile.dart';
 import 'levellingRegister1.dart';
 
 
@@ -31,28 +32,33 @@ final  String names;
 
 class _RegisterProfileState extends State<RegisterProfile> {
 
-  File? image;
-  Future pickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch(e) {
-      print('Failed to pick image: $e');
+  File? _image1;
+  PickedFile? _pickedFile;
+  final _picker = ImagePicker();
+  // Implementing the image picker
+  Future<void> _pickImage() async {
+    _pickedFile=
+    await _picker.getImage(source: ImageSource.gallery);
+    if (_pickedFile != null) {
+      setState(() {
+
+        _image1 = File(_pickedFile!.path);
+
+      });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: ColorConstant.indigo900,
+        backgroundColor: ColorConstant.whiteA700,
         body: Container(
           width: size.width,
           child: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                color: ColorConstant.indigo900,
+                color: ColorConstant.whiteA700,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -90,7 +96,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                   TextSpan(
                                     text: 'Hai ',
                                     style: TextStyle(
-                                      color: ColorConstant.whiteA700,
+                                      color: ColorConstant.black900,
                                       fontSize: getFontSize(
                                         24,
                                       ),
@@ -99,9 +105,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text:" ${widget.names}",
+                                    text:" ${widget.names.toUpperCase()}",
                                     style: TextStyle(
-                                      color: ColorConstant.orange900,
+                                      color: ColorConstant.green6320,
                                       fontSize: getFontSize(
                                         24,
                                       ),
@@ -134,7 +140,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
-                                    color: ColorConstant.whiteA700,
+                                    color: ColorConstant.black900,
                                     fontSize: getFontSize(
                                       14,
                                     ),
@@ -157,24 +163,38 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                 20.00,
                               ),
                             ),
-                            child:InkWell(
-                              onTap: pickImage,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.black,
-                                radius: 48.0,
+
+                          ),
+                          Padding(
+                              padding: EdgeInsets.only(
+                                left: getHorizontalSize(
+                                  20.00,
+                                ),
+                                top: getVerticalSize(
+                                  51.00,
+                                ),
+                                right: getHorizontalSize(
+                                  20.00,
+                                ),
+                              ),
+                              child:InkWell(
+                                onTap: _pickImage,
                                 child: CircleAvatar(
+                                  backgroundColor: Colors.black,
                                   radius: 48.0,
-                                  backgroundColor: Colors.white,
-                                  child: Container(height: 150,
-                                    child: ClipOval(
-                                      child: (image != null)
-                                          ? Image.file(image!,fit: BoxFit.fill,)
-                                          : Image.asset('assets/images/profile.png'),
+                                  child: CircleAvatar(
+                                    radius: 48.0,
+                                    backgroundColor: Colors.white,
+                                    child: Container(height: 150,
+                                      child: ClipOval(
+                                        child: (image != null)
+                                            ? Image.file(_image1!,fit: BoxFit.fill,)
+                                            : Image.asset('assets/images/profile.png'),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            )
+                              )
                           ),
                           Padding(
                             padding: EdgeInsets.only(
@@ -184,18 +204,23 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               right: getHorizontalSize(
                                 20.00,
                               ),
+                              top: 15
                             ),
-                            child: Text(
-                              "Upload your photo",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.whiteA700,
-                                fontSize: getFontSize(
-                                  14,
+                            child: GestureDetector(onTap: (){
+                            //  uploadImage('image', File('assets/images/imgw.png'));
+                            },
+                              child: Text(
+                                "Upload your photo",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: ColorConstant.black900,
+                                  fontSize: getFontSize(
+                                    14,
+                                  ),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w400,
                                 ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
@@ -216,7 +241,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: ColorConstant.orange900,
+                                color: ColorConstant.green6320,
                                 fontSize: getFontSize(
                                   14,
                                 ),
@@ -260,7 +285,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, )),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, user1: widget.names, )),
                               );
                             },
                               child: Container(
@@ -272,7 +297,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                   320.00,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: ColorConstant.orange900,
+                                  color: ColorConstant.green6320,
                                   borderRadius: BorderRadius.circular(
                                     getHorizontalSize(
                                       5.00,
@@ -280,7 +305,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                   ),
                                 ),
                                 child: Text(
-                                  "Register",
+                                  "Continue",
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     color: ColorConstant.whiteA700,
@@ -306,61 +331,61 @@ class _RegisterProfileState extends State<RegisterProfile> {
       ),
     );
   }
-
-  _buildImageSection() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      alignment: FractionalOffset.center,
-      width: double.infinity,
-      height: 150,
-      color: Colors.transparent,
-      child: Container(
-        height: 150.0,
-        width: 150.0,
-        child: Stack(children: <Widget>[
-          Container(
-            width: 150,
-            height: 150,
-            decoration: new BoxDecoration(
-              color: Colors.black26,
-              borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
-              border: new Border.all(
-                color: Colors.grey,
-                width: 4.0,
-              ),
-            ),
-            child: ClipOval(
-              child: SizedBox.expand(
-                child: showImage(),
-              ),
-            ),
-          ),
-          Positioned(
-            child: Align(
-              alignment: FractionalOffset.bottomRight,
-              child: GestureDetector(
-                child: Image.asset(
-                  ('assets/images/ic_camera.png'),
-                  height: 50,
-                  width: 50,
-                ),
-                onTap: () async {
-                  final pickedFile = await ImagePicker().pickImage(
-                      source: ImageSource.gallery,
-                      imageQuality: 60);
-
-                  if(pickedFile!=null){
-                    image = File(pickedFile.path);
-                    setState(() {  });
-                  }
-                },
-              ),
-            ),
-          )
-        ]),
-      ),
-    );
-  }
+  //
+  // _buildImageSection() {
+  //   return Container(
+  //     margin: EdgeInsets.only(bottom: 20),
+  //     alignment: FractionalOffset.center,
+  //     width: double.infinity,
+  //     height: 150,
+  //     color: Colors.transparent,
+  //     child: Container(
+  //       height: 150.0,
+  //       width: 150.0,
+  //       child: Stack(children: <Widget>[
+  //         Container(
+  //           width: 150,
+  //           height: 150,
+  //           decoration: new BoxDecoration(
+  //             color: Colors.black26,
+  //             borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
+  //             border: new Border.all(
+  //               color: Colors.grey,
+  //               width: 4.0,
+  //             ),
+  //           ),
+  //           child: ClipOval(
+  //             child: SizedBox.expand(
+  //               child: showImage(),
+  //             ),
+  //           ),
+  //         ),
+  //         Positioned(
+  //           child: Align(
+  //             alignment: FractionalOffset.bottomRight,
+  //             child: GestureDetector(
+  //               child: Image.asset(
+  //                 ('assets/images/ic_camera.png'),
+  //                 height: 50,
+  //                 width: 50,
+  //               ),
+  //               onTap: () async {
+  //                 final pickedFile = await ImagePicker().pickImage(
+  //                     source: ImageSource.gallery,
+  //                     imageQuality: 60);
+  //
+  //                 if(pickedFile!=null){
+  //                   image = File(pickedFile.path);
+  //                   setState(() {  });
+  //                 }
+  //               },
+  //             ),
+  //           ),
+  //         )
+  //       ]),
+  //     ),
+  //   );
+  // }
   Widget showImage() {
     return Center(
       child: image == null
@@ -390,5 +415,28 @@ class _RegisterProfileState extends State<RegisterProfile> {
         ),
       ),
     );
+  }
+  uploadImage( File file) async{
+    String fileName = file!.path.split('/').last;
+    var request = http.MultipartRequest("POST",Uri.parse("https://2105-117-193-40-84.ngrok.io/api/profile"));
+print("object");
+    request.fields['file'] = fileName;
+    request.headers['Authorization'] = "Bearer ${TOKEN}";
+
+    var picture = http.MultipartFile.fromBytes(fileName, (await rootBundle.load('assets/images/${fileName}')).buffer.asUint8List(),
+        filename: fileName);
+
+    request.files.add(picture);
+
+    var response = await request.send();
+
+    var responseData = await response.stream.toBytes();
+
+    var result = String.fromCharCodes(responseData);
+
+    print(result);
+
+
+
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
 
 import 'package:oo/myresults/gameslist.dart';
 import 'package:oo/myresults/scoreboard.dart';
@@ -73,7 +74,7 @@ class _GamedetailState extends State<Gamedetail> {
                                           child: Text(
                                             "12 hrs left",
                                             style:
-                                            TextStyle(color: Colors.orange, fontSize: 11),
+                                            TextStyle(color: ColorConstant.green6320, fontSize: 11),
                                           ),
                                         ),
                                         Padding(

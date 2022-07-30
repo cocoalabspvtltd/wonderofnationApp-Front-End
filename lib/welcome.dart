@@ -26,68 +26,21 @@ class _MyHomePageState extends State<WelcomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo[900],
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: getVerticalSize(
-                    104.00,
-                  ),
-                  bottom: getVerticalSize(
-                    20.00,
-                  ),
-                ),
-                child: Image.asset(
-                  "assets/images/img_rectangle180.png",
-                  height: getVerticalSize(
-                    419.00,
-                  ),
-                  width: getHorizontalSize(
-                    360.00,
-                  ),
-                  fit: BoxFit.fill,
-                ),
+    return Container(
+      decoration:  BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/logo.jpg"
               ),
-            ),
-            Align(
+              fit: BoxFit.fill
+          )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Container(
+              width: 300,
+              height: 300,
               alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: getHorizontalSize(
-                    40.00,
-                  ),
-                  top: getVerticalSize(
-                    40.00,
-                  ),
-                  right: getHorizontalSize(
-                    40.00,
-                  ),
-                  bottom: getVerticalSize(
-                    40.00,
-                  ),
-                ),
-                child: Text(
-                  "Wonder of nation",
-
-
-                  style: TextStyle(
-                    color: ColorConstant.whiteA700,
-                    fontSize: getFontSize(
-                      24,
-                    ),
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-            ),
-          ],
+              child:Image.asset("assets/images/GOLD WON.png")),
         ),
       ),
     );

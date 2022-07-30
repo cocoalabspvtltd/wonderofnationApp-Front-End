@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/homePage/navigator.dart';
 
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
@@ -17,33 +18,48 @@ class _ProfileviewState extends State<Profileview> {
   var buttonText = 'Follow';
 
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
-        leading: Center(child: Text("X",style: TextStyle(color: Colors.black),)),
-        title: Padding(padding:EdgeInsets.only(left: 297),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DashBoard(UserName1: '',)));
+            },
+            icon: Icon(
+              Icons.close,
+              size: 20,
+              color: Colors.black,
+            )),
+        title: Padding(
+            padding: EdgeInsets.only(left: 297),
             child: Image.asset("assets/images/menudots.png")),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-           Center(child: Padding(
-             padding: const EdgeInsets.only(top: 28.0),
-             child: Image.asset("assets/images/profileimage.png"),
-           ),
-           ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 28.0),
+                child: Image.asset("assets/images/profileimage.png"),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 28.0),
-              child: Text("UserName",style: TextStyle(fontWeight: FontWeight.bold),),
-            )
-            ,
+              child: Text(
+                "UserName",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(top: 48.0),
-              child: Text("Professional Tennis Player",style: TextStyle(),),
-            )
-            ,
+              padding: const EdgeInsets.only(top: 18.0),
+              child: Text(
+                "Professional Tennis Player",
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
             Container(
               width: getHorizontalSize(
                 311.00,
@@ -60,13 +76,13 @@ class _ProfileviewState extends State<Profileview> {
                 ),
               ),
               child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum, accumsan, felis fermentum dui diam ",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. \nVestibulum, accumsan, felis fermentum dui diam ",
                 maxLines: null,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: ColorConstant.black900,
                   fontSize: getFontSize(
-                    10,
+                    11,
                   ),
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w400,
@@ -169,43 +185,41 @@ class _ProfileviewState extends State<Profileview> {
             Padding(
               padding: EdgeInsets.only(
                 left: getHorizontalSize(
-                  10.00,
+                  20.00,
                 ),
                 top: getVerticalSize(
                   37.00,
                 ),
                 right: getHorizontalSize(
-                  10.00,
+                  20.00,
                 ),
                 bottom: getVerticalSize(
                   20.00,
                 ),
               ),
-              child: Container(
-                alignment: Alignment.center,
-                height: getVerticalSize(
-                  37.00,
-                ),
-                width: size.width,
-                decoration: BoxDecoration(
-                  color: ColorConstant.orange900,
-                  borderRadius: BorderRadius.circular(
-                    getHorizontalSize(
-                      18.50,
-                    ),
-                  ),
-                ),
-                child: GestureDetector(onTap: () {
+              child: GestureDetector(
+                onTap: () {
                   setState(() {
-                    buttonText = 'Unfollow';
-
+                    buttonText =
+                    buttonText == "Follow" ? "Unfollow" : "Follow";
                   });
                 },
-                  child: Text(
-                    buttonText,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: getVerticalSize(
+                    37.00,
+                  ),
+                  width: size.width,
+                  decoration: BoxDecoration(
+                      color: buttonText == "Follow" ? ColorConstant.green6320: Colors.white10,
+                      borderRadius: BorderRadius.circular(18.50),
+                      border: Border.all(
+                        color: buttonText == "Follow" ? Colors.white : Colors.black,
+                      )
+                  ),
+                  child: Text(buttonText,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: ColorConstant.whiteA700,
+                    style: TextStyle(color: buttonText == "Follow" ? Colors.white : Colors.black,
                       fontSize: getFontSize(
                         14,
                       ),

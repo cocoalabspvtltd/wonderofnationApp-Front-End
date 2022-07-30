@@ -1000,7 +1000,7 @@ String videoPath = "";
           ),
         ),
         child: GestureDetector(onTap: (){
-          AppicationformApi.getacademyregistration(context, designatioids, NameController.text, DateOfBiirthController.text, "female", AddressController.text, Mobilenumbercontroller.text, EmailController.text, "age_weight.png", "videoblocks-4k-fat-to-fit-weight-loss-3d-stock-animation-plus-sized-to-lean-muscular-before-after-transformation-male-fitness-4096-x-2304-dci-4k-version-4_rt1q28ueb__SB_PM.mp4");
+          AppicationformApi.getacademyregistration(context, designatioids!, NameController.text, DateOfBiirthController.text, "female", AddressController.text, Mobilenumbercontroller.text, EmailController.text, "age_weight.png", "videoblocks-4k-fat-to-fit-weight-loss-3d-stock-animation-plus-sized-to-lean-muscular-before-after-transformation-male-fitness-4096-x-2304-dci-4k-version-4_rt1q28ueb__SB_PM.mp4");
 
         },
           child: Container(

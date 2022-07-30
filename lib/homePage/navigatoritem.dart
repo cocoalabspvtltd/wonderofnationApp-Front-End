@@ -28,7 +28,7 @@ class NavigatorItem {
 }
 List  <NavigatorItem>  navigatorItems = [
 
-  NavigatorItem("Home", 0, HomePage(),Icon(Icons.home_outlined,),),
+  NavigatorItem("Home", 0, HomePage(RegisterName: '',),Icon(Icons.home_outlined,),),
   NavigatorItem(
       "Events", 1, events(),Icon(Icons.event_available,)),
   NavigatorItem("Match",  2, clublist(),Icon(Icons.add_card_outlined,)),

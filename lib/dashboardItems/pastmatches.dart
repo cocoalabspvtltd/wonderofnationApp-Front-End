@@ -297,7 +297,7 @@ class _PastmatchesState extends State<Pastmatches> {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                              color: ColorConstant.orange900,
+                              color: ColorConstant.green6320,
                               fontSize: getFontSize(
                                 16,
                               ),

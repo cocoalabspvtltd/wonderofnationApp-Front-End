@@ -5,7 +5,8 @@ import 'package:oo/profile/profiletest.dart';
 import 'package:oo/profile/profileui.dart';
 import '../apis/repositories/editprofile.dart';
 import '../constants/colors.dart';
-
+XFile? _image;
+var image ;
 class Editprofile extends StatefulWidget {
   const Editprofile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone}) : super(key: key);
 final String UserName;
@@ -18,7 +19,7 @@ final String UserPhone;
 class _EditprofileState extends State<Editprofile> {
 
   @override
-  XFile? _image;
+
   final ImagePicker _picker = ImagePicker();
   TextEditingController NameController = TextEditingController();
   TextEditingController BioController  = TextEditingController();
@@ -43,9 +44,10 @@ class _EditprofileState extends State<Editprofile> {
           InkWell(
             child: Padding(
               padding: const EdgeInsets.only(top: 17,right: 10),
-              child: Text("Save",style: TextStyle(color: ColorConstant.orange900,fontSize: 15),),
+              child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 15),),
             ),
             onTap: () {
+            var image =  _image?.path;
               editProfileApi.getEditprofile(context,NameController.text==null?widget.UserName:NameController.text , EmailController.text == null?widget.UserEmail:EmailController.text, Mobilenumbercontroller.text, BioController.text);
             },
           )

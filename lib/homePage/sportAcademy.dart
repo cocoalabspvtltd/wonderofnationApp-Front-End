@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:oo/homePage/navigator.dart';
 
 
 import '../constants/colors.dart';
@@ -14,8 +15,13 @@ class WonScreen extends StatelessWidget {
         backgroundColor: ColorConstant.whiteA700,
         appBar: AppBar(backgroundColor: Colors.white,
           elevation: 0,
-
-          leading: Icon(Icons.arrow_back_outlined,color: Colors.black,),
+          leading: IconButton(onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DashBoard(UserName1: '',)),
+            );
+          }, icon: Icon(Icons.arrow_back_outlined,color: Colors.black,)),
         ),
         body: Container(
           width: size.width,
@@ -63,7 +69,7 @@ class WonScreen extends StatelessWidget {
                         20.00,
                       ),
                       top: getVerticalSize(
-                        40.00,
+                        30.00,
                       ),
                       right: getHorizontalSize(
                         20.00,
@@ -75,7 +81,7 @@ class WonScreen extends StatelessWidget {
                           TextSpan(
                             text: 'Wonder of Nation \n',
                             style: TextStyle(
-                              color: ColorConstant.orange900,
+                              color: ColorConstant.green6320,
                               fontSize: getFontSize(
                                 24,
                               ),
@@ -109,7 +115,7 @@ class WonScreen extends StatelessWidget {
                           20.00,
                         ),
                         top: getVerticalSize(
-                          15.00,
+                          20.00,
                         ),
                         right: getHorizontalSize(
                           20.00,
@@ -138,7 +144,7 @@ class WonScreen extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Container(
                       height: getVerticalSize(
-                        198.00,
+                        200.00,
                       ),
                       width: getHorizontalSize(
                         320.00,
@@ -162,28 +168,18 @@ class WonScreen extends StatelessWidget {
                             child: Padding(
                               padding: EdgeInsets.only(
                                 left: getHorizontalSize(
-                                  115.00,
+                                  105.00,
                                 ),
                                 top: getVerticalSize(
                                   10.00,
                                 ),
                                 right: getHorizontalSize(
-                                  115.00,
+                                  105.00,
                                 ),
                                 bottom: getVerticalSize(
                                   5.00,
                                 ),
                               ),
-                              // child: Image.asset(
-                              //   "assets/images/icon.png",
-                              //   height: getVerticalSize(
-                              //     179.00,
-                              //   ),
-                              //   width: getHorizontalSize(
-                              //     89.00,
-                              //   ),
-                              //   fit: BoxFit.fill,
-                              // ),
                             ),
                           ),
                           Align(
@@ -199,7 +195,7 @@ class WonScreen extends StatelessWidget {
                                 style: TextStyle(
                                   color: ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12,
+                                    13,
                                   ),
                                   fontFamily: 'Open Sans',
                                   fontWeight: FontWeight.w400,
@@ -221,7 +217,7 @@ class WonScreen extends StatelessWidget {
                           20.00,
                         ),
                         top: getVerticalSize(
-                          40.00,
+                          50.00,
                         ),
                         right: getHorizontalSize(
                           20.00,
@@ -243,7 +239,7 @@ class WonScreen extends StatelessWidget {
                           ),
                           width: size.width,
                           decoration: BoxDecoration(
-                            color: ColorConstant.orange900,
+                            color: ColorConstant.green6320,
                             borderRadius: BorderRadius.circular(
                               getHorizontalSize(
                                 5.00,

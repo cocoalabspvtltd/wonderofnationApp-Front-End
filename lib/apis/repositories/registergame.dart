@@ -1,4 +1,8 @@
 
+
+
+import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:oo/apis/repositories/registerRepositories.dart';
 import 'package:oo/homePage/register.dart';
 

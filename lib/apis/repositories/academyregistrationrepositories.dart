@@ -34,7 +34,7 @@ class AcademyRegistrationRepository{
       if (response["message"] == "Application successfully submitted") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard()),
+          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
         );
       } else {
         throw response.statusCode;

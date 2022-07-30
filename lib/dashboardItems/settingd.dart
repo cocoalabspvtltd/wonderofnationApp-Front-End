@@ -28,8 +28,7 @@ class _SettingpageState extends State<Settingpage> {
             color: Colors.indigo,
           ),
           leading: IconButton(onPressed: (){
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => DashBoard()));
+            Navigator.pop(context);
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
             padding: const EdgeInsets.only(left: 30,right: 30),
@@ -44,7 +43,7 @@ class _SettingpageState extends State<Settingpage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20,left: 20),
                 child: Text("Profile",style: TextStyle(
-                    color: ColorConstant.orange900,fontSize: 15),),
+                    color: ColorConstant.green6320,fontSize: 15),),
               ),
               SizedBox(height: 15,),
               Row(
@@ -61,7 +60,7 @@ class _SettingpageState extends State<Settingpage> {
                       fit: BoxFit.fill,
                       child: Switch(
                           value: isDisable,
-                          activeColor: Colors.orange,
+                          activeColor: ColorConstant.green6320,
                           activeTrackColor: Colors.grey[350],
                           inactiveThumbColor: Colors.grey,
                           inactiveTrackColor: Colors.grey[350],
@@ -90,7 +89,7 @@ class _SettingpageState extends State<Settingpage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20),
-                    child: Text("Blocked accounts",style: TextStyle( color: ColorConstant.orange900,
+                    child: Text("Blocked accounts",style: TextStyle( color: ColorConstant.green6320,
                         fontSize: 15),),
                   ),
                   SizedBox(width: 170,),
@@ -100,7 +99,7 @@ class _SettingpageState extends State<Settingpage> {
               Padding(
                 padding: const EdgeInsets.only(top: 15,left: 20),
                 child: Text("Notifications",style: TextStyle(
-                    color: ColorConstant.orange900,fontSize: 15),),
+                    color: ColorConstant.green6320,fontSize: 15),),
               ),
               Row(
                 children: [
@@ -116,7 +115,7 @@ class _SettingpageState extends State<Settingpage> {
                       fit: BoxFit.fill,
                       child: Switch(
                           value: IsDisable,
-                          activeColor: Colors.orange,
+                          activeColor: ColorConstant.green6320,
                           activeTrackColor: Colors.grey[350],
                           inactiveThumbColor: Colors.grey,
                           inactiveTrackColor: Colors.grey[350],
@@ -148,7 +147,7 @@ class _SettingpageState extends State<Settingpage> {
                       fit: BoxFit.fill,
                       child: Switch(
                           value: disable,
-                          activeColor: Colors.orange,
+                          activeColor: ColorConstant.green6320,
                           activeTrackColor: Colors.grey[350],
                           inactiveThumbColor: Colors.grey,
                           inactiveTrackColor: Colors.grey[350],
@@ -180,7 +179,7 @@ class _SettingpageState extends State<Settingpage> {
                       fit: BoxFit.fill,
                       child: Switch(
                           value: Disable,
-                          activeColor: Colors.orange,
+                          activeColor: ColorConstant.green6320,
                           activeTrackColor: Colors.grey[350],
                           inactiveThumbColor: Colors.grey,
                           inactiveTrackColor: Colors.grey[350],
@@ -202,7 +201,7 @@ class _SettingpageState extends State<Settingpage> {
               Padding(
                 padding: const EdgeInsets.only(top: 18,left: 20),
                 child: Text("Location",style: TextStyle(
-                    color: ColorConstant.orange900,fontSize: 15),),
+                    color: ColorConstant.green6320,fontSize: 15),),
               ),
               Row(
                 children: [
@@ -219,7 +218,7 @@ class _SettingpageState extends State<Settingpage> {
                       fit: BoxFit.fill,
                       child: Switch(
                           value: DisAble,
-                          activeColor: Colors.orange,
+                          activeColor: ColorConstant.green6320,
                           activeTrackColor: Colors.grey[350],
                           inactiveThumbColor: Colors.grey,
                           inactiveTrackColor: Colors.grey[350],
@@ -242,11 +241,11 @@ class _SettingpageState extends State<Settingpage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 20,),
-                    child: Text("Delete my account",style: TextStyle( color: ColorConstant.gray400,
+                    child: Text("Delete my account",style: TextStyle( color: ColorConstant.gray600,
                         fontSize: 15),),
                   ),
                   SizedBox(width: 150,),
-                  IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.delete,size: 18, color: ColorConstant.orange900,)),
+                  IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.delete,size: 18, color: ColorConstant.green6320,)),
                 ],
               ),
             ],

@@ -80,7 +80,7 @@ class _mymatchesState extends State<mymatches> {
         leading: GestureDetector(onTap: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) =>  DashBoard()),
+            MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
           );
         },
             child: Icon(
@@ -137,7 +137,8 @@ class _mymatchesState extends State<mymatches> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 160,bottom: 5),
-                                    child: Text("12 hrs left", style: TextStyle(color: Colors.orange, fontSize: 12),),
+                                    child: Text("12 hrs left", style: TextStyle(
+                                        color: ColorConstant.green6320, fontSize: 12),),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 70,bottom: 10),
@@ -216,7 +217,8 @@ class _mymatchesState extends State<mymatches> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 160,bottom: 5),
-                              child: Text("12 hrs left", style: TextStyle(color: Colors.orange, fontSize: 12),),
+                              child: Text("12 hrs left", style: TextStyle(
+                                  color: ColorConstant.green6320, fontSize: 12),),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 70,bottom: 10),
@@ -326,7 +328,8 @@ class _mymatchesState extends State<mymatches> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(left: 160,bottom: 5),
-                                    child: Text("12 hrs left", style: TextStyle(color: Colors.orange, fontSize: 12),),
+                                    child: Text("12 hrs left", style: TextStyle(
+                                        color: ColorConstant.green6320, fontSize: 12),),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(right: 70,bottom: 10),
@@ -380,76 +383,84 @@ class _mymatchesState extends State<mymatches> {
                   );
                 }
             )
-                :   Padding(
+                :   GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
+              },
+                  child: Container(
+                    child: Padding(
               padding: const EdgeInsets.only(left: 10,right: 10),
               child: Card(
-                elevation: 2,
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(color: Colors.green, width: 0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(7))),
-                shadowColor: Colors.grey,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 150,
-                      width: 82,
-                      child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                    Column(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.green, width: 0.5),
+                        borderRadius: BorderRadius.all(Radius.circular(7))),
+                    shadowColor: Colors.grey,
+                    child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 160,bottom: 5),
-                          child: Text("12 hrs left", style: TextStyle(color: Colors.orange, fontSize: 12),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 70,bottom: 10),
-                          child: Text(
-                            "Beginner Session",
-                            style: new TextStyle(
-                                fontSize: 15.0, fontWeight: FontWeight.bold),
+                        Container(
+                          height: 150,
+                          width: 82,
+                          child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                "assets/images/location.png",
-                                color: Colors.black,
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 160,bottom: 5),
+                              child: Text("12 hrs left", style: TextStyle(color:
+                              ColorConstant.green6320, fontSize: 12),),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 70,bottom: 10),
+                              child: Text(
+                                "Beginner Session",
+                                style: new TextStyle(
+                                    fontSize: 15.0, fontWeight: FontWeight.bold),
                               ),
-                              Text("Club name/Sport Centre"),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 6,),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 80),
-                          child: Text("1.5 km away"),
-                        ),
-                        SizedBox(height: 6,),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 5,),
-                              Image.asset("assets/images/calender.png", color: Colors.black,),
-                              SizedBox(width: 4,),
-                              Text("03/06/2022"),
-                              SizedBox(width: 9,),
-                              Icon(Icons.lock_clock, color: Colors.black,),
-                              SizedBox(width: 4,),
-                              Text("3:00"),
-                            ],
-                          ),
-                        ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 30),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/location.png",
+                                    color: Colors.black,
+                                  ),
+                                  Text("Club name/Sport Centre"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 6,),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 80),
+                              child: Text("1.5 km away"),
+                            ),
+                            SizedBox(height: 6,),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 40),
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 5,),
+                                  Image.asset("assets/images/calender.png", color: Colors.black,),
+                                  SizedBox(width: 4,),
+                                  Text("03/06/2022"),
+                                  SizedBox(width: 9,),
+                                  Icon(Icons.lock_clock, color: Colors.black,),
+                                  SizedBox(width: 4,),
+                                  Text("3:00"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    ),
               ),
             ),
+                  ),
+                ),
             SizedBox(height: 10,),
             InkWell(
               onTap: (){

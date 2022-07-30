@@ -8,23 +8,26 @@ import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../dropdowns/gamesdropdown.dart';
 import 'levelling2.dart';
+
 var answers1;
 var answers2;
 var answers3;
+
 class Levelingfirst extends StatefulWidget {
-  const Levelingfirst(int designatioids, {Key? key,  }) : super(key: key);
-//final String user1;
+  const Levelingfirst(
+    int designatioids, {
+    Key? key,
+    required this.user1,
+  }) : super(key: key);
+  final String user1;
+
   @override
   State<Levelingfirst> createState() => _LevelingfirstState();
 }
 
 class _LevelingfirstState extends State<Levelingfirst> {
-
   @override
-
-
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -36,37 +39,55 @@ class _LevelingfirstState extends State<Levelingfirst> {
             iconSize: 25,
             color: Colors.black,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterProfile(names: name,)));
-            }
-        ),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RegisterProfile(
+                            names: name,
+                          )));
+            }),
         title: Padding(
-          padding: const EdgeInsets.only(left: 70,right: 50),
-          child: Text("Leveling",style: TextStyle(color: Colors.black,fontSize: 18),),
-        ),),
+          padding: const EdgeInsets.only(left: 70, right: 50),
+          child: Text(
+            "Leveling",
+            style: TextStyle(color: Colors.black, fontSize: 18),
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
             children: [
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Padding(
-                padding: const EdgeInsets.only(right:80,left: 10),
-                child: Text("1. At what level do you think you are?",style: TextStyle(color: ColorConstant.orange900,
-                  fontSize: getFontSize(
-                    17,
+                padding: const EdgeInsets.only(right: 80, left: 10),
+                child: Text(
+                  "1. At what level do you think you are?",
+                  style: TextStyle(
+                    color: ColorConstant.green6320,
+                    fontSize: getFontSize(
+                      17,
+                    ),
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
                   ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),),
+                ),
               ),
               SizedBox(
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '1', groupValue: answers1, onChanged: (Object? value) {
-                    setState(() {
-                      answers1=value;
-                      print("answers1--->${value}");
-                    });},),
+                    value: '1',
+                    groupValue: answers1,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers1 = value;
+                        print("answers1--->${value}");
+                      });
+                    },
+                  ),
                   title: Text("Beginner"),
                 ),
               ),
@@ -74,11 +95,15 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '2', groupValue: answers1, onChanged: (Object? value) {
-                    setState(() {
-                      answers1=value;
-                      print("answers1--->${value}");
-                    });},),
+                    value: '2',
+                    groupValue: answers1,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers1 = value;
+                        print("answers1--->${value}");
+                      });
+                    },
+                  ),
                   title: Text("Intermediate"),
                 ),
               ),
@@ -86,11 +111,15 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '3', groupValue: answers1, onChanged: (Object? value) {
-                    setState(() {
-                      answers1=value;
-                      print("answers1--->${value}");
-                    });},),
+                    value: '3',
+                    groupValue: answers1,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers1 = value;
+                        print("answers1--->${value}");
+                      });
+                    },
+                  ),
                   title: Text("Advanced"),
                 ),
               ),
@@ -98,33 +127,47 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '4', groupValue: answers1, onChanged: (Object? value) {
-                    setState(() {
-                      answers1=value;
-                      print("answers1--->${value}");
-                    });},),
+                    value: '4',
+                    groupValue: answers1,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers1 = value;
+                        print("answers1--->${value}");
+                      });
+                    },
+                  ),
                   title: Text("Competition"),
                 ),
               ),
-              SizedBox(height: 45,),
+              SizedBox(
+                height: 45,
+              ),
               Padding(
-                padding: const EdgeInsets.only(right:20,left: 15),
-                child: Text("2. What is the highest level you have played yet?",style: TextStyle(color: ColorConstant.orange900,
-                  fontSize: getFontSize(
-                    17,
+                padding: const EdgeInsets.only(right: 20, left: 15),
+                child: Text(
+                  "2. What is the highest level you have played yet?",
+                  style: TextStyle(
+                    color: ColorConstant.green6320,
+                    fontSize: getFontSize(
+                      17,
+                    ),
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
                   ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),),
+                ),
               ),
               SizedBox(
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '1', groupValue: answers2, onChanged: (Object? value) {
-                    setState(() {
-                      answers2=value;
-                    });},),
+                    value: '1',
+                    groupValue: answers2,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers2 = value;
+                      });
+                    },
+                  ),
                   title: Text("National"),
                 ),
               ),
@@ -132,10 +175,14 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '2', groupValue: answers2, onChanged: (Object? value) {
-                    setState(() {
-                      answers2=value;
-                    });},),
+                    value: '2',
+                    groupValue: answers2,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers2 = value;
+                      });
+                    },
+                  ),
                   title: Text("State"),
                 ),
               ),
@@ -143,10 +190,14 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '3', groupValue: answers2, onChanged: (Object? value) {
-                    setState(() {
-                      answers2=value;
-                    });},),
+                    value: '3',
+                    groupValue: answers2,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers2 = value;
+                      });
+                    },
+                  ),
                   title: Text("Club"),
                 ),
               ),
@@ -154,32 +205,46 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '4', groupValue: answers2, onChanged: (Object? value) {
-                    setState(() {
-                      answers2=value;
-                    });},),
+                    value: '4',
+                    groupValue: answers2,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers2 = value;
+                      });
+                    },
+                  ),
                   title: Text("I don't compete"),
                 ),
               ),
-              SizedBox(height: 45,),
+              SizedBox(
+                height: 45,
+              ),
               Padding(
-                padding: const EdgeInsets.only(right:50,left: 10),
-                child: Text("3. How long have you been playing regulary?",style: TextStyle(color: ColorConstant.orange900,
-                  fontSize: getFontSize(
-                    17,
+                padding: const EdgeInsets.only(right: 50, left: 10),
+                child: Text(
+                  "3. How long have you been playing regulary?",
+                  style: TextStyle(
+                    color: ColorConstant.green6320,
+                    fontSize: getFontSize(
+                      17,
+                    ),
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w400,
                   ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),),
+                ),
               ),
               SizedBox(
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '1', groupValue: answers3, onChanged: (Object? value) {
-                    setState(() {
-                      answers3=value;
-                    });},),
+                    value: '1',
+                    groupValue: answers3,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers3 = value;
+                      });
+                    },
+                  ),
                   title: Text("0-1"),
                 ),
               ),
@@ -187,10 +252,14 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '2', groupValue: answers3, onChanged: (Object? value) {
-                    setState(() {
-                      answers3=value;
-                    });},),
+                    value: '2',
+                    groupValue: answers3,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers3 = value;
+                      });
+                    },
+                  ),
                   title: Text("1-2"),
                 ),
               ),
@@ -198,10 +267,14 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '3', groupValue: answers3, onChanged: (Object? value) {
-                    setState(() {
-                      answers3=value;
-                    });},),
+                    value: '3',
+                    groupValue: answers3,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers3 = value;
+                      });
+                    },
+                  ),
                   title: Text("2-5"),
                 ),
               ),
@@ -209,31 +282,41 @@ class _LevelingfirstState extends State<Levelingfirst> {
                 height: 30,
                 child: ListTile(
                   leading: Radio(
-                    value: '5', groupValue: answers3, onChanged: (Object? value) {
-                    setState(() {
-                      answers3=value;
-                    });},),
+                    value: '5',
+                    groupValue: answers3,
+                    onChanged: (Object? value) {
+                      setState(() {
+                        answers3 = value;
+                      });
+                    },
+                  ),
                   title: Text("Above 5 years"),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Padding(
                 padding: EdgeInsets.only(
                   left: getHorizontalSize(
                     20.00,
                   ),
                   top: getVerticalSize(
-                    36.00,
+                    66.00,
                   ),
                   right: getHorizontalSize(
                     20.00,
                   ),
                 ),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context)=>Levelingsecond(designatioids, )));
+                        MaterialPageRoute(
+                            builder: (context) => Levelingsecond(
+                                  designatioids,
+                                  username: widget.user1,
+                                )));
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -243,8 +326,9 @@ class _LevelingfirstState extends State<Levelingfirst> {
                     width: getHorizontalSize(
                       320.00,
                     ),
+
                     decoration: BoxDecoration(
-                      color: ColorConstant.orange900,
+                      color: ColorConstant.green6320,
                       borderRadius: BorderRadius.circular(
                         getHorizontalSize(
                           5.00,
@@ -266,7 +350,6 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   ),
                 ),
               ),
-
             ],
           ),
         ),

@@ -111,7 +111,7 @@ class Won1Screen extends StatelessWidget {
                       child: GestureDetector(onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>  DashBoard()),
+                          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
                         );
                       },
                         child: Container(

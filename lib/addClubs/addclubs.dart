@@ -24,7 +24,7 @@ class _AddclubsState extends State<Addclubs> {
    ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
   void initState() {
     super.initState();
-    _bloc = ClubDetailsBloc();
+    _bloc =ClubDetailsBloc();
 
     setState(() {});
   }

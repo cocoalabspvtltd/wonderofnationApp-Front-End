@@ -43,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
    leading: GestureDetector(onTap: (){
      Navigator.push(
        context,
-       MaterialPageRoute(builder: (context) =>  DashBoard()),
+       MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
      );
    },
        child: Icon(

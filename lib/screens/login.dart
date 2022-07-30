@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (response.statusCode == 200) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  HomePage()),
+        MaterialPageRoute(builder: (context) =>  HomePage(RegisterName: '',)),
       );
       print('success');
 
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
-                                            color: ColorConstant.orange900,
+                                            color: ColorConstant.green6320,
                                             fontSize: getFontSize(
                                               18,
                                             ),
@@ -444,7 +444,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               passwordController.text, context);
                                         });
                                       },
-                                      child: Container(color: ColorConstant.orange900,height: 40,width: 360,
+                                      child: Container(height: 40,width: 360,
+                                        decoration: BoxDecoration(color: ColorConstant.green6320,
+                                          borderRadius: BorderRadius.circular(8)
+                                        ),
                                         child: Center(
                                           child: Text(
                                             "LOGIN",
@@ -467,17 +470,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Container(
                                     margin: EdgeInsets.only(
                                       left: getHorizontalSize(
-                                        20.00,
+                                        80.00,
                                       ),
                                       top: getVerticalSize(
-                                        43.00,
+                                        48.00,
                                       ),
                                       right: getHorizontalSize(
-                                        20.00,
+                                        80.00,
                                       ),
                                     ),
                                     decoration: BoxDecoration(
-                                      color: ColorConstant.indigo900,
+                                      color: ColorConstant.whiteA700,
                                       border: Border.all(
                                         color: ColorConstant.gray500,
                                         width: getHorizontalSize(
@@ -510,7 +513,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
-                                                color: ColorConstant.whiteA700,
+                                                color: ColorConstant.black900,
                                                 fontSize: getFontSize(
                                                   12,
                                                 ),

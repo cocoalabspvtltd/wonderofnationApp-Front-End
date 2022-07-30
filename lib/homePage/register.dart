@@ -51,7 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
-    username = EditResponse["user"]["name"];
+    name = EditResponse["user"]["name"];
     TOKEN = EditResponse["token"];
     print("username>>>>>>${name}");
     print(response.statusCode);
@@ -186,7 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
-                                            color: ColorConstant.orange900,
+                                            color: ColorConstant.green6320,
                                             fontSize: getFontSize(
                                               18,
                                             ),
@@ -496,7 +496,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     20.00,
                                   ),
                                   top: getVerticalSize(
-                                    67.00,
+                                    45.00,
                                   ),
                                   right: getHorizontalSize(
                                     20.00,
@@ -531,8 +531,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     width: getHorizontalSize(
                                       320.00,
                                     ),
+
                                     decoration: BoxDecoration(
-                                      color: ColorConstant.orange900,
+                                      color: ColorConstant.green6320,
                                       borderRadius: BorderRadius.circular(
                                         getHorizontalSize(
                                           5.00,
@@ -590,7 +591,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         TextSpan(
                                           text: 'terms of use',
                                           style: TextStyle(
-                                            color: ColorConstant.orange900,
+                                            color: ColorConstant.green6320,
                                             fontSize: getFontSize(
                                               12,
                                             ),
@@ -614,7 +615,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         TextSpan(
                                           text: 'privacy policy',
                                           style: TextStyle(
-                                            color: ColorConstant.orange900,
+                                            color: ColorConstant.green6320,
                                             fontSize: getFontSize(
                                               12,
                                             ),

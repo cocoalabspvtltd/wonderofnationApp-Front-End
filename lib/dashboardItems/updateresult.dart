@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/dashboardItems/mymatches.dart';
 import 'package:oo/dashboardItems/pastmatches.dart';
 
 import '../constants/colors.dart';
@@ -152,8 +153,68 @@ class _UpdateresultState extends State<Updateresult> {
                           width: 130,
                           color: Colors.red[900],
                           child: Center(child: Text('Lost',style: TextStyle(color: Colors.white),)))),
-                    ])
+                    ]),
                   ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: getHorizontalSize(
+                        30.00,
+                      ),
+                      top: getVerticalSize(
+                        40.00,
+                      ),
+                      right: getHorizontalSize(
+                        30.00,
+                      ),
+                      bottom: getVerticalSize(
+                        20.00,
+                      ),
+                    ),
+                    child: GestureDetector(onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                mymatches()),
+                      );
+                    },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: getVerticalSize(
+                          45.00,
+                        ),
+                        width: getHorizontalSize(
+                          300.00,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ColorConstant.green6320,
+                          borderRadius: BorderRadius.circular(
+                            getHorizontalSize(
+                              10.00,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          "Send to all",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: ColorConstant.whiteA700,
+                            fontSize: getFontSize(
+                              14,
+                            ),
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             )

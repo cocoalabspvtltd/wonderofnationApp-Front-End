@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
 
 class ProgressionIndicator extends StatefulWidget {
   const ProgressionIndicator({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _ProgressionIndicatorState extends State<ProgressionIndicator> {
             padding: const EdgeInsets.all(20.0),
             child: LinearProgressIndicator(
               backgroundColor: Colors.orangeAccent,
-              valueColor: AlwaysStoppedAnimation(Colors.blue),
+              valueColor: AlwaysStoppedAnimation(ColorConstant.black900),
               minHeight: 25,
             ),
           ),

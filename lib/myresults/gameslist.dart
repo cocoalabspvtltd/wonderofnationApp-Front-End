@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:oo/homePage/navigator.dart';
 import 'package:oo/myresults/gamedetail.dart';
 
+import '../dropdowns/testdropdown.dart';
+
 class Gameslist extends StatefulWidget {
   const Gameslist({Key? key}) : super(key: key);
 
@@ -23,7 +25,7 @@ class _GameslistState extends State<Gameslist> {
             iconSize: 25,
             color: Colors.black,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '')));
             }
         ),
         title: Padding(

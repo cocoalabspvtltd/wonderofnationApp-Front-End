@@ -143,7 +143,7 @@ class _MyclubsState extends State<Myclubs> {
             iconSize: 25,
             color: Colors.black,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '',)));
             }
         ),
         actions: [

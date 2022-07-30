@@ -283,7 +283,7 @@ class _profileuiState extends State<profileui> {
                                                             style: TextStyle(
                                                               color:
                                                               ColorConstant
-                                                                  .indigo900,
+                                                                  .black901,
                                                               fontSize:
                                                               getFontSize(
                                                                 13,
@@ -310,7 +310,7 @@ class _profileuiState extends State<profileui> {
                                                             style: TextStyle(
                                                               color:
                                                               ColorConstant
-                                                                  .indigo900,
+                                                                  .black901,
                                                               fontSize:
                                                               getFontSize(
                                                                 13,
@@ -337,7 +337,7 @@ class _profileuiState extends State<profileui> {
                                                             style: TextStyle(
                                                               color:
                                                               ColorConstant
-                                                                  .indigo900,
+                                                                  .black901,
                                                               fontSize:
                                                               getFontSize(
                                                                 13,
@@ -369,7 +369,9 @@ class _profileuiState extends State<profileui> {
                                                   ),
                                                   child: GestureDetector(onTap:()
                                                   {
-                                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Editprofile(UserName: title, UserEmail: email, UserPhone: phone,)));
+                                                    Navigator.push(context,
+                                                        MaterialPageRoute(builder:
+                                                            (context)=>Editprofile(UserName: title, UserEmail: email, UserPhone: phone,)));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(
@@ -380,7 +382,7 @@ class _profileuiState extends State<profileui> {
                                                       ),
                                                       decoration: BoxDecoration(
                                                         color: ColorConstant
-                                                            .orange900,
+                                                            .green6320,
                                                         borderRadius:
                                                         BorderRadius.circular(
                                                           getHorizontalSize(
@@ -553,7 +555,7 @@ class _profileuiState extends State<profileui> {
                                                 ),
                                                 style: TextStyle(
                                                   color:
-                                                  ColorConstant.indigo900,
+                                                  ColorConstant.green6320,
                                                   fontSize: getFontSize(
                                                     12,
                                                   ),
@@ -582,7 +584,7 @@ class _profileuiState extends State<profileui> {
                                                       12.0,
                                                     ),
                                                     color:
-                                                    ColorConstant.indigo900,
+                                                    ColorConstant.black901,
                                                   ),
                                                   border: InputBorder.none,
                                                   isDense: true,
@@ -617,7 +619,7 @@ class _profileuiState extends State<profileui> {
                                             16,
                                           ),
                                           fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w500,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                     ),
@@ -675,7 +677,7 @@ class _profileuiState extends State<profileui> {
                                                       TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorConstant
-                                                            .orange900,
+                                                            .green6320,
                                                         fontSize: getFontSize(
                                                           10,
                                                         ),
@@ -699,7 +701,7 @@ class _profileuiState extends State<profileui> {
                                                       TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorConstant
-                                                            .orange900,
+                                                            .green6320,
                                                         fontSize: getFontSize(
                                                           10,
                                                         ),
@@ -756,7 +758,7 @@ class _profileuiState extends State<profileui> {
                                             ),
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color:Colors.purple,
+                                                color:Colors.black,
                                                 width: getHorizontalSize(
                                                   1.00,
                                                 ),
@@ -944,7 +946,7 @@ class _profileuiState extends State<profileui> {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color:
-                                                  ColorConstant.orange900,
+                                                  ColorConstant.green6320,
                                                   fontSize: getFontSize(
                                                     12,
                                                   ),
@@ -1122,7 +1124,7 @@ class _profileuiState extends State<profileui> {
               iconSize: 25,
               color: Colors.black,
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '',)));
               }
           ),
         ),
@@ -1157,4 +1159,5 @@ class _profileuiState extends State<profileui> {
         )
     );
   }
+
 }

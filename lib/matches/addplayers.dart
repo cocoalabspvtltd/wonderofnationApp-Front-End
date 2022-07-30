@@ -27,7 +27,7 @@ class _AddplayersState extends State<Addplayers> {
           ),
           leading: IconButton(onPressed: (){
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Reservationcourt()));
+                MaterialPageRoute(builder: (context) => ReservationCourt(club_id: 0, date: '',)));
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
             padding: const EdgeInsets.only(left: 30,right: 30),
@@ -132,7 +132,7 @@ class _AddplayersState extends State<Addplayers> {
                         borderRadius: BorderRadius.circular(10.0)
                     ),),
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Reservationcourt()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ReservationCourt(date: '', club_id: 0,)));
                   },
                   child: Text(
                     "Confirm",

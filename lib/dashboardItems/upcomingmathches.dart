@@ -157,7 +157,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                                     102.00,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: ColorConstant.orange900,
+                                    color: ColorConstant.green6320,
                                     borderRadius: BorderRadius.circular(
                                       getHorizontalSize(
                                         10.00,
@@ -347,7 +347,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                             style: TextStyle(
-                              color: ColorConstant.orange900,
+                              color: ColorConstant.green6320,
                               fontSize: getFontSize(
                                 18,
                               ),
@@ -556,7 +556,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    color: ColorConstant.orange900,
+                                    color: ColorConstant.green6320,
                                     fontSize: getFontSize(
                                       12,
                                     ),

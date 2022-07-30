@@ -1,22 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:date_format/date_format.dart';
+
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/clublistmodel.dart';
 import 'package:oo/apis/repositories/joinedclubs.dart';
-
 import '../addClubs/myclubs.dart';
 import '../apis/bloc/clublistbloc.dart';
+import '../apis/repositories/clublistrepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../constants/response.dart';
 import '../dashboardItems/mymatches.dart';
 import '../dropdowns/gamesdropdown.dart';
+import '../dropdowns/registergamedropdown.dart';
 import '../homePage/navigator.dart';
 import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
-import '../screens/shimmer.dart';
-import 'matchcourt.dart';
+import 'clubdetails.dart';
 
+TextEditingController dateinputcontroller=new TextEditingController(
+    text: formatDate(DateTime.now(), [dd,'-', m,'-', yyyy]));
 class clublist extends StatefulWidget {
   const clublist({Key? key}) : super(key: key);
 
@@ -26,7 +29,7 @@ class clublist extends StatefulWidget {
 
 class _clublistState extends State<clublist> {
   late ClubDetailsBloc _bloc;
-
+  ClubRepository sortListClub = ClubRepository();
   List<ClubModel> patientappointmentsearchdata = [];
   List<ClubModel> patientappointmentserachlist = [];
   TextEditingController patientappointmentController = TextEditingController();
@@ -35,6 +38,8 @@ class _clublistState extends State<clublist> {
   void initState() {
     super.initState();
     _bloc = ClubDetailsBloc();
+designatioids;
+Locationid;
 
     setState(() {});
   }
@@ -56,15 +61,50 @@ class _clublistState extends State<clublist> {
 
   String? _selectedTime;
 
-  Future<void> _show() async {
-    final TimeOfDay? result =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (result != null) {
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+        context: context,
+        builder: (BuildContext context, Widget ?child) {
+          return Theme(
+            data: ThemeData(
+              primarySwatch: Colors.grey,
+              splashColor: Colors.black,
+              textTheme: TextTheme(
+                subtitle1: TextStyle(color: Colors.black),
+                button: TextStyle(color: Colors.black),
+              ),
+              accentColor: Colors.black,
+              colorScheme: ColorScheme.light(
+                  primary: ColorConstant.green6320,
+                  primaryVariant: Colors.black,
+                  secondaryVariant: Colors.black,
+                  onSecondary: Colors.black,
+                  onPrimary: Colors.white,
+                  surface: Colors.black,
+                  onSurface: Colors.black,
+                  secondary: Colors.black),
+              dialogBackgroundColor: Colors.white,
+            ),
+            child: child ??Text(""),
+          );
+        },
+        initialDate: selectedDate,
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2060));
+    if (picked != null && picked != selectedDate)
       setState(() {
-        _selectedTime = result.format(context);
-      });
-    }
-  }
+        selectedDate = picked;
+        String da = picked.day.toString() +
+            "-" +
+            picked.month.toString() +
+            "-" +
+            picked.year.toString();
+        dateinputcontroller.text = da;
+      });}
+  var updatedata;
+
 
   @override
   GridView _jobsListView(data) {
@@ -85,78 +125,72 @@ class _clublistState extends State<clublist> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Matchcourt(
-                            Imageurl: '${data[index].img}',
-                            clubName: '${data[index].name}',
-                            stateName: '${data[index].state}',
-                            cityName: '${data[index].city}', description: '${data[index].description}',
+                      builder: (context) => ClubDetails(club_id: data[index].id, date: dateinputcontroller.text,
+
                           )));
             },
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 160,
+            child: Stack(
+              children: [
+                Container(
+                  height: 550,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.fill,
+                    imageUrl: data[index].img == null
+                        ? "assets/images/football.jpg"
+                        : data[index].img,
+                    placeholder: (context, url) => CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        data[index].img == null
+                            ? Image.asset(
+                                "assets/images/football.jpg",
+                                fit: BoxFit.fill,
+                              )
+                            : data[index].img,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 60),
-                    child: Text(
-                      "${data[index].name}",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
                     ),
                   ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 70),
-                    child: Text("1 km Away",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 13)),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 70),
-                    child: Text("₹2000",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16)),
-                  ),
-                ],
-              ),
-              decoration: new BoxDecoration(
-                shape: BoxShape.rectangle,
-                image: new DecorationImage(
-                  fit: BoxFit.fill,
-                  image: CachedNetworkImageProvider("${data[index].img}"),
                 ),
-              ),
+                Positioned(
+                  top: 150.0,
+                  left: 10,
+                  child: Text(
+                    "${data[index].name}",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15),
+                  ),
+                ),
+                Positioned(
+                    top: 170.00,
+                    left: 10,
+                    child: Text("${data[index].city}/${data[index].state}",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13))),
+
+              ],
             ),
           );
         });
   }
 
   TextEditingController searchcontroller = new TextEditingController();
-  TextEditingController dateinputcontroller =
-      new TextEditingController(text: DateTime.now().toString());
-  var date;
-  var _valueToValidate3;
 
+bool isLoding = false;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          backgroundColor: Colors.white,
+          backgroundColor: ColorConstant.whiteA700,
           iconTheme: const IconThemeData(
             color: Colors.black,
           ),
@@ -167,7 +201,7 @@ class _clublistState extends State<clublist> {
                 padding: const EdgeInsets.only(right: 10),
                 child: Container(
                     child: Icon(Icons.search,
-                        size: 25, color: ColorConstant.black901)
+                        size: 25, color: ColorConstant.whiteA700)
                     // Image.asset("assets/images/search.png")
                     ),
               ),
@@ -175,18 +209,19 @@ class _clublistState extends State<clublist> {
                 padding: const EdgeInsets.only(right: 10),
                 child: Container(
                     child: Icon(Icons.notifications_none_rounded,
-                        size: 25, color: ColorConstant.black901)),
+                        size: 25, color: ColorConstant.whiteA700)),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Container(
                     child: Icon(Icons.chat_bubble_outline,
-                        size: 25, color: ColorConstant.black901)),
+                        size: 25, color: ColorConstant.whiteA700)),
               ),
             ],
           ),
         ),
         drawer: Drawer(
+          backgroundColor: ColorConstant.whiteA700,
           child: Container(
             color: Colors.white,
             child: ListView(
@@ -205,7 +240,9 @@ class _clublistState extends State<clublist> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DashBoard()),
+                                        builder: (context) => DashBoard(
+                                              UserName1: '',
+                                            )),
                                   );
                                 },
                                 child: Text("X",
@@ -457,17 +494,15 @@ class _clublistState extends State<clublist> {
                   print("sdfghjk");
                   switch (snapshot.data!.status) {
                     case Status.LOADING:
-                      return Builder(
-                        builder: (context) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                      return Builder(builder: (context) {
+                        return Center(child: CircularProgressIndicator());
+                      }); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                       break;
                     case Status.SUCCESS:
                       List<ClubModel> patientappointmentList =
                           snapshot.data!.data;
                       patientappointmentsearchdata = patientappointmentList;
-                      return SingleChildScrollView(
+                      return SingleChildScrollView(scrollDirection: Axis.vertical,
                         child: Padding(
                           padding: EdgeInsets.only(
                             top: getVerticalSize(
@@ -526,7 +561,7 @@ class _clublistState extends State<clublist> {
                               Padding(
                                 padding: EdgeInsets.only(
                                   top: getVerticalSize(
-                                    24.00,
+                                    20.00,
                                   ),
                                 ),
                                 child: Row(
@@ -534,106 +569,85 @@ class _clublistState extends State<clublist> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Container(
-                                      height: getVerticalSize(
-                                        40.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        104.00,
-                                      ),
-                                      margin: EdgeInsets.only(
-                                        left: getHorizontalSize(
-                                          20.00,
-                                        ),
-                                        bottom: getVerticalSize(
-                                          1.00,
-                                        ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ColorConstant.whiteA700,
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: Container(
+                                          height: getVerticalSize(
+                                            53.00,
                                           ),
-                                        ),
-                                        border: Border.all(
-                                          color: ColorConstant.black900,
                                           width: getHorizontalSize(
-                                            1.00,
+                                            110.00,
                                           ),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                          padding: EdgeInsets.only(
-left: getHorizontalSize(10.00),
-                                            top: getVerticalSize(
-                                              10.00,
+                                          margin: EdgeInsets.only(
+                                            left: getHorizontalSize(
+                                              9.00,
                                             ),
-                                            bottom: getVerticalSize(
-                                              6.00,
+
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: ColorConstant.whiteA700,
+                                            borderRadius: BorderRadius.circular(
+                                              getHorizontalSize(
+                                                5.00,
+                                              ),
                                             ),
-                                            right: getHorizontalSize(1.00),
+                                            border: Border.all(
+                                              color: ColorConstant.black900,
+                                              width: getHorizontalSize(
+                                                1.00,
+                                              ),
+                                            ),
                                           ),
                                           child: designationdropdown()),
                                     ),
-                                    Container(
-                                      height: getVerticalSize(
-                                        40.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        104.00,
-                                      ),
-                                      margin: EdgeInsets.only(
-                                        left: getHorizontalSize(
-                                          7.00,
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Container(
+                                        height: getVerticalSize(
+                                          60.00,
                                         ),
-                                        bottom: getVerticalSize(
-                                          1.00,
+                                        width: getHorizontalSize(
+                                          110.00,
                                         ),
-                                      ),
-                                      child: DateTimePicker(
-                                        decoration: InputDecoration(
-                                          // contentPadding: const EdgeInsets.symmetric(vertical: 0.2, horizontal: 1.0),
-                                          contentPadding:
-                                              EdgeInsets.only(left: 6),
-                                          suffixIcon: Icon(
-                                            Icons.calendar_month,
-                                            color: ColorConstant.black901,
-                                            size: 14,
+
+                                        margin: EdgeInsets.only(
+                                          left: getHorizontalSize(
+                                            7.00,
                                           ),
-                                          fillColor: Colors.white,
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            borderSide: BorderSide(
-                                              color: ColorConstant.black900,
+
+                                        ),
+                                        child: TextField(
+                                          readOnly: true,
+                                          decoration:  InputDecoration(
+                                            contentPadding:
+                                            EdgeInsets.only(left: 12),
+                                            suffixIcon: Icon(Icons.calendar_month,color: Colors.black,size: 14,),
+                                            fillColor: Colors.white,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderSide: BorderSide(
+                                                color:
+                                                Colors.black,
+                                              ),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderSide: BorderSide(
+                                                color:
+                                                Colors.black,
+                                              ),
                                             ),
                                           ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            borderSide: BorderSide(
-                                              color: ColorConstant.black900,
-                                            ),
-                                          ),
+                                          // dateMask: 'dd.MM.yy',
+                                          style: TextStyle(fontSize: 10.5,fontFamily: 'Inter',color: Colors.grey),
+                                          controller:dateinputcontroller ,
+                                          // keyboardType: TextInputType.datetime,
+                                          onTap: (){
+                                            _selectDate(context);
+                                            print("dateinputcontroller.text===>${dateinputcontroller.text}");
+                                          },
+
                                         ),
-                                        type: DateTimePickerType.date,
-                                        dateMask: 'dd.MM.yy',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: 'Inter',
-                                            color: ColorConstant.gray600),
-                                        controller: dateinputcontroller,
-                                        //initialValue: _initialValue,
-                                        firstDate: DateTime(2000),
-                                        lastDate: DateTime(2060),
-                                        onChanged: (val) =>
-                                            setState(() => date = val),
-                                        validator: (val) {
-                                          setState(() =>
-                                              _valueToValidate3 = val ?? '');
-                                          return null;
-                                        },
                                       ),
                                     ),
                                     GestureDetector(
@@ -643,7 +657,7 @@ left: getHorizontalSize(10.00),
                                       },
                                       child: Container(
                                           height: getVerticalSize(
-                                            40.00,
+                                            53.00,
                                           ),
                                           width: getHorizontalSize(
                                             104.00,
@@ -670,28 +684,7 @@ left: getHorizontalSize(10.00),
                                               ),
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 6,
-                                              ),
-                                              Text(
-                                                "Location",
-                                                style: TextStyle(
-                                                    fontFamily: 'Inter',
-                                                    fontSize: 13,
-                                                    color:
-                                                        ColorConstant.gray600),
-                                              ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                size: 15,
-                                              )
-                                            ],
-                                          )),
+                                          child: LocationDropdown()),
                                     ),
                                   ],
                                 ),
@@ -709,7 +702,15 @@ left: getHorizontalSize(10.00),
                                       borderRadius:
                                           BorderRadius.circular(10.0)),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                           patientappointmentsearchdata = await  sortListClub.getclubList();
+                                  setState(() {
+                                  //updatedata = patientappointmentsearchdata;
+                                  //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
+                                  });
+
+                                  ;
+                                },
                                 child: Text(
                                   "Search",
                                   textAlign: TextAlign.left,
@@ -743,8 +744,8 @@ left: getHorizontalSize(10.00),
                                 padding: const EdgeInsets.only(
                                     left: 15.0, right: 15),
                                 child:
-                                    _jobsListView(patientappointmentsearchdata),
-                              )
+                            _jobsListView(patientappointmentsearchdata)
+                              ),
                             ],
                           ),
                         ),

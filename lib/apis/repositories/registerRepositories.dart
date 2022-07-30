@@ -44,7 +44,7 @@ print("TOKEN->${name}");
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard()),
+          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
         );
 
         return responseData;

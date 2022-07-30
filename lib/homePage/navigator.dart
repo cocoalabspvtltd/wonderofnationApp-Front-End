@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
 
 import 'navigatoritem.dart';
 
@@ -7,8 +8,8 @@ import 'navigatoritem.dart';
 
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({Key? key,}) : super(key: key);
-
+  const DashBoard({Key? key, required this.UserName1,}) : super(key: key);
+final String UserName1;
   @override
   _DashBoardState createState() => _DashBoardState();
 }
@@ -27,8 +28,6 @@ class _DashBoardState extends State<DashBoard> {
         .size
         .height;
     return Scaffold(
-
-
       body:
       navigatorItems[currentIndex].screen,
       bottomNavigationBar: Container(
@@ -107,10 +106,10 @@ class _DashBoardState extends State<DashBoard> {
             },
 
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.deepOrange,
+            selectedItemColor: ColorConstant.green6320,
 
             selectedIconTheme: IconThemeData(
-              color: Colors.orange[800],
+              color: ColorConstant.green6320,
             ),
             unselectedIconTheme: IconThemeData(
               color:Colors.black,

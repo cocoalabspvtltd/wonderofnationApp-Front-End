@@ -83,7 +83,7 @@ class _eventsState extends State<events> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  DashBoard()),
+                                MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
                               );
                             },
                                 child: Text("X",
