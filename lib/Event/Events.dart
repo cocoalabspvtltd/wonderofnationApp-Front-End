@@ -398,7 +398,7 @@ class _eventsState extends State<events> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      color: ColorConstant.orange900,
+                                      color: ColorConstant.green6320,
                                       fontSize: getFontSize(
                                         24,
                                       ),
@@ -967,7 +967,7 @@ class _eventsState extends State<events> {
                                                 ),
                                               ),
                                               decoration: BoxDecoration(
-                                                color: ColorConstant.orange900,
+                                                color: ColorConstant.green6320,
                                                 borderRadius:
                                                 BorderRadius.circular(
                                                   getHorizontalSize(
@@ -1518,7 +1518,7 @@ class _eventsState extends State<events> {
                                                       ),
                                                       decoration: BoxDecoration(
                                                         color: ColorConstant
-                                                            .indigo900,
+                                                            .green6320,
                                                         borderRadius:
                                                         BorderRadius
                                                             .circular(
@@ -1942,7 +1942,7 @@ class _eventsState extends State<events> {
                                                   ),
                                                   decoration: BoxDecoration(
                                                     color:
-                                                    ColorConstant.indigo900,
+                                                    ColorConstant.green6320,
                                                     borderRadius:
                                                     BorderRadius.circular(
                                                       getHorizontalSize(

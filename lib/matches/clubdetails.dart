@@ -327,7 +327,7 @@ print("object=>>>>>${Imagelist}");
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                  color: ColorConstant.orange900,
+                                  color: ColorConstant.green6320,
                                   fontSize: getFontSize(
                                     17,
                                   ),
@@ -451,7 +451,7 @@ print("object=>>>>>${Imagelist}");
                                       300.00,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: ColorConstant.orange900,
+                                      color: ColorConstant.green6320,
                                       borderRadius: BorderRadius.circular(
                                         getHorizontalSize(
                                           10.00,
@@ -489,8 +489,7 @@ print("object=>>>>>${Imagelist}");
   TextEditingController searchcontroller = new TextEditingController();
   TextEditingController dateinputcontroller =
   new TextEditingController(text: DateTime.now().toString());
-  var date;
-  var _valueToValidate3;
+
 
   Widget build(BuildContext context) {
     return Scaffold(

@@ -55,6 +55,7 @@ dependencies:
   get: ^4.6.5
   dotted_border: ^2.0.0+1
   date_format: ^2.0.6
+  simple_animations: ^4.2.0
 
 
 dev_dependencies:

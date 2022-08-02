@@ -545,7 +545,7 @@ bool isLoding = false;
                                       TextSpan(
                                         text: 'matches',
                                         style: TextStyle(
-                                          color: ColorConstant.orange900,
+                                          color: ColorConstant.green6320,
                                           fontSize: getFontSize(
                                             24,
                                           ),
@@ -695,7 +695,7 @@ bool isLoding = false;
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   minimumSize: Size(320, 45),
-                                  primary: ColorConstant.orange900,
+                                  primary: ColorConstant.green6320,
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
                                       //to set border radius to button

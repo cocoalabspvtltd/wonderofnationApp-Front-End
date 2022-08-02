@@ -44,8 +44,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int selectedIndex1 = 0;
   TextEditingController dateinputcontroller =
   new TextEditingController(text: DateTime.now().toString());
-  var date;
-  var _valueToValidate3;
+
   Color _colorContainer1 = Colors.white;
   Color _colorContainer2 = Colors.white;
 
@@ -132,8 +131,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _colorContainer1 = _colorContainer1 == ColorConstant.orange900 ?
-                            ColorConstant.whiteA700 :ColorConstant.orange900;
+                            _colorContainer1 = _colorContainer1 == ColorConstant.green6320 ?
+                            ColorConstant.whiteA700 :ColorConstant.green6320;
                           });
 
                         },
@@ -152,7 +151,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 5.00,
                               ),
                             ),
-                            border: Border.all(color: ColorConstant.orange900),
+                            border: Border.all(color: ColorConstant.green6320),
                             color: _colorContainer1 ,
                           ),
 
@@ -175,8 +174,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       GestureDetector(
                         onTap: (){
                           setState(() {
-                            _colorContainer2 = _colorContainer2 == ColorConstant.orange900 ?
-                            ColorConstant.whiteA700 :ColorConstant.orange900;
+                            _colorContainer2 = _colorContainer2 == ColorConstant.green6320 ?
+                            ColorConstant.whiteA700 :ColorConstant.green6320;
                           });
                         },
                         child: Container(
@@ -193,7 +192,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 5.00,
                               ),
                             ),
-                            border: Border.all(color: ColorConstant.orange900),
+                            border: Border.all(color: ColorConstant.green6320),
                             color: _colorContainer2,
                           ),
                           child: Text(
@@ -260,7 +259,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                     borderRadius: BorderRadius.circular(5)),
                                 child: ListTile(
                                   selected: selectedIndex2 == index? true: false,
-                                  selectedTileColor: ColorConstant.orange900,
+                                  selectedTileColor: ColorConstant.green6320,
                                   selectedColor:ColorConstant.gray200 ,
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
@@ -365,7 +364,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: ListTile(
                                   selected: selectedIndex1 == index? true: false,
-                                  selectedTileColor: ColorConstant.orange900,
+                                  selectedTileColor: ColorConstant.green6320,
                                   selectedColor:ColorConstant.whiteA700 ,
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
@@ -512,7 +511,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(100, 45),
-                            primary:  ColorConstant.orange900,
+                            primary:  ColorConstant.green6320,
                             elevation: 2,
                             shape: RoundedRectangleBorder( //to set border radius to button
                                 borderRadius: BorderRadius.circular(10.0)
