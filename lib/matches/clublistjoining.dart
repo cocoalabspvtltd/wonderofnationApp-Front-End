@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/clublistmodel.dart';
 import 'package:oo/apis/repositories/joinedclubs.dart';
+import 'package:oo/paymentdash/paymentpage.dart';
 import '../addClubs/myclubs.dart';
 import '../apis/bloc/clublistbloc.dart';
 import '../apis/repositories/clublistrepositories.dart';
@@ -230,7 +232,7 @@ bool isLoding = false;
                   height: 100,
                   child: DrawerHeader(
                       decoration: BoxDecoration(
-                        color: Colors.indigo[900],
+                        color: Colors.white,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 260),
@@ -245,9 +247,9 @@ bool isLoding = false;
                                             )),
                                   );
                                 },
-                                child: Text("X",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 22)))),
+                                child: Icon(CupertinoIcons.clear_circled)
+                            )
+                        ),
                       )),
                 ),
                 ListTile(
@@ -360,9 +362,13 @@ bool isLoding = false;
                     ),
                     GestureDetector(
                       onTap: () {
-                        // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                        //   Navigator.pushNamed(context, RoutesName.LOGIN_PAGE);
-                        // });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Paymentmethod(
+
+                              )),
+                        );
                       },
                       child: Text(
                         "Payment Methods",

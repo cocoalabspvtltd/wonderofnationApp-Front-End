@@ -1010,7 +1010,7 @@ String videoPath = "";
             ),
             width: size.width,
             decoration: BoxDecoration(
-              color: ColorConstant.orange900,
+              color: ColorConstant.green6320,
               borderRadius: BorderRadius.circular(
                 getHorizontalSize(
                   5.00,

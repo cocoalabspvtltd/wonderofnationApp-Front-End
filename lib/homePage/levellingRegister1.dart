@@ -81,6 +81,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '1',
                     groupValue: answers1,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers1 = value;
@@ -97,6 +98,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '2',
                     groupValue: answers1,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers1 = value;
@@ -113,6 +115,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '3',
                     groupValue: answers1,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers1 = value;
@@ -129,6 +132,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '4',
                     groupValue: answers1,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers1 = value;
@@ -162,6 +166,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '1',
                     groupValue: answers2,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers2 = value;
@@ -177,6 +182,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '2',
                     groupValue: answers2,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers2 = value;
@@ -192,6 +198,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '3',
                     groupValue: answers2,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers2 = value;
@@ -207,6 +214,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '4',
                     groupValue: answers2,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers2 = value;
@@ -239,6 +247,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '1',
                     groupValue: answers3,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers3 = value;
@@ -254,6 +263,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '2',
                     groupValue: answers3,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers3 = value;
@@ -269,6 +279,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '3',
                     groupValue: answers3,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers3 = value;
@@ -284,6 +295,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                   leading: Radio(
                     value: '5',
                     groupValue: answers3,
+                    activeColor: ColorConstant.green6320,
                     onChanged: (Object? value) {
                       setState(() {
                         answers3 = value;

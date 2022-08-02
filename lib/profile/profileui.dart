@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/profilepagerepositories.dart';
+import 'package:oo/paymentdash/paymentpage.dart';
 
 
 import '../apis/bloc/profilepagebloc.dart';
@@ -86,11 +87,24 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
               Container(height: 100,
                 child: DrawerHeader(
                     decoration: BoxDecoration(
-                      color: Colors.indigo[900],
+                      color: Colors.white,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(left: 260),
-
+                      child: Container(
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DashBoard(
+                                        UserName1: '',
+                                      )),
+                                );
+                              },
+                              child: Icon(CupertinoIcons.clear_circled)
+                          )
+                      ),
                     )),
               ),
               ListTile(
@@ -184,9 +198,13 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                      //   Navigator.pushNamed(context, RoutesName.LOGIN_PAGE);
-                      // });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Paymentmethod(
+
+                            )),
+                      );
                     },
                     child: Text(
                       "Payment Methods",

@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/dashboardItems/mymatches.dart';
 import 'package:oo/homePage/register.dart';
 import 'package:oo/homePage/sportAcademy.dart';
-
+import 'package:oo/paymentdash/paymentpage.dart';
 
 import '../addClubs/addclubs.dart';
 import '../addClubs/myclubs.dart';
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 Container(height: 100,
                   child: DrawerHeader(
                       decoration: BoxDecoration(
-                        color: Colors.indigo[900],
+                        color: Colors.white,
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 260),
@@ -96,8 +97,9 @@ class _HomePageState extends State<HomePage> {
                                 MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
                               );
                             },
-                                child: Text("X",
-                                    style: TextStyle(color: Colors.white,fontSize: 22)))),
+                                child: Icon(CupertinoIcons.clear_circled)
+                )
+                      ),
                       )),
                 ),
                 ListTile(
@@ -208,9 +210,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                        //   Navigator.pushNamed(context, RoutesName.LOGIN_PAGE);
-                        // });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Paymentmethod(
+
+                              )),
+                        );
                       },
                       child: Text(
                         "Payment Methods",
