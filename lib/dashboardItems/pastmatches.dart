@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/dashboardItems/mymatches.dart';
 import 'package:oo/dashboardItems/updateresult.dart';
 
 
@@ -45,12 +46,11 @@ class _PastmatchesState extends State<Pastmatches> {
                     child: Stack(
                       alignment: Alignment.topLeft,
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
+                        Container(
                           child: Image.asset(
                             "assets/images/past.png",
                             height: getVerticalSize(
-                              430.00,
+                              450.00,
                             ),
                             width: getHorizontalSize(
                               360.00,
@@ -58,6 +58,11 @@ class _PastmatchesState extends State<Pastmatches> {
                             fit: BoxFit.fill,
                           ),
                         ),
+                        Positioned(
+                            top:10,
+                            left:10,child: IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>mymatches()));
+                        }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 
                       ],
                     ),

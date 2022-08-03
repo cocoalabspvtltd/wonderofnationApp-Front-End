@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:oo/dashboardItems/addmatchplayers.dart';
+import 'package:oo/dashboardItems/mymatches.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
-import 'addmatchplayers.dart';
 
 class Upcomingmatch extends StatefulWidget {
   const Upcomingmatch({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                   alignment: Alignment.topLeft,
                   child: Container(
                     height: getVerticalSize(
-                      430.00,
+                      450.00,
                     ),
                     width: size.width,
                     margin: EdgeInsets.only(
@@ -45,12 +45,11 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                     child: Stack(
                       alignment: Alignment.topLeft,
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
+                        Container(
                           child: Image.asset(
                             "assets/images/football.jpg",
                             height: getVerticalSize(
-                              430.00,
+                              450.00,
                             ),
                             width: getHorizontalSize(
                               360.00,
@@ -58,6 +57,11 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                             fit: BoxFit.fill,
                           ),
                         ),
+                        Positioned(
+                            top:10,
+                            left:10,child: IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>mymatches()));
+                        }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 
                       ],
                     ),
@@ -586,7 +590,8 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                               ),
                             ),
                             child: GestureDetector(onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>Addmatchplayers()));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context)=>Addmatchplayers()));
 
                             },
                               child: Container(

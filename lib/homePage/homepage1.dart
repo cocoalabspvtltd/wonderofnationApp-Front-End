@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/dashboardItems/about.dart';
+import 'package:oo/dashboardItems/help.dart';
 import 'package:oo/dashboardItems/mymatches.dart';
+import 'package:oo/dashboardItems/privacy.dart';
 import 'package:oo/homePage/register.dart';
 import 'package:oo/homePage/sportAcademy.dart';
 import 'package:oo/paymentdash/paymentpage.dart';
@@ -270,12 +273,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Privacy & Security",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Privacy_page()));
+                      },
+                      child: Text(
+                        "Privacy & Security",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
                     ),
                   ]),
                   onTap: () {
@@ -295,12 +306,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       width: 15,
                     ),
-                    Text(
-                      "Help",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Help_page()));
+                      },
+                      child: Text(
+                        "Help",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
                     ),
                   ]),
                   onTap: () {
@@ -309,31 +328,39 @@ class _HomePageState extends State<HomePage> {
                     // });
                   },
                 ),
-                // ListTile(
-                //   title: Row(children: [
-                //     Padding(
-                //       padding: const EdgeInsets.all(5.0),
-                //       child: Icon(
-                //           Icons.,color:Colors.black
-                //       ),
-                //     ),
-                //     SizedBox(
-                //       width: 15,
-                //     ),
-                //     Text(
-                //       "Privacy & Security",
-                //       style: TextStyle(
-                //           fontSize: 18,
-                //           fontWeight: FontWeight.bold,
-                //           color: Colors.grey[900]),
-                //     ),
-                //   ]),
-                //   onTap: () {
-                //     // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                //     //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                //     // });
-                //   },
-                // ),
+                ListTile(
+                  title: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Image.asset(
+                        "assets/images/about.png",height: 20,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Aboutus_page()));
+                      },
+                      child: Text(
+                        "About us",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[900]),
+                      ),
+                    ),
+                  ]),
+                  onTap: () {
+                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+                    // });
+                  },
+                ),
                 ListTile(
                   title: Row(children: [
                     Padding(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
+import 'package:oo/constants/mathUtils.dart';
 
 class Paymentmethod extends StatefulWidget {
   const Paymentmethod({Key? key}) : super(key: key);
@@ -296,6 +298,50 @@ class _PaymentmethodState extends State<Paymentmethod> {
                 ),
               ),
             ),
+            SizedBox(height: 25,),
+            Padding(
+              padding: EdgeInsets.only(
+                left: getHorizontalSize(
+                  30.00,
+                ),top: 20,
+                right: getHorizontalSize(
+                  25.00,
+                ),
+              ),
+              child: GestureDetector(onTap: (){
+              },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: getVerticalSize(
+                    45.00,
+                  ),
+                  width: getHorizontalSize(
+                    284.00,
+                  ),
+                  decoration: BoxDecoration(
+                    color: ColorConstant.green6320,
+                    borderRadius: BorderRadius.circular(
+                      getHorizontalSize(
+                        10.00,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    "Save",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: ColorConstant.whiteA700,
+                      fontSize: getFontSize(
+                        15,
+                      ),
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
 
           ],
         ),
