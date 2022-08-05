@@ -6,6 +6,7 @@ import 'package:oo/homePage/registerprofile.dart';
 import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../dropdowns/game_list_register.dart';
 import '../dropdowns/gamesdropdown.dart';
 import 'levelling2.dart';
 
@@ -326,7 +327,7 @@ class _LevelingfirstState extends State<Levelingfirst> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => Levelingsecond(
-                                  designatioids,
+                                  designatioids1,
                                   username: widget.user1,
                                 )));
                   },

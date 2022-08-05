@@ -9,6 +9,7 @@ import 'package:oo/homePage/register.dart';
 
 import '../../addClubs/myclubs.dart';
 import '../../constants/webApiprovider.dart';
+import '../../dropdowns/game_list_register.dart';
 import '../../dropdowns/registergamedropdown.dart';
 import '../../homePage/levelling2.dart';
 import '../../homePage/navigator.dart';
@@ -19,7 +20,7 @@ import 'clublistrepositories.dart';
 class LevellingRegisterRepository{
   getLevel1port( context,userName) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-      "sport_id":designatioids,
+      "sport_id":designatioids1,
       "q1":answers1,
       "q2":answers2,
       "q3":answers3,
@@ -35,6 +36,7 @@ class LevellingRegisterRepository{
           queryParameters:_queryParameters,
           isQueryParmeter:true);
       print("object0->>>>${response}");
+
       if (response["message"] == "Successfully added") {
         Navigator.push(
           context,

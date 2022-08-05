@@ -17,7 +17,7 @@ TextEditingController mobileController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController confirmpassController = TextEditingController();
 String username = "";
-String Token1 = "";
+//String Token1 = "";
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);

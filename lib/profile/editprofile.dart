@@ -47,7 +47,7 @@ class _EditprofileState extends State<Editprofile> {
               child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 15),),
             ),
             onTap: () {
-            var image =  _image?.path;
+              image =  _image?.path;
               editProfileApi.getEditprofile(context,NameController.text==null?widget.UserName:NameController.text , EmailController.text == null?widget.UserEmail:EmailController.text, Mobilenumbercontroller.text, BioController.text);
             },
           )

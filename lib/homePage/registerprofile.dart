@@ -6,12 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oo/constants/baseurls.dart';
 import 'package:oo/homePage/register.dart';
 
 
 import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
+import '../dropdowns/game_list_register.dart';
 import '../dropdowns/gamesdropdown.dart';
 import '../dropdowns/registergamedropdown.dart';
 import '../profile/editprofile.dart';
@@ -22,7 +24,7 @@ class RegisterProfile extends StatefulWidget {
   const RegisterProfile( {Key? key, required this.names,}) : super(key: key);
 final  String names;
   void initState() {
-    print("username->${username}");
+
 
 
   }
@@ -32,22 +34,17 @@ final  String names;
 
 class _RegisterProfileState extends State<RegisterProfile> {
 
-  File? _image1;
-  PickedFile? _pickedFile;
-  final _picker = ImagePicker();
-  // Implementing the image picker
-  Future<void> _pickImage() async {
-    _pickedFile=
-    await _picker.getImage(source: ImageSource.gallery);
-    if (_pickedFile != null) {
-      setState(() {
-
-        _image1 = File(_pickedFile!.path);
-
-      });
+  File? image;
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -178,7 +175,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                 ),
                               ),
                               child:InkWell(
-                                onTap: _pickImage,
+                                onTap: pickImage,
                                 child: CircleAvatar(
                                   backgroundColor: Colors.black,
                                   radius: 48.0,
@@ -188,7 +185,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     child: Container(height: 150,
                                       child: ClipOval(
                                         child: (image != null)
-                                            ? Image.file(_image1!,fit: BoxFit.fill,)
+                                            ? Image.file(image!,fit: BoxFit.fill,)
                                             : Image.asset('assets/images/profile.png'),
                                       ),
                                     ),
@@ -207,7 +204,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               top: 15
                             ),
                             child: GestureDetector(onTap: (){
-                            //  uploadImage('image', File('assets/images/imgw.png'));
+
                             },
                               child: Text(
                                 "Upload your photo",
@@ -250,9 +247,41 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               ),
                             ),
                           ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 10.0,right: 10,top: 60),
+                          //   child: Container(width: 400,
+                          //       decoration: BoxDecoration(
+                          //         color: ColorConstant.whiteA700,
+                          //         borderRadius: BorderRadius.circular(
+                          //           getHorizontalSize(
+                          //             5.00,
+                          //           ),
+                          //         ),
+                          //         border: Border.all(
+                          //           color: ColorConstant.bluegray100,
+                          //           width: getHorizontalSize(
+                          //             1.00,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       child: designationdropdown1()),
+                          // ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 30.0,right: 30,top: 60),
+                            padding: const EdgeInsets.all(0.0),
                             child: Container(
+                                height: getVerticalSize(
+                                  53.00,
+                                ),
+                                width: getHorizontalSize(
+                                  300.00,
+                                ),
+                                margin: EdgeInsets.only(
+                                  left: getHorizontalSize(
+                                    9.00,
+                                  ),
+                                  top: 60
+
+                                ),
                                 decoration: BoxDecoration(
                                   color: ColorConstant.whiteA700,
                                   borderRadius: BorderRadius.circular(
@@ -261,13 +290,13 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                   border: Border.all(
-                                    color: ColorConstant.bluegray100,
+                                    color: ColorConstant.black900,
                                     width: getHorizontalSize(
                                       1.00,
                                     ),
                                   ),
                                 ),
-                                child: designationdropdown()),
+                                child: designationdropdown1()),
                           ),
 
                           Padding(
@@ -285,7 +314,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids, user1: widget.names, )),
+                                MaterialPageRoute(builder: (context) =>  Levelingfirst(designatioids1, user1: widget.names, )),
                               );
                             },
                               child: Container(
@@ -331,61 +360,61 @@ class _RegisterProfileState extends State<RegisterProfile> {
       ),
     );
   }
-  //
-  // _buildImageSection() {
-  //   return Container(
-  //     margin: EdgeInsets.only(bottom: 20),
-  //     alignment: FractionalOffset.center,
-  //     width: double.infinity,
-  //     height: 150,
-  //     color: Colors.transparent,
-  //     child: Container(
-  //       height: 150.0,
-  //       width: 150.0,
-  //       child: Stack(children: <Widget>[
-  //         Container(
-  //           width: 150,
-  //           height: 150,
-  //           decoration: new BoxDecoration(
-  //             color: Colors.black26,
-  //             borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
-  //             border: new Border.all(
-  //               color: Colors.grey,
-  //               width: 4.0,
-  //             ),
-  //           ),
-  //           child: ClipOval(
-  //             child: SizedBox.expand(
-  //               child: showImage(),
-  //             ),
-  //           ),
-  //         ),
-  //         Positioned(
-  //           child: Align(
-  //             alignment: FractionalOffset.bottomRight,
-  //             child: GestureDetector(
-  //               child: Image.asset(
-  //                 ('assets/images/ic_camera.png'),
-  //                 height: 50,
-  //                 width: 50,
-  //               ),
-  //               onTap: () async {
-  //                 final pickedFile = await ImagePicker().pickImage(
-  //                     source: ImageSource.gallery,
-  //                     imageQuality: 60);
-  //
-  //                 if(pickedFile!=null){
-  //                   image = File(pickedFile.path);
-  //                   setState(() {  });
-  //                 }
-  //               },
-  //             ),
-  //           ),
-  //         )
-  //       ]),
-  //     ),
-  //   );
-  // }
+
+  _buildImageSection() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      alignment: FractionalOffset.center,
+      width: double.infinity,
+      height: 150,
+      color: Colors.transparent,
+      child: Container(
+        height: 150.0,
+        width: 150.0,
+        child: Stack(children: <Widget>[
+          Container(
+            width: 150,
+            height: 150,
+            decoration: new BoxDecoration(
+              color: Colors.black26,
+              borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
+              border: new Border.all(
+                color: Colors.grey,
+                width: 4.0,
+              ),
+            ),
+            child: ClipOval(
+              child: SizedBox.expand(
+                child: showImage(),
+              ),
+            ),
+          ),
+          Positioned(
+            child: Align(
+              alignment: FractionalOffset.bottomRight,
+              child: GestureDetector(
+                child: Image.asset(
+                  ('assets/images/ic_camera.png'),
+                  height: 50,
+                  width: 50,
+                ),
+                onTap: () async {
+                  final pickedFile = await ImagePicker().pickImage(
+                      source: ImageSource.gallery,
+                      imageQuality: 60);
+
+                  if(pickedFile!=null){
+                    image = File(pickedFile.path);
+                    setState(() {  });
+                  }
+                },
+              ),
+            ),
+          )
+        ]),
+      ),
+    );
+  }
   Widget showImage() {
     return Center(
       child: image == null
@@ -416,9 +445,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
       ),
     );
   }
-  uploadImage( File file) async{
+  uploadImage( File file, Image image) async{
     String fileName = file!.path.split('/').last;
-    var request = http.MultipartRequest("POST",Uri.parse("https://2105-117-193-40-84.ngrok.io/api/profile"));
+    var request = http.MultipartRequest("POST",Uri.parse("${baseurl}profile"));
 print("object");
     request.fields['file'] = fileName;
     request.headers['Authorization'] = "Bearer ${TOKEN}";

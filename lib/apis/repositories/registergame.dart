@@ -17,7 +17,7 @@ class AppointmentMeasurmentDetailsRepository1 {
     final response = await WebApiProvider().getData(
         url: "get/sports",
         isPost: false,
-        token: Token1,
+        token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: false
     );

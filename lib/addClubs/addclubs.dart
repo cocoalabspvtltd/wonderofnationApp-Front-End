@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/clublistmodel.dart';
 import 'package:oo/apis/repositories/joinedclubs.dart';
+import 'package:oo/constants/colors.dart';
 
 import '../apis/bloc/clublistbloc.dart';
 import '../constants/response.dart';
@@ -121,7 +122,7 @@ class _AddclubsState extends State<Addclubs> {
                         width: 400,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.deepOrange,
+                              primary: ColorConstant.green6320,
                               onPrimary: Colors.white,
                             ),
                             onPressed: (){

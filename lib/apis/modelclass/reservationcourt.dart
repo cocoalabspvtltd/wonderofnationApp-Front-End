@@ -1,6 +1,8 @@
 class ReservationCourtModel {
     List<Court>? courts;
     String ?image;
+
+
     List<TimeSlot>? timeSlots;
 
     ReservationCourtModel({this.courts, this.image, this.timeSlots});
@@ -9,6 +11,7 @@ class ReservationCourtModel {
         return ReservationCourtModel(
             courts: json['courts'] != null ? (json['courts'] as List).map((i) => Court.fromJson(i)).toList() : null,
             image: json['image'],
+
             timeSlots: json['timeSlots'] != null ? (json['timeSlots'] as List).map((i) => TimeSlot.fromJson(i)).toList() : null,
         );
     }

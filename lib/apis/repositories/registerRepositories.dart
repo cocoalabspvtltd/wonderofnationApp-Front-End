@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../constants/baseurls.dart';
 import '../../homePage/navigator.dart';
 String name = "";
+String phone = "";
+String email ="";
 var TOKEN;
 
 var userid;
@@ -39,12 +41,14 @@ print("baseurl${baseurl}login");
       Map token = responseData.data;
       print("Response->>>>>${responseData.toString()}");
       name = token["user"]["name"];
-    TOKEN = token["token"];
+      phone = token["user"]["phone"];
+      email = token["user"]["email"];
+      TOKEN = token["token"];
 print("TOKEN->${name}");
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
+          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
         );
 
         return responseData;
