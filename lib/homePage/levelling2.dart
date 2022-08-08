@@ -358,21 +358,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
             ),
           ],
         );
-        // AlertDialog(
-        //    content: Stack(
-        //      alignment: Alignment.centerLeft,
-        //      children: <Widget>[
-        //        Image.asset("assets/images/play.png"
-        //        ),
-        //        Text(
-        //          'Add Your Text Here',
-        //          style: TextStyle(
-        //            fontSize: 24,
-        //          ),
-        //        ),
-        //      ],
-        //    ),
-        // );
+
       },
     );
   }

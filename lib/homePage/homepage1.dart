@@ -11,6 +11,7 @@ import 'package:oo/paymentdash/paymentpage.dart';
 import '../addClubs/addclubs.dart';
 import '../addClubs/myclubs.dart';
 import '../addfriends/addfried.dart';
+import '../apis/repositories/logoout_repositories.dart';
 import '../apis/repositories/registerRepositories.dart';
 import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
@@ -36,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   int radioGroup1 = 1;
 
   @override
+  LogoutRepository LogOut = LogoutRepository();
   Widget build(BuildContext context) {
 
     double width = MediaQuery.of(context).size.width;
@@ -373,10 +375,11 @@ class _HomePageState extends State<HomePage> {
                       width: 15,
                     ),
                     GestureDetector(onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                      );
+                      LogOut.getLogoutRepository(context);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                      // );
                     },
                       child: Text(
                         "Log out",

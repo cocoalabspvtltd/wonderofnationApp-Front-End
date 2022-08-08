@@ -23,8 +23,9 @@ import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
 import 'clubdetails.dart';
 
-TextEditingController dateinputcontroller=new TextEditingController(
-    text: formatDate(DateTime.now(), [dd,'-', m,'-', yyyy]));
+TextEditingController dateinputcontroller = new TextEditingController(
+    text: formatDate(DateTime.now(), [dd, '-', m, '-', yyyy]));
+
 class clublist extends StatefulWidget {
   const clublist({Key? key}) : super(key: key);
 
@@ -43,8 +44,8 @@ class _clublistState extends State<clublist> {
   void initState() {
     super.initState();
     _bloc = ClubDetailsBloc();
-designatioids;
-Locationid;
+    designatioids;
+    Locationid;
 
     setState(() {});
   }
@@ -68,6 +69,7 @@ Locationid;
 
 
   DateTime selectedDate = DateTime.now();
+
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,
@@ -92,7 +94,7 @@ Locationid;
                   secondary: Colors.black),
               dialogBackgroundColor: Colors.white,
             ),
-            child: child ??Text(""),
+            child: child ?? Text(""),
           );
         },
         initialDate: selectedDate,
@@ -107,7 +109,9 @@ Locationid;
             "-" +
             picked.year.toString();
         dateinputcontroller.text = da;
-      });}
+      });
+  }
+
   var updatedata;
 
 
@@ -130,7 +134,9 @@ Locationid;
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ClubDetails(club_id: data[index].id, date: dateinputcontroller.text,
+                      builder: (context) =>
+                          ClubDetails(club_id: data[index].id,
+                            date: dateinputcontroller.text,
 
                           )));
             },
@@ -141,16 +147,12 @@ Locationid;
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
                     imageUrl: data[index].img == null
-                        ? "assets/images/football.jpg"
+                        ?  Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
                         : data[index].img,
                     placeholder: (context, url) => CircularProgressIndicator(),
                     errorWidget: (context, url, error) =>
-                        data[index].img == null
-                            ? Image.asset(
-                                "assets/images/football.jpg",
-                                fit: BoxFit.fill,
-                              )
-                            : data[index].img,
+                Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
+
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
@@ -189,7 +191,8 @@ Locationid;
 
   TextEditingController searchcontroller = new TextEditingController();
 
-bool isLoding = false;
+  bool isLoding = false;
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -207,8 +210,8 @@ bool isLoding = false;
                 child: Container(
                     child: Icon(Icons.search,
                         size: 25, color: ColorConstant.whiteA700)
-                    // Image.asset("assets/images/search.png")
-                    ),
+                  // Image.asset("assets/images/search.png")
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 10),
@@ -245,7 +248,8 @@ bool isLoding = false;
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DashBoard(
+                                        builder: (context) =>
+                                            DashBoard(
                                               UserName1: '',
                                             )),
                                   );
@@ -368,9 +372,10 @@ bool isLoding = false;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Paymentmethod(
+                              builder: (context) =>
+                                  Paymentmethod(
 
-                              )),
+                                  )),
                         );
                       },
                       child: Text(
@@ -479,7 +484,7 @@ bool isLoding = false;
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Image.asset(
-                        "assets/images/about.png",height: 20,
+                        "assets/images/about.png", height: 20,
                       ),
                     ),
                     SizedBox(
@@ -561,7 +566,8 @@ bool isLoding = false;
                       List<ClubModel> patientappointmentList =
                           snapshot.data!.data;
                       patientappointmentsearchdata = patientappointmentList;
-                      return SingleChildScrollView(scrollDirection: Axis.vertical,
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
                         child: Padding(
                           padding: EdgeInsets.only(
                             top: getVerticalSize(
@@ -677,20 +683,24 @@ bool isLoding = false;
                                         ),
                                         child: TextField(
                                           readOnly: true,
-                                          decoration:  InputDecoration(
+                                          decoration: InputDecoration(
                                             contentPadding:
                                             EdgeInsets.only(left: 12),
-                                            suffixIcon: Icon(Icons.calendar_month,color: Colors.black,size: 14,),
+                                            suffixIcon: Icon(
+                                              Icons.calendar_month,
+                                              color: Colors.black, size: 14,),
                                             fillColor: Colors.white,
                                             focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius: BorderRadius
+                                                  .circular(5.0),
                                               borderSide: BorderSide(
                                                 color:
                                                 Colors.black,
                                               ),
                                             ),
                                             enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
+                                              borderRadius: BorderRadius
+                                                  .circular(5.0),
                                               borderSide: BorderSide(
                                                 color:
                                                 Colors.black,
@@ -698,12 +708,16 @@ bool isLoding = false;
                                             ),
                                           ),
                                           // dateMask: 'dd.MM.yy',
-                                          style: TextStyle(fontSize: 10.5,fontFamily: 'Inter',color: Colors.grey),
-                                          controller:dateinputcontroller ,
+                                          style: TextStyle(fontSize: 10.5,
+                                              fontFamily: 'Inter',
+                                              color: Colors.grey),
+                                          controller: dateinputcontroller,
                                           // keyboardType: TextInputType.datetime,
-                                          onTap: (){
+                                          onTap: () {
                                             _selectDate(context);
-                                            print("dateinputcontroller.text===>${dateinputcontroller.text}");
+                                            print(
+                                                "dateinputcontroller.text===>${dateinputcontroller
+                                                    .text}");
                                           },
 
                                         ),
@@ -757,15 +771,17 @@ bool isLoding = false;
                                   primary: ColorConstant.green6320,
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
-                                      //to set border radius to button
+                                    //to set border radius to button
                                       borderRadius:
-                                          BorderRadius.circular(10.0)),
+                                      BorderRadius.circular(10.0)),
                                 ),
                                 onPressed: () async {
-                           patientappointmentsearchdata = await  sortListClub.getclubList();
+                                  patientappointmentsearchdata =
+                                  await sortListClub.getclubList();
                                   setState(() {
-                                  //updatedata = patientappointmentsearchdata;
-                                  //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
+                                    updatedata = patientappointmentsearchdata;
+                                    // onSearchTextChanged;
+                                    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
                                   });
 
                                   ;
@@ -800,10 +816,17 @@ bool isLoding = false;
                                 height: 15,
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15),
-                                child:
-                            _jobsListView(patientappointmentsearchdata)
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15),
+                                  child:
+                                  (patientappointmentList.length!= 0)
+                                      ?
+                                   _jobsListView(patientappointmentList)
+                                      : (updatedata.length !=
+                                      0) ? _jobsListView(
+                                      updatedata):_jobsListView(patientappointmentList)
+
+
                               ),
                             ],
                           ),
@@ -814,7 +837,6 @@ bool isLoding = false;
                     case Status.ERROR:
                       return Container();
                   }
-
                 }
                 return Container();
               }),

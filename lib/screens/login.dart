@@ -35,9 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void initState() {
     _passwordVisible = false;
+    setState(() {    passwordController1.text= "";});
 
   }
-
+TextEditingController passwordController1 = TextEditingController();
   bool _validate = false;
   bool _validatePassword = false;
   bool _isobsucure = true;
@@ -50,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future login() async {
     Map data = {
       'name': emailController.text,
-      'password': passwordController.text,
+      'password': passwordController1.text,
 
     };
     print(data);
@@ -342,7 +343,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child:
 
                                   TextFormField(
-                                    controller: passwordController,
+                                    controller: passwordController1,
                                     decoration: InputDecoration(
                                         fillColor: Colors.white,
                                         filled: true,
@@ -365,13 +366,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                               });
                                             })
                                     ),
+
                                     obscureText: _isobsucure,
                                     keyboardType: TextInputType.text,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "* Required";
-                                      } else
-                                        return null;
+                                    validator: (String? value){
+                                      if(value!.isEmpty)
+                                      {
+                                        return 'Please a Enter Password';
+                                      }
+                                      return null;
                                     },
                                     onSaved: (value) => passwordController.text = value!,
                                   ),

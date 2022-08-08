@@ -8,18 +8,14 @@ import '../../homePage/navigator.dart';
 String name = "";
 String phone = "";
 String email ="";
+String pass ="";
+String confpass ="";
 var TOKEN;
-
 var userid;
-
 var DoctorName;
-
 class drLOginRepository {
   var dio = Dio();
-
-
   Future createUser(String username, String password, context) async {
-
     var formData = {
       "email":username,
       "password":password
@@ -37,7 +33,6 @@ print("baseurl${baseurl}login");
       );
       print("fdsf");
       print(responseData.toString());
-
       Map token = responseData.data;
       print("Response->>>>>${responseData.toString()}");
       name = token["user"]["name"];
@@ -53,11 +48,6 @@ print("TOKEN->${name}");
 
         return responseData;
       }
-
-
-
-
-
     } catch (e) {
       print(e);
       Fluttertoast.showToast(

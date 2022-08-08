@@ -1,20 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-
-import 'package:oo/apis/bloc/Coiurt_slot_bloc.dart';
 import 'package:oo/apis/bloc/invoice_bloc.dart';
 import 'package:oo/apis/modelclass/invoice_model.dart';
-
 import 'package:oo/apis/repositories/joinedclubs.dart';
 import 'package:oo/homePage/navigator.dart';
-
-import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../constants/response.dart';
-import '../screens/shimmer.dart';
-import 'addplayers.dart';
-import 'clubdetails.dart';
 
 
 
@@ -139,9 +129,6 @@ class _Payment_successState extends State<Payment_success> {
         ),
 
       );
-
-
-
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(

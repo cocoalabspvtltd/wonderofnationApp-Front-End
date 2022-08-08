@@ -30,7 +30,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // drLOginRepository registerapi = drLOginRepository();
   late Map EditResponse;
   bool _validate = false;
+  void initState() {
 
+    setState(() { confirmpassController.clear();  passwordController.text= "";});
+
+  }
   Future register(String name, email, mobile, pass, conpass, context) async {
     Map data = {
       'name': name,
@@ -245,9 +249,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child:  Container(
-
-                                    child: _createTextFormField(usernameController, "Enter your name", false, TextInputType.text),
+                                  child:   Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      decoration:InputDecoration(hintText: "UserName",contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return '*Required';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (String? value){
+                                        phone = value!;
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -297,9 +315,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child:  Container(
-
-                                    child: _createTextFormField(emailController, "Enter your email", false, TextInputType.text),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.text,
+                                      decoration:InputDecoration(hintText: "Email", contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (String? value){
+                                        if(value!.isEmpty)
+                                        {
+                                          return 'Please a Enter';
+                                        }
+                                        if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                                          return 'Please a valid Email';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (String? value){
+                                        email = value!;
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -349,9 +385,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child:  Container(
-
-                                    child: _createTextFormField(mobileController, "Enter your mobile no", false, TextInputType.text),
+                                  child:  Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      decoration:InputDecoration(hintText: "Phone No",contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value) {
+                                        if (value?.length != 10)
+                                          return 'Mobile Number must be of 10 digit';
+                                        else
+                                          return null;
+                                      },
+                                      onSaved: (String? value){
+                                        phone = value!;
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -423,11 +473,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       child: Container(
 
-                                        child: _createTextFormField(
-                                            passwordController,
-                                            "Password",
-                                            true,
-                                            TextInputType.text),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(bottom: 15,),
+                                          child: TextFormField(
+                                            controller: passwordController,
+                                            keyboardType: TextInputType.text,
+                                            decoration:InputDecoration(hintText: "Password",         contentPadding:
+                                            EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                            validator: (String? value){
+                                              if(value!.isEmpty)
+                                              {
+                                                return 'Please a Enter Password';
+                                              }
+                                              return null;
+                                            },
+                                            onSaved: (String? value){
+                                              pass = value!;
+                                            },
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -481,12 +546,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   child: Container(
 
-                                    child: _createTextFormField(
-                                        confirmpassController,
-                                        "Password",
-                                        true,
-                                        TextInputType.text,
+                                    child:Padding(
+                                      padding: const EdgeInsets.only(bottom: 15,),
+                                      child: TextFormField(
+                                        controller: confirmpassController,
+                                        obscureText: true,
+                                        keyboardType: TextInputType.text,
+                                        decoration:InputDecoration(hintText: "Confirm Password",
+                                          contentPadding:
+                                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                                        ),
+                                        validator: (String? value){
+                                          if(value!.isEmpty)
+                                          {
+                                            return 'Please re-enter password';
+                                          }
+                                          print(passwordController.text);
+                                          print(confirmpassController.text);
+                                          if(passwordController.text!=confirmpassController.text){
+                                            return "Password does not match";
+                                          }
+                                          return null;
+                                        },
                                       ),
+                                    ),
+
                                   ),
                                 ),
                               ),
@@ -673,4 +758,5 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
     );
   }
+
 }

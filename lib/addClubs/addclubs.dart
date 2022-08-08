@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:oo/apis/bloc/add_club_bloc.dart';
+import 'package:oo/apis/modelclass/add_club_modelclass.dart';
 import 'package:oo/apis/modelclass/clublistmodel.dart';
 import 'package:oo/apis/repositories/joinedclubs.dart';
 import 'package:oo/constants/colors.dart';
 
 import '../apis/bloc/clublistbloc.dart';
 import '../constants/response.dart';
-import '../screens/shimmer.dart';
+
 import 'myclubs.dart';
 
 
@@ -17,15 +19,15 @@ class Addclubs extends StatefulWidget {
 }
 
 class _AddclubsState extends State<Addclubs> {
-   late ClubDetailsBloc _bloc;
+   late AddClubListBloc _bloc;
 
-  List<ClubModel> patientappointmentsearchdata = [];
-  List<ClubModel> patientappointmentserachlist = [];
+  List<AddClubModelclass> patientappointmentsearchdata = [];
+  List<AddClubModelclass> patientappointmentserachlist = [];
   TextEditingController patientappointmentController = TextEditingController();
    ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
   void initState() {
     super.initState();
-    _bloc =ClubDetailsBloc();
+    _bloc =AddClubListBloc();
 
     setState(() {});
   }
@@ -52,13 +54,13 @@ class _AddclubsState extends State<Addclubs> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
-          return _tile(data[index].name, data[index].email,
-              data[index].phone,data[index].id );
+          return _tile(data[index].name,
+             data[index].id );
         });
   }
 
   SizedBox _tile(
-      String title, String subtitle, String detailsiD, int clubid) =>
+      String title,int clubid) =>
       SizedBox(
           height: 300,
           child: Card(
@@ -164,8 +166,8 @@ class _AddclubsState extends State<Addclubs> {
               }
           ),
         ),
-        body: StreamBuilder<Response<List<ClubModel>>>(
-            stream: _bloc.vitalsignDataStream,
+        body: StreamBuilder<Response<List<AddClubModelclass>>>(
+            stream: _bloc.addclublistDataStream,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 print("sdfghjk");
@@ -174,7 +176,7 @@ class _AddclubsState extends State<Addclubs> {
                     return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                     break;
                   case Status.SUCCESS:
-                    List<ClubModel> patientappointmentList =
+                    List<AddClubModelclass> patientappointmentList =
                         snapshot.data!.data;
                     patientappointmentsearchdata = patientappointmentList;
                     return SingleChildScrollView(
