@@ -68,11 +68,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       print('success');
     } else {
       Fluttertoast.showToast(
-        msg: "${EditResponse["message"]}",
+        msg: "The given data was invalid",
         gravity: ToastGravity.BOTTOM,
         toastLength: Toast.LENGTH_SHORT,
       );
       print('error');
+    }
+  }
+  RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+  bool validatePassword(String pass){
+    String _password = pass.trim();
+    if(pass_valid.hasMatch(_password)){
+      return true;
+    }else{
+      return false;
     }
   }
 
@@ -251,8 +260,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   child:   Padding(
                                     padding: const EdgeInsets.only(bottom: 15,),
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
+                                    child: TextFormField(controller: usernameController,
+                                      keyboardType: TextInputType.name,
                                       decoration:InputDecoration(hintText: "UserName",contentPadding:
                                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
@@ -317,7 +326,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   child:  Padding(
                                     padding: const EdgeInsets.only(bottom: 15,),
-                                    child: TextFormField(
+                                    child: TextFormField(controller: emailController,
                                       keyboardType: TextInputType.text,
                                       decoration:InputDecoration(hintText: "Email", contentPadding:
                                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
@@ -387,7 +396,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   child:  Padding(
                                     padding: const EdgeInsets.only(bottom: 15,),
-                                    child: TextFormField(
+                                    child: TextFormField(controller:mobileController,
                                       keyboardType: TextInputType.number,
                                       decoration:InputDecoration(hintText: "Phone No",contentPadding:
                                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
@@ -481,12 +490,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             decoration:InputDecoration(hintText: "Password",         contentPadding:
                                             EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
-                                            validator: (String? value){
-                                              if(value!.isEmpty)
-                                              {
-                                                return 'Please a Enter Password';
+                                            validator: (value){
+                                              if(value!.isEmpty){
+                                                return "Please enter password";
+                                              }else{
+                                                //call function to check password
+                                                bool result = validatePassword(value);
+                                                if(result){
+                                                  // create account event
+                                                  return null;
+                                                }else{
+                                                  return " Password should contain Capital, small letter & Number & Special";
+                                                }
                                               }
-                                              return null;
                                             },
                                             onSaved: (String? value){
                                               pass = value!;

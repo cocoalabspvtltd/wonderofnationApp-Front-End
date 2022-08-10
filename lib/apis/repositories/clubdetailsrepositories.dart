@@ -17,7 +17,7 @@ class ClubDetailsRepository {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
 
     };
-    print("_queryParameters : " + _queryParameters.toString());
+    print("clubs/details?club_id=${club_id}");
     print("token=${TOKEN}");
     final response = await WebApiProvider().getData(
         url: "clubs/details?club_id=${club_id}",

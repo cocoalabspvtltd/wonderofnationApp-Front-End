@@ -56,29 +56,29 @@ class _ClubDetailsState extends State<ClubDetails> {
 List Imagelist = [];
   void initState() {
     super.initState();
-    getallcourtImage();
+   // getallcourtImage();
     print("date-->${widget.date}");
     _bloc = ClubDetailslistBloc(widget.club_id);
-print("object=>>>>>${Imagelist}");
+//print("object=>>>>>${Imagelist}");
     setState(() {});
   }
   List imglist = [];
 
-  Future getallcourtImage() async {
-    print("imgurl->>>.${baseurl}clubs/our/courts?club_id=${widget.club_id}");
-
-    http.Response response = await http.get(Uri.parse('${baseurl}clubs/our/courts?club_id=${widget.club_id}'), headers: <String, String>{
-      'Accept': "appilication/json",
-      'Authorization': 'Bearer $TOKEN',
-    },);
-    if (response.statusCode == 200) {
-      var jsonData = json.decode(response.body);
-      setState(() {
-        imglist = jsonData;
-        print("Imagelist->${imglist}");
-      });
-    }
-  }
+  // Future getallcourtImage() async {
+  //   print("imgurl->>>.${baseurl}clubs/our/courts?club_id=${widget.club_id}");
+  //
+  //   http.Response response = await http.get(Uri.parse('${baseurl}clubs/our/courts?club_id=${widget.club_id}'), headers: <String, String>{
+  //     'Accept': "appilication/json",
+  //     'Authorization': 'Bearer $TOKEN',
+  //   },);
+  //   if (response.statusCode == 200) {
+  //     var jsonData = json.decode(response.body);
+  //     setState(() {
+  //       imglist = jsonData;
+  //       print("Imagelist->${imglist}");
+  //     });
+  //   }
+  // }
 
   String? _selectedTime;
 
@@ -100,12 +100,12 @@ print("object=>>>>>${Imagelist}");
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
-          return _tile(data[index].img, data[index].name,
-              data[index].description,data[index].price ,data[index].state,data[index].city);
+          return _tile( data[index].name,
+              data[index].description ,data[index].state,data[index].city);
         });
   }
   SizedBox _tile(
-      String img, String name, String description, int price,String state,String city) =>
+     String name, String description, String state,String city) =>
       SizedBox(height: size.height,
           child:  SafeArea(
             child: Container(
@@ -135,21 +135,21 @@ print("object=>>>>>${Imagelist}");
                         child: Stack(
                           alignment: Alignment.topLeft,
                           children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: CachedNetworkImage(
-                                imageUrl: img,
-                                placeholder: (context, url) => CircularProgressIndicator(),
-                                errorWidget: (context, url, error) => Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
-                                height: getVerticalSize(
-                                  400.00,
-                                ),
-                                width: getHorizontalSize(
-                                  360.00,
-                                ),
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                            // Align(
+                            //   alignment: Alignment.centerLeft,
+                            //   child: CachedNetworkImage(
+                            //     imageUrl: img?? "",
+                            //     placeholder: (context, url) => CircularProgressIndicator(),
+                            //     errorWidget: (context, url, error) => Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
+                            //     height: getVerticalSize(
+                            //       400.00,
+                            //     ),
+                            //     width: getHorizontalSize(
+                            //       360.00,
+                            //     ),
+                            //     fit: BoxFit.fill,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -385,43 +385,44 @@ print("object=>>>>>${Imagelist}");
                               ),
                             ),
                             SizedBox(height: 15,),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10,right: 10),
-                              child: Container(
-                                width: size.width,
-                                height: 160,
-                                child: Swiper(
-                                  itemBuilder: (BuildContext context, int index) {
-                                    print("ImagelistImagelistImagelist-->>>>>>${imglist.length}");
-                                    return CachedNetworkImage(
-                                      fit: BoxFit.fill,
-                                      imageUrl: imglist[index]["img"] == null
-                                          ? "assets/images/football.jpg"
-                                          : imglist[index]["img"],
-                                      placeholder: (context, url) => CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                      imglist[index]["img"] == null
-                                          ? Image.asset(
-                                        "assets/images/football.jpg",
-                                        fit: BoxFit.fill,
-                                      )
-                                          : imglist[index]["img"],
-                                    );
-
-                                     },
-                                  autoplay: true,
-                                  itemCount: imglist.length,
-
-                                  pagination: SwiperPagination(
-                                      builder: DotSwiperPaginationBuilder(
-                                        color: Colors.white30,
-                                        activeColor: Colors.white,
-                                        size: 7,
-                                      )
-                                  ),
-                                ),
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 10,right: 10),
+                            //   child: Container(
+                            //     width: size.width,
+                            //     height: 160,
+                            //     child: Swiper(
+                            //       itemBuilder: (BuildContext context, int index) {
+                            //         print("ImagelistImagelistImagelist-->>>>>>${imglist.length}");
+                            //         return
+                            //           CachedNetworkImage(
+                            //           fit: BoxFit.fill,
+                            //           imageUrl: imglist[index]["img"] == null
+                            //               ? "assets/images/football.jpg"
+                            //               : imglist[index]["img"],
+                            //           placeholder: (context, url) => CircularProgressIndicator(),
+                            //           errorWidget: (context, url, error) =>
+                            //           imglist[index]["img"] == null
+                            //               ? Image.asset(
+                            //             "assets/images/football.jpg",
+                            //             fit: BoxFit.fill,
+                            //           )
+                            //               : imglist[index]["img"],
+                            //         );
+                            //
+                            //          },
+                            //       autoplay: true,
+                            //       itemCount: imglist.length,
+                            //
+                            //       pagination: SwiperPagination(
+                            //           builder: DotSwiperPaginationBuilder(
+                            //             color: Colors.white30,
+                            //             activeColor: Colors.white,
+                            //             size: 7,
+                            //           )
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                             Align(
                               alignment: Alignment.center,
                               child: Padding(
@@ -787,10 +788,10 @@ print("object=>>>>>${Imagelist}");
 
                       break;
                     case Status.ERROR:
-                      return Container();
+                      return Container(  color: Colors.red,);
                   }
                 }
-                return Container();
+                return Container(  color: Colors.white,);
               }),
         ));
   }

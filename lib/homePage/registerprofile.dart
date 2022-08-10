@@ -1,5 +1,7 @@
 
+
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -445,27 +447,27 @@ class _RegisterProfileState extends State<RegisterProfile> {
       ),
     );
   }
-  uploadImage( File file, Image image) async{
-    String fileName = file!.path.split('/').last;
-    var request = http.MultipartRequest("POST",Uri.parse("${baseurl}profile"));
-print("object");
-    request.fields['file'] = fileName;
-    request.headers['Authorization'] = "Bearer ${TOKEN}";
-
-    var picture = http.MultipartFile.fromBytes(fileName, (await rootBundle.load('assets/images/${fileName}')).buffer.asUint8List(),
-        filename: fileName);
-
-    request.files.add(picture);
-
-    var response = await request.send();
-
-    var responseData = await response.stream.toBytes();
-
-    var result = String.fromCharCodes(responseData);
-
-    print(result);
-
-
-
-  }
+//   uploadImage( File file, Image image) async{
+//     String fileName = file!.path.split('/').last;
+//     var request = http.MultipartRequest("POST",Uri.parse("${baseurl}profile"));
+// print("object");
+//     request.fields['file'] = fileName;
+//     request.headers['Authorization'] = "Bearer ${TOKEN}";
+//
+//     var picture = http.MultipartFile.fromBytes(fileName, (await rootBundle.load('assets/images/${fileName}')).buffer.asUint8List(),
+//         filename: fileName);
+//
+//     request.files.add(picture);
+//
+//     var response = await request.send();
+//
+//     var responseData = await response.stream.toBytes();
+//
+//     var result = String.fromCharCodes(responseData);
+//
+//     print(result);
+//
+//
+//
+//   }
 }

@@ -7,7 +7,8 @@ import '../Event/Events.dart';
 import '../apis/repositories/registerRepositories.dart';
 import '../matches/clublistjoining.dart';
 import '../matches/matchhome.dart';
-import '../profile/profiletest.dart';
+import '../profile/profile_page.dart';
+
 import '../profile/profileui.dart';
 import 'homepage1.dart';
 

@@ -780,6 +780,7 @@ class _clublistState extends State<clublist> {
                                   await sortListClub.getclubList();
                                   setState(() {
                                     updatedata = patientappointmentsearchdata;
+                                    onSearchTextChanged;
                                     // onSearchTextChanged;
                                     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
                                   });

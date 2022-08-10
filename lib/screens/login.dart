@@ -39,6 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   }
 TextEditingController passwordController1 = TextEditingController();
+  RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+  bool validatePassword(String pass){
+    String _password = pass.trim();
+    if(pass_valid.hasMatch(_password)){
+      return true;
+    }else{
+      return false;
+    }
+  }
   bool _validate = false;
   bool _validatePassword = false;
   bool _isobsucure = true;
@@ -257,39 +266,31 @@ TextEditingController passwordController1 = TextEditingController();
                                   ),
                                 ),
                                 child: Container(
-                                  height: getVerticalSize(
-                                    40.00,
-                                  ),
+
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child:
-
-                                  TextFormField(
-                                    controller: EmailLoginController,
-                                    decoration: InputDecoration(
-
-
-                                      contentPadding: EdgeInsets.symmetric(vertical: 9, horizontal: 17),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      hintText: "Enter your emailId",
-                                      hintStyle: TextStyle(fontSize: 10,),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12.0),
-                                      ),
-                                      errorText: _validatePassword ? 'Please fill this field' : null,
-                                    ),
-                                    keyboardType: TextInputType.text,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "* Required";
-                                      } else
+                                  child:   Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(controller: EmailLoginController,
+                                      keyboardType: TextInputType.name,
+                                      decoration:InputDecoration(hintText: "UserName",
+                                        errorText:
+                                        _validatePassword ? 'Please fill this field' : null,
+                                        contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return '*Required';
+                                        }
                                         return null;
-                                    },
-                                    onSaved: (value) => emailController.text = value!,
+                                      },
+                                      onSaved: (String? value){
+                                        EmailLoginController.text = value!;
+                                      },
+                                    ),
                                   ),
-
                                 ),
                               ),
                               Align(
@@ -333,50 +334,95 @@ TextEditingController passwordController1 = TextEditingController();
                                     20.00,
                                   ),
                                 ),
-                                child: Container(
-                                  height: getVerticalSize(
-                                    40.00,
-                                  ),
-                                  width: getHorizontalSize(
-                                    320.00,
-                                  ),
-                                  child:
+                                child:
+                                // Container(
+                                //   height: getVerticalSize(
+                                //     40.00,
+                                //   ),
+                                //   width: getHorizontalSize(
+                                //     320.00,
+                                //   ),
+                                //   child:
+                                //
+                                //   TextFormField(
+                                //     controller: passwordController1,
+                                //     decoration: InputDecoration(
+                                //         fillColor: Colors.white,
+                                //         filled: true,
+                                //         //contentPadding: EdgeInsets.all(5),
+                                //         border: OutlineInputBorder(
+                                //             borderRadius: BorderRadius.circular(12.0)),
+                                //         hintText: "Enter Your Password",
+                                //         hintStyle: TextStyle(fontSize: 10,),
+                                //         errorText:
+                                //         _validatePassword ? 'Please fill this field' : null,
+                                //         contentPadding:
+                                //         EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                                //         suffixIcon: IconButton(
+                                //             icon: Icon(
+                                //               _isobsucure ? Icons.visibility : Icons.visibility_off,
+                                //             ),
+                                //             onPressed: () {
+                                //               setState(() {
+                                //                 _isobsucure = !_isobsucure;
+                                //               });
+                                //             })
+                                //     ),
+                                //
+                                //     obscureText: _isobsucure,
+                                //     keyboardType: TextInputType.text,
+                                //     validator: (String? value){
+                                //       if(value!.isEmpty)
+                                //       {
+                                //         return 'Please a Enter Password';
+                                //       }
+                                //       return null;
+                                //     },
+                                //     onSaved: (value) => passwordController.text = value!,
+                                //   ),
+                                // ),
+                                Container(
 
-                                  TextFormField(
-                                    controller: passwordController1,
-                                    decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        //contentPadding: EdgeInsets.all(5),
-                                        border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(12.0)),
-                                        hintText: "Enter Your Password",
-                                        hintStyle: TextStyle(fontSize: 10,),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(
+                                      controller: passwordController1,
+                                      keyboardType: TextInputType.text,
+                                      obscureText: _isobsucure,
+
+                                      decoration:InputDecoration(hintText: "Password",
+                                                suffixIcon: IconButton(
+                                                    icon: Icon(
+                                                      _isobsucure ? Icons.visibility : Icons.visibility_off,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _isobsucure = !_isobsucure;
+                                                      });
+                                                    }),
                                         errorText:
                                         _validatePassword ? 'Please fill this field' : null,
                                         contentPadding:
-                                        EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                        suffixIcon: IconButton(
-                                            icon: Icon(
-                                              _isobsucure ? Icons.visibility : Icons.visibility_off,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                _isobsucure = !_isobsucure;
-                                              });
-                                            })
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value){
+                                        if(value!.isEmpty){
+                                          return "Please enter password";
+                                        }else{
+                                          //call function to check password
+                                          bool result = validatePassword(value);
+                                          if(result){
+                                            // create account event
+                                            return null;
+                                          }else{
+                                            return " Password should contain Capital, small letter & Number & Special";
+                                          }
+                                        }
+                                      },
+                                      onSaved: (String? value){
+                                        passwordController1.text = value!;
+                                      },
                                     ),
-
-                                    obscureText: _isobsucure,
-                                    keyboardType: TextInputType.text,
-                                    validator: (String? value){
-                                      if(value!.isEmpty)
-                                      {
-                                        return 'Please a Enter Password';
-                                      }
-                                      return null;
-                                    },
-                                    onSaved: (value) => passwordController.text = value!,
                                   ),
                                 ),
                               ),
@@ -436,15 +482,15 @@ TextEditingController passwordController1 = TextEditingController();
                                         setState(() {
                                           if (_formKey.currentState!.validate()) {
                                             print("Form was Submitted Successfully");
-                                            passwordController.text.isEmpty
+                                            passwordController1.text.isEmpty
                                                 ? _validate = true
                                                 : _validate = false;
-                                            passwordController.text.isEmpty
+                                            passwordController1.text.isEmpty
                                                 ? _validatePassword = true
                                                 : _validatePassword = false;
                                           }
                                           loginApiCall.createUser(EmailLoginController.text,
-                                              passwordController.text, context);
+                                              passwordController1.text, context);
                                         });
                                       },
                                       child: Container(height: 40,width: 360,

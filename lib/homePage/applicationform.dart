@@ -920,7 +920,7 @@ String videoPath = "";
       else
         GestureDetector(
           onTap: () {
-            _pickVideo();
+            //_pickVideo();
           },
           child: Container(
             height: getVerticalSize(
@@ -1044,25 +1044,25 @@ String videoPath = "";
         ),
     );
   }
-  _pickVideo() async {
-    PickedFile? pickedFile = await _picker.getVideo(source: ImageSource.gallery);
-    _video = File(pickedFile!.path);
-
-    _videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((_) {
-      setState(() { });
-      _videoPlayerController!.play();
-      videoPath =_video!.path;
-      print("_videopath->>>>>>>>>>>>${_video!.path}");
-    });
-  }
-  _imagefromGallery() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-      ImgPath =_image!.path;
-      print("Path >.........${_image!.path}");
-    });
-  }
+  // _pickVideo() async {
+  //   PickedFile? pickedFile = await _picker.getVideo(source: ImageSource.gallery);
+  //   _video = File(pickedFile!.path);
+  //
+  //   _videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((_) {
+  //     setState(() { });
+  //     _videoPlayerController!.play();
+  //     videoPath =_video!.path;
+  //     print("_videopath->>>>>>>>>>>>${_video!.path}");
+  //   });
+  // }
+  // _imagefromGallery() async {
+  //   final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+  //   setState(() {
+  //     _image = image;
+  //     ImgPath =_image!.path;
+  //     print("Path >.........${_image!.path}");
+  //   });
+  // }
 
   _imagefromComera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
@@ -1106,7 +1106,7 @@ String videoPath = "";
                     children: [
                       IconButton(
                         onPressed: () {
-                          _imagefromGallery();
+                          //_imagefromGallery();
                         },
                         icon: Icon(Icons.photo),
                         color: Colors.indigo,

@@ -5,7 +5,7 @@ import 'package:oo/dropdowns/gamesdropdown.dart';
 import 'package:oo/homePage/navigator.dart';
 import '../../addClubs/myclubs.dart';
 import '../../constants/webApiprovider.dart';
-import '../../profile/profiletest.dart';
+import '../../profile/profile_page.dart';
 
 
 class EditprofileRepostory{

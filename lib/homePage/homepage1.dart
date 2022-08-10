@@ -1134,7 +1134,8 @@ class _HomePageState extends State<HomePage> {
                                 width: getHorizontalSize(
                                   241.00,
                                 ),
-                                child:HomeItemWidget()
+                                child:
+                                HomeItemWidget()
                               ),
                             ],
                           ),

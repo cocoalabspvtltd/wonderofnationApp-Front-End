@@ -93,9 +93,10 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                   ),
 
                   child:CachedNetworkImage(
+                    imageUrl:profilePic??"",
                     placeholder: (context, url) => CircularProgressIndicator(),
 
-                    imageUrl:profilePic,
+
                     errorWidget: (context, url, error) => Icon(Icons.account_box_outlined),
 
                     height: getVerticalSize(
