@@ -5,7 +5,7 @@ import '../repositories/reservationcourtrepositories.dart';
 class ReservationCourtBloc {
   ReservationRepository _ReservationCourtsRepository = new ReservationRepository();
   final _ReservationCourtsDataController =
-  StreamController<Response<List<dynamic>>>();
+  StreamController<Response<List<dynamic>>>.broadcast();
 
   StreamSink<Response<List<dynamic>>> get ReservationCourtsListDataSink =>
       _ReservationCourtsDataController.sink;

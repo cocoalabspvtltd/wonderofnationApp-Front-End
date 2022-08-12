@@ -44,14 +44,13 @@ class _profileuiState extends State<profileui> {
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
-          print("data->>>>>>${data.length}");
-          return _tile(data[index].name, data[index].profilePic,
-            data[index].sport,data[index].followersCount,data[index].followingCount,data[index].phone,data[index].email);
+          print("data[index].base_url->>>>>>${data[index].base_url}");
+          return _tile(data[index]);
         });
   }
 
-  SizedBox _tile(
-      String title, String imageprofile,  String Sport,int followersCount,int followingCount,String phone,String email) =>
+  SizedBox _tile(ProfileModelClass data
+       ) =>
       SizedBox(
         height: size.height,
         child: Column(
@@ -147,43 +146,10 @@ class _profileuiState extends State<profileui> {
                                             ),
                                           ),
                                         ),
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                              left: getHorizontalSize(
-                                                79.00,
-                                              ),
-                                              top: getVerticalSize(
-                                                1.50,
-                                              ),
-                                              right: getHorizontalSize(
-                                                79.00,
-                                              ),
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                getHorizontalSize(
-                                                  50.00,
-                                                ),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl: imageprofile,
-                                                placeholder: (context, url) => CircularProgressIndicator(),
-                                                errorWidget: (context, url, error) => Image.asset("assets/images/usersuggestiion.jpg"),
-
-                                                height: getSize(
-                                                  100.00,
-                                                ),
-                                                width: getSize(
-                                                  100.00,
-                                                ),
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
+                                        Center(
+                                          child: Icon(Icons.account_box_outlined)
                                           ),
-                                        ),
+
                                         Align(
                                           alignment: Alignment.center,
                                           child: Padding(
@@ -195,7 +161,7 @@ class _profileuiState extends State<profileui> {
 
                                             ),
                                             child: Text(
-                                              "${title.toUpperCase()}",
+                                              "${data.name!.toUpperCase()}",
 
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -224,7 +190,7 @@ class _profileuiState extends State<profileui> {
                                               ),
                                             ),
                                             child: Text(
-                                              "${Sport}",
+                                              "${data.sport}",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -303,7 +269,7 @@ class _profileuiState extends State<profileui> {
                                                             59.00,
                                                           ),
                                                           child: Text(
-                                                            "${followersCount}\nFollowers",
+                                                            "${data.followersCount}\nFollowers",
                                                             maxLines: null,
                                                             textAlign: TextAlign
                                                                 .center,
@@ -330,7 +296,7 @@ class _profileuiState extends State<profileui> {
                                                             58.00,
                                                           ),
                                                           child: Text(
-                                                            "${followingCount}\nFollowing",
+                                                            "${data.followingCount}\nFollowing",
                                                             maxLines: null,
                                                             textAlign: TextAlign
                                                                 .center,
@@ -371,7 +337,7 @@ class _profileuiState extends State<profileui> {
                                                   {
                                                     Navigator.push(context,
                                                         MaterialPageRoute(builder:
-                                                            (context)=>Editprofile(UserName: title, UserEmail: email, UserPhone: phone,)));
+                                                            (context)=>Editprofile(UserName: data.name ?? "", UserEmail: email, UserPhone: phone,)));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(
@@ -1139,7 +1105,7 @@ class _profileuiState extends State<profileui> {
                   print("sdfghjk");
                   switch (snapshot.data!.status) {
                     case Status.LOADING:
-                      return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                      return Center(child: CircularProgressIndicator(color: ColorConstant.green6320,)); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                       break;
                     case Status.SUCCESS:
                       List<ProfileModelClass> patientappointmentList =

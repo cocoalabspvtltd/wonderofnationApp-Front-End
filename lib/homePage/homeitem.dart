@@ -42,11 +42,11 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
-          return _tile(data[index].name,data[index].profilePic);
+          return _tile(data[index].name,);
         });
   }
   SizedBox _tile(
-      String title,String profilePic) =>
+      String title,) =>
       SizedBox(height: 300,
         child: IntrinsicWidth(
           child: Container( height: getSize(
@@ -92,21 +92,7 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                     ),
                   ),
 
-                  child:CachedNetworkImage(
-                    imageUrl:profilePic??"",
-                    placeholder: (context, url) => CircularProgressIndicator(),
-
-
-                    errorWidget: (context, url, error) => Icon(Icons.account_box_outlined),
-
-                    height: getVerticalSize(
-                      50.00,
-                    ),
-                    width: getHorizontalSize(
-                      55.00,
-                    ),
-
-                  ),
+                  child:Icon(Icons.account_box_outlined)
                 ),
                 Padding(
                   padding: EdgeInsets.only(
@@ -194,7 +180,7 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
             switch (snapshot.data!.status) {
               case Status.LOADING:
                 return Container(
-                  child:Center(child: CircularProgressIndicator()),
+                  child:Center(child: Center(child: CircularProgressIndicator(color: ColorConstant.green6320,))),
                 ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                 break;
               case Status.SUCCESS:

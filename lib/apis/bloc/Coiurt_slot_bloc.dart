@@ -6,7 +6,7 @@ import '../repositories/reservationcourtrepositories.dart';
 class CourtSlotBloc {
   Court_clubRepository _court_clubRepository = new Court_clubRepository();
   final _Court_clubDataController =
-  StreamController<Response<List<dynamic>>>();
+  StreamController<Response<List<dynamic>>>.broadcast();
 
   StreamSink<Response<List<dynamic>>> get Court_clubListDataSink =>
       _Court_clubDataController.sink;
@@ -14,17 +14,17 @@ class CourtSlotBloc {
   Stream<Response<List<dynamic>>>? get Court_clubDataStream =>
       _Court_clubDataController.stream;
 
-  CourtSlotBloc(String date,String method,int club_id,) {
+  CourtSlotBloc(String date,String method,int courtId,) {
     _court_clubRepository = Court_clubRepository();
-    getReservationCourtsDetailsList(date, method ,club_id);
+    getReservationCourtsDetailsList(date, method ,courtId);
     print("fsfds");
   }
 
-  getReservationCourtsDetailsList(String date,String method, int club_id, ) async {
+  getReservationCourtsDetailsList(String date,String method, int courtId, ) async {
     Court_clubListDataSink.add(Response.loading('Fetching...'));
     try {print("object");
     List<dynamic> _reservationcourt =
-    await _court_clubRepository.getcourtclubList(date,method, club_id);
+    await _court_clubRepository.getcourtclubList(date,method, courtId);
 
     Court_clubListDataSink.add(Response.success(_reservationcourt));
     } catch (e) {

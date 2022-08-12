@@ -36,6 +36,7 @@ class _CourtSlotsState extends State<CourtSlots> {
   late CourtSlotBloc _bloc;
   List book_model= ["Private", "Public"];
   int selectedIndex = -1;
+  String buttontext1="Pay Now";
   List<dynamic> patientappointmentsearchdata = [];
   List<dynamic> patientappointmentserachlist = [];
   TextEditingController patientappointmentController = TextEditingController();
@@ -58,7 +59,7 @@ class _CourtSlotsState extends State<CourtSlots> {
     setState(() {});
   }
   @override
-  ListView _jobsListView(data) {
+  Widget timeSlotView(data) {
     return ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -76,7 +77,7 @@ class _CourtSlotsState extends State<CourtSlots> {
         child:    Padding(
           padding: const EdgeInsets.only(left: 18,top: 40,right:18),
           child: SizedBox(
-            height: 560,
+            height: 50,
             child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) {
                   return SizedBox(
@@ -84,12 +85,12 @@ class _CourtSlotsState extends State<CourtSlots> {
                   );
                 },
                 physics: ScrollPhysics(),
-                scrollDirection: Axis.vertical,
+                scrollDirection: Axis.horizontal,
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return SizedBox(
-                    height: 45,
+                   // height: 45,
                     width: 120,
                     child: Card(
                         clipBehavior: Clip.antiAlias,
@@ -125,37 +126,7 @@ class _CourtSlotsState extends State<CourtSlots> {
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.indigo,
-          ),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ClubDetails(date: '', club_id:0,)));
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Text(
-              "Time Slots",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: getFontSize(
-                  22,
-                ),
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-        ),
+
 
         body: StreamBuilder<Response<List<dynamic>>>(
             stream: _bloc.Court_clubDataStream,
@@ -175,19 +146,20 @@ class _CourtSlotsState extends State<CourtSlots> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          _jobsListView(patientappointmentsearchdata),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 60 ),
-                            child: Container(height:35,
-                    width:150,
-                      color: ColorConstant.green6320,
-                      child: Center(child: GestureDetector(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Text("Book",style: TextStyle(color: ColorConstant.whiteA700),))),
-                    ),
-                          )
+                          timeSlotView(patientappointmentsearchdata),
+                    //       Padding(
+                    //         padding: const EdgeInsets.only(top: 60 ),
+                    //         child: Container(height:35,
+                    // width:150,
+                    //   color: ColorConstant.green6320,
+                    //   child: Center(child: GestureDetector(
+                    //       onTap: (){
+                    //
+                    //         Navigator.pop(context);
+                    //       },
+                    //       child: Text("Book",style: TextStyle(color: ColorConstant.whiteA700),))),
+                    // ),
+                    //       )
                         ],
                       ),
                     );

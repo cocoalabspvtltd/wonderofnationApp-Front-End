@@ -44,6 +44,9 @@ class _clublistState extends State<clublist> {
   void initState() {
     super.initState();
     _bloc = ClubDetailsBloc();
+    Locationid = 0;
+    designatioids = 0;
+    _bloc.getvitalsignList();
     designatioids;
     Locationid;
 
@@ -149,7 +152,7 @@ class _clublistState extends State<clublist> {
                     imageUrl: data[index].img == null
                         ?  Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
                         : data[index].img,
-                    placeholder: (context, url) => CircularProgressIndicator(),
+                    placeholder: (context, url) => CircularProgressIndicator(color: ColorConstant.green6320,),
                     errorWidget: (context, url, error) =>
                 Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
 
@@ -559,7 +562,7 @@ class _clublistState extends State<clublist> {
                   switch (snapshot.data!.status) {
                     case Status.LOADING:
                       return Builder(builder: (context) {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(child: CircularProgressIndicator(color: ColorConstant.green6320,));
                       }); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                       break;
                     case Status.SUCCESS:
@@ -776,11 +779,12 @@ class _clublistState extends State<clublist> {
                                       BorderRadius.circular(10.0)),
                                 ),
                                 onPressed: () async {
+                                  _bloc.getvitalsignList();
                                   patientappointmentsearchdata =
                                   await sortListClub.getclubList();
                                   setState(() {
                                     updatedata = patientappointmentsearchdata;
-                                    onSearchTextChanged;
+
                                     // onSearchTextChanged;
                                     //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
                                   });

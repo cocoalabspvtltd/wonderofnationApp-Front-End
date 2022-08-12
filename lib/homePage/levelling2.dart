@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oo/homePage/levellingRegister1.dart';
 
 import 'package:oo/homePage/navigator.dart';
@@ -318,9 +319,11 @@ class _LevelingsecondState extends State<Levelingsecond> {
             Padding(
               padding: const EdgeInsets.only(left: 20,right: 20),
               child: GestureDetector(
-                onTap: () {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard()));
+                onTap: () async{
+                  EasyLoading.show(status: 'loading...');
+                  await
                   LevellingRedisteapi.getLevel1port(context, widget.username);
+                  EasyLoading.dismiss();
                 },
                 child: Container(
                   alignment: Alignment.center,

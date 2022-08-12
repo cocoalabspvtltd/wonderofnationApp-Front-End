@@ -117,7 +117,8 @@ class SecondScreen extends StatelessWidget {
               ),
               Positioned(
                 top: 80,
-                left: 40,
+                left: 0,
+                right:0,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -126,8 +127,8 @@ class SecondScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                      height: 40,
-                      width: 280,
+                      width: MediaQuery.of(context).size.width-20,
+                      height: 50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.white,width:0.5)
@@ -189,7 +190,8 @@ class SecondScreen extends StatelessWidget {
               ),
               Positioned(
                 top: 80,
-                left: 40,
+                left: 0,
+                right: 0,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -198,8 +200,8 @@ class SecondScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                      height: 40,
-                      width: 280,
+                      width: MediaQuery.of(context).size.width-20,
+                      height: 50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.white,width:0.5)
@@ -261,7 +263,8 @@ class SecondScreen extends StatelessWidget {
               ),
               Positioned(
                 top: 80,
-                left: 40,
+                left: 0,
+                right: 0,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -269,25 +272,27 @@ class SecondScreen extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => LoginScreen()),
                     );
                   },
-                  child: Container(
-                      height: 40,
-                      width: 280,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.white,width:0.5)
-                      ),
-                      margin: EdgeInsets.only(
-                        top: 570,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Get Started',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.0),
+                  child: Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width-20,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.white,width:0.5)
                         ),
-                      )),
+                        margin: EdgeInsets.only(
+                          top: 570,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Get Started',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0),
+                          ),
+                        )),
+                  ),
                 ),
               ),
             ],

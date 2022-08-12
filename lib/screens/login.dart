@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/screens/googlesignin.dart';
 
@@ -143,11 +144,12 @@ TextEditingController passwordController1 = TextEditingController();
                                     right: getHorizontalSize(
                                       20.00,
                                     ),
+                                    top: 20
                                   ),
                                   child: Image.asset(
-                                    "assets/images/img_rectangle180.png",
+                                    "assets/images/GOLD WON.png",
                                     height: getVerticalSize(
-                                      113.00,
+                                      83.00,
                                     ),
                                     width: getHorizontalSize(
                                       154.00,
@@ -161,7 +163,7 @@ TextEditingController passwordController1 = TextEditingController();
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     top: getVerticalSize(
-                                      20.00,
+                                      60.00,
                                     ),
                                   ),
                                   child: Row(
@@ -335,52 +337,7 @@ TextEditingController passwordController1 = TextEditingController();
                                   ),
                                 ),
                                 child:
-                                // Container(
-                                //   height: getVerticalSize(
-                                //     40.00,
-                                //   ),
-                                //   width: getHorizontalSize(
-                                //     320.00,
-                                //   ),
-                                //   child:
-                                //
-                                //   TextFormField(
-                                //     controller: passwordController1,
-                                //     decoration: InputDecoration(
-                                //         fillColor: Colors.white,
-                                //         filled: true,
-                                //         //contentPadding: EdgeInsets.all(5),
-                                //         border: OutlineInputBorder(
-                                //             borderRadius: BorderRadius.circular(12.0)),
-                                //         hintText: "Enter Your Password",
-                                //         hintStyle: TextStyle(fontSize: 10,),
-                                //         errorText:
-                                //         _validatePassword ? 'Please fill this field' : null,
-                                //         contentPadding:
-                                //         EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                                //         suffixIcon: IconButton(
-                                //             icon: Icon(
-                                //               _isobsucure ? Icons.visibility : Icons.visibility_off,
-                                //             ),
-                                //             onPressed: () {
-                                //               setState(() {
-                                //                 _isobsucure = !_isobsucure;
-                                //               });
-                                //             })
-                                //     ),
-                                //
-                                //     obscureText: _isobsucure,
-                                //     keyboardType: TextInputType.text,
-                                //     validator: (String? value){
-                                //       if(value!.isEmpty)
-                                //       {
-                                //         return 'Please a Enter Password';
-                                //       }
-                                //       return null;
-                                //     },
-                                //     onSaved: (value) => passwordController.text = value!,
-                                //   ),
-                                // ),
+
                                 Container(
 
                                   child: Padding(
@@ -478,7 +435,9 @@ TextEditingController passwordController1 = TextEditingController();
                                       ),
                                     ),
                                     child: FlatButton(
-                                      onPressed: () {
+                                      onPressed: () async{
+                                        print("loading");
+
                                         setState(() {
                                           if (_formKey.currentState!.validate()) {
                                             print("Form was Submitted Successfully");
@@ -489,9 +448,12 @@ TextEditingController passwordController1 = TextEditingController();
                                                 ? _validatePassword = true
                                                 : _validatePassword = false;
                                           }
-                                          loginApiCall.createUser(EmailLoginController.text,
-                                              passwordController1.text, context);
                                         });
+                                        EasyLoading.show(status: 'loading...');
+                                      //  EasyLoading.showProgress(0.3, status: 'downloading...');
+                                      await  loginApiCall.createUser(EmailLoginController.text,
+                                            passwordController1.text, context);
+                                        EasyLoading.dismiss();
                                       },
                                       child: Container(height: 40,width: 360,
                                         decoration: BoxDecoration(color: ColorConstant.green6320,

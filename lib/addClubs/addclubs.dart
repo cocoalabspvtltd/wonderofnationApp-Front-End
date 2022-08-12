@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oo/apis/bloc/add_club_bloc.dart';
 import 'package:oo/apis/modelclass/add_club_modelclass.dart';
 import 'package:oo/apis/modelclass/clublistmodel.dart';
@@ -128,8 +129,9 @@ class _AddclubsState extends State<Addclubs> {
                               onPrimary: Colors.white,
                             ),
                             onPressed: (){
-
+                              EasyLoading.show(status: 'loading...');
                               joinclubapi.getLeaveeport( context, clubid);
+                              EasyLoading.dismiss();
                               // Navigator.push(context, MaterialPageRoute(builder: (context)=>Myclubs()));
                             }, child: Text("Join Club")),
                       )

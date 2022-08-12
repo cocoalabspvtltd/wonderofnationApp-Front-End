@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/homePage/registerprofile.dart';
 import 'package:http/http.dart' as http;
@@ -131,11 +132,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   right: getHorizontalSize(
                                     20.00,
                                   ),
+                                  top: 10
                                 ),
                                 child: Image.asset(
-                                  "assets/images/img_rectangle180.png",
+                                  "assets/images/GOLD WON.png",
                                   height: getVerticalSize(
-                                    113.00,
+                                    83.00,
                                   ),
                                   width: getHorizontalSize(
                                     154.00,
@@ -147,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     top: getVerticalSize(
-                                      9.00,
+                                      40.00,
                                     ),
                                   ),
                                   child: Row(
@@ -604,7 +606,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 child: GestureDetector(
-                                  onTap: () {
+                                  onTap: () async{
+                                    EasyLoading.show(status: 'loading...');
+                                    await  register(
+                                        usernameController.text,
+                                        emailController.text,
+                                        mobileController.text,
+                                        passwordController.text,
+                                        confirmpassController.text,
+                                        context);
+                                    EasyLoading.dismiss();
                                     setState(() {
                                       if (_formKey.currentState!.validate()) {
                                         print("Form was Submitted Successfully");
@@ -615,13 +626,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ? _validatePassword = true
                                             : _validatePassword = false;
                                       }
-                                      register(
-                                          usernameController.text,
-                                          emailController.text,
-                                          mobileController.text,
-                                          passwordController.text,
-                                          confirmpassController.text,
-                                          context);
+
                                     });
                                   },
                                   child: Container(

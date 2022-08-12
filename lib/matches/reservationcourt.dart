@@ -1,48 +1,52 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/bloc/reservationcourtbloc.dart';
-import 'package:oo/apis/modelclass/clublistmodel.dart';
-import 'package:oo/apis/modelclass/reservationcourt.dart';
 import 'package:oo/apis/repositories/joinedclubs.dart';
-import 'package:oo/apis/repositories/reservationcourtrepositories.dart';
 import 'package:oo/matches/publiccourt.dart';
-import 'package:oo/matches/reservationcourt.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-
-import '../apis/bloc/clublistbloc.dart';
+import '../apis/bloc/Coiurt_slot_bloc.dart';
 import '../apis/repositories/registerRepositories.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../constants/response.dart';
-import '../screens/shimmer.dart';
 import 'addplayers.dart';
 import 'clubdetails.dart';
 import 'court_time_slot.dart';
-
-
-
 class ReservationCourt extends StatefulWidget {
-  const ReservationCourt({Key? key, required this.club_id, required this.date}) : super(key: key);
+  const ReservationCourt({Key? key, required this.club_id, required this.date, }) : super(key: key);
 final int club_id;
 final String date;
+
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
 }
 
 class _ReservationCourtState extends State<ReservationCourt> {
   late ReservationCourtBloc _bloc;
+  late CourtSlotBloc _courtSlotBloc;
+ bool? isLoading;
   List book_model= ["Private", "Public"];
   int selectedIndex = -1;
+  int price = 0;
+  int courtid = 0;
   List<dynamic> patientappointmentsearchdata = [];
   List<dynamic> patientappointmentserachlist = [];
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
-  List court = ["Court 1", "Court 2", "Court 3"];
+getTimeSlot(int courtId)async{
+
+  setState(() {
+    isLoading = true;
+  });
+ await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, "private", courtId);
+  setState(() {
+    isLoading = false;
+  });
+}
   int selectedIndex2 = -1;
-  List times = ["10.00", "12.00", "14.00","19.00"];
+
   int selectedIndex1 = -1;
+  String buttontext="Book Now";
   TextEditingController dateinputcontroller =
   new TextEditingController(text: DateTime.now().toString());
 
@@ -76,7 +80,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 Padding(
                   padding: EdgeInsets.only(left: 20),
                   child: Text(
-                    "The nearest dates",
+                    "Selected date",
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: getFontSize(
@@ -216,22 +220,23 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   selectedColor:ColorConstant.gray200 ,
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    child: GestureDetector(onTap: (){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => CourtSlots(method: 'private', date: widget.date, club_id: title[index]["id"],)),
-                                      );
+                                    child: GestureDetector(onTap: ()async{
+                                      selectedIndex2 = index;
+                                      setState((){});
+                                      await getTimeSlot(title[index]["id"]);
+                                      setState(() {
+                                        price = title[index]["price"];
+                                        courtid = title[index]['id'];
+
+
+                                      });
+                                      //selectedIndex2 == index;
                                     },
                                       child: Text(title[index]["name"],style: TextStyle(
                                           color: selectedIndex2 == index ? Colors.white : Colors.black,fontSize: 15),),
                                     ),
                                   ),
-                                  onTap: () {
-                                    setState(() {
-                                      selectedIndex2 = index;
-                                    });
-                                  },
+
                                 )),
                           );
                         }),
@@ -253,6 +258,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       right: getHorizontalSize(
                         20.00,
                       ),
+                      top: 30
                     ),
                     child: Stack(
                       alignment: Alignment.topCenter,
@@ -283,65 +289,43 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     ),
                   ),
                 ),
+                SizedBox(height: 10,),
+                isLoading ?? false ? Center(child: CircularProgressIndicator())
+                :Container(),
+                StreamBuilder<Response<List<dynamic>>>(
+                    stream: _courtSlotBloc.Court_clubDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print("sdfghjk");
+                        switch (snapshot.data!.status) {
+                          case Status.LOADING:
+                            return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                            break;
+                          case Status.SUCCESS:
+                            List<dynamic> patientappointmentList =
+                                snapshot.data!.data;
+                            patientappointmentsearchdata = patientappointmentList;
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                timeSlotView(patientappointmentsearchdata),
 
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Select your Club time",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: getFontSize(
-                        16,
-                      ),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
+                              ],
+                            );
+
+                            break;
+                          case Status.ERROR:
+                            return Container();
+                        }
+                      }
+                      return Container();
+                    }),
+
                 SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: SizedBox(
-                    height: 45,
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(width: 5,);},
-                        physics: ClampingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: slots.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 45,
-                            width: 120,
-                            child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                elevation: 0,
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: selectedIndex1 == index ? Colors.white : Colors.black,width: 0.1),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ListTile(
-                                  selected: selectedIndex1 == index? true: false,
-                                  selectedTileColor: slots[index]["time"]=="Closed"?Colors.red[900] : ColorConstant.green6320,
-                                  selectedColor:ColorConstant.whiteA700 ,
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20),
-                                    child: Text(slots[index]["time"],style: TextStyle(
-                                      color: selectedIndex1 == index ? Colors.white : Colors.black,),),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      selectedIndex1 = index;
-                                    });
-                                  },
-                                )),
-                          );
-                        }),
-                  ),
-                ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -416,6 +400,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     ),
                   ),
                 ),
+
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -438,7 +423,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
-                                "₹2500 ",
+                                "₹${price} ",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: ColorConstant.black900,
@@ -468,7 +453,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             SizedBox(height: 20,),
                           ],
                         ),
-                        SizedBox(width: 120,),
+                        SizedBox(width: 160,),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(100, 45),
@@ -481,7 +466,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             openCheckout( );
                           },
                           child: Text(
-                            "Pay Now",
+                            buttontext,
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: ColorConstant.whiteA700,
@@ -504,6 +489,67 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
       );
 
+  Widget timeSlotView(data) {
+    return ListView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          print("data->>>>>>${data[index]["timeslots"]}");
+          return timeTile(data[index]["timeslots"],data[index]["image"] );
+        });
+  }
+  SizedBox timeTile(
+      List slots,String image ) =>
+      SizedBox(
+        width: size.width,
+        child:    Padding(
+          padding: const EdgeInsets.only(left: 18,top: 40,right:18),
+          child: SizedBox(
+            height: 50,
+            child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                    height: 12,
+                  );
+                },
+                physics: ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: slots.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    // height: 45,
+                    width: 120,
+                    child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        elevation: 0,
+                        color: ColorConstant.gray200,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(color: selectedIndex1 == index ? Colors.white : Colors.black,width: 0.1),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: ListTile(
+                          selected: selectedIndex1 == index? true: false,
+                          selectedTileColor: ColorConstant.green6320,
+                          selectedColor:ColorConstant.gray200 ,
+                          title: Padding(
+                            padding: const EdgeInsets.only(bottom: 20),
+                            child: Text(slots[index]["time"],style: TextStyle(
+                                color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 15),),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedIndex1 = index;
+                            });
+                          },
+                        )),
+                  );
+                }),
+          ),
+        ),
+
+      );
+
 
 
   TextEditingController searchcontroller = new TextEditingController();
@@ -518,7 +564,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
           leading: IconButton(
               onPressed: () {
-                Navigator.push(context,
+                Navigator.pop(context,
                     MaterialPageRoute(builder: (context) => ClubDetails(date: '', club_id:0,)));
               },
               icon: Icon(
@@ -541,42 +587,48 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
         ),
 
-        body: StreamBuilder<Response<List<dynamic>>>(
-            stream: _bloc.ReservationCourtseDataStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                print("sdfghjk");
-                switch (snapshot.data!.status) {
-                  case Status.LOADING:
-                    return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                    break;
-                  case Status.SUCCESS:
-                    List<dynamic> patientappointmentList =
-                        snapshot.data!.data;
-                    patientappointmentsearchdata = patientappointmentList;
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          _jobsListView(patientappointmentsearchdata)
-                        ],
-                      ),
-                    );
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamBuilder<Response<List<dynamic>>>(
+                  stream: _bloc.ReservationCourtseDataStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      print("sdfghjk");
+                      switch (snapshot.data!.status) {
+                        case Status.LOADING:
+                          return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                          break;
+                        case Status.SUCCESS:
+                          List<dynamic> patientappointmentList =
+                              snapshot.data!.data;
+                          patientappointmentsearchdata = patientappointmentList;
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              _jobsListView(patientappointmentsearchdata)
+                            ],
+                          );
 
-                    break;
-                  case Status.ERROR:
+                          break;
+                        case Status.ERROR:
+                          return Container();
+                      }
+                    }
                     return Container();
-                }
-              }
-              return Container();
-            })
+                  }),
+
+
+            ],
+          ),
+        )
     );
   }
   late Razorpay _razorpay;
   void initState() {
     super.initState(); _bloc =ReservationCourtBloc(widget.club_id,widget.date);
-
+    _courtSlotBloc = CourtSlotBloc(widget.date, "private",0);
     _razorpay = Razorpay();
    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);

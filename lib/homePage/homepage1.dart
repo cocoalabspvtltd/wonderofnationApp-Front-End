@@ -17,6 +17,7 @@ import '../chat/chatscreen.dart';
 import '../constants/colors.dart';
 import '../constants/mathutils.dart';
 import '../dashboardItems/settingd.dart';
+import '../matches/clublistjoining.dart';
 import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
 import 'court.dart';
@@ -375,11 +376,11 @@ class _HomePageState extends State<HomePage> {
                       width: 15,
                     ),
                     GestureDetector(onTap: (){
-                      LogOut.getLogoutRepository(context);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                      // );
+                     // LogOut.getLogoutRepository(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                      );
                     },
                       child: Text(
                         "Log out",
@@ -732,29 +733,36 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
-                                      child: Container(
-                                          width: 80,
-                                          height: 40,
-                                          margin: EdgeInsets.only(
-                                            left: getHorizontalSize(
-                                              11.00,
-                                            ),
-                                            top: getVerticalSize(
-                                              7.00,
-                                            ),
-                                            right: getHorizontalSize(
-                                              11.00,
-                                            ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: ColorConstant.green6320,
-                                            borderRadius: BorderRadius.circular(
-                                              getHorizontalSize(
-                                                5.00,
+                                      child: GestureDetector(onTap:(){
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) =>  clublist()),
+                                        );
+                                      },
+                                        child: Container(
+                                            width: 80,
+                                            height: 40,
+                                            margin: EdgeInsets.only(
+                                              left: getHorizontalSize(
+                                                11.00,
+                                              ),
+                                              top: getVerticalSize(
+                                                7.00,
+                                              ),
+                                              right: getHorizontalSize(
+                                                11.00,
                                               ),
                                             ),
-                                          ),
-                                          child: Center(child: Text("Book Now",style: TextStyle(color: Colors.white),))
+                                            decoration: BoxDecoration(
+                                              color: ColorConstant.green6320,
+                                              borderRadius: BorderRadius.circular(
+                                                getHorizontalSize(
+                                                  5.00,
+                                                ),
+                                              ),
+                                            ),
+                                            child: Center(child: Text("Book Now",style: TextStyle(color: Colors.white),))
+                                        ),
                                       ),
                                     ),
                                   ],

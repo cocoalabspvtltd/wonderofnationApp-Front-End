@@ -28,6 +28,7 @@ import '../homePage/navigator.dart';
 import '../myresults/gamedetail.dart';
 import '../screens/login.dart';
 import '../screens/shimmer.dart';
+import 'clublistjoining.dart';
 import 'matchcourt.dart';
 import 'matchhome.dart';
 
@@ -56,29 +57,29 @@ class _ClubDetailsState extends State<ClubDetails> {
 List Imagelist = [];
   void initState() {
     super.initState();
-   // getallcourtImage();
+    getallcourtImage();
     print("date-->${widget.date}");
     _bloc = ClubDetailslistBloc(widget.club_id);
-//print("object=>>>>>${Imagelist}");
+print("object=>>>>>${Imagelist}");
     setState(() {});
   }
   List imglist = [];
 
-  // Future getallcourtImage() async {
-  //   print("imgurl->>>.${baseurl}clubs/our/courts?club_id=${widget.club_id}");
-  //
-  //   http.Response response = await http.get(Uri.parse('${baseurl}clubs/our/courts?club_id=${widget.club_id}'), headers: <String, String>{
-  //     'Accept': "appilication/json",
-  //     'Authorization': 'Bearer $TOKEN',
-  //   },);
-  //   if (response.statusCode == 200) {
-  //     var jsonData = json.decode(response.body);
-  //     setState(() {
-  //       imglist = jsonData;
-  //       print("Imagelist->${imglist}");
-  //     });
-  //   }
-  // }
+  Future getallcourtImage() async {
+    print("imgurl->>>.${baseurl}clubs/our/courts?club_id=${widget.club_id}");
+
+    http.Response response = await http.get(Uri.parse('${baseurl}clubs/our/courts?club_id=${widget.club_id}'), headers: <String, String>{
+      'Accept': "appilication/json",
+      'Authorization': 'Bearer $TOKEN',
+    },);
+    if (response.statusCode == 200) {
+      var jsonData = json.decode(response.body);
+      setState(() {
+        imglist = jsonData;
+        print("Imagelist->${imglist}");
+      });
+    }
+  }
 
   String? _selectedTime;
 
@@ -100,12 +101,12 @@ List Imagelist = [];
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
-          return _tile( data[index].name,
+          return _tile(data[index].img, data[index].name,
               data[index].description ,data[index].state,data[index].city);
         });
   }
   SizedBox _tile(
-     String name, String description, String state,String city) =>
+      String img, String name, String description,String state,String city) =>
       SizedBox(height: size.height,
           child:  SafeArea(
             child: Container(
@@ -135,21 +136,35 @@ List Imagelist = [];
                         child: Stack(
                           alignment: Alignment.topLeft,
                           children: [
-                            // Align(
-                            //   alignment: Alignment.centerLeft,
-                            //   child: CachedNetworkImage(
-                            //     imageUrl: img?? "",
-                            //     placeholder: (context, url) => CircularProgressIndicator(),
-                            //     errorWidget: (context, url, error) => Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
-                            //     height: getVerticalSize(
-                            //       400.00,
-                            //     ),
-                            //     width: getHorizontalSize(
-                            //       360.00,
-                            //     ),
-                            //     fit: BoxFit.fill,
-                            //   ),
-                            // ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: CachedNetworkImage(
+                                imageUrl: img ?? "",
+                                placeholder: (context, url) => CircularProgressIndicator(),
+                                errorWidget: (context, url, error) => Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
+                                height: getVerticalSize(
+                                  400.00,
+                                ),
+                                width: getHorizontalSize(
+                                  360.00,
+                                ),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            Positioned(
+                              top: 10,
+                                left: 10,
+                                child: GestureDetector(onTap: (){
+
+                                },
+                                  child: IconButton(onPressed: (){ Navigator.pop(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            clublist()),
+                                  );}, icon: Icon(Icons.arrow_back_outlined,
+                            color: ColorConstant.whiteA700,)),
+                                ))
                           ],
                         ),
                       ),
@@ -385,44 +400,43 @@ List Imagelist = [];
                               ),
                             ),
                             SizedBox(height: 15,),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 10,right: 10),
-                            //   child: Container(
-                            //     width: size.width,
-                            //     height: 160,
-                            //     child: Swiper(
-                            //       itemBuilder: (BuildContext context, int index) {
-                            //         print("ImagelistImagelistImagelist-->>>>>>${imglist.length}");
-                            //         return
-                            //           CachedNetworkImage(
-                            //           fit: BoxFit.fill,
-                            //           imageUrl: imglist[index]["img"] == null
-                            //               ? "assets/images/football.jpg"
-                            //               : imglist[index]["img"],
-                            //           placeholder: (context, url) => CircularProgressIndicator(),
-                            //           errorWidget: (context, url, error) =>
-                            //           imglist[index]["img"] == null
-                            //               ? Image.asset(
-                            //             "assets/images/football.jpg",
-                            //             fit: BoxFit.fill,
-                            //           )
-                            //               : imglist[index]["img"],
-                            //         );
-                            //
-                            //          },
-                            //       autoplay: true,
-                            //       itemCount: imglist.length,
-                            //
-                            //       pagination: SwiperPagination(
-                            //           builder: DotSwiperPaginationBuilder(
-                            //             color: Colors.white30,
-                            //             activeColor: Colors.white,
-                            //             size: 7,
-                            //           )
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10,right: 10),
+                              child: Container(
+                                width: size.width,
+                                height: 160,
+                                child: Swiper(
+                                  itemBuilder: (BuildContext context, int index) {
+                                    print("ImagelistImagelistImagelist-->>>>>>${imglist.length}");
+                                    return CachedNetworkImage(
+                                      fit: BoxFit.fill,
+                                      imageUrl: imglist[index]["img"] == null
+                                          ? "assets/images/football.jpg"
+                                          : imglist[index]["img"],
+                                      placeholder: (context, url) => CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                      imglist[index]["img"] == null
+                                          ? Image.asset(
+                                        "assets/images/football.jpg",
+                                        fit: BoxFit.fill,
+                                      )
+                                          : imglist[index]["img"],
+                                    );
+
+                                     },
+                                  autoplay: true,
+                                  itemCount: imglist.length,
+
+                                  pagination: SwiperPagination(
+                                      builder: DotSwiperPaginationBuilder(
+                                        color: Colors.white30,
+                                        activeColor: Colors.white,
+                                        size: 7,
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
                             Align(
                               alignment: Alignment.center,
                               child: Padding(
@@ -494,275 +508,275 @@ List Imagelist = [];
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 60.9,
-          backgroundColor: ColorConstant.whiteA700,
-          iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
-          ),
-        ),
+        // appBar: AppBar(
+        //   elevation: 0,
+        //   toolbarHeight: 60.9,
+        //   backgroundColor: ColorConstant.whiteA700,
+        //   iconTheme: IconThemeData(
+        //     color: Colors.black, //change your color here
+        //   ),
+        // ),
         backgroundColor: ColorConstant.whiteA700,
-        drawer: Drawer(
-          child: Container(
-            color: Colors.white,
-            child: ListView(
-              children: [
-                Container(
-                  height: 100,
-                  child: DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.indigo[900],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 260),
-                        child: Container(
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DashBoard(
-                                          UserName1: '',
-                                        )),
-                                  );
-                                },
-                                child: Text("X",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 22)))),
-                      )),
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/mymatches.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        print("hg");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => mymatches()),
-                        );
-                      },
-                      child: Text(
-                        "My Matches",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[900],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ]),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myclubs.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Myclubs()));
-                      },
-                      child: Text(
-                        "My Clubs",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.MY_PROFILE);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myresults.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Gamedetail()));
-                      },
-                      child: Text(
-                        "My Results",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/payment.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                        //   Navigator.pushNamed(context, RoutesName.LOGIN_PAGE);
-                        // });
-                      },
-                      child: Text(
-                        "Payment Methods",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Icon(Icons.settings,
-                            color: Colors.black, size: 22)),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Settings",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                Divider(color: Colors.grey),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset("assets/images/privacy.png",
-                          color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Privacy & Security",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/help.png",
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Help",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Icon(Icons.logout, color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
-                      },
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
+        // drawer: Drawer(
+        //   child: Container(
+        //     color: Colors.white,
+        //     child: ListView(
+        //       children: [
+        //         Container(
+        //           height: 100,
+        //           child: DrawerHeader(
+        //               decoration: BoxDecoration(
+        //                 color: Colors.indigo[900],
+        //               ),
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(left: 260),
+        //                 child: Container(
+        //                     child: GestureDetector(
+        //                         onTap: () {
+        //                           Navigator.push(
+        //                             context,
+        //                             MaterialPageRoute(
+        //                                 builder: (context) => DashBoard(
+        //                                   UserName1: '',
+        //                                 )),
+        //                           );
+        //                         },
+        //                         child: Text("X",
+        //                             style: TextStyle(
+        //                                 color: Colors.white, fontSize: 22)))),
+        //               )),
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/mymatches.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 print("hg");
+        //                 Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(builder: (context) => mymatches()),
+        //                 );
+        //               },
+        //               child: Text(
+        //                 "My Matches",
+        //                 style: TextStyle(
+        //                   fontSize: 18,
+        //                   color: Colors.grey[900],
+        //                   fontWeight: FontWeight.bold,
+        //                 ),
+        //               ),
+        //             ),
+        //           ]),
+        //         ),
+        //         SizedBox(
+        //           height: 4,
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/myclubs.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(context,
+        //                     MaterialPageRoute(builder: (context) => Myclubs()));
+        //               },
+        //               child: Text(
+        //                 "My Clubs",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.MY_PROFILE);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/myresults.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => Gamedetail()));
+        //               },
+        //               child: Text(
+        //                 "My Results",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/payment.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //                 //   Navigator.pushNamed(context, RoutesName.LOGIN_PAGE);
+        //                 // });
+        //               },
+        //               child: Text(
+        //                 "Payment Methods",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {},
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //                 padding: const EdgeInsets.all(5.0),
+        //                 child: Icon(Icons.settings,
+        //                     color: Colors.black, size: 22)),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             Text(
+        //               "Settings",
+        //               style: TextStyle(
+        //                   fontSize: 18,
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.grey[900]),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         Divider(color: Colors.grey),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset("assets/images/privacy.png",
+        //                   color: Colors.black),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             Text(
+        //               "Privacy & Security",
+        //               style: TextStyle(
+        //                   fontSize: 18,
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.grey[900]),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/help.png",
+        //                 color: Colors.black,
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             Text(
+        //               "Help",
+        //               style: TextStyle(
+        //                   fontSize: 18,
+        //                   fontWeight: FontWeight.bold,
+        //                   color: Colors.grey[900]),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Icon(Icons.logout, color: Colors.black),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(
+        //                       builder: (context) => LoginScreen()),
+        //                 );
+        //               },
+        //               child: Text(
+        //                 "Log out",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {},
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         body: RefreshIndicator(
           color: Colors.white,
           backgroundColor: Colors.blue,

@@ -4,12 +4,13 @@ class ProfileModelClass {
     List<Level>?levelList;
     int? id;
     String? name;
+    String?base_url;
     String? phone;
     String? email;
     String? profilePic;
     String? sport;
 
-    ProfileModelClass({this.followersCount,this.phone,this.email, this.followingCount, this.id, this.name, this.profilePic, this.sport,this.levelList});
+    ProfileModelClass({this.followersCount,this.base_url,this.phone,this.email, this.followingCount, this.id, this.name, this.profilePic, this.sport,this.levelList});
 
     factory ProfileModelClass.fromJson(Map<String, dynamic> json) {
         return ProfileModelClass(
@@ -22,6 +23,7 @@ class ProfileModelClass {
 
             name: json['name'],
             phone: json['phone'],
+            base_url: json['base_url'],
             email: json['email'],
             profilePic: json['profilePic'],
             sport: json['sport'],
@@ -38,6 +40,7 @@ class ProfileModelClass {
         data['email'] = this.email;
         data['profilePic'] = this.profilePic;
         data['sport'] = this.sport;
+        data['base_url'] = this.base_url;
 
         return data;
     }
