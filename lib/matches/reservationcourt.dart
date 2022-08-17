@@ -13,10 +13,12 @@ import 'addplayers.dart';
 import 'clubdetails.dart';
 import 'court_time_slot.dart';
 class ReservationCourt extends StatefulWidget {
-  const ReservationCourt({Key? key, required this.club_id, required this.date, }) : super(key: key);
+  const ReservationCourt({Key? key, required this.club_id, required this.date, required this.ClubName,  required this.state, required this.city, }) : super(key: key);
 final int club_id;
 final String date;
-
+final String ClubName;
+  final String state;
+  final String city;
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
 }
@@ -25,7 +27,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   late ReservationCourtBloc _bloc;
   late CourtSlotBloc _courtSlotBloc;
  bool? isLoading;
-  List book_model= ["Private", "Public"];
+  List book_model= ["Private", ];
   int selectedIndex = -1;
   int price = 0;
   int courtid = 0;
@@ -75,7 +77,7 @@ getTimeSlot(int courtId)async{
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20),
@@ -110,67 +112,75 @@ getTimeSlot(int courtId)async{
                   height: 13,
                 ),
                 SizedBox(height: 3,),
-                Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Booking Method",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: getFontSize(
-                        16,
-                      ),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(left: 20),
+                //   child: Text(
+                //     "Booking Method",
+                //     style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: getFontSize(
+                //         16,
+                //       ),
+                //       fontFamily: 'Inter',
+                //       fontWeight: FontWeight.w400,
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: SizedBox(
-                    height: 45,
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(width: 10,);},
-                        physics: ClampingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: book_model.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 45,
-                            width: 120,
-                            child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                elevation: 0,
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: ColorConstant.green6320,width: 0.6),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: ListTile(
-                                  selected: selectedIndex == index? true: false,
-                                  selectedTileColor: ColorConstant.green6320,
-                                  selectedColor:ColorConstant.whiteA700 ,
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20,left:16),
-                                    child: Text(book_model[index],style: TextStyle(
-                                      color: selectedIndex == index ? Colors.white : Colors.black,),),
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      selectedIndex = index;
-                                      print("selectedInex--->${ selectedIndex = index}");
-                                    });
-                                  },
-                                )),
-                          );
-                        }),
-                  ),
+                  padding: const EdgeInsets.only(left: 20,bottom: 10),
+                  child: Container(child: Text(widget.ClubName,style: TextStyle(fontSize: 18,color: ColorConstant.green6320),),),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20,bottom: 10),
+                  child: Container(child: Text("${widget.state}/ ${widget.city}",style: TextStyle(fontSize: 18,color: ColorConstant.green6320),),),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 15),
+                //   child: SizedBox(
+                //     height: 45,
+                //     child: ListView.separated(
+                //         separatorBuilder: (BuildContext context, int index) {
+                //           return SizedBox(width: 10,);},
+                //         physics: ClampingScrollPhysics(),
+                //         scrollDirection: Axis.horizontal,
+                //         itemCount: book_model.length,
+                //         shrinkWrap: true,
+                //         itemBuilder: (context, index) {
+                //           return SizedBox(
+                //             height: 45,
+                //             width: 120,
+                //             child: Card(
+                //                 clipBehavior: Clip.antiAlias,
+                //                 elevation: 0,
+                //                 color: Colors.white,
+                //                 shape: RoundedRectangleBorder(
+                //                     side: BorderSide(color: ColorConstant.green6320,width: 0.6),
+                //                     borderRadius: BorderRadius.circular(5)),
+                //                 child: ListTile(
+                //                   selected: selectedIndex == index? true: false,
+                //                   selectedTileColor: ColorConstant.green6320,
+                //                   selectedColor:ColorConstant.whiteA700 ,
+                //                   title: Padding(
+                //                     padding: const EdgeInsets.only(bottom: 20,left:16),
+                //                     child: Text(book_model[index],style: TextStyle(
+                //                       color: selectedIndex == index ? Colors.white : Colors.black,),),
+                //                   ),
+                //                   onTap: () {
+                //                     setState(() {
+                //                       selectedIndex = index;
+                //                       print("selectedInex--->${ selectedIndex = index}");
+                //                     });
+                //                   },
+                //                 )),
+                //           );
+                //         }),
+                //   ),
+                // ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20),
@@ -258,7 +268,7 @@ getTimeSlot(int courtId)async{
                       right: getHorizontalSize(
                         20.00,
                       ),
-                      top: 30
+                      top: 15
                     ),
                     child: Stack(
                       alignment: Alignment.topCenter,
@@ -289,8 +299,13 @@ getTimeSlot(int courtId)async{
                     ),
                   ),
                 ),
-                SizedBox(height: 10,),
-                isLoading ?? false ? Center(child: CircularProgressIndicator())
+
+                isLoading ?? false ? Center(child:Center(
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                ))
                 :Container(),
                 StreamBuilder<Response<List<dynamic>>>(
                     stream: _courtSlotBloc.Court_clubDataStream,
@@ -299,7 +314,10 @@ getTimeSlot(int courtId)async{
                         print("sdfghjk");
                         switch (snapshot.data!.status) {
                           case Status.LOADING:
-                            return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                            return Container(
+                              height: 20,
+                              width: 20,
+                              ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                             break;
                           case Status.SUCCESS:
                             List<dynamic> patientappointmentList =
@@ -326,9 +344,7 @@ getTimeSlot(int courtId)async{
                   height: 10,
                 ),
 
-                SizedBox(
-                  height: 10,
-                ),
+
 
                 Align(
                   alignment: Alignment.center,
@@ -337,15 +353,11 @@ getTimeSlot(int courtId)async{
                       left: getHorizontalSize(
                         30.00,
                       ),
-                      top: getVerticalSize(
-                        15.00,
-                      ),
+
                       right: getHorizontalSize(
                         30.00,
                       ),
-                      bottom: getVerticalSize(
-                        20.00,
-                      ),
+top: 35
                     ),
                     child: GestureDetector(
                       onTap: () {
@@ -400,88 +412,8 @@ getTimeSlot(int courtId)async{
                     ),
                   ),
                 ),
+SizedBox(height: 20,),
 
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 20,
-                  child: Container(
-                    height:100,
-                    width: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(width: 10,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 25,),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "₹${price} ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "For one hour ",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    15,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 20,),
-                          ],
-                        ),
-                        SizedBox(width: 160,),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(100, 45),
-                            primary:  ColorConstant.green6320,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder( //to set border radius to button
-                                borderRadius: BorderRadius.circular(10.0)
-                            ),),
-                          onPressed: (){
-                            openCheckout( );
-                          },
-                          child: Text(
-                            buttontext,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: ColorConstant.whiteA700,
-                              fontSize: getFontSize(
-                                17,
-                              ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -504,7 +436,7 @@ getTimeSlot(int courtId)async{
       SizedBox(
         width: size.width,
         child:    Padding(
-          padding: const EdgeInsets.only(left: 18,top: 40,right:18),
+          padding: const EdgeInsets.only(left: 18,top: 20,right:18),
           child: SizedBox(
             height: 50,
             child: ListView.separated(
@@ -586,8 +518,89 @@ getTimeSlot(int courtId)async{
             ),
           ),
         ),
-
-        body: SingleChildScrollView(
+bottomSheet:  Card(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10),
+  ),
+  elevation: 10,
+  child: Container(
+    height:100,
+    width: 400,
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+    child: Row(
+      children: [
+        SizedBox(width: 10,),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 25,),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                "₹${price} ",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: ColorConstant.black900,
+                  fontSize: getFontSize(
+                    28,
+                  ),
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                "For one hour ",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: ColorConstant.black900,
+                  fontSize: getFontSize(
+                    15,
+                  ),
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            SizedBox(height: 20,),
+          ],
+        ),
+        SizedBox(width: 160,),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(100, 45),
+            primary:  ColorConstant.green6320,
+            elevation: 2,
+            shape: RoundedRectangleBorder( //to set border radius to button
+                borderRadius: BorderRadius.circular(10.0)
+            ),),
+          onPressed: (){
+            openCheckout( );
+          },
+          child: Text(
+            buttontext,
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              color: ColorConstant.whiteA700,
+              fontSize: getFontSize(
+                17,
+              ),
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+        body:
+        SingleChildScrollView(
           child: Column(
             children: [
               StreamBuilder<Response<List<dynamic>>>(
@@ -597,7 +610,12 @@ getTimeSlot(int courtId)async{
                       print("sdfghjk");
                       switch (snapshot.data!.status) {
                         case Status.LOADING:
-                          return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                          return Center(
+                            child: Container(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                          );// LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                           break;
                         case Status.SUCCESS:
                           List<dynamic> patientappointmentList =
@@ -607,16 +625,27 @@ getTimeSlot(int courtId)async{
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+
                               _jobsListView(patientappointmentsearchdata)
                             ],
                           );
 
                           break;
                         case Status.ERROR:
-                          return Container();
+                          return  Center(
+                            child: Container(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                          );
                       }
                     }
-                    return Container();
+                    return  Center(
+                      child: Container(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                    );
                   }),
 
 

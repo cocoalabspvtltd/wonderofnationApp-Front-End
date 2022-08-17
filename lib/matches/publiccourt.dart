@@ -151,7 +151,7 @@ class _Payment_successState extends State<Payment_success> {
           title: Padding(
             padding: const EdgeInsets.only(left: 12),
             child: Text(
-              "Time Slots",
+              "",
               style: TextStyle(
                 color: Colors.black,
                 fontSize: getFontSize(

@@ -126,8 +126,8 @@ class _clublistState extends State<clublist> {
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 18,
-          mainAxisSpacing: 18,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
           childAspectRatio: 0.60 / 0.90,
         ),
         itemCount: data.length,
@@ -147,23 +147,21 @@ class _clublistState extends State<clublist> {
               children: [
                 Container(
                   height: 550,
+
                   child: CachedNetworkImage(
                     fit: BoxFit.fill,
                     imageUrl: data[index].img == null
                         ?  Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
                         : data[index].img,
-                    placeholder: (context, url) => CircularProgressIndicator(color: ColorConstant.green6320,),
+                    placeholder: (context, url) => Center(child: Container(height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: ColorConstant.green6320,))),
                     errorWidget: (context, url, error) =>
                 Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
 
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
+                    borderRadius:BorderRadius.circular(30)
                   ),
                 ),
                 Positioned(
@@ -562,7 +560,9 @@ class _clublistState extends State<clublist> {
                   switch (snapshot.data!.status) {
                     case Status.LOADING:
                       return Builder(builder: (context) {
-                        return Center(child: CircularProgressIndicator(color: ColorConstant.green6320,));
+                        return Center(child: Container(height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(color: ColorConstant.green6320,)));
                       }); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                       break;
                     case Status.SUCCESS:

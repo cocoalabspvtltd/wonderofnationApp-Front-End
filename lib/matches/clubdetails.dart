@@ -20,17 +20,8 @@ import '../constants/baseurls.dart';
 import '../constants/colors.dart';
 import '../constants/mathUtils.dart';
 import '../constants/response.dart';
-import '../dashboardItems/mymatches.dart';
-import '../dropdowns/gamesdropdown.dart';
-import '../dropdowns/registergamedropdown.dart';
-import '../dropdowns/testdropdown.dart';
-import '../homePage/navigator.dart';
-import '../myresults/gamedetail.dart';
-import '../screens/login.dart';
-import '../screens/shimmer.dart';
 import 'clublistjoining.dart';
-import 'matchcourt.dart';
-import 'matchhome.dart';
+
 
 class ClubDetails extends StatefulWidget {
   const ClubDetails({Key? key, required this.club_id, required this.date}) : super(key: key);
@@ -413,7 +404,11 @@ print("object=>>>>>${Imagelist}");
                                       imageUrl: imglist[index]["img"] == null
                                           ? "assets/images/football.jpg"
                                           : imglist[index]["img"],
-                                      placeholder: (context, url) => CircularProgressIndicator(),
+                                      placeholder: (context, url) => Center(
+                                        child: Container(height: 20,
+                                            width: 20,
+                                            child: CircularProgressIndicator(color: ColorConstant.green6320,)),
+                                      ),
                                       errorWidget: (context, url, error) =>
                                       imglist[index]["img"] == null
                                           ? Image.asset(
@@ -455,7 +450,7 @@ print("object=>>>>>${Imagelist}");
                                   ),
                                 ),
                                 child: GestureDetector(onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ReservationCourt(club_id: widget.club_id, date: widget.date,)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ReservationCourt(club_id: widget.club_id, date: widget.date, ClubName: name, state: state, city: city,)));
                                 },
                                   child: Container(
                                     alignment: Alignment.center,
