@@ -3,33 +3,33 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import '../../constants/web_Api_provider.dart';
-import '../../screens/login.dart';
-import 'club_list_repositories.dart';
+import '../../screens/addClubs/my_clubs.dart';
 
 
 
-class LogoutRepository{
-  getLogoutRepository(context ) async {
+
+class ClubjoinedbuttonRepository{
+  getLeaveeport( context, int listId) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
+      "club_id": listId,
 
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
       final response = await WebApiProvider().getData(
-          url:"logout",
-          isPost:false,
-          token:TOKEN,
-          queryParameters:_queryParameters,
-          isQueryParmeter:false);
-      print("object0->>>>${response}");
-
-      if (response["message"] == "Log out successful") {
+          url: "club/join",
+          isPost: true,
+          token: TOKEN,
+          queryParameters: _queryParameters,
+          isQueryParmeter: true);
+print("object0->>>>${response}");
+      if (response["message"] == "success") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  LoginScreen()),
+          MaterialPageRoute(builder: (context) =>  MyClubs()),
         );
       } else {
-        throw response["message"];
+        throw response.statusCode;
       }
     } catch (error) {
       print(error);

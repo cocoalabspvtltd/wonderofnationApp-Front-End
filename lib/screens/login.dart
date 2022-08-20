@@ -1,37 +1,25 @@
-
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:oo/screens/googlesignin.dart';
-
+import 'package:oo/screens/google_signin.dart';
 import 'package:http/http.dart' as http;
-
-
-
-import '../apis/repositories/registerRepositories.dart';
-import '../constants/app_textbox.dart';
+import '../apis/repositories/register_Repositories.dart';
 import '../constants/colors.dart';
-import '../constants/mathUtils.dart';
-import '../forgotpassword/forgotpasswordscreen.dart';
-import '../homePage/homepage1.dart';
-import '../homePage/navigator.dart';
-import '../homePage/register.dart';
-
-
-
+import '../constants/math_utils.dart';
+import 'forgotpassword/forgot_passwordscreen.dart';
+import 'homePage/home_page1.dart';
+import 'homePage/register.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
-
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
+
   @override
+
   bool _passwordVisible = false;
 
   void initState() {
@@ -39,9 +27,12 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {    passwordController1.text= "";});
 
   }
-TextEditingController passwordController1 = TextEditingController();
+
+  TextEditingController passwordController1 = TextEditingController();
   RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+
   bool validatePassword(String pass){
+
     String _password = pass.trim();
     if(pass_valid.hasMatch(_password)){
       return true;
@@ -49,6 +40,8 @@ TextEditingController passwordController1 = TextEditingController();
       return false;
     }
   }
+
+
   bool _validate = false;
   bool _validatePassword = false;
   bool _isobsucure = true;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:oo/apis/modelclass/InvoiceModel.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 
 import '../../constants/web_Api_provider.dart';
@@ -6,20 +7,24 @@ import '../../constants/web_Api_provider.dart';
 
 
 
-class Court_clubRepository {
+class InvoiceRepository {
 
-  Future  getcourtclubList(String date,String bookingMethod,int court_id) async {
+  Future  getinvoiceList() async {
     print("token=${TOKEN}");
-    final Map<String, dynamic> _queryParameters = <String, dynamic>{};
+    final Map<String, dynamic> _queryParameters = <String, dynamic>{
+
+    };
     print("_queryParameters : " + _queryParameters.toString());
-    print("clubs/courtreserve?date=${date}&bookingmethod=${bookingMethod}&court_id=${court_id}");
+
     final response = await WebApiProvider().getData(
-        url:"clubs/courtreserve?date=${date}&bookingmethod=private&court_id=${court_id}",
+        url:"clubs/invoice?paymentid=order_K1uxizHcLhcGPj",
         isPost: false,
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: false);
     print("res->>>${response}");
-    return response as List;
+    return (response as List)
+        .map((x) => InvoiceModelClass.fromJson(x))
+        .toList();
   }
 }

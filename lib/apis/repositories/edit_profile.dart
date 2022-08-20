@@ -1,35 +1,38 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import '../../constants/web_Api_provider.dart';
-import '../../screens/login.dart';
-import 'club_list_repositories.dart';
+import '../../screens/profile/profile_page.dart';
 
 
 
-class LogoutRepository{
-  getLogoutRepository(context ) async {
+class EditprofileRepostory{
+  getEditprofile( context, String userName,userEmail,UserMobile,bio) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-
+  "name":userName,
+  "email":userEmail,
+  "phone":UserMobile,
+  "bio":bio,
+  "profilePic":""
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
+      print("object->>>>>${TOKEN}");
       final response = await WebApiProvider().getData(
-          url:"logout",
-          isPost:false,
+          url:"profile-update",
+          isPost:true,
           token:TOKEN,
           queryParameters:_queryParameters,
-          isQueryParmeter:false);
+          isQueryParmeter:true);
+      print("object->>>>>${TOKEN}");
       print("object0->>>>${response}");
-
-      if (response["message"] == "Log out successful") {
+      if (response["message"] == "Successfully updated") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  LoginScreen()),
+          MaterialPageRoute(builder: (context) =>  ProfileUi()),
         );
       } else {
-        throw response["message"];
+        throw response.statusCode;
       }
     } catch (error) {
       print(error);

@@ -1,7 +1,7 @@
 import 'dart:async';
 import '../../constants/response.dart';
 import '../repositories/Court_slotRepositories.dart';
-import '../repositories/reservationcourtrepositories.dart';
+import '../repositories/reservation_court_repositories.dart';
 
 class CourtSlotBloc {
   Court_clubRepository _court_clubRepository = new Court_clubRepository();

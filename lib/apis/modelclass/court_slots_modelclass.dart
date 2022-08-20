@@ -1,11 +1,11 @@
-class Court_Slotsmodelclass {
+class CourtSlotsModelclass {
     String? image;
     List<Timeslot>? timeslots;
 
-    Court_Slotsmodelclass({this.image, this.timeslots});
+    CourtSlotsModelclass({this.image, this.timeslots});
 
-    factory Court_Slotsmodelclass.fromJson(Map<String, dynamic> json) {
-        return Court_Slotsmodelclass(
+    factory CourtSlotsModelclass.fromJson(Map<String, dynamic> json) {
+        return CourtSlotsModelclass(
             image: json['image'],
             timeslots: json['timeslots'] != null ? (json['timeslots'] as List).map((i) => Timeslot.fromJson(i)).toList() : null,
         );
