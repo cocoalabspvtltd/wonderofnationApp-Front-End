@@ -1,3 +1,8 @@
+
+import 'dart:convert';
+
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
@@ -5,13 +10,19 @@ import 'package:oo/apis/repositories/joined_clubs.dart';
 import 'package:oo/screens/matches/public_court.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../apis/bloc/Coiurt_slot_bloc.dart';
+import '../../apis/repositories/payment.dart';
+import '../../apis/repositories/paymentcucesss.dart';
 import '../../apis/repositories/register_Repositories.dart';
+import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
 import 'add_players.dart';
 import 'club_details.dart';
 import 'court_time_slot.dart';
+
+String ? razorpay_signature ="";String? PaymentId = "";
+
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({Key? key, required this.club_id, required this.date, required this.ClubName,  required this.state, required this.city, }) : super(key: key);
 final int club_id;
@@ -27,14 +38,16 @@ class _ReservationCourtState extends State<ReservationCourt> {
   late ReservationCourtBloc _bloc;
   late CourtSlotBloc _courtSlotBloc;
  bool? isLoading;
-  List book_model= ["Private", ];
+  List book_model= ["Private", "Public"];
   int selectedIndex = -1;
-  int price = 0;
-  int courtid = 0;
-  List<dynamic> patientappointmentsearchdata = [];
-  List<dynamic> patientappointmentserachlist = [];
+   int price = 0;
+   int courtid = 0;
+   List<dynamic> patientappointmentsearchdata = [];
+   List<dynamic> patientappointmentserachlist = [];
+
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
+
 getTimeSlot(int courtId)async{
 
   setState(() {
@@ -49,6 +62,7 @@ getTimeSlot(int courtId)async{
 
   int selectedIndex1 = -1;
   String buttontext="Book Now";
+
   TextEditingController dateinputcontroller =
   new TextEditingController(text: DateTime.now().toString());
 
@@ -56,6 +70,7 @@ getTimeSlot(int courtId)async{
   Color _colorContainer2 = Colors.white;
 
   @override
+  bool value = false;
   ListView _jobsListView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -112,20 +127,7 @@ getTimeSlot(int courtId)async{
                   height: 13,
                 ),
                 SizedBox(height: 3,),
-                // Padding(
-                //   padding: EdgeInsets.only(left: 20),
-                //   child: Text(
-                //     "Booking Method",
-                //     style: TextStyle(
-                //       color: Colors.black,
-                //       fontSize: getFontSize(
-                //         16,
-                //       ),
-                //       fontFamily: 'Inter',
-                //       fontWeight: FontWeight.w400,
-                //     ),
-                //   ),
-                // ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -137,48 +139,48 @@ getTimeSlot(int courtId)async{
                   padding: const EdgeInsets.only(left: 20,bottom: 10),
                   child: Container(child: Text("${widget.state}/ ${widget.city}",style: TextStyle(fontSize: 18,color: ColorConstant.green6320),),),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 15),
-                //   child: SizedBox(
-                //     height: 45,
-                //     child: ListView.separated(
-                //         separatorBuilder: (BuildContext context, int index) {
-                //           return SizedBox(width: 10,);},
-                //         physics: ClampingScrollPhysics(),
-                //         scrollDirection: Axis.horizontal,
-                //         itemCount: book_model.length,
-                //         shrinkWrap: true,
-                //         itemBuilder: (context, index) {
-                //           return SizedBox(
-                //             height: 45,
-                //             width: 120,
-                //             child: Card(
-                //                 clipBehavior: Clip.antiAlias,
-                //                 elevation: 0,
-                //                 color: Colors.white,
-                //                 shape: RoundedRectangleBorder(
-                //                     side: BorderSide(color: ColorConstant.green6320,width: 0.6),
-                //                     borderRadius: BorderRadius.circular(5)),
-                //                 child: ListTile(
-                //                   selected: selectedIndex == index? true: false,
-                //                   selectedTileColor: ColorConstant.green6320,
-                //                   selectedColor:ColorConstant.whiteA700 ,
-                //                   title: Padding(
-                //                     padding: const EdgeInsets.only(bottom: 20,left:16),
-                //                     child: Text(book_model[index],style: TextStyle(
-                //                       color: selectedIndex == index ? Colors.white : Colors.black,),),
-                //                   ),
-                //                   onTap: () {
-                //                     setState(() {
-                //                       selectedIndex = index;
-                //                       print("selectedInex--->${ selectedIndex = index}");
-                //                     });
-                //                   },
-                //                 )),
-                //           );
-                //         }),
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: SizedBox(
+                    height: 45,
+                    child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(width: 10,);},
+                        physics: ClampingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: book_model.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return SizedBox(
+                            height: 45,
+                            width: 120,
+                            child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                elevation: 0,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(color: ColorConstant.green6320,width: 0.6),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: ListTile(
+                                  selected: selectedIndex == index? true: false,
+                                  selectedTileColor: ColorConstant.green6320,
+                                  selectedColor:ColorConstant.whiteA700 ,
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(bottom: 20,left:16),
+                                    child: Text(book_model[index],style: TextStyle(
+                                      color: selectedIndex == index ? Colors.white : Colors.black,),),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = index;
+                                      print("selectedInex--->${ selectedIndex = index}");
+                                    });
+                                  },
+                                )),
+                          );
+                        }),
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -346,72 +348,7 @@ getTimeSlot(int courtId)async{
 
 
 
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: getHorizontalSize(
-                        30.00,
-                      ),
 
-                      right: getHorizontalSize(
-                        30.00,
-                      ),
-top: 35
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPlayers()));
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: getVerticalSize(
-                          45.00,
-                        ),
-                        width: getHorizontalSize(
-                          250.00,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 0.5,
-                            color:Colors.grey,
-                          ),
-                          color: ColorConstant.whiteA700,
-                          borderRadius: BorderRadius.circular(
-                            5.00,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 60,
-                            ),
-                            Icon(
-                              Icons.add_circle_outline,
-                              color: ColorConstant.bluegray800,
-                              size: 25,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Add Players",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.black900,
-                                fontSize: getFontSize(
-                                  18,
-                                ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
 SizedBox(height: 20,),
 
               ],
@@ -420,7 +357,6 @@ SizedBox(height: 20,),
         ),
 
       );
-
   Widget timeSlotView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -518,87 +454,117 @@ SizedBox(height: 20,),
             ),
           ),
         ),
-bottomSheet:  Card(
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(10),
-  ),
-  elevation: 10,
-  child: Container(
-    height:100,
-    width: 400,
-    decoration: BoxDecoration(
-      color: Colors.grey[200],
-      borderRadius: BorderRadius.all(Radius.circular(10)),
-    ),
-    child: Row(
-      children: [
-        SizedBox(width: 10,),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 25,),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                "₹${price} ",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: ColorConstant.black900,
-                  fontSize: getFontSize(
-                    28,
-                  ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+        bottomSheet:  Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 6,
+          child: Container(
+            height:122,
+            width: 400,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(
-                "For one hour ",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: ColorConstant.black900,
-                  fontSize: getFontSize(
-                    15,
-                  ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 6,),
+                Row(
+                  children: [
+                    SizedBox(width: 10,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 12,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            "₹${price} ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: ColorConstant.black900,
+                              fontSize: getFontSize(
+                                28,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(
+                            "For one hour ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: ColorConstant.black900,
+                              fontSize: getFontSize(
+                                15,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 110,),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(100, 40),
+                        primary:  ColorConstant.green6320,
+                        elevation: 2,
+                        shape: RoundedRectangleBorder( //to set border radius to button
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),),
+                      onPressed: (){
+                        openCheckout( );
+                      },
+                      child: Text(
+                        buttontext,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: ColorConstant.whiteA700,
+                          fontSize: getFontSize(
+                            17,
+                          ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            SizedBox(height: 20,),
-          ],
-        ),
-        SizedBox(width: 160,),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(100, 45),
-            primary:  ColorConstant.green6320,
-            elevation: 2,
-            shape: RoundedRectangleBorder( //to set border radius to button
-                borderRadius: BorderRadius.circular(10.0)
-            ),),
-          onPressed: (){
-            openCheckout( );
-          },
-          child: Text(
-            buttontext,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              color: ColorConstant.whiteA700,
-              fontSize: getFontSize(
-                17,
-              ),
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
+                SizedBox(height: 2,),
+                if(selectedIndex==1)
+                  Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Checkbox(
+                        value: this.value,
+                        activeColor: ColorConstant.green6320,
+                        onChanged: ( value) {
+                          setState(() {
+                            this.value = value!;
+                          });
+                        },
+                      ),
+                      SizedBox(width: 15),//SizedBox
+                      Text(
+                        'Do you want to hold this slot?',
+                        style: TextStyle(fontSize: 12.0),
+                      ), //Text
+                      //SizedBox
+                      //Checkbox
+                    ], //<Widget>[]
+                  ),
+              ],
             ),
           ),
         ),
-      ],
-    ),
-  ),
-),
         body:
         SingleChildScrollView(
           child: Column(
@@ -654,11 +620,18 @@ bottomSheet:  Card(
         )
     );
   }
+  String OrderId ="";
   late Razorpay _razorpay;
+  Payemnt pay = Payemnt();
+  PayemntSucess paysucess = PayemntSucess();
   void initState() {
     super.initState(); _bloc =ReservationCourtBloc(widget.club_id,widget.date);
     _courtSlotBloc = CourtSlotBloc(widget.date, "private",0);
+
     _razorpay = Razorpay();
+    pay.getpaymentList();
+
+
    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
@@ -670,15 +643,18 @@ bottomSheet:  Card(
     _razorpay.clear();
   }
 
+
   void openCheckout() async {
+
     var options = {
-      'key': 'rzp_test_8BJ88tShbiNu1i',
-      'amount': 20000,
-      'name':name,
-      'description': 'Court',
+      'key': key,
+      'order_id':Orderid,
+      'amount': amount,
+      'name':"WON",
+      'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
       'send_sms_hash': true,
-      'prefill': {'contact': phone, 'email': email},
+      'prefill': {'contact': phone, 'email': email,'name':name},
       'external': {
         'wallets': ['paytm']
       }
@@ -691,16 +667,23 @@ bottomSheet:  Card(
     }
   }
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    PaymentId = response.paymentId;
+     razorpay_signature = response.signature;
 
+    print('Success Response: $response');
+    print("sducessss");
+paysucess.getpaymentsucessList(PaymentId!, Orderid,razorpay_signature );
 
-    _showDialog(context);
+    /*Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId!,
+        toastLength: Toast.LENGTH_SHORT); */
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print('Error Response: $response');
-    /* Fluttertoast.showToast(
+    Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-        toastLength: Toast.LENGTH_SHORT); */
+        toastLength: Toast.LENGTH_SHORT);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
@@ -797,4 +780,5 @@ bottomSheet:  Card(
       },
     );
   }
+
 }

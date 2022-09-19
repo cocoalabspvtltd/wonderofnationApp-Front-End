@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../constants/base_urls.dart';
 import '../../screens/homePage/navigator.dart';
@@ -16,6 +17,7 @@ var DoctorName;
 class drLOginRepository {
   var dio = Dio();
   Future createUser(String username, String password, context) async {
+    EasyLoading.show(status: 'loading...');
     var formData = {
       "email":username,
       "password":password
@@ -39,12 +41,13 @@ print("baseurl${baseurl}login");
       phone = token["user"]["phone"];
       email = token["user"]["email"];
       TOKEN = token["token"];
-print("TOKEN->${name}");
+print("email->${email}");
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
         );
+        EasyLoading.dismiss();
 
         return responseData;
       }

@@ -1,8 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+
 import 'package:oo/screens/login.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
 
@@ -21,10 +21,10 @@ class _MyHomePageState extends State<WelcomeScreen> {
             () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
-
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return
       Container(
         decoration:  BoxDecoration(
@@ -36,9 +36,9 @@ class _MyHomePageState extends State<WelcomeScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: Padding(
-            padding: const EdgeInsets.only(left: 40),
+            padding: const EdgeInsets.only(left: 50),
             child: PlayAnimation<double>(
-              tween: Tween(begin: 80.0, end:210.0), // value for offset x-coordinate
+              tween: Tween(begin: -60, end:screenHeight * 0.07), // value for offset x-coordinate
               duration:Duration(milliseconds:800),
               builder: (context, child, value) {
                 return Transform.translate(
@@ -47,8 +47,8 @@ class _MyHomePageState extends State<WelcomeScreen> {
                 );
               },// non-linear animation
               child: Container(
-                  width: 280,
-                  height: 280,
+                  width: screenWidth *0.7,
+                  height: screenHeight * 0.8,
                   alignment: Alignment.center,
                   child:Image.asset("assets/images/GOLD WON.png")),
             ),
@@ -62,7 +62,10 @@ class _MyHomePageState extends State<WelcomeScreen> {
 
 class SecondScreen extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: ImageSlideshow(
         width: double.infinity,
@@ -92,11 +95,11 @@ class SecondScreen extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => LoginScreen()),
                   );
                 }, child: Text("Skip",style: TextStyle(color: Colors.white,fontFamily: 'Inter',
-                    fontSize: 13),)),
+                    fontSize: 13,fontWeight: FontWeight.bold),)),
               ),
               Positioned(
-                top: 500.0,
-                left: 80,
+                top: screenHeight * 0.67,
+                left: screenWidth * 0.3,
                 child: Text(
                   'Lorem ipsum dolor sit',
                   style: TextStyle(
@@ -106,8 +109,8 @@ class SecondScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 530.0,
-                left: 50,
+                top: screenHeight * 0.72,
+                left: screenWidth * 0.23,
                 child: Text("Lorem ipsum dolor sit amet, "
                     "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
                   style: TextStyle(
@@ -116,9 +119,8 @@ class SecondScreen extends StatelessWidget {
                       fontSize: 11.0),),
               ),
               Positioned(
-                top: 80,
-                left: 0,
-                right:0,
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -127,14 +129,14 @@ class SecondScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                      width: MediaQuery.of(context).size.width-20,
-                      height: 50,
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.07,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.white,width:0.5)
                       ),
                       margin: EdgeInsets.only(
-                        top: 570,
+                        top: 500,
                       ),
                       child: Center(
                         child: Text(
@@ -168,8 +170,8 @@ class SecondScreen extends StatelessWidget {
                     fontSize: 13),)),
               ),
               Positioned(
-                top: 500.0,
-                left: 80,
+                top: screenHeight * 0.67,
+                left:screenWidth * 0.3,
                 child: Text(
                   'Lorem ipsum dolor sit',
                   style: TextStyle(
@@ -179,8 +181,8 @@ class SecondScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 530.0,
-                left: 50,
+                top: screenHeight * 0.72,
+                left: screenWidth * 0.23,
                 child: Text("Lorem ipsum dolor sit amet, "
                     "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
                   style: TextStyle(
@@ -189,9 +191,8 @@ class SecondScreen extends StatelessWidget {
                       fontSize: 11.0),),
               ),
               Positioned(
-                top: 80,
-                left: 0,
-                right: 0,
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -200,14 +201,14 @@ class SecondScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                      width: MediaQuery.of(context).size.width-20,
-                      height: 50,
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.07,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           border: Border.all(color: Colors.white,width:0.5)
                       ),
                       margin: EdgeInsets.only(
-                        top: 570,
+                        top: 500,
                       ),
                       child: Center(
                         child: Text(
@@ -241,8 +242,8 @@ class SecondScreen extends StatelessWidget {
                     fontSize: 13),)),
               ),
               Positioned(
-                top: 500.0,
-                left: 80,
+                top: screenHeight * 0.67,
+                left: screenWidth * 0.3,
                 child: Text(
                   'Lorem ipsum dolor sit',
                   style: TextStyle(
@@ -252,8 +253,8 @@ class SecondScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 530.0,
-                left: 50,
+                top: screenHeight * 0.72,
+                left:screenWidth * 0.23,
                 child: Text("Lorem ipsum dolor sit amet, "
                     "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
                   style: TextStyle(
@@ -262,9 +263,8 @@ class SecondScreen extends StatelessWidget {
                       fontSize: 11.0),),
               ),
               Positioned(
-                top: 80,
-                left: 0,
-                right: 0,
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -274,14 +274,14 @@ class SecondScreen extends StatelessWidget {
                   },
                   child: Center(
                     child: Container(
-                      width: MediaQuery.of(context).size.width-20,
-                        height: 50,
+                        width: screenWidth * 0.9,
+                        height: screenHeight * 0.07,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(color: Colors.white,width:0.5)
                         ),
                         margin: EdgeInsets.only(
-                          top: 570,
+                          top: 500,
                         ),
                         child: Center(
                           child: Text(

@@ -39,6 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   }
   Future register(String name, email, mobile, pass, conpass, context) async {
+    EasyLoading.show(status: 'loading...');
     Map data = {
       'name': name,
       'email': email,
@@ -55,6 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         "accept": "application/json",
       },
     );
+    EasyLoading.dismiss();
 
     EditResponse = json.decode(response.body);
     print("resoo000>>>>>>${EditResponse}");
@@ -69,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         MaterialPageRoute(builder: (context) => RegisterProfile(names: name,)),
       );
       print('success');
+
     } else {
       Fluttertoast.showToast(
         msg: "The given data was invalid",
@@ -609,7 +612,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 child: GestureDetector(
                                   onTap: () async{
-                                    EasyLoading.show(status: 'loading...');
+
                                     await  register(
                                         usernameController.text,
                                         emailController.text,
@@ -617,7 +620,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         passwordController.text,
                                         confirmpassController.text,
                                         context);
-                                    EasyLoading.dismiss();
+
                                     setState(() {
                                       if (_formKey.currentState!.validate()) {
                                         print("Form was Submitted Successfully");

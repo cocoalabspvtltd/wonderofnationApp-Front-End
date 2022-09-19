@@ -442,11 +442,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 : _validatePassword = false;
                                           }
                                         });
-                                        EasyLoading.show(status: 'loading...');
+
                                       //  EasyLoading.showProgress(0.3, status: 'downloading...');
                                       await  loginApiCall.createUser(EmailLoginController.text,
                                             passwordController1.text, context);
-                                        EasyLoading.dismiss();
+
                                       },
                                       child: Container(height: 40,width: 360,
                                         decoration: BoxDecoration(color: ColorConstant.green6320,

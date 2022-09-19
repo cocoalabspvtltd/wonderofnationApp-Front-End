@@ -1301,16 +1301,6 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       child:
 
-
-
-
-
-
-
-
-
-
-
                                       Stack(
                                         alignment: Alignment.bottomRight,
                                         children: [
@@ -1328,6 +1318,9 @@ class _HomePageState extends State<HomePage> {
                                                   10.00,
                                                 ),
                                               ),
+          
+          
+          
                                               child: Card(
                                                 clipBehavior: Clip.antiAlias,
                                                 elevation: 0,

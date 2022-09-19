@@ -7,7 +7,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
 
 
-int designatioids = 0;
+String designatioids = "";
 class DesignationDropdown extends StatefulWidget {
   const DesignationDropdown({Key? key}) : super(key: key);
 
@@ -74,7 +74,7 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
                   return DropdownMenuItem(
                     onTap: (){setState((){
                       int id = item["id"];
-                      designatioids = id;
+                      designatioids = id.toString();
                       print("designatioids->>>>>>${designatioids}");
                     });},
                     value: item['id'].toString(),

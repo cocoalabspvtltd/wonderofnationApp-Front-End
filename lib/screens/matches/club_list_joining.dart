@@ -35,6 +35,7 @@ class ClubList extends StatefulWidget {
 class _ClubListState extends State<ClubList> {
   late ClubDetailsBloc _bloc;
   ClubRepository sortListClub = ClubRepository();
+  //ClubRepository1 sortListClub1 = ClubRepository1();
   List<ClubModel> patientappointmentsearchdata = [];
   List<ClubModel> patientappointmentserachlist = [];
   TextEditingController patientappointmentController = TextEditingController();
@@ -43,13 +44,14 @@ class _ClubListState extends State<ClubList> {
   void initState() {
     super.initState();
     _bloc = ClubDetailsBloc();
-    Locationid = 0;
-    designatioids = 0;
+    Locationid;
+    designatioids;
     _bloc.getvitalsignList();
     designatioids;
     Locationid;
+    setState(() {
 
-    setState(() {});
+    });
   }
 
   onSearchTextChanged(String text) async {
@@ -67,7 +69,7 @@ class _ClubListState extends State<ClubList> {
     setState(() {});
   }
 
-  String? _selectedTime;
+ // String? _selectedTime;
 
 
   DateTime selectedDate = DateTime.now();
@@ -130,7 +132,9 @@ class _ClubListState extends State<ClubList> {
           childAspectRatio: 0.60 / 0.90,
         ),
         itemCount: data.length,
+
         itemBuilder: (BuildContext context, int index) {
+          print("data.length->${ data[index].img}");
           return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -148,14 +152,15 @@ class _ClubListState extends State<ClubList> {
                   height: 550,
                   child: CachedNetworkImage(
                     fit: BoxFit.fitHeight,
-                    imageUrl: data[index].img == null
-                        ?  Image.asset("assets/images/football.jpg")
-                        : data[index].img,
+                    imageUrl: data[index].img == ""?Image.asset("assets/images/football.jpg",fit: BoxFit.fill,):data[index].img,
                     placeholder: (context, url) => Center(child: Container(height: 20,
                         width: 20,
                         child: CircularProgressIndicator(color: ColorConstant.green6320,))),
-                    errorWidget: (context, url, error) =>
-                Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
+                    errorWidget: (context, url, error) =>Container(
+                      margin: EdgeInsets.all(5),
+                      child: Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
+                    ),
+
 
                   ),
                   decoration: BoxDecoration(
@@ -194,358 +199,11 @@ class _ClubListState extends State<ClubList> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: ColorConstant.whiteA700,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                    child: Icon(Icons.search,
-                        size: 25, color: ColorConstant.whiteA700)
-                  // Image.asset("assets/images/search.png")
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                    child: Icon(Icons.notifications_none_rounded,
-                        size: 25, color: ColorConstant.whiteA700)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                    child: Icon(Icons.chat_bubble_outline,
-                        size: 25, color: ColorConstant.whiteA700)),
-              ),
-            ],
-          ),
-        ),
-        drawer: Drawer(
-          backgroundColor: ColorConstant.whiteA700,
-          child: Container(
-            color: Colors.white,
-            child: ListView(
-              children: [
-                Container(
-                  height: 100,
-                  child: DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 260),
-                        child: Container(
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            DashBoard(
-                                              UserName1: '',
-                                            )),
-                                  );
-                                },
-                                child: Icon(CupertinoIcons.clear_circled)
-                            )
-                        ),
-                      )),
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/mymatches.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        print("hg");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyMatches()),
-                        );
-                      },
-                      child: Text(
-                        "My Matches",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[900],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ]),
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myclubs.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyClubs()));
-                      },
-                      child: Text(
-                        "My Clubs",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.MY_PROFILE);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myresults.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GameDetail()));
-                      },
-                      child: Text(
-                        "My Results",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/payment.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PaymentMethod(
 
-                                  )),
-                        );
-                      },
-                      child: Text(
-                        "Payment Methods",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Icon(Icons.settings,
-                            color: Colors.black, size: 22)),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "Settings",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[900]),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                Divider(color: Colors.grey),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset("assets/images/privacy.png",
-                          color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PrivacyPage()));
-                      },
-                      child: Text(
-                        "Privacy & Security",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/help.png",
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HelpPage()));
-                      },
-                      child: Text(
-                        "Help",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/about.png", height: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AboutIUsPage()));
-                      },
-                      child: Text(
-                        "About us",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
 
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Icon(Icons.logout, color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                        );
-                      },
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
-        body: RefreshIndicator(
-          color: Colors.white,
+        body:
+        RefreshIndicator(
+          color: Colors.green,
           backgroundColor: Colors.blue,
           onRefresh: () {
             return _bloc.getvitalsignList();
@@ -822,12 +480,12 @@ class _ClubListState extends State<ClubList> {
                                   padding: const EdgeInsets.only(
                                       left: 15.0, right: 15),
                                   child:
-                                  (patientappointmentList.length!= 0)
-                                      ?
+                                  // (patientappointmentList.length!= 0)
+                                  //     ?
                                    _jobsListView(patientappointmentList)
-                                      : (updatedata.length !=
-                                      0) ? _jobsListView(
-                                      updatedata):_jobsListView(patientappointmentList)
+                                      // : (updatedata.length !=
+                                      // 0) ? _jobsListView(
+                                      // updatedata):_jobsListView(patientappointmentList)
 
 
                               ),

@@ -9,7 +9,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
 
 
-int Locationid = 0;
+String Locationid ="";
 class LocationDropdown extends StatefulWidget {
   const LocationDropdown({Key? key}) : super(key: key);
 
@@ -76,7 +76,7 @@ class _LocationDropdownState extends State<LocationDropdown> {
                   return DropdownMenuItem(
                     onTap: (){setState((){
                       int id = item["id"];
-                      Locationid = id;
+                      Locationid = id.toString();
                       print("designatioids->>>>>>${Locationid}");
                     });},
                     value: item['id'].toString(),

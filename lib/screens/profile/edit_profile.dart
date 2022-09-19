@@ -34,9 +34,9 @@ class _EditProfileState extends State<EditProfile> {
   EditprofileRepostory editProfileApi = EditprofileRepostory();
 
   Widget build(BuildContext context) {
-    NameController.text = widget.UserName;
-    EmailController.text = widget.UserEmail;
-    Mobilenumbercontroller.text = widget.UserPhone;
+    // NameController.text = widget.UserName;
+    // EmailController.text = widget.UserEmail;
+    // Mobilenumbercontroller.text = widget.UserPhone;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

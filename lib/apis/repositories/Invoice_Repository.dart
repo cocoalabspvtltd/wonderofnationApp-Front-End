@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:oo/apis/modelclass/InvoiceModel.dart';
+import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 
 import '../../constants/web_Api_provider.dart';
@@ -17,7 +18,7 @@ class InvoiceRepository {
     print("_queryParameters : " + _queryParameters.toString());
 
     final response = await WebApiProvider().getData(
-        url:"clubs/invoice?paymentid=order_K1uxizHcLhcGPj",
+        url:"clubs/invoice?paymentid=${Orderid}",
         isPost: false,
         token: TOKEN,
         queryParameters: _queryParameters,

@@ -12,6 +12,7 @@ class ClubRepository {
 
   Future  getclubList() async {
     print("token=${TOKEN}");
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
     print("_queryParameters : " + _queryParameters.toString());
     print("clubs/list/app?location=${Locationid}&spot=${designatioids}");
@@ -24,8 +25,34 @@ class ClubRepository {
        // club_id = response[3]["id"];
 
         print("res->>>${club_id}");
+        Locationid ="";
+        designatioids = "";
         return (response as List)
         .map((x) => ClubModel.fromJson(x))
         .toList();
+
+
   }
 }
+// class ClubRepository1 {
+//
+//   Future  getclubList1() async {
+//     print("token=${TOKEN}");
+//     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
+//     print("_queryParameters : " + _queryParameters.toString());
+//     print("clubs/list/app?location=${Locationid}&spot=${designatioids}");
+//     final response = await WebApiProvider().getData(
+//         url: "clubs/list/app?location=${Locationid}&spot=${designatioids}",
+//         isPost: false,
+//         token: TOKEN,
+//         queryParameters: _queryParameters,
+//         isQueryParmeter: true);
+//     // club_id = response[3]["id"];
+//
+//     print("res->>>${club_id}");
+//     return (response as List)
+//         .map((x) => ClubModel.fromJson(x))
+//         .toList();
+//   }
+// }
+

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+
 import '../../constants/colors.dart';
 
 
@@ -20,20 +22,19 @@ class _SettingpageState extends State<Settingpage> {
   var DisAble=true;
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar:  AppBar(
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.indigo,
-          ),
           leading: IconButton(onPressed: (){
             Navigator.pop(context);
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
             padding: const EdgeInsets.only(left: 30,right: 30),
-            child: Text("Settings",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400),),
+            child: Text("Settings",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
           )
       ),
       body: SingleChildScrollView(
@@ -44,16 +45,15 @@ class _SettingpageState extends State<Settingpage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20,left: 20),
                 child: Text("Profile",style: TextStyle(
-                    color: ColorConstant.green6320,fontSize: 15),),
+                    color: ColorConstant.green6320,fontSize: 20),),
               ),
-              SizedBox(height: 15,),
+              SizedBox(height:screenHeight * 0.01,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Private profile",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
-                  ),
-                  SizedBox(width: 180,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Private profile",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
+                  Spacer(),
                   SizedBox(
                     height: 50,
                     width: 60,
@@ -75,7 +75,7 @@ class _SettingpageState extends State<Settingpage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18,right: 10),
+                padding: const EdgeInsets.only(left: 18),
                 child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nNune ullamcorper eget ac turips par parturient",
                   style: TextStyle(color: ColorConstant.black901,fontSize: 13),),
               ),
@@ -87,13 +87,12 @@ class _SettingpageState extends State<Settingpage> {
                 ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Blocked accounts",style: TextStyle( color: ColorConstant.green6320,
-                        fontSize: 15),),
-                  ),
-                  SizedBox(width: 170,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Blocked accounts",style: TextStyle( color: ColorConstant.green6320,
+                      fontSize: 15),),
+                  Spacer(),
                   IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15, color: ColorConstant.black901,)),
                 ],
               ),
@@ -103,12 +102,11 @@ class _SettingpageState extends State<Settingpage> {
                     color: ColorConstant.green6320,fontSize: 15),),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Follow notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
-                  ),
-                  SizedBox(width: 140,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Follow notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
+                  Spacer(),
                   SizedBox(
                     height: 50,
                     width: 60,
@@ -130,17 +128,16 @@ class _SettingpageState extends State<Settingpage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18,right: 10),
+                padding: const EdgeInsets.only(left: 18,),
                 child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                   style: TextStyle(color: ColorConstant.black901,fontSize: 13),),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Follow request accept notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
-                  ),
-                  SizedBox(width: 35,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Follow request accept notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
+                  Spacer(),
                   SizedBox(
                     height: 50,
                     width: 60,
@@ -162,17 +159,16 @@ class _SettingpageState extends State<Settingpage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18,right: 10),
+                padding: const EdgeInsets.only(left: 18,),
                 child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                   style: TextStyle(color: ColorConstant.black901,fontSize: 13),),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Event notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
-                  ),
-                  SizedBox(width: 145,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Event notifications",style: TextStyle(color: ColorConstant.black901,fontSize: 15),),
+                  Spacer(),
                   SizedBox(
                     height: 50,
                     width: 60,
@@ -194,7 +190,7 @@ class _SettingpageState extends State<Settingpage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18,right: 10),
+                padding: const EdgeInsets.only(left: 18),
                 child: Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                   style: TextStyle(color: ColorConstant.black901,fontSize: 13),),
               ),
@@ -205,13 +201,12 @@ class _SettingpageState extends State<Settingpage> {
                     color: ColorConstant.green6320,fontSize: 15),),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Text("Approximate location",style: TextStyle( color: ColorConstant.black901,
-                        fontSize: 15),),
-                  ),
-                  SizedBox(width: 127,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Approximate location",style: TextStyle( color: ColorConstant.black901,
+                      fontSize: 15),),
+                  Spacer(),
                   SizedBox(
                     height: 50,
                     width: 60,
@@ -239,13 +234,12 @@ class _SettingpageState extends State<Settingpage> {
               ),
               SizedBox(height: 15,),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20,),
-                    child: Text("Delete my account",style: TextStyle( color: ColorConstant.gray600,
-                        fontSize: 15),),
-                  ),
-                  SizedBox(width: 150,),
+                  SizedBox(width: screenWidth * 0.05,),
+                  Text("Delete my account",style: TextStyle( color: ColorConstant.gray600,
+                      fontSize: 15),),
+                  Spacer(),
                   IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.delete,size: 18, color: ColorConstant.green6320,)),
                 ],
               ),

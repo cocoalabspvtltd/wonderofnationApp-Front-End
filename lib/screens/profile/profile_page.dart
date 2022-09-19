@@ -1070,27 +1070,7 @@ class _ProfileUiState extends State<ProfileUi> {
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          title: Padding(
-            padding: const EdgeInsets.only(left:125.0),
-            child: Text(
-              "Profile",
-              style: TextStyle(color: Colors.black,fontSize: 15),
-            ),
-          ),
-          leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-              ),
-              iconSize: 25,
-              color: Colors.black,
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '',)));
-              }
-          ),
-        ),
+
         body: RefreshIndicator(    color: Colors.white,
           backgroundColor: Colors.blue,    onRefresh: () {
           return _bloc.getprofilesList();

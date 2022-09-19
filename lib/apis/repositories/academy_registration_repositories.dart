@@ -8,7 +8,7 @@ import '../../screens/homePage/navigator.dart';
 
 
 class AcademyRegistrationRepository{
-  getacademyregistration( context, int sportid,String Name,dateofbirth,gender,address,phone,email, img,video) async {
+  getacademyregistration( context, String sportid,String Name,dateofbirth,gender,address,phone,email, img,video) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "sport_id":designatioids,
       "name":Name,
