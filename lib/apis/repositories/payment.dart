@@ -9,13 +9,17 @@ int amount =0;
 class Payemnt {
 
   Future  getpaymentList() async {
-    print("token=${TOKEN}");
-    final Map<String, dynamic> _queryParameters = <String, dynamic>{
-"name":name,
-      "amount":200
+
+    final Map<String, dynamic> _queryParameters = <String, dynamic>
+    {
+      "court_id":2,
+      "type":1,
+      "date":"2022-09-19",
+      "time_slot_id":7,
+      "amount":2500,
     };
     print("court/payment");
-    print("token=${TOKEN}");
+    print("_queryParameters : " + _queryParameters.toString());
     final response = await WebApiProvider().getData(
         url: "court/payment",
         isPost: true,

@@ -14,13 +14,13 @@ class CourtSlotBloc {
   Stream<Response<List<dynamic>>>? get Court_clubDataStream =>
       _Court_clubDataController.stream;
 
-  CourtSlotBloc(String date,String method,int courtId,) {
+  CourtSlotBloc(String date,int method,int courtId,) {
     _court_clubRepository = Court_clubRepository();
     getReservationCourtsDetailsList(date, method ,courtId);
     print("fsfds");
   }
 
-  getReservationCourtsDetailsList(String date,String method, int courtId, ) async {
+  getReservationCourtsDetailsList(String date,int method, int courtId, ) async {
     Court_clubListDataSink.add(Response.loading('Fetching...'));
     try {print("object");
     List<dynamic> _reservationcourt =

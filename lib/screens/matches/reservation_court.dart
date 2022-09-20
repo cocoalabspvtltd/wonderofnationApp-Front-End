@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
 import 'package:oo/screens/matches/public_court.dart';
@@ -30,6 +31,7 @@ final String date;
 final String ClubName;
   final String state;
   final String city;
+  final int Timeid = 0;
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
 }
@@ -42,18 +44,20 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int selectedIndex = -1;
    int price = 0;
    int courtid = 0;
+   int slot = 0;
    List<dynamic> patientappointmentsearchdata = [];
    List<dynamic> patientappointmentserachlist = [];
 
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
 
-getTimeSlot(int courtId)async{
+
+ getTimeSlot(int courtId)async{
 
   setState(() {
     isLoading = true;
   });
- await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, "private", courtId);
+ await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, selectedIndex, courtId);
   setState(() {
     isLoading = false;
   });
@@ -239,6 +243,8 @@ getTimeSlot(int courtId)async{
                                       setState(() {
                                         price = title[index]["price"];
                                         courtid = title[index]['id'];
+                                        slot = title[index]["slots"];
+
 
 
                                       });
@@ -357,6 +363,7 @@ SizedBox(height: 20,),
         ),
 
       );
+
   Widget timeSlotView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -364,11 +371,12 @@ SizedBox(height: 20,),
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index]["timeslots"]}");
-          return timeTile(data[index]["timeslots"],data[index]["image"] );
+          return timeTile(data[index]["timeslots"],data[index]["image"],
+          );
         });
   }
   SizedBox timeTile(
-      List slots,String image ) =>
+      List slots,String image,) =>
       SizedBox(
         width: size.width,
         child:    Padding(
@@ -401,13 +409,21 @@ SizedBox(height: 20,),
                           selectedTileColor: ColorConstant.green6320,
                           selectedColor:ColorConstant.gray200 ,
                           title: Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Text(slots[index]["time"],style: TextStyle(
-                                color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 15),),
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Column(
+                              children: [
+                                Text(slots[index]["time"],style: TextStyle(
+                                    color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 15),),
+                                selectedIndex==1? Text( "${slots[index]["available_slots"].toString()} left",style: TextStyle(
+                                    color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 9,fontWeight: FontWeight.bold),)
+                                    :(SizedBox(height:0))
+                              ],
+                            ),
                           ),
                           onTap: () {
                             setState(() {
                               selectedIndex1 = index;
+                            //  TimeId= slots[index]["id"];
                             });
                           },
                         )),
@@ -422,6 +438,9 @@ SizedBox(height: 20,),
 
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
+    print("json->>>>>>>>>>>${price}");
+    double x = price/slot;
+    print("json->>>>>>>>>>>${x}");
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -479,7 +498,7 @@ SizedBox(height: 20,),
                         SizedBox(height: 12,),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
-                          child: Text(
+                          child:selectedIndex==0?Text(
                             "₹${price} ",
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -490,12 +509,34 @@ SizedBox(height: 20,),
                               fontFamily: 'Inter',
                               fontWeight: FontWeight.w500,
                             ),
-                          ),
+                          ):Text(
+                            "₹${x.toStringAsFixed(2)} ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: ColorConstant.black900,
+                              fontSize: getFontSize(
+                                28,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
-                          child: Text(
+                          child: selectedIndex == 0?Text(
                             "For one hour ",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: ColorConstant.black900,
+                              fontSize: getFontSize(
+                                15,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ):Text(
+                            "For Each One",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: ColorConstant.black900,
@@ -552,10 +593,10 @@ SizedBox(height: 20,),
                           });
                         },
                       ),
-                      SizedBox(width: 15),//SizedBox
+                      SizedBox(width: 0),//SizedBox
                       Text(
                         'Do you want to hold this slot?',
-                        style: TextStyle(fontSize: 12.0),
+                        style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),
                       ), //Text
                       //SizedBox
                       //Checkbox
@@ -626,7 +667,8 @@ SizedBox(height: 20,),
   PayemntSucess paysucess = PayemntSucess();
   void initState() {
     super.initState(); _bloc =ReservationCourtBloc(widget.club_id,widget.date);
-    _courtSlotBloc = CourtSlotBloc(widget.date, "private",0);
+
+    _courtSlotBloc = CourtSlotBloc(widget.date, selectedIndex,0,);
 
     _razorpay = Razorpay();
     pay.getpaymentList();

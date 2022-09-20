@@ -44,45 +44,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
-        appBar:AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child:
-                Container(
-                    child:
-                    Icon(Icons.search,size: 25,color: ColorConstant.black901)
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Container(
-                    child:
-                    Icon(Icons.notifications_none_rounded,size: 25,color: ColorConstant.black901)
-                ),
-              ),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child:
-                    Container(
-                        child:Icon(Icons.chat_bubble_outline,size: 25,color: ColorConstant.black901)),
-                  )),
-            ],)),
+    
         drawer: Drawer(
           child: Container(
             color: Colors.white,
@@ -1208,1069 +1170,242 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.only(
-                            left: getHorizontalSize(
-                              20.00,
-                            ),
-                            top: getVerticalSize(
-                              22.00,
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: ColorConstant.gray200,
-                                  borderRadius: BorderRadius.circular(
-                                    getHorizontalSize(
-                                      15.00,
-                                    ),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorConstant.black90029,
-                                      spreadRadius: getHorizontalSize(
-                                        2.00,
-                                      ),
-                                      blurRadius: getHorizontalSize(
-                                        2.00,
-                                      ),
-                                      offset: Offset(
-                                        0,
-                                        4,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: getHorizontalSize(
-                                        224.00,
-                                      ),
-                                      height: 150,
-
-                                      decoration: BoxDecoration(
-
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(
-                                            getHorizontalSize(
-                                              15.00,
-                                            ),
-                                          ),
-                                          topRight: Radius.circular(
-                                            getHorizontalSize(
-                                              15.00,
-                                            ),
-                                          ),
-                                          bottomLeft: Radius.circular(
-                                            getHorizontalSize(
-                                              0.00,
-                                            ),
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            getHorizontalSize(
-                                              0.00,
-                                            ),
-                                          ),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: ColorConstant.black9000f,
-                                            spreadRadius: getHorizontalSize(
-                                              2.00,
-                                            ),
-                                            blurRadius: getHorizontalSize(
-                                              2.00,
-                                            ),
-                                            offset: Offset(
-                                              4,
-                                              0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      child:
-
-                                      Stack(
-                                        alignment: Alignment.bottomRight,
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Container(
-                                              height: getVerticalSize(
-                                                190.00,
+                      SizedBox(height: 10,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: Container(
+                          height: 170,
+                          child: ListView.separated(
+                            separatorBuilder: (BuildContext context, int index) {
+                              return SizedBox(
+                                width: 10,
+                              );
+                            },
+                            physics: ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: 2,
+                            itemBuilder: (BuildContext context, int i) {
+                              return SizedBox(
+                                width: 200,
+                                child: InkWell(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  CourtScreen()),
+                                    );
+                                  },
+                                  child: Card(
+                                    elevation: 1,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(7))),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(7),
+                                                  topRight: Radius.circular(7)),
+                                              child: Image.asset(
+                                                "assets/images/seasonalchampionship.png",fit: BoxFit.fill,
                                               ),
-                                              width: getHorizontalSize(
-                                                320.00,
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                bottom: getVerticalSize(
-                                                  10.00,
-                                                ),
-                                              ),
-          
-          
-          
-                                              child: Card(
-                                                clipBehavior: Clip.antiAlias,
-                                                elevation: 0,
-                                                margin: EdgeInsets.all(0),
-                                                color: ColorConstant.black900,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    topLeft: Radius.circular(
-                                                      getHorizontalSize(
-                                                        15.00,
-                                                      ),
-                                                    ),
-                                                    topRight: Radius.circular(
-                                                      getHorizontalSize(
-                                                        15.00,
-                                                      ),
-                                                    ),
-                                                    bottomLeft: Radius.circular(
-                                                      getHorizontalSize(
-                                                        0.00,
-                                                      ),
-                                                    ),
-                                                    bottomRight: Radius.circular(
-                                                      getHorizontalSize(
-                                                        0.00,
-                                                      ),
-                                                    ),
+                                            ),
+                                            Positioned(
+                                              left: 20,
+                                              top: 30,
+                                              child: Text(
+                                                "Friendly \nMatch",
+                                                maxLines: null,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: ColorConstant.whiteA700,
+                                                  fontSize: getFontSize(
+                                                    22,
                                                   ),
+                                                  fontFamily: 'Inter',
+                                                  fontWeight: FontWeight.w400,
                                                 ),
-                                                child: Stack(
-                                                  alignment: Alignment.centerLeft,
+                                              ),
+                                            ),
+                                            Positioned(
+                                                top: 75,
+                                                left: 18,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
                                                   children: [
-                                                    Align(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Image.asset(
-                                                        "assets/images/seasonalchampionship.png",
-                                                        height: getVerticalSize(
-                                                          190.00,
-                                                        ),
-                                                        width: getHorizontalSize(
-                                                          320.00,
-                                                        ),
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Padding(
-                                                        padding: EdgeInsets.only(
-                                                          left: getHorizontalSize(
-                                                            20.00,
-                                                          ),
-                                                          top: getVerticalSize(
-                                                            35.00,
-                                                          ),
-                                                          right: getHorizontalSize(
-                                                            50.00,
-                                                          ),
-                                                          bottom: getVerticalSize(
-                                                            20.00,
-                                                          ),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                          MainAxisSize.min,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment.start,
-                                                          children: [
-                                                            Container(
-                                                              width:
-                                                              getHorizontalSize(
-                                                                140.00,
-                                                              ),
-                                                              margin: EdgeInsets.only(
-                                                                right:
-                                                                getHorizontalSize(
-                                                                  10.00,
-                                                                ),
-                                                              ),
-                                                              child: Text(
-                                                                "Friendly Match",                                                                 maxLines: null,
-                                                                textAlign:
-                                                                TextAlign.left,
-                                                                style: TextStyle(
-                                                                  color: ColorConstant
-                                                                      .whiteA700,
-                                                                  fontSize:
-                                                                  getFontSize(
-                                                                    22,
-                                                                  ),
-                                                                  fontFamily: 'Inter',
-                                                                  fontWeight:
-                                                                  FontWeight.w400,
-                                                                ),
-                                                              ),
+                                                    Image.asset(
+                                                        "assets/images/location.png"),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          "Club Name/ Sports Center",
+                                                          overflow: TextOverflow.ellipsis,
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
+                                                            color: ColorConstant.whiteA700,
+                                                            fontSize: getFontSize(
+                                                              13,
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                              EdgeInsets.only(
-                                                                top: getVerticalSize(
-                                                                  20.00,
-                                                                ),
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                                mainAxisSize:
-                                                                MainAxisSize.max,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                    EdgeInsets
-                                                                        .only(
-                                                                      bottom:
-                                                                      getVerticalSize(
-                                                                        13.00,
-                                                                      ),
-                                                                    ),
-                                                                    child: Container(
-                                                                        height:
-                                                                        getSize(
-                                                                          20.00,
-                                                                        ),
-                                                                        width:
-                                                                        getSize(
-                                                                          20.00,
-                                                                        ),
-                                                                        child: Image
-                                                                            .asset(
-                                                                            "assets/images/location.png")),
-                                                                  ),
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                    crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        "Club Name/ Sports Center",
-                                                                        overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                        textAlign:
-                                                                        TextAlign
-                                                                            .left,
-                                                                        style:
-                                                                        TextStyle(
-                                                                          color: ColorConstant
-                                                                              .whiteA700,
-                                                                          fontSize:
-                                                                          getFontSize(
-                                                                            13,
-                                                                          ),
-                                                                          fontFamily:
-                                                                          'Inter',
-                                                                          fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding:
-                                                                        EdgeInsets
-                                                                            .only(
-                                                                          top:
-                                                                          getVerticalSize(
-                                                                            2.00,
-                                                                          ),
-                                                                          right:
-                                                                          getHorizontalSize(
-                                                                            10.00,
-                                                                          ),
-                                                                        ),
-                                                                        child: Text(
-                                                                          "3.5 km away",
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            color: ColorConstant
-                                                                                .whiteA700,
-                                                                            fontSize:
-                                                                            getFontSize(
-                                                                              12,
-                                                                            ),
-                                                                            fontFamily:
-                                                                            'Inter',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w400,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
+                                                            fontFamily: 'Inter',
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
+                                                        SizedBox(
+                                                          height: 3,
+                                                        ),
+                                                        Text(
+                                                          "3.5 km away",
+                                                          overflow: TextOverflow.ellipsis,
+                                                          textAlign: TextAlign.left,
+                                                          style: TextStyle(
+                                                            color: ColorConstant.whiteA700,
+                                                            fontSize: getFontSize(
+                                                              12,
+                                                            ),
+                                                            fontFamily: 'Inter',
+                                                            fontWeight: FontWeight.w400,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: getVerticalSize(
-                                          6.00,
+                                                ))
+                                          ],
                                         ),
-                                        bottom: getVerticalSize(
-                                          17.00,
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              left: getHorizontalSize(
-                                                15.00,
-                                              ),
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  height: getVerticalSize(
-                                                    25.00,
-                                                  ),
-                                                  width: getHorizontalSize(
-                                                    56.00,
-                                                  ),
-                                                  child: Stack(
-                                                    alignment: Alignment.center,
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            right:
-                                                            getHorizontalSize(
-                                                              10.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user1.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                        Alignment.center,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left:
-                                                            getHorizontalSize(
-                                                              15.00,
-                                                            ),
-                                                            right:
-                                                            getHorizontalSize(
-                                                              16.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user2.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .centerRight,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left:
-                                                            getHorizontalSize(
-                                                              10.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user3.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: getHorizontalSize(
-                                                      5.00,
-                                                    ),
-                                                    top: getVerticalSize(
-                                                      5.00,
-                                                    ),
-                                                    bottom: getVerticalSize(
-                                                      5.00,
-                                                    ),
-                                                  ),
-                                                  child: Text(
-                                                    "and 2 more",
-                                                    overflow:
-                                                    TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .black900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                      FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: getVerticalSize(
-                                                5.00,
-                                              ),
-                                              left: getHorizontalSize(
-                                                25.00,
-                                              ),
-                                              bottom: getVerticalSize(
-                                                5.00,
-                                              ),
-                                            ),
-                                            child: Text(
-                                              "Fee: ₹500",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: ColorConstant.green6320,
-                                                fontSize: getFontSize(
-                                                  12,
-                                                ),
-                                                fontFamily: 'Inter',
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            SizedBox(width:20),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: ColorConstant.gray200,
-                                  borderRadius: BorderRadius.circular(
-                                    getHorizontalSize(
-                                      15.00,
-                                    ),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: ColorConstant.black90029,
-                                      spreadRadius: getHorizontalSize(
-                                        2.00,
-                                      ),
-                                      blurRadius: getHorizontalSize(
-                                        2.00,
-                                      ),
-                                      offset: Offset(
-                                        0,
-                                        4,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: getHorizontalSize(
-                                        224.00,
-                                      ),
-                                      height: 150,
-
-                                      decoration: BoxDecoration(
-
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(
-                                            getHorizontalSize(
-                                              15.00,
-                                            ),
-                                          ),
-                                          topRight: Radius.circular(
-                                            getHorizontalSize(
-                                              15.00,
-                                            ),
-                                          ),
-                                          bottomLeft: Radius.circular(
-                                            getHorizontalSize(
-                                              0.00,
-                                            ),
-                                          ),
-                                          bottomRight: Radius.circular(
-                                            getHorizontalSize(
-                                              0.00,
-                                            ),
-                                          ),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: ColorConstant.black9000f,
-                                            spreadRadius: getHorizontalSize(
-                                              2.00,
-                                            ),
-                                            blurRadius: getHorizontalSize(
-                                              2.00,
-                                            ),
-                                            offset: Offset(
-                                              4,
-                                              0,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      child:
-
-
-
-
-
-                                      Stack(
-                                        alignment: Alignment.bottomRight,
-                                        children: [
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: GestureDetector(onTap:(){
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) =>  CourtScreen()),
-                                              );
-    },
-
-                                              child: Container(
-                                                height: getVerticalSize(
-                                                  190.00,
-                                                ),
-                                                width: getHorizontalSize(
-                                                  320.00,
-                                                ),
-                                                margin: EdgeInsets.only(
-                                                  bottom: getVerticalSize(
-                                                    10.00,
-                                                  ),
-                                                ),
-                                                child: Card(
-                                                  clipBehavior: Clip.antiAlias,
-                                                  elevation: 0,
-                                                  margin: EdgeInsets.all(0),
-                                                  color: ColorConstant.black900,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.only(
-                                                      topLeft: Radius.circular(
+                                        SizedBox(height: 10,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(left: 6),
+                                              child: Stack(
+                                                children: [
+                                                  Align(
+                                                    alignment: Alignment
+                                                        .centerLeft,
+                                                    child: Padding(
+                                                      padding:
+                                                      EdgeInsets.only(
+                                                        right:
                                                         getHorizontalSize(
-                                                          15.00,
+                                                          10.00,
                                                         ),
                                                       ),
-                                                      topRight: Radius.circular(
-                                                        getHorizontalSize(
-                                                          15.00,
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                          getSize(
+                                                            12.50,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      bottomLeft: Radius.circular(
-                                                        getHorizontalSize(
-                                                          0.00,
-                                                        ),
-                                                      ),
-                                                      bottomRight: Radius.circular(
-                                                        getHorizontalSize(
-                                                          0.00,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  child: Stack(
-                                                    alignment: Alignment.centerLeft,
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment.centerLeft,
                                                         child: Image.asset(
-                                                          "assets/images/Rectangle 20.png",
-                                                          height: getVerticalSize(
-                                                            190.00,
+                                                          "assets/images/user1.png",
+                                                          height: getSize(
+                                                            25.00,
                                                           ),
-                                                          width: getHorizontalSize(
-                                                            320.00,
+                                                          width: getSize(
+                                                            25.00,
                                                           ),
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
-                                                      Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Padding(
-                                                          padding: EdgeInsets.only(
-                                                            left: getHorizontalSize(
-                                                              20.00,
-                                                            ),
-                                                            top: getVerticalSize(
-                                                              35.00,
-                                                            ),
-                                                            right: getHorizontalSize(
-                                                              50.00,
-                                                            ),
-                                                            bottom: getVerticalSize(
-                                                              20.00,
-                                                            ),
-                                                          ),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                            MainAxisSize.min,
-                                                            crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                            mainAxisAlignment:
-                                                            MainAxisAlignment.start,
-                                                            children: [
-                                                              Container(
-                                                                width:
-                                                                getHorizontalSize(
-                                                                  140.00,
-                                                                ),
-                                                                margin: EdgeInsets.only(
-                                                                  right:
-                                                                  getHorizontalSize(
-                                                                    10.00,
-                                                                  ),
-                                                                ),
-                                                                child: Text(
-                                                                  "Friendly Match",                                                                 maxLines: null,
-                                                                  textAlign:
-                                                                  TextAlign.left,
-                                                                  style: TextStyle(
-                                                                    color: ColorConstant
-                                                                        .whiteA700,
-                                                                    fontSize:
-                                                                    getFontSize(
-                                                                      22,
-                                                                    ),
-                                                                    fontFamily: 'Inter',
-                                                                    fontWeight:
-                                                                    FontWeight.w400,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                EdgeInsets.only(
-                                                                  top: getVerticalSize(
-                                                                    20.00,
-                                                                  ),
-                                                                ),
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                                  mainAxisSize:
-                                                                  MainAxisSize.max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding:
-                                                                      EdgeInsets
-                                                                          .only(
-                                                                        bottom:
-                                                                        getVerticalSize(
-                                                                          13.00,
-                                                                        ),
-                                                                      ),
-                                                                      child: Container(
-                                                                          height:
-                                                                          getSize(
-                                                                            20.00,
-                                                                          ),
-                                                                          width:
-                                                                          getSize(
-                                                                            20.00,
-                                                                          ),
-                                                                          child: Image
-                                                                              .asset(
-                                                                              "assets/images/location.png")),
-                                                                    ),
-                                                                    Column(
-                                                                      mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .start,
-                                                                      children: [
-                                                                        Text(
-                                                                          "Club Name/ Sports Center",
-                                                                          overflow:
-                                                                          TextOverflow
-                                                                              .ellipsis,
-                                                                          textAlign:
-                                                                          TextAlign
-                                                                              .left,
-                                                                          style:
-                                                                          TextStyle(
-                                                                            color: ColorConstant
-                                                                                .whiteA700,
-                                                                            fontSize:
-                                                                            getFontSize(
-                                                                              13,
-                                                                            ),
-                                                                            fontFamily:
-                                                                            'Inter',
-                                                                            fontWeight:
-                                                                            FontWeight
-                                                                                .w400,
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding:
-                                                                          EdgeInsets
-                                                                              .only(
-                                                                            top:
-                                                                            getVerticalSize(
-                                                                              2.00,
-                                                                            ),
-                                                                            right:
-                                                                            getHorizontalSize(
-                                                                              10.00,
-                                                                            ),
-                                                                          ),
-                                                                          child: Text(
-                                                                            "3.5 km away",
-                                                                            overflow:
-                                                                            TextOverflow
-                                                                                .ellipsis,
-                                                                            textAlign:
-                                                                            TextAlign
-                                                                                .left,
-                                                                            style:
-                                                                            TextStyle(
-                                                                              color: ColorConstant
-                                                                                  .whiteA700,
-                                                                              fontSize:
-                                                                              getFontSize(
-                                                                                12,
-                                                                              ),
-                                                                              fontFamily:
-                                                                              'Inter',
-                                                                              fontWeight:
-                                                                              FontWeight
-                                                                                  .w400,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                    Alignment.center,
+                                                    child: Padding(
+                                                      padding:
+                                                      EdgeInsets.only(
+                                                        left:
+                                                        getHorizontalSize(
+                                                          14.00,
+                                                        ),
+                                                        right:
+                                                        getHorizontalSize(
+                                                          16.00,
                                                         ),
                                                       ),
-                                                    ],
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                          getSize(
+                                                            12.50,
+                                                          ),
+                                                        ),
+                                                        child: Image.asset(
+                                                          "assets/images/user2.png",
+                                                          height: getSize(
+                                                            25.00,
+                                                          ),
+                                                          width: getSize(
+                                                            25.00,
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
                                                   ),
+                                                  Align(
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    child: Padding(
+                                                      padding:
+                                                      EdgeInsets.only(
+                                                        left:
+                                                        getHorizontalSize(
+                                                          25.00,
+                                                        ),
+                                                      ),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                          getSize(
+                                                            12.50,
+                                                          ),
+                                                        ),
+                                                        child: Image.asset(
+                                                          "assets/images/user3.png",
+                                                          height: getSize(
+                                                            25.00,
+                                                          ),
+                                                          width: getSize(
+                                                            25.00,
+                                                          ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Text(
+                                              "and 2 more",
+                                              overflow:
+                                              TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: ColorConstant
+                                                    .black900,
+                                                fontSize: getFontSize(
+                                                  12,
                                                 ),
+                                                fontFamily: 'Inter',
+                                                fontWeight:
+                                                FontWeight.w400,
                                               ),
                                             ),
-                                          ),
-
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        top: getVerticalSize(
-                                          6.00,
-                                        ),
-                                        bottom: getVerticalSize(
-                                          17.00,
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              left: getHorizontalSize(
-                                                15.00,
-                                              ),
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  height: getVerticalSize(
-                                                    25.00,
-                                                  ),
-                                                  width: getHorizontalSize(
-                                                    56.00,
-                                                  ),
-                                                  child: Stack(
-                                                    alignment: Alignment.center,
-                                                    children: [
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            right:
-                                                            getHorizontalSize(
-                                                              10.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user1.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                        Alignment.center,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left:
-                                                            getHorizontalSize(
-                                                              15.00,
-                                                            ),
-                                                            right:
-                                                            getHorizontalSize(
-                                                              16.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user2.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment
-                                                            .centerRight,
-                                                        child: Padding(
-                                                          padding:
-                                                          EdgeInsets.only(
-                                                            left:
-                                                            getHorizontalSize(
-                                                              10.00,
-                                                            ),
-                                                          ),
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                              getSize(
-                                                                12.50,
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              "assets/images/user3.png",
-                                                              height: getSize(
-                                                                25.00,
-                                                              ),
-                                                              width: getSize(
-                                                                25.00,
-                                                              ),
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                    left: getHorizontalSize(
-                                                      5.00,
-                                                    ),
-                                                    top: getVerticalSize(
-                                                      5.00,
-                                                    ),
-                                                    bottom: getVerticalSize(
-                                                      5.00,
-                                                    ),
-                                                  ),
-                                                  child: Text(
-                                                    "and 2 more",
-                                                    overflow:
-                                                    TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: ColorConstant
-                                                          .black900,
-                                                      fontSize: getFontSize(
-                                                        12,
-                                                      ),
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                      FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(
-                                              top: getVerticalSize(
-                                                5.00,
-                                              ),
-                                              left: getHorizontalSize(
-                                                25.00,
-                                              ),
-                                              bottom: getVerticalSize(
-                                                5.00,
-                                              ),
-                                            ),
-                                            child: Text(
+                                            Spacer(),
+                                            Text(
                                               "Fee: ₹500",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.center,
@@ -2283,15 +1418,16 @@ class _HomePageState extends State<HomePage> {
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
+                                            SizedBox(width: 4,)
+                                          ],
+                                        ),
+                                        SizedBox(height: 4,),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-
-                            ],
+                              );
+                            },
                           ),
                         ),
                       ),

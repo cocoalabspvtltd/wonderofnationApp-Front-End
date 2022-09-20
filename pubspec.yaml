@@ -57,6 +57,8 @@ dependencies:
   date_format: ^2.0.6
   simple_animations: ^4.2.0
   flutter_easyloading: ^3.0.5
+  shared_preferences: ^2.0.15
+  intl: ^0.17.0
 
 
 dev_dependencies:

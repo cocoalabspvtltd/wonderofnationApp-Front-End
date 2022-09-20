@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
 import '../../apis/bloc/club_list_bloc.dart';
@@ -9,17 +10,8 @@ import '../../apis/repositories/club_list_repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
-import '../addClubs/my_clubs.dart';
-import '../dashboardItems/about.dart';
-import '../dashboardItems/help.dart';
-import '../dashboardItems/my_matches.dart';
-import '../dashboardItems/privacy.dart';
 import '../dropdowns/games_dropdown.dart';
 import '../dropdowns/register_game_dropdown.dart';
-import '../homePage/navigator.dart';
-import '../login.dart';
-import '../myresults/game_detail.dart';
-import '../payment_dash/payment_page.dart';
 import 'club_details.dart';
 
 TextEditingController dateinputcontroller = new TextEditingController(
@@ -73,7 +65,7 @@ class _ClubListState extends State<ClubList> {
 
 
   DateTime selectedDate = DateTime.now();
-
+// print("date->>>>>>.${selectedDate}");
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,
@@ -113,6 +105,7 @@ class _ClubListState extends State<ClubList> {
             "-" +
             picked.year.toString();
         dateinputcontroller.text = da;
+
       });
   }
 
