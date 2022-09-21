@@ -6,7 +6,8 @@ import 'games_list.dart';
 
 
 class GameDetail extends StatefulWidget {
-  const GameDetail({Key? key}) : super(key: key);
+  var games;
+  GameDetail({this.games,Key? key}) : super(key: key);
 
   @override
   State<GameDetail> createState() => _GameDetailState();
@@ -15,6 +16,8 @@ class GameDetail extends StatefulWidget {
 class _GameDetailState extends State<GameDetail> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -27,28 +30,28 @@ class _GameDetailState extends State<GameDetail> {
             color: Colors.black,
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GamesList()));
+                  MaterialPageRoute(builder: (context) => Gameslist()));
             }
         ),
         title: Padding(
-          padding: const EdgeInsets.only(right: 100, left: 80),
+          padding: const EdgeInsets.only(left: 100 ),
           child: Text(
-            "Tennis", style: TextStyle(color: Colors.black, fontSize: 15),),
+            widget.games, style: TextStyle(color: Colors.black, fontSize: 15),),
         ),),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            children: [
-              SizedBox(height: 10,),
-              ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index){
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10,right: 10),
-                      child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                SizedBox(height: 10,),
+                ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 4,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index){
+                      return Card(
                         elevation: 0,
                         child: Row(
                           children: [
@@ -60,8 +63,8 @@ class _GameDetailState extends State<GameDetail> {
                                       MaterialPageRoute(builder: (context) => ScoreBoard()));
                                 },
                                 child: Container(
-                                    height: 130,
-                                    width: 267,
+                                    height: screenHeight * 0.15,
+                                    width: screenWidth * 0.65,
                                     decoration: BoxDecoration(
                                         border: Border.all(color: Colors.black),
                                         borderRadius: BorderRadius.all(Radius.circular(5))
@@ -73,7 +76,7 @@ class _GameDetailState extends State<GameDetail> {
                                         Padding(
                                           padding: const EdgeInsets.only(top: 0.0,left: 180),
                                           child: Text(
-                                            "12 hrs left",
+                                            "12 days left",
                                             style:
                                             TextStyle(color: ColorConstant.green6320, fontSize: 11),
                                           ),
@@ -86,45 +89,32 @@ class _GameDetailState extends State<GameDetail> {
                                                 fontSize: 15.0, fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        SizedBox(height: 5,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 7.0, top: 4),
-                                              child: Image.asset(
-                                                "assets/images/location.png",
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 70),
-                                              child: Text("Club name/Sport Centre"),
-                                            ),
-                                          ],
-                                        ),
                                         SizedBox(height: 8,),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            SizedBox(width: 5,),
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 25, top: 4),
-                                              child: Text("2.5 km away"),
-                                            ),
                                             SizedBox(width: 10,),
-                                            Padding(
-                                              padding:
-                                              const EdgeInsets.only(left: 5.0, top: 4),
-                                              child: Image.asset(
-                                                "assets/images/calender.png",
-                                                color: Colors.black,
-                                              ),
+                                            Image.asset(
+                                              "assets/images/location.png",
+                                              color: Colors.black,
                                             ),
-                                            Padding(
-                                              padding:
-                                              const EdgeInsets.only(left: 10.0, top: 4),
-                                              child: Text("04.07.22"),
+                                            SizedBox(width: 5,),
+                                            Text("Club name/Sport Centre"),
+                                          ],
+                                        ),
+                                        SizedBox(height: 4,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(width: 33,),
+                                            Text("2.5 km away"),
+                                            SizedBox(width: 10,),
+                                            Image.asset(
+                                              "assets/images/calender.png",
+                                              color: Colors.black,
                                             ),
+                                            SizedBox(width: 8,),
+                                            Text("04.07.22"),
                                             SizedBox(height: 20,),
                                           ],
                                         ),
@@ -136,8 +126,8 @@ class _GameDetailState extends State<GameDetail> {
                             Padding(
                               padding: const EdgeInsets.only(left:3),
                               child: Container(
-                                height: 130,
-                                width:90,
+                                height: screenHeight * 0.15,
+                                width: screenWidth * 0.23,
                                 decoration: BoxDecoration(
                                     color: Colors.green[900],
                                     borderRadius: BorderRadius.all(Radius.circular(5))
@@ -147,11 +137,11 @@ class _GameDetailState extends State<GameDetail> {
                             )
                           ],
                         ),
-                      ),
-                    );
+                      );
 
-                  }),
-            ],
+                    }),
+              ],
+            ),
           ),
         ),
       ),

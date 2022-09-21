@@ -237,7 +237,7 @@ class _DashBoardState extends State<DashBoard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GamesList()));
+                            builder: (context) => Gameslist()));
                   },
                   child: Text(
                     "My Results",

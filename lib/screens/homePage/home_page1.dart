@@ -384,72 +384,15 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          width: getHorizontalSize(
-                            116.00,
-                          ),
-                          margin: EdgeInsets.only(
-                            left: getHorizontalSize(
-                              20.00,
-                            ),
-                            right: getHorizontalSize(
-                              20.00,
-                            ),
-                          ),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Hello',
-                                  style: TextStyle(
-                                    color: ColorConstant.black900,
-                                    fontSize: getFontSize(
-                                      24,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ',',
-                                  style: TextStyle(
-                                    color: ColorConstant.black900,
-                                    fontSize: getFontSize(
-                                      20,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' ',
-                                  style: TextStyle(
-                                    color: ColorConstant.black900,
-                                    fontSize: getFontSize(
-                                      12,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "${name
-                                    .toUpperCase()}",
-                                  style: TextStyle(
-                                    color: ColorConstant.green6320,
-                                    fontSize: getFontSize(
-                                      16,
-                                    ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20,bottom: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text("HELLO , ",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
+                            Text("${name.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),
+                            Spacer(),
+                          ],
                         ),
                       ),
                       Align(

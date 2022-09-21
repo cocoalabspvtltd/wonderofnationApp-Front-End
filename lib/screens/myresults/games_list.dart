@@ -1,19 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/screens/homePage/navigator.dart';
+import 'package:oo/screens/myresults/game_detail.dart';
 
-
-import '../homePage/navigator.dart';
-import 'game_detail.dart';
-
-
-class GamesList extends StatefulWidget {
-  const GamesList({Key? key}) : super(key: key);
+class Gameslist extends StatefulWidget {
+  var games = ['Tennis', 'Football', 'Cricket','Swimming', 'Badminton','Golf'];
 
   @override
-  State<GamesList> createState() => _GamesListState();
+  State<Gameslist> createState() => _GameslistState();
 }
 
-class _GamesListState extends State<GamesList> {
+class _GameslistState extends State<Gameslist> {
   @override
+  var games = ['Tennis', 'Football', 'Cricket','Swimming', 'Badminton','Golf'];
+  List _iconTypes = [Icons.sports_tennis, Icons.sports_baseball, Icons.sports_cricket,
+    Icons.pool_outlined,
+    CupertinoIcons.sportscourt,
+    Icons.sports_golf,
+  ];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +30,7 @@ class _GamesListState extends State<GamesList> {
             iconSize: 25,
             color: Colors.black,
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '')));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>DashBoard(UserName1: '',)));
             }
         ),
         title: Padding(
@@ -40,24 +44,31 @@ class _GamesListState extends State<GamesList> {
                 SizedBox(height: 10,),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: ListView.builder(
+                  child: ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(
+                          height: 5,
+                        );
+                      },
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      itemCount: 4,
+                      itemCount: games.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return SizedBox(
-                          height: 70,
+                          height: 65,
                           child: Card(
                               clipBehavior: Clip.antiAlias,
                               elevation: 0,
                               color: Colors.grey[200],
                               child:ListTile(
                                 onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>GameDetail()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>GameDetail(
+                                      games : widget.games[index]
+                                  )));
                                 },
-                                leading: Icon(Icons.sports_tennis,color: Colors.black,size: 20,),
-                                title: Text("Tennis",style: TextStyle(color: Colors.black,fontSize: 18),),
+                                leading: Icon(_iconTypes[index],color: Colors.black,size: 20,),
+                                title: Text(games[index],style: TextStyle(color: Colors.black,fontSize: 18),),
                               )
                           ),
                         );

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/club_details_model.dart';
@@ -388,46 +389,37 @@ print("object=>>>>>${Imagelist}");
                               ),
                             ),
                             SizedBox(height: 15,),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10,right: 10),
-                              child: Container(
-                                width: size.width,
-                                height: 160,
-                                child: Swiper(
-                                  itemBuilder: (BuildContext context, int index) {
-                                    print("ImagelistImagelistImagelist-->>>>>>${imglist.length}");
-                                    return CachedNetworkImage(
-                                      fit: BoxFit.fitWidth,
-                                      imageUrl: imglist[index]["img"] == null
-                                          ? "assets/images/football.jpg"
-                                          : imglist[index]["img"],
-                                      placeholder: (context, url) => Center(
-                                        child: Container(height: 20,
-                                            width: 20,
-                                            child: CircularProgressIndicator(color: ColorConstant.green6320,)),
-                                      ),
-                                      errorWidget: (context, url, error) =>
-                                      imglist[index]["img"] == null
-                                          ? Image.asset(
-                                        "assets/images/football.jpg",
-                                        fit: BoxFit.fill,
-                                      )
-                                          : imglist[index]["img"],
-                                    );
-
-                                     },
-                                  autoplay: true,
-                                  itemCount: imglist.length,
-
-                                  pagination: SwiperPagination(
-                                      builder: DotSwiperPaginationBuilder(
-                                        color: Colors.white30,
-                                        activeColor: Colors.white,
-                                        size: 7,
-                                      )
-                                  ),
-                                ),
+                            CarouselSlider.builder(
+                              itemCount: imglist.length,
+                              options: CarouselOptions(
+                                  aspectRatio: 2.0,
+                                  enlargeCenterPage: true,
+                                  autoPlay: true,
+                                  height: 160
                               ),
+                              itemBuilder: (ctx, index, realIdx) {
+                                return Container(
+                                  width: size.width,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.fitWidth,
+                                    imageUrl: imglist[index]["img"] == null
+                                        ? "assets/images/football.jpg"
+                                        : imglist[index]["img"],
+                                    placeholder: (context, url) => Center(
+                                      child: Container(height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(color: ColorConstant.green6320,)),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                    imglist[index]["img"] == null
+                                        ? Image.asset(
+                                      "assets/images/football.jpg",
+                                      fit: BoxFit.fill,
+                                    )
+                                        : imglist[index]["img"],
+                                  ),
+                                );
+                              },
                             ),
                             Align(
                               alignment: Alignment.center,

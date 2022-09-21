@@ -45,6 +45,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
    int price = 0;
    int courtid = 0;
    int slot = 0;
+  int TimeId = 0;
    List<dynamic> patientappointmentsearchdata = [];
    List<dynamic> patientappointmentserachlist = [];
 
@@ -394,6 +395,7 @@ SizedBox(height: 20,),
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  TimeId= slots[index]["id"];
                   return SizedBox(
                     // height: 45,
                     width: 120,
@@ -439,8 +441,8 @@ SizedBox(height: 20,),
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
     print("json->>>>>>>>>>>${price}");
-    double x = price/slot;
-    print("json->>>>>>>>>>>${x}");
+  //  double x = price/slot;
+   // print("json->>>>>>>>>>>${x}");
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -498,19 +500,8 @@ SizedBox(height: 20,),
                         SizedBox(height: 12,),
                         Padding(
                           padding: const EdgeInsets.only(left: 10),
-                          child:selectedIndex==0?Text(
+                          child:Text(
                             "₹${price} ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                28,
-                              ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ):Text(
-                            "₹${x.toStringAsFixed(2)} ",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               color: ColorConstant.black900,
@@ -671,7 +662,7 @@ SizedBox(height: 20,),
     _courtSlotBloc = CourtSlotBloc(widget.date, selectedIndex,0,);
 
     _razorpay = Razorpay();
-    pay.getpaymentList();
+
 
 
    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -687,7 +678,7 @@ SizedBox(height: 20,),
 
 
   void openCheckout() async {
-
+    pay.getpaymentList(courtid,selectedIndex,widget.date,TimeId,price);
     var options = {
       'key': key,
       'order_id':Orderid,
