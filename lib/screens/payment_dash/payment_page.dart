@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:oo/constants/math_utils.dart';
+import 'package:oo/screens/homePage/home_page1.dart';
 
 import '../../constants/colors.dart';
 
@@ -343,6 +344,87 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 ),
               ),
             ),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class OrderPlaced extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Confirmation',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
+            );
+          },
+          icon: Icon(Icons.arrow_back,),
+        ),
+
+
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(child:
+            Container(height: 40,width: 40,
+                margin: EdgeInsets.only(top: 200),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/tick.png'),
+                      fit: BoxFit.fill),
+                )
+            ),
+
+            ),
+            Container(
+              child: Text("Your Order has been placed successfully",style: TextStyle(fontSize:20),),
+            ),
+            Container(
+              child: Text("Submitted!!",style: TextStyle(fontSize:20),),
+            ),SizedBox(
+              height: 30,
+            ),
+
+            // Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),color: AppColors.primaryColor,),
+            //     height: 50,width: 200,
+            //     child:TextButton(
+            //       onPressed: () {},
+            //       child: Text(
+            //         "Tracking",
+            //         style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+            //       ),
+            //     )
+            // ),
+            SizedBox(height: 60),
+            Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.green,),
+                height: 50,width:50,
+                child:TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
+                    );
+                  },
+                  child: Text(
+                    "Continue Shopping",
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:80),
+                  ),
+                )
+            )
 
 
           ],

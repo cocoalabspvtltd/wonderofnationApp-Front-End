@@ -18,20 +18,23 @@ import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
+import '../payment_dash/payment_page.dart';
 import 'add_players.dart';
 import 'club_details.dart';
 import 'court_time_slot.dart';
 
 String ? razorpay_signature ="";String? PaymentId = "";
+String ?OrderRazorpayId ="";
 
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({Key? key, required this.club_id, required this.date, required this.ClubName,  required this.state, required this.city, }) : super(key: key);
-final int club_id;
-final String date;
-final String ClubName;
+  final int club_id;
+  final String date;
+  final String ClubName;
   final String state;
   final String city;
   final int Timeid = 0;
+
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
 }
@@ -39,30 +42,34 @@ final String ClubName;
 class _ReservationCourtState extends State<ReservationCourt> {
   late ReservationCourtBloc _bloc;
   late CourtSlotBloc _courtSlotBloc;
- bool? isLoading;
+  bool? isLoading;
   List book_model= ["Private", "Public"];
   int selectedIndex = -1;
-   int price = 0;
-   int courtid = 0;
-   int slot = 0;
+  int slot = 0;
+  int price = 0;
+  String y = "";
+
+  int courtid = 0;
+
   int TimeId = 0;
-   List<dynamic> patientappointmentsearchdata = [];
-   List<dynamic> patientappointmentserachlist = [];
+
+  List<dynamic> patientappointmentsearchdata = [];
+  List<dynamic> patientappointmentserachlist = [];
 
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
 
 
- getTimeSlot(int courtId)async{
+  getTimeSlot(int courtId)async{
 
-  setState(() {
-    isLoading = true;
-  });
- await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, selectedIndex, courtId);
-  setState(() {
-    isLoading = false;
-  });
-}
+    setState(() {
+      isLoading = true;
+    });
+    await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, selectedIndex, courtId);
+    setState(() {
+      isLoading = false;
+    });
+  }
   int selectedIndex2 = -1;
 
   int selectedIndex1 = -1;
@@ -238,14 +245,21 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: GestureDetector(onTap: ()async{
+
                                       selectedIndex2 = index;
                                       setState((){});
                                       await getTimeSlot(title[index]["id"]);
                                       setState(() {
+                                        print("tfgh");
+
                                         price = title[index]["price"];
                                         courtid = title[index]['id'];
                                         slot = title[index]["slots"];
 
+                       double x = (price/slot);
+                                        y = x.toStringAsFixed(0);
+                                        print("y ->>>>>>>.${y}");
+                       //
 
 
                                       });
@@ -271,13 +285,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       320.00,
                     ),
                     margin: EdgeInsets.only(
-                      left: getHorizontalSize(
-                        20.00,
-                      ),
-                      right: getHorizontalSize(
-                        20.00,
-                      ),
-                      top: 15
+                        left: getHorizontalSize(
+                          20.00,
+                        ),
+                        right: getHorizontalSize(
+                          20.00,
+                        ),
+                        top: 15
                     ),
                     child: Stack(
                       alignment: Alignment.topCenter,
@@ -315,7 +329,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     width: 20,
                     child: CircularProgressIndicator(color:ColorConstant.green6320),),
                 ))
-                :Container(),
+                    :Container(),
                 StreamBuilder<Response<List<dynamic>>>(
                     stream: _courtSlotBloc.Court_clubDataStream,
                     builder: (context, snapshot) {
@@ -326,7 +340,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             return Container(
                               height: 20,
                               width: 20,
-                              ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                            ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                             break;
                           case Status.SUCCESS:
                             List<dynamic> patientappointmentList =
@@ -356,7 +370,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
 
 
-SizedBox(height: 20,),
+                SizedBox(height: 20,),
 
               ],
             ),
@@ -425,7 +439,7 @@ SizedBox(height: 20,),
                           onTap: () {
                             setState(() {
                               selectedIndex1 = index;
-                            //  TimeId= slots[index]["id"];
+                              //  TimeId= slots[index]["id"];
                             });
                           },
                         )),
@@ -440,9 +454,9 @@ SizedBox(height: 20,),
 
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
-    print("json->>>>>>>>>>>${price}");
-  //  double x = price/slot;
-   // print("json->>>>>>>>>>>${x}");
+    // print("json->>>>>>>>>>>${  (price/slot).floor()}");
+
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -498,47 +512,70 @@ SizedBox(height: 20,),
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 12,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child:Text(
-                            "₹${price} ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                28,
+                        if(selectedIndex==1)
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child:Text(
+                                "₹${y}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: ColorConstant.black900,
+                                  fontSize: getFontSize(
+                                    28,
+                                  ),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                          ),
+                        if(selectedIndex==0)
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child:Text(
+                                "₹${price}",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: ColorConstant.black900,
+                                  fontSize: getFontSize(
+                                    28,
+                                  ),
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                          ),
+                        if(selectedIndex==0)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child:Text(
+                              "For one hour ",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black900,
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
                               ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: selectedIndex == 0?Text(
-                            "For one hour ",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                15,
-                              ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ):Text(
-                            "For Each One",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                15,
-                              ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                        ),
+                        if(selectedIndex==1)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              "For Each One",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black900,
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                     SizedBox(width: 110,),
@@ -550,7 +587,9 @@ SizedBox(height: 20,),
                         shape: RoundedRectangleBorder( //to set border radius to button
                             borderRadius: BorderRadius.circular(10.0)
                         ),),
-                      onPressed: (){
+                      onPressed: ()async{
+                        await  pay.getpaymentList(courtid,selectedIndex,widget.date,TimeId,price);
+
                         openCheckout( );
                       },
                       child: Text(
@@ -656,16 +695,17 @@ SizedBox(height: 20,),
   late Razorpay _razorpay;
   Payemnt pay = Payemnt();
   PayemntSucess paysucess = PayemntSucess();
+  bool pressed = false;
+  String orderPlace = "";
+  String PlaceOrder = "Place Order";
   void initState() {
-    super.initState(); _bloc =ReservationCourtBloc(widget.club_id,widget.date);
-
+    super.initState();
+   _bloc =ReservationCourtBloc(widget.club_id,widget.date);
     _courtSlotBloc = CourtSlotBloc(widget.date, selectedIndex,0,);
-
     _razorpay = Razorpay();
 
 
-
-   _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
@@ -678,7 +718,7 @@ SizedBox(height: 20,),
 
 
   void openCheckout() async {
-    pay.getpaymentList(courtid,selectedIndex,widget.date,TimeId,price);
+
     var options = {
       'key': key,
       'order_id':Orderid,
@@ -701,15 +741,13 @@ SizedBox(height: 20,),
   }
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     PaymentId = response.paymentId;
-     razorpay_signature = response.signature;
+    razorpay_signature = response.signature;
+    OrderRazorpayId = response.orderId;
 
-    print('Success Response: $response');
-    print("sducessss");
-paysucess.getpaymentsucessList(PaymentId!, Orderid,razorpay_signature );
+    paysucess.getpaymentsucessList(PaymentId!, Orderid,razorpay_signature );
+    sucess =="Payment successful"?showAlertDialog:SizedBox(height: 0,);
+print("dfv");
 
-    /*Fluttertoast.showToast(
-        msg: "SUCCESS: " + response.paymentId!,
-        toastLength: Toast.LENGTH_SHORT); */
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -725,93 +763,49 @@ paysucess.getpaymentsucessList(PaymentId!, Orderid,razorpay_signature );
         msg: "EXTERNAL_WALLET: " + response.walletName!,
         toastLength: Toast.LENGTH_SHORT); */
   }
-  _showDialog(
-      BuildContext context,
-      ) {
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () { },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("REFFEREL"),
+      content: Text("${refferel}"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          backgroundColor:Colors.white,
-          insetPadding: EdgeInsets.symmetric(
-            horizontal: 20.0,
-            vertical: 60.0,
-          ),
-          elevation: 0.0,
-          title: Column(children: [
-            Container(height: 40,
-              width: 40 ,
-              child: Image.asset(
-                "assets/images/tickmark.jpg",
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              "You are ready to play",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(
-              height: 3,
-            ),
-            Text(
-              "Payment Successfully Completed",
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.w400),
-            ),
-          ]),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20,right: 20),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>    PaymentSuccess()));
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  height: getVerticalSize(
-                    40.00,
-                  ),
-                  width: getHorizontalSize(
-                    235.00,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.green6320,
-                    borderRadius: BorderRadius.circular(
-                      getHorizontalSize(
-                        5.00,
-                      ),
-                    ),
-                  ),
-                  child: Text(
-                    "ok ",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: ColorConstant.whiteA700,
-                      fontSize: getFontSize(
-                        17,
-                      ),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-            ),
-          ],
-        );
-
+        return alert;
       },
     );
+  }
+
+  Future<void> getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature) async {
+
+    var response = await http.post(
+        Uri.parse("https://d917-59-98-51-52.ngrok.io/api/payment/signature-verify"),
+        body: { "razorpay_payment_id":PaymentId,
+          "razorpay_order_id":Orderid,
+          "razorpay_signature":razorpay_signature});
+    print(response.statusCode);
+    print("response${response.body}");
+    if (response.statusCode == 200) {
+      // OrderSuccess();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OrderPlaced()),
+      );
+    }
   }
 
 }

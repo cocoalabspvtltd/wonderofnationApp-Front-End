@@ -15,10 +15,6 @@ class _ScoreBoardState extends State<ScoreBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-
-
-
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(

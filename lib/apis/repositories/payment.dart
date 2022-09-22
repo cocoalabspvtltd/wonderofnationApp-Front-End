@@ -7,6 +7,7 @@ import '../../constants/web_Api_provider.dart';
 String Orderid ="";
 String key ="";
 int amount =0;
+String refferel = "";
 class Payemnt {
 
   Future  getpaymentList( int court_id,type,String date, int time_slot,amount) async {
@@ -18,25 +19,27 @@ class Payemnt {
 
     final Map<String, dynamic> _queryParameters = <String, dynamic>
     {
-      "court_id":court_id,
-      "type":type,
-      "date":formatted,
-      "time_slot_id":time_slot,
-      "amount":amount,
-
+      "court_id": court_id,
+      "type": type,
+      "date": formatted,
+      "time_slot_id": time_slot,
+      "amount": amount,
+      "hold_court":1,
     };
     print("court/payment");
     print("_queryParameters : " + _queryParameters.toString());
     final response = await WebApiProvider().getData(
-        url: "court/payment",
+        url:"court/payment",
         isPost: true,
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
-    print("res->>>${response}");
+    print("res->>>--------${response}");
     Orderid= response["order_id"];
     key =response["key"];
     amount = response["amount"];
+    refferel = response["referral_code"];
+
     print("Orderid->>>${Orderid}");
     return response;
   }

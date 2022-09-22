@@ -19,7 +19,7 @@ class Court_clubRepository {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "date":formatted,
       "type":bookingMethod,
-      "court_id":2,
+      "court_id":court_id,
 
     };
     print("_queryParameters : " + _queryParameters.toString());
