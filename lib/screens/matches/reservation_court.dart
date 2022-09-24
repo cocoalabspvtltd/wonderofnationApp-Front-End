@@ -1,6 +1,6 @@
-
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,6 +13,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../apis/bloc/Coiurt_slot_bloc.dart';
 import '../../apis/repositories/payment.dart';
 import '../../apis/repositories/paymentcucesss.dart';
+import '../../apis/repositories/refferel_user.dart';
 import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
@@ -23,11 +24,20 @@ import 'add_players.dart';
 import 'club_details.dart';
 import 'court_time_slot.dart';
 
-String ? razorpay_signature ="";String? PaymentId = "";
-String ?OrderRazorpayId ="";
+String? razorpay_signature = "";
+String? PaymentId = "";
+String? OrderRazorpayId = "";
+bool? holdSlotvalue;
 
 class ReservationCourt extends StatefulWidget {
-  const ReservationCourt({Key? key, required this.club_id, required this.date, required this.ClubName,  required this.state, required this.city, }) : super(key: key);
+  const ReservationCourt({
+    Key? key,
+    required this.club_id,
+    required this.date,
+    required this.ClubName,
+    required this.state,
+    required this.city,
+  }) : super(key: key);
   final int club_id;
   final String date;
   final String ClubName;
@@ -43,7 +53,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   late ReservationCourtBloc _bloc;
   late CourtSlotBloc _courtSlotBloc;
   bool? isLoading;
-  List book_model= ["Private", "Public"];
+  List book_model = ["Private", "Public"];
   int selectedIndex = -1;
   int slot = 0;
   int price = 0;
@@ -52,37 +62,38 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int courtid = 0;
 
   int TimeId = 0;
-
+  TextEditingController refferelCOntroller = TextEditingController();
   List<dynamic> patientappointmentsearchdata = [];
   List<dynamic> patientappointmentserachlist = [];
 
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
 
-
-  getTimeSlot(int courtId)async{
-
+  getTimeSlot(int courtId) async {
     setState(() {
       isLoading = true;
     });
-    await _courtSlotBloc.getReservationCourtsDetailsList(widget.date, selectedIndex, courtId);
+    await _courtSlotBloc.getReservationCourtsDetailsList(
+        widget.date, selectedIndex, courtId);
     setState(() {
       isLoading = false;
     });
   }
+
   int selectedIndex2 = -1;
 
   int selectedIndex1 = -1;
-  String buttontext="Book Now";
+  String buttontext = "Book Now";
 
   TextEditingController dateinputcontroller =
-  new TextEditingController(text: DateTime.now().toString());
+      new TextEditingController(text: DateTime.now().toString());
 
   Color _colorContainer1 = Colors.white;
   Color _colorContainer2 = Colors.white;
 
   @override
   bool value = false;
+
   ListView _jobsListView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -90,13 +101,12 @@ class _ReservationCourtState extends State<ReservationCourt> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index]["timeSlots"]}");
-          return _tile(data[index]["courts"],data[index]["timeSlots"],data[index]["image"] );
+          return _tile(data[index]["courts"], data[index]["timeSlots"],
+              data[index]["image"]);
         });
   }
 
-  SizedBox _tile(
-      List title, List slots,String image ) =>
-      SizedBox(
+  SizedBox _tile(List title, List slots, String image) => SizedBox(
         height: size.height,
         child: SingleChildScrollView(
           child: SafeArea(
@@ -128,28 +138,41 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     child: Container(
                       height: 40,
                       width: size.width,
-                      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+                      decoration:
+                          BoxDecoration(border: Border.all(color: Colors.grey)),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 18.0,top: 10),
+                        padding: const EdgeInsets.only(left: 18.0, top: 10),
                         child: Text(widget.date),
                       ),
-                    )
-                ),
+                    )),
                 SizedBox(
                   height: 13,
                 ),
-                SizedBox(height: 3,),
-
+                SizedBox(
+                  height: 3,
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20,bottom: 10),
-                  child: Container(child: Text(widget.ClubName,style: TextStyle(fontSize: 18,color: ColorConstant.green6320),),),
+                  padding: const EdgeInsets.only(left: 20, bottom: 10),
+                  child: Container(
+                    child: Text(
+                      widget.ClubName,
+                      style: TextStyle(
+                          fontSize: 18, color: ColorConstant.green6320),
+                    ),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 20,bottom: 10),
-                  child: Container(child: Text("${widget.state}/ ${widget.city}",style: TextStyle(fontSize: 18,color: ColorConstant.green6320),),),
+                  padding: const EdgeInsets.only(left: 20, bottom: 10),
+                  child: Container(
+                    child: Text(
+                      "${widget.state}/ ${widget.city}",
+                      style: TextStyle(
+                          fontSize: 18, color: ColorConstant.green6320),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
@@ -157,7 +180,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     height: 45,
                     child: ListView.separated(
                         separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(width: 10,);},
+                          return SizedBox(
+                            width: 10,
+                          );
+                        },
                         physics: ClampingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemCount: book_model.length,
@@ -171,21 +197,32 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 elevation: 0,
                                 color: Colors.white,
                                 shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: ColorConstant.green6320,width: 0.6),
+                                    side: BorderSide(
+                                        color: ColorConstant.green6320,
+                                        width: 0.6),
                                     borderRadius: BorderRadius.circular(5)),
                                 child: ListTile(
-                                  selected: selectedIndex == index? true: false,
+                                  selected:
+                                      selectedIndex == index ? true : false,
                                   selectedTileColor: ColorConstant.green6320,
-                                  selectedColor:ColorConstant.whiteA700 ,
+                                  selectedColor: ColorConstant.whiteA700,
                                   title: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20,left:16),
-                                    child: Text(book_model[index],style: TextStyle(
-                                      color: selectedIndex == index ? Colors.white : Colors.black,),),
+                                    padding: const EdgeInsets.only(
+                                        bottom: 20, left: 16),
+                                    child: Text(
+                                      book_model[index],
+                                      style: TextStyle(
+                                        color: selectedIndex == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
+                                    ),
                                   ),
                                   onTap: () {
                                     setState(() {
                                       selectedIndex = index;
-                                      print("selectedInex--->${ selectedIndex = index}");
+                                      print(
+                                          "selectedInex--->${selectedIndex = index}");
                                     });
                                   },
                                 )),
@@ -236,40 +273,48 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 elevation: 0,
                                 color: ColorConstant.gray200,
                                 shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: selectedIndex2 == index ? Colors.white : Colors.black,width: 0.1),
+                                    side: BorderSide(
+                                        color: selectedIndex2 == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                        width: 0.1),
                                     borderRadius: BorderRadius.circular(5)),
                                 child: ListTile(
-                                  selected: selectedIndex2 == index? true: false,
+                                  selected:
+                                      selectedIndex2 == index ? true : false,
                                   selectedTileColor: ColorConstant.green6320,
-                                  selectedColor:ColorConstant.gray200 ,
+                                  selectedColor: ColorConstant.gray200,
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    child: GestureDetector(onTap: ()async{
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        selectedIndex2 = index;
+                                        setState(() {});
+                                        await getTimeSlot(title[index]["id"]);
+                                        setState(() {
+                                          print("tfgh");
 
-                                      selectedIndex2 = index;
-                                      setState((){});
-                                      await getTimeSlot(title[index]["id"]);
-                                      setState(() {
-                                        print("tfgh");
+                                          price = title[index]["price"];
+                                          courtid = title[index]['id'];
+                                          slot = title[index]["slots"];
 
-                                        price = title[index]["price"];
-                                        courtid = title[index]['id'];
-                                        slot = title[index]["slots"];
-
-                       double x = (price/slot);
-                                        y = x.toStringAsFixed(0);
-                                        print("y ->>>>>>>.${y}");
-                       //
-
-
-                                      });
-                                      //selectedIndex2 == index;
-                                    },
-                                      child: Text(title[index]["name"],style: TextStyle(
-                                          color: selectedIndex2 == index ? Colors.white : Colors.black,fontSize: 15),),
+                                          double x = (price / slot);
+                                          y = x.toStringAsFixed(0);
+                                          print("y ->>>>>>>.${y}");
+                                          //
+                                        });
+                                        //selectedIndex2 == index;
+                                      },
+                                      child: Text(
+                                        title[index]["name"],
+                                        style: TextStyle(
+                                            color: selectedIndex2 == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 15),
+                                      ),
                                     ),
                                   ),
-
                                 )),
                           );
                         }),
@@ -291,8 +336,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         right: getHorizontalSize(
                           20.00,
                         ),
-                        top: 15
-                    ),
+                        top: 15),
                     child: Stack(
                       alignment: Alignment.topCenter,
                       children: [
@@ -304,10 +348,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 5.00,
                               ),
                             ),
-                            child:  CachedNetworkImage(
+                            child: CachedNetworkImage(
                               imageUrl: image,
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Image.asset("assets/images/splash5.jpg",fit: BoxFit.fill,),
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/splash5.jpg",
+                                fit: BoxFit.fill,
+                              ),
                               height: getVerticalSize(
                                 400.00,
                               ),
@@ -322,14 +370,17 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     ),
                   ),
                 ),
-
-                isLoading ?? false ? Center(child:Center(
-                  child: Container(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(color:ColorConstant.green6320),),
-                ))
-                    :Container(),
+                isLoading ?? false
+                    ? Center(
+                        child: Center(
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                              color: ColorConstant.green6320),
+                        ),
+                      ))
+                    : Container(),
                 StreamBuilder<Response<List<dynamic>>>(
                     stream: _courtSlotBloc.Court_clubDataStream,
                     builder: (context, snapshot) {
@@ -345,13 +396,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           case Status.SUCCESS:
                             List<dynamic> patientappointmentList =
                                 snapshot.data!.data;
-                            patientappointmentsearchdata = patientappointmentList;
+                            patientappointmentsearchdata =
+                                patientappointmentList;
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 timeSlotView(patientappointmentsearchdata),
-
                               ],
                             );
 
@@ -362,23 +413,18 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       }
                       return Container();
                     }),
-
                 SizedBox(
                   height: 10,
                 ),
-
-
-
-
-                SizedBox(height: 20,),
-
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
         ),
-
       );
-
+  String? slotColor;
   Widget timeSlotView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -386,16 +432,21 @@ class _ReservationCourtState extends State<ReservationCourt> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index]["timeslots"]}");
-          return timeTile(data[index]["timeslots"],data[index]["image"],
+          return timeTile(
+            data[index]["timeslots"],
+            data[index]["image"],
           );
         });
   }
+
   SizedBox timeTile(
-      List slots,String image,) =>
+    List slots,
+    String image,
+  ) =>
       SizedBox(
         width: size.width,
-        child:    Padding(
-          padding: const EdgeInsets.only(left: 18,top: 20,right:18),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 18, top: 20, right: 18),
           child: SizedBox(
             height: 50,
             child: ListView.separated(
@@ -409,7 +460,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  TimeId= slots[index]["id"];
+                  TimeId = slots[index]["id"];
+                  slotColor = slots[index]["slot_status"];
                   return SizedBox(
                     // height: 45,
                     width: 120,
@@ -418,44 +470,74 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         elevation: 0,
                         color: ColorConstant.gray200,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(color: selectedIndex1 == index ? Colors.white : Colors.black,width: 0.1),
+                            side: BorderSide(
+                                color: selectedIndex1 == index
+                                    ? Colors.white
+                                    : Colors.black,
+                                width: 0.1),
                             borderRadius: BorderRadius.circular(5)),
                         child: ListTile(
-                          selected: selectedIndex1 == index? true: false,
-                          selectedTileColor: ColorConstant.green6320,
-                          selectedColor:ColorConstant.gray200 ,
+                          selected: selectedIndex1 == index ? true : false,
+                          selectedTileColor: slotColor == "blue"
+                              ? Colors.blue[900]
+                              : Colors.green[900],
+                          selectedColor: slotColor == "blue"
+                              ? Colors.blue[900]
+                              : Colors.green[900],
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
                               children: [
-                                Text(slots[index]["time"],style: TextStyle(
-                                    color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 15),),
-                                selectedIndex==1? Text( "${slots[index]["available_slots"].toString()} left",style: TextStyle(
-                                    color: selectedIndex1 == index ? Colors.white : Colors.black,fontSize: 9,fontWeight: FontWeight.bold),)
-                                    :(SizedBox(height:0))
+                                Text(
+                                  slots[index]["time"],
+                                  style: TextStyle(
+                                      color: selectedIndex1 == index
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 15),
+                                ),
+                                selectedIndex == 1
+                                    ? Text(
+                                        "${slots[index]["available_slots"].toString()} left",
+                                        style: TextStyle(
+                                            color: selectedIndex1 == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold),
+                                      )
+                                    : (SizedBox(height: 0))
                               ],
                             ),
                           ),
                           onTap: () {
-                            setState(() {
-                              selectedIndex1 = index;
-                              //  TimeId= slots[index]["id"];
-                            });
+                            selectedIndex1 = index;
+                            slotSelected = true;
+                            if (slots[index]["slot_status"] == "blue") {
+                              setState(() {
+                                slotColor = 'blue';
+
+                                // slotColor = slots[index]["slot_status"]
+
+                                showAlertDialog(context);
+                              });
+                            }
+                            slotColor = "green";
+                            setState(() {});
+
+                            //  TimeId= slots[index]["id"];
                           },
                         )),
                   );
                 }),
           ),
         ),
-
       );
 
-
-
   TextEditingController searchcontroller = new TextEditingController();
+  bool slotSelected = false;
   Widget build(BuildContext context) {
     // print("json->>>>>>>>>>>${  (price/slot).floor()}");
-
 
     return Scaffold(
         appBar: AppBar(
@@ -467,8 +549,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => ClubDetails(date: '', club_id:0,)));
+                Navigator.pop(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ClubDetails(
+                              date: '',
+                              club_id: 0,
+                            )));
               },
               icon: Icon(
                 Icons.arrow_back,
@@ -489,155 +576,174 @@ class _ReservationCourtState extends State<ReservationCourt> {
             ),
           ),
         ),
-        bottomSheet:  Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          elevation: 6,
-          child: Container(
-            height:122,
-            width: 400,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 6,),
-                Row(
-                  children: [
-                    SizedBox(width: 10,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 12,),
-                        if(selectedIndex==1)
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child:Text(
-                                "₹${y}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-                          ),
-                        if(selectedIndex==0)
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child:Text(
-                                "₹${price}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-                          ),
-                        if(selectedIndex==0)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child:Text(
-                              "For one hour ",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.black900,
-                                fontSize: getFontSize(
-                                  15,
-                                ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        if(selectedIndex==1)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              "For Each One",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.black900,
-                                fontSize: getFontSize(
-                                  15,
-                                ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                    SizedBox(width: 110,),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(100, 40),
-                        primary:  ColorConstant.green6320,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder( //to set border radius to button
-                            borderRadius: BorderRadius.circular(10.0)
-                        ),),
-                      onPressed: ()async{
-                        await  pay.getpaymentList(courtid,selectedIndex,widget.date,TimeId,price);
-
-                        openCheckout( );
-                      },
-                      child: Text(
-                        buttontext,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: ColorConstant.whiteA700,
-                          fontSize: getFontSize(
-                            17,
-                          ),
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ],
+        bottomSheet: (!slotSelected)
+            ? Container(
+              height: 0,
+            )
+            : Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                SizedBox(height: 2,),
-                if(selectedIndex==1)
-                  Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Checkbox(
-                        value: this.value,
-                        activeColor: ColorConstant.green6320,
-                        onChanged: ( value) {
-                          setState(() {
-                            this.value = value!;
-                          });
-                        },
-                      ),
-                      SizedBox(width: 0),//SizedBox
-                      Text(
-                        'Do you want to hold this slot?',
-                        style: TextStyle(fontSize: 15.0,fontWeight: FontWeight.w500),
-                      ), //Text
-                      //SizedBox
-                      //Checkbox
-                    ], //<Widget>[]
+                elevation: 6,
+                child: Container(
+                  height: 122,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-              ],
-            ),
-          ),
-        ),
-        body:
-        SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 12,
+                              ),
+                              if (selectedIndex == 1)
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "₹${y}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          28,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+                              if (selectedIndex == 0)
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "₹${price}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          28,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+                              if (selectedIndex == 0)
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "For one hour ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              if (selectedIndex == 1)
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "For Each One",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 110,
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(100, 40),
+                              primary: ColorConstant.green6320,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  //to set border radius to button
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            onPressed: () async {
+                              await pay.getpaymentList(courtid, selectedIndex,
+                                  widget.date, TimeId, price);
+
+                              openCheckout();
+                            },
+                            child: Text(
+                              buttontext,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.whiteA700,
+                                fontSize: getFontSize(
+                                  17,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      if (selectedIndex == 1)
+                        (slotColor == 'blue')
+                            ? Container()
+                            : Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Checkbox(
+                                    value: this.value,
+                                    activeColor: ColorConstant.green6320,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        this.value = value!;
+                                        holdSlotvalue = this.value;
+                                        print("value-<<<<<<<<<${this.value}");
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(width: 0), //SizedBox
+                                  Text(
+                                    'Do you want to hold this slot?',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w500),
+                                  ), //Text
+                                  //SizedBox
+                                  //Checkbox
+                                ], //<Widget>[]
+                              ),
+                    ],
+                  ),
+                ),
+              ),
+        body: SingleChildScrollView(
           child: Column(
             children: [
               StreamBuilder<Response<List<dynamic>>>(
@@ -651,8 +757,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             child: Container(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(color:ColorConstant.green6320),),
-                          );// LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                              child: CircularProgressIndicator(
+                                  color: ColorConstant.green6320),
+                            ),
+                          ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                           break;
                         case Status.SUCCESS:
                           List<dynamic> patientappointmentList =
@@ -662,48 +770,56 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
                               _jobsListView(patientappointmentsearchdata)
                             ],
                           );
 
                           break;
                         case Status.ERROR:
-                          return  Center(
+                          return Center(
                             child: Container(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                              child: CircularProgressIndicator(
+                                  color: ColorConstant.green6320),
+                            ),
                           );
                       }
                     }
-                    return  Center(
+                    return Center(
                       child: Container(
                         height: 20,
                         width: 20,
-                        child: CircularProgressIndicator(color:ColorConstant.green6320),),
+                        child: CircularProgressIndicator(
+                            color: ColorConstant.green6320),
+                      ),
                     );
                   }),
-
-
             ],
           ),
-        )
-    );
+        ));
   }
-  String OrderId ="";
+
+  String OrderId = "";
   late Razorpay _razorpay;
   Payemnt pay = Payemnt();
   PayemntSucess paysucess = PayemntSucess();
   bool pressed = false;
   String orderPlace = "";
   String PlaceOrder = "Place Order";
+  GetRefferelCode Refferelcode = GetRefferelCode();
+
   void initState() {
     super.initState();
-   _bloc =ReservationCourtBloc(widget.club_id,widget.date);
-    _courtSlotBloc = CourtSlotBloc(widget.date, selectedIndex,0,);
+    _bloc = ReservationCourtBloc(widget.club_id, widget.date);
+    _courtSlotBloc = CourtSlotBloc(
+      widget.date,
+      selectedIndex,
+      0,
+    );
     _razorpay = Razorpay();
-
+    refferelCOntroller.text = refferel;
+    print("refferel->>>>>${y}");
 
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -716,18 +832,16 @@ class _ReservationCourtState extends State<ReservationCourt> {
     _razorpay.clear();
   }
 
-
   void openCheckout() async {
-
     var options = {
       'key': key,
-      'order_id':Orderid,
-      'amount': amount,
-      'name':"WON",
+      'order_id': Orderid,
+      'amount': selectedIndex == 0 ? amount : y,
+      'name': "WON",
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
       'send_sms_hash': true,
-      'prefill': {'contact': phone, 'email': email,'name':name},
+      'prefill': {'contact': phone, 'email': email, 'name': name},
       'external': {
         'wallets': ['paytm']
       }
@@ -739,15 +853,20 @@ class _ReservationCourtState extends State<ReservationCourt> {
       debugPrint('Error: e');
     }
   }
+
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     PaymentId = response.paymentId;
     razorpay_signature = response.signature;
     OrderRazorpayId = response.orderId;
+    paysucess.getpaymentsucessList(PaymentId!, Orderid, razorpay_signature,context);
 
-    paysucess.getpaymentsucessList(PaymentId!, Orderid,razorpay_signature );
-    sucess =="Payment successful"?showAlertDialog:SizedBox(height: 0,);
-print("dfv");
-
+    showAlertDialogrefferel(context);
+    // sucess == "Payment successful"
+    //     ? showAlertDialog
+    //     : SizedBox(
+    //         height: 0,
+    //       );
+    // print("dfv");
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -765,17 +884,46 @@ print("dfv");
   }
 
   showAlertDialog(BuildContext context) {
-
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
-      onPressed: () { },
+      onPressed: () {
+        Refferelcode.getRefferelCode(
+            courtid, TimeId, refferelCOntroller.text, widget.date);
+      },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("REFFEREL"),
-      content: Text("${refferel}"),
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            " This time slot is in hold.",
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            " To book enter your refferel code",
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            controller: refferelCOntroller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              hintText: 'Enter Refferel',
+            ),
+          ),
+        ],
+      ),
+
+      // content: Text("${refferel}"),
       actions: [
         okButton,
       ],
@@ -790,13 +938,73 @@ print("dfv");
     );
   }
 
-  Future<void> getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature) async {
+  showAlertDialogrefferel(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
 
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "REFFEREL",
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextField(
+            decoration: InputDecoration(
+              hintText: "${refferel}",
+              suffixIcon: IconButton(
+                onPressed: () {
+                  Clipboard.setData(
+                      ClipboardData(text: refferelCOntroller.text));
+                  Fluttertoast.showToast(
+                      backgroundColor: Colors.blue,
+                      msg: "Reffrel Copied ",
+                      toastLength: Toast.LENGTH_SHORT);
+                },
+                icon: Icon(Icons.copy),
+              ),
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+            ),
+          ),
+        ],
+      ),
+
+      // content: Text("${refferel}"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  Future<void> getpaymentsucessList(
+      String razorpay_payment_id, razorpay_order_id, razorpay_signature) async {
     var response = await http.post(
-        Uri.parse("https://d917-59-98-51-52.ngrok.io/api/payment/signature-verify"),
-        body: { "razorpay_payment_id":PaymentId,
-          "razorpay_order_id":Orderid,
-          "razorpay_signature":razorpay_signature});
+        Uri.parse(
+            "https://d917-59-98-51-52.ngrok.io/api/payment/signature-verify"),
+        body: {
+          "razorpay_payment_id": PaymentId,
+          "razorpay_order_id": Orderid,
+          "razorpay_signature": razorpay_signature
+        });
     print(response.statusCode);
     print("response${response.body}");
     if (response.statusCode == 200) {
@@ -807,5 +1015,4 @@ print("dfv");
       );
     }
   }
-
 }

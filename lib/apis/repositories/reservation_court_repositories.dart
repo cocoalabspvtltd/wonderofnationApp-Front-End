@@ -22,7 +22,7 @@ class ReservationRepository {
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
-    print("res->>>${response}");
+    print("club/courts/detailsrespnse->>>${response}");
   return response as List;
   }
 }

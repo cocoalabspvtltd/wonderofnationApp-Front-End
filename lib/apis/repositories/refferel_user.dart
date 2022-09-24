@@ -5,13 +5,10 @@ import 'package:oo/apis/repositories/register_Repositories.dart';
 
 import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/reservation_court.dart';
-String Orderid ="";
-String key ="";
-int amount =0;
-String refferel = "";
-class Payemnt {
 
-  Future  getpaymentList( int court_id,type,String date, int time_slot,amount) async {
+class GetRefferelCode {
+
+  Future  getRefferelCode( int court_id, int time_slot,refferel,String date,) async {
     final format = DateFormat("dd-MM-yyyy");
     DateTime gettingDate = format.parse( date);
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -20,28 +17,21 @@ class Payemnt {
 
     final Map<String, dynamic> _queryParameters = <String, dynamic>
     {
-      "court_id": court_id,
-      "type": type,
-      "date": formatted,
-      "time_slot_id": time_slot,
-      "amount": amount,
-      "hold_court":holdSlotvalue,
+      "court_id":3,
+      "time_slot_id":18,
+      "referral_code":refferel,
+      "date":formatted
     };
-    print("court/payment");
+
     print("_queryParameters : " + _queryParameters.toString());
     final response = await WebApiProvider().getData(
-        url:"court/payment",
+        url:"verify/referral-code",
         isPost: true,
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     print("res->>>--------${response}");
-    Orderid= response["order_id"];
-    key =response["key"];
-    amount = response["amount"];
-    refferel = response["referral_code"];
 
-    print("refferel->>>${refferel}");
     return response;
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
-
+import 'package:oo/screens/homePage/home_page1.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/web_Api_provider.dart';
@@ -14,7 +14,7 @@ import '../../screens/payment_dash/payment_page.dart';
 String sucess ="";
 class PayemntSucess {
 
-  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature) async {
+  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context) async {
 
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "razorpay_payment_id":PaymentId,
@@ -30,13 +30,14 @@ class PayemntSucess {
         queryParameters: _queryParameters,
         isQueryParmeter: true);
 
-sucess = response["message"];
+     sucess = response["message"];
 
     //print("=>>>>>>>>>${response["message"] =""}");
 
    // if (response["message"] =="Payment successful") {
    //   print("object");
-   //   OrderPlaced();
+   //   Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage(RegisterName: "")));
+   //
    //   }
 
     return response;
