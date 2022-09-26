@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
 import 'package:oo/screens/matches/public_court.dart';
+import 'package:oo/screens/matches/whatsappshare.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../apis/bloc/Coiurt_slot_bloc.dart';
 import '../../apis/repositories/payment.dart';
@@ -29,6 +30,7 @@ String? PaymentId = "";
 String? OrderRazorpayId = "";
 bool? holdSlotvalue;
 
+TextEditingController refferelpasscontroller = TextEditingController();
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({
     Key? key,
@@ -43,7 +45,7 @@ class ReservationCourt extends StatefulWidget {
   final String ClubName;
   final String state;
   final String city;
-  final int Timeid = 0;
+
 
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
@@ -300,7 +302,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
                                           double x = (price / slot);
                                           y = x.toStringAsFixed(0);
-                                          print("y ->>>>>>>.${y}");
+                                          print("y2 ->>>>>>>.${y}");
                                           //
                                         });
                                         //selectedIndex2 == index;
@@ -460,7 +462,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  TimeId = slots[index]["id"];
+                  print("slots->>${slots}");
+                  //TimeId = slots[index]["id"];
                   slotColor = slots[index]["slot_status"];
                   return SizedBox(
                     // height: 45,
@@ -478,12 +481,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             borderRadius: BorderRadius.circular(5)),
                         child: ListTile(
                           selected: selectedIndex1 == index ? true : false,
-                          selectedTileColor: slotColor == "blue"
-                              ? Colors.blue[900]
-                              : Colors.green[900],
-                          selectedColor: slotColor == "blue"
-                              ? Colors.blue[900]
-                              : Colors.green[900],
+                          selectedTileColor:(slotColor=="green")? Colors.green[900]:(slotColor=="blue")?Colors.blue[900]:(slotColor=="red")?Colors.red[900]:Colors.grey,
+tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blue[400]: Colors.red[400],
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -498,14 +497,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 ),
                                 selectedIndex == 1
                                     ? Text(
-                                        "${slots[index]["available_slots"].toString()} left",
-                                        style: TextStyle(
-                                            color: selectedIndex1 == index
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.bold),
-                                      )
+                                  "${slots[index]["available_slots"].toString()} left",
+                                  style: TextStyle(
+                                      color: selectedIndex1 == index
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.bold),
+                                )
                                     : (SizedBox(height: 0))
                               ],
                             ),
@@ -513,20 +512,19 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           onTap: () {
                             selectedIndex1 = index;
                             slotSelected = true;
+                            TimeId = slots[index]["id"];
+                            print("timeslot->${TimeId}");
                             if (slots[index]["slot_status"] == "blue") {
                               setState(() {
                                 slotColor = 'blue';
 
-                                // slotColor = slots[index]["slot_status"]
-
-                                showAlertDialog(context);
+                                 slotColor = slots[index]["slot_status"];
+                                 showAlertDialog(context);
                               });
                             }
                             slotColor = "green";
                             setState(() {});
-
-                            //  TimeId= slots[index]["id"];
-                          },
+                            },
                         )),
                   );
                 }),
@@ -818,8 +816,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
       0,
     );
     _razorpay = Razorpay();
-    refferelCOntroller.text = refferel;
-    print("refferel->>>>>${y}");
+
 
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -836,7 +833,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
     var options = {
       'key': key,
       'order_id': Orderid,
-      'amount': selectedIndex == 0 ? amount : y,
+      'amount': selectedIndex == 0 ||selectedIndex == 1? amount : y,
       'name': "WON",
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
@@ -890,7 +887,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
       onPressed: () {
         Refferelcode.getRefferelCode(
             courtid, TimeId, refferelCOntroller.text, widget.date);
+        Navigator.pop(context);
       },
+
     );
 
     // set up the AlertDialog
@@ -899,7 +898,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            " This time slot is in hold.",
+            " This time slot is in hold for next 1 Hour.",
             style: TextStyle(fontSize: 15, color: Colors.black),
           ),
           SizedBox(
@@ -920,6 +919,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
               hintText: 'Enter Refferel',
             ),
           ),
+
         ],
       ),
 
@@ -946,8 +946,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
         Navigator.pop(context);
       },
     );
-
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -959,13 +957,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
           SizedBox(
             height: 20,
           ),
-          TextField(
+          TextField(controller: refferelpasscontroller,
             decoration: InputDecoration(
               hintText: "${refferel}",
               suffixIcon: IconButton(
                 onPressed: () {
                   Clipboard.setData(
-                      ClipboardData(text: refferelCOntroller.text));
+                      ClipboardData(text: refferel));
                   Fluttertoast.showToast(
                       backgroundColor: Colors.blue,
                       msg: "Reffrel Copied ",
@@ -977,6 +975,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
             ),
           ),
+          SizedBox(height: 15,),
+          Text("Share with friends",style: TextStyle(color: Colors.grey,fontSize: 10),),
+          Center(child: WhatsappShare(refferelwhatsapp: refferel,)),
         ],
       ),
 

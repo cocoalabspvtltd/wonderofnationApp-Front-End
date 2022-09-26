@@ -330,12 +330,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 child:
-
                                 Container(
-
-                                  child: Padding(
+                                    child: Padding(
                                     padding: const EdgeInsets.only(bottom: 15,),
                                     child: TextFormField(
+
                                       controller: passwordController1,
                                       keyboardType: TextInputType.text,
                                       obscureText: _isobsucure,
@@ -347,7 +346,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     ),
                                                     onPressed: () {
                                                       setState(() {
+
+
                                                         _isobsucure = !_isobsucure;
+
                                                       });
                                                     }),
                                         errorText:
