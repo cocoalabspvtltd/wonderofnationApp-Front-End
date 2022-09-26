@@ -145,7 +145,7 @@ class _ClubListState extends State<ClubList> {
                   height: 550,
                   child: CachedNetworkImage(
                     fit: BoxFit.fitHeight,
-                    imageUrl: data[index].img == ""?Image.asset("assets/images/football.jpg",fit: BoxFit.fill,):data[index].img,
+                    imageUrl: data[index].img,
                     placeholder: (context, url) => Center(child: Container(height: 20,
                         width: 20,
                         child: CircularProgressIndicator(color: ColorConstant.green6320,))),
