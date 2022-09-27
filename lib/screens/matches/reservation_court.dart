@@ -31,6 +31,7 @@ String? OrderRazorpayId = "";
 bool? holdSlotvalue;
 
 TextEditingController refferelpasscontroller = TextEditingController();
+
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({
     Key? key,
@@ -45,7 +46,6 @@ class ReservationCourt extends StatefulWidget {
   final String ClubName;
   final String state;
   final String city;
-
 
   @override
   State<ReservationCourt> createState() => _ReservationCourtState();
@@ -427,6 +427,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
         ),
       );
   String? slotColor;
+
   Widget timeSlotView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -481,8 +482,21 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             borderRadius: BorderRadius.circular(5)),
                         child: ListTile(
                           selected: selectedIndex1 == index ? true : false,
-                          selectedTileColor:(slotColor=="green")? Colors.green[900]:(slotColor=="blue")?Colors.blue[900]:(slotColor=="red")?Colors.red[900]:Colors.grey,
-tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blue[400]: Colors.red[400],
+                          selectedTileColor: selectedIndex == 1
+                              ? (slotColor == "green")
+                                  ? Colors.green[900]
+                                  : (slotColor == "blue")
+                                      ? Colors.blue[900]
+                                      : (slotColor == "red")
+                                          ? Colors.red[900]
+                                          : Colors.grey
+                              : Colors.grey,
+                          tileColor:
+                          selectedIndex ==1? (slotColor == "green")
+                              ? Colors.green[400]
+                              : (slotColor == "blue")
+                                  ? Colors.blue[400]
+                                  : Colors.red[400]:Colors.grey[100],
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -497,14 +511,14 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
                                 ),
                                 selectedIndex == 1
                                     ? Text(
-                                  "${slots[index]["available_slots"].toString()} left",
-                                  style: TextStyle(
-                                      color: selectedIndex1 == index
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                        "${slots[index]["available_slots"].toString()} left",
+                                        style: TextStyle(
+                                            color: selectedIndex1 == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold),
+                                      )
                                     : (SizedBox(height: 0))
                               ],
                             ),
@@ -518,13 +532,13 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
                               setState(() {
                                 slotColor = 'blue';
 
-                                 slotColor = slots[index]["slot_status"];
-                                 showAlertDialog(context);
+                                slotColor = slots[index]["slot_status"];
+                                showAlertDialog(context);
                               });
                             }
                             slotColor = "green";
                             setState(() {});
-                            },
+                          },
                         )),
                   );
                 }),
@@ -534,6 +548,7 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
 
   TextEditingController searchcontroller = new TextEditingController();
   bool slotSelected = false;
+
   Widget build(BuildContext context) {
     // print("json->>>>>>>>>>>${  (price/slot).floor()}");
 
@@ -576,8 +591,8 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
         ),
         bottomSheet: (!slotSelected)
             ? Container(
-              height: 0,
-            )
+                height: 0,
+              )
             : Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -817,7 +832,6 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
     );
     _razorpay = Razorpay();
 
-
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
@@ -830,20 +844,23 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
   }
 
   void openCheckout() async {
+
     var options = {
       'key': key,
       'order_id': Orderid,
-      'amount': selectedIndex == 0 ||selectedIndex == 1? amount : y,
+      'amount':   selectedIndex == 0? amount:y,
       'name': "WON",
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
       'send_sms_hash': true,
+    "colours":Colors.green[900],
       'prefill': {'contact': phone, 'email': email, 'name': name},
       'external': {
         'wallets': ['paytm']
       }
-    };
 
+    };
+    print("options->${options}");
     try {
       _razorpay.open(options);
     } catch (e) {
@@ -855,9 +872,10 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
     PaymentId = response.paymentId;
     razorpay_signature = response.signature;
     OrderRazorpayId = response.orderId;
-    paysucess.getpaymentsucessList(PaymentId!, Orderid, razorpay_signature,context);
+    paysucess.getpaymentsucessList(
+        PaymentId!, Orderid, razorpay_signature, context);
 
-    showAlertDialogrefferel(context);
+   selectedIndex == 1? showAlertDialogrefferel(context):Container();
     // sucess == "Payment successful"
     //     ? showAlertDialog
     //     : SizedBox(
@@ -889,7 +907,6 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
             courtid, TimeId, refferelCOntroller.text, widget.date);
         Navigator.pop(context);
       },
-
     );
 
     // set up the AlertDialog
@@ -919,7 +936,6 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
               hintText: 'Enter Refferel',
             ),
           ),
-
         ],
       ),
 
@@ -957,13 +973,13 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
           SizedBox(
             height: 20,
           ),
-          TextField(controller: refferelpasscontroller,
+          TextField(
+            controller: refferelpasscontroller,
             decoration: InputDecoration(
               hintText: "${refferel}",
               suffixIcon: IconButton(
                 onPressed: () {
-                  Clipboard.setData(
-                      ClipboardData(text: refferel));
+                  Clipboard.setData(ClipboardData(text: refferel));
                   Fluttertoast.showToast(
                       backgroundColor: Colors.blue,
                       msg: "Reffrel Copied ",
@@ -975,9 +991,17 @@ tileColor:(slotColor=="green")? Colors.green[400]:(slotColor=="blue")?Colors.blu
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
             ),
           ),
-          SizedBox(height: 15,),
-          Text("Share with friends",style: TextStyle(color: Colors.grey,fontSize: 10),),
-          Center(child: WhatsappShare(refferelwhatsapp: refferel,)),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            "Share with friends",
+            style: TextStyle(color: Colors.grey, fontSize: 10),
+          ),
+          Center(
+              child: WhatsappShare(
+            refferelwhatsapp: refferel,
+          )),
         ],
       ),
 

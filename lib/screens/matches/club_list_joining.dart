@@ -145,7 +145,7 @@ class _ClubListState extends State<ClubList> {
                   height: 550,
                   child: CachedNetworkImage(
                     fit: BoxFit.fitHeight,
-                    imageUrl: data[index].img,
+                    imageUrl: data[index].img?? "",
                     placeholder: (context, url) => Center(child: Container(height: 20,
                         width: 20,
                         child: CircularProgressIndicator(color: ColorConstant.green6320,))),
@@ -459,7 +459,7 @@ class _ClubListState extends State<ClubList> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 220),
                                 child: Text(
-                                  "Find Your Court",
+                                  "Find Your Club",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 15,

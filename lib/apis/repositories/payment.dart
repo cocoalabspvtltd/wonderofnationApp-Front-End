@@ -7,7 +7,7 @@ import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/reservation_court.dart';
 String Orderid ="";
 String key ="";
-int amount =0;
+String amount ="";
 String refferel = "";
 class Payemnt {
 
