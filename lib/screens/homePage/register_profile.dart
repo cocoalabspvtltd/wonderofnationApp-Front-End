@@ -8,6 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../apis/repositories/register_Repositories.dart';
+import '../../apis/repositories/user_profile.dart';
+import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../dropdowns/game_list_register.dart';
@@ -21,9 +24,6 @@ class RegisterProfile extends StatefulWidget {
   const RegisterProfile( {Key? key, required this.names,}) : super(key: key);
 final  String names;
   void initState() {
-
-
-
   }
   @override
   State<RegisterProfile> createState() => _RegisterProfileState();
@@ -42,8 +42,12 @@ class _RegisterProfileState extends State<RegisterProfile> {
       print('Failed to pick image: $e');
     }
   }
+
   @override
+
+ // profileRepository profile_pic_set = profileRepository();
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
@@ -201,6 +205,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               top: 15
                             ),
                             child: GestureDetector(onTap: (){
+                              //uploadImage(image!);
 
                             },
                               child: Text(
@@ -442,27 +447,5 @@ class _RegisterProfileState extends State<RegisterProfile> {
       ),
     );
   }
-//   uploadImage( File file, Image image) async{
-//     String fileName = file!.path.split('/').last;
-//     var request = http.MultipartRequest("POST",Uri.parse("${baseurl}profile"));
-// print("object");
-//     request.fields['file'] = fileName;
-//     request.headers['Authorization'] = "Bearer ${TOKEN}";
-//
-//     var picture = http.MultipartFile.fromBytes(fileName, (await rootBundle.load('assets/images/${fileName}')).buffer.asUint8List(),
-//         filename: fileName);
-//
-//     request.files.add(picture);
-//
-//     var response = await request.send();
-//
-//     var responseData = await response.stream.toBytes();
-//
-//     var result = String.fromCharCodes(responseData);
-//
-//     print(result);
-//
-//
-//
-//   }
+
 }

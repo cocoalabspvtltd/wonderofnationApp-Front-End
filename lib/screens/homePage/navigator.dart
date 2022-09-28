@@ -10,6 +10,7 @@ import 'package:oo/screens/dashboardItems/my_matches.dart';
 import 'package:oo/screens/dashboardItems/privacy.dart';
 import 'package:oo/screens/dashboardItems/settingd.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
+import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/login.dart';
 import 'package:oo/screens/matches/club_list_joining.dart';
 import 'package:oo/screens/myresults/games_list.dart';
@@ -34,6 +35,7 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
   Widget build(BuildContext context) {
+    print("username->${widget.UserName1}");
     return Scaffold(
       key: _scaffoldKey,
       appBar:AppBar(

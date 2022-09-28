@@ -10,7 +10,7 @@ import 'levelling_Register1.dart';
 
 var answers4;
 var answers5;
-
+String register_buuton ="Start Playing";
 class Levelingsecond extends StatefulWidget {
   const Levelingsecond(
     int designatioids, {
@@ -341,7 +341,7 @@ class _LevelingsecondState extends State<Levelingsecond> {
                     ),
                   ),
                   child: Text(
-                    "Start Playing",
+                    register_buuton,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: ColorConstant.whiteA700,

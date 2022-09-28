@@ -21,6 +21,7 @@ import '../myresults/game_detail.dart';
 import '../payment_dash/payment_page.dart';
 import 'court.dart';
 import 'home_item.dart';
+import 'levelling2.dart';
 import 'navigator.dart';
 
 
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                             child: GestureDetector(onTap: (){
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
+                                MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: widget.RegisterName,)),
                               );
                             },
                                 child: Icon(CupertinoIcons.clear_circled)
@@ -390,7 +391,9 @@ class _HomePageState extends State<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text("HELLO , ",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
-                            Text("${name.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),
+                            register_buuton=="Start Playing" ?
+                            Text(" ${widget.RegisterName.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),):
+                            Text(" ${name.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),
                             Spacer(),
                           ],
                         ),
@@ -1165,7 +1168,7 @@ class _HomePageState extends State<HomePage> {
                                                 style: TextStyle(
                                                   color: ColorConstant.whiteA700,
                                                   fontSize: getFontSize(
-                                                    22,
+                                                    18,
                                                   ),
                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w400,

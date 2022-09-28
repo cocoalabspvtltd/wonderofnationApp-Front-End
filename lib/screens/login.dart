@@ -11,6 +11,7 @@ import '../constants/math_utils.dart';
 import 'forgotpassword/forgot_passwordscreen.dart';
 import 'homePage/home_page1.dart';
 import 'homePage/register.dart';
+String login_button = "LOGIN";
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -456,7 +457,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            "LOGIN",
+                                          login_button,
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 //fontWeight: FontWeight.bold,

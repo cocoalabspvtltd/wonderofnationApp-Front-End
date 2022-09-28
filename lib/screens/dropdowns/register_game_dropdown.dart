@@ -48,55 +48,40 @@ class _LocationDropdownState extends State<LocationDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(7),
 
-
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-
-
-
-            decoration: BoxDecoration(
-
-
-              borderRadius: BorderRadius.circular(7),
-
-            ),
-            child:  DropdownButtonHideUnderline(
-              child: DropdownButton(
-                hint: Padding(
-                  padding: const EdgeInsets.only(left: 9.0),
-                  child: Text('Select',style: TextStyle(fontSize: 15),),
-                ),
-
-                items: locationItemlist.map((item) {
-                  // int id = categoryItemlist[0]["id"];
-                  // print("id->>>>>${id}");
-                  return DropdownMenuItem(
-                    onTap: (){setState((){
-                      int id = item["id"];
-                      Locationid = id.toString();
-                      print("designatioids->>>>>>${Locationid}");
-                    });},
-                    value: item['id'].toString(),
-
-                    child: Text(item['name'].toString()),
-                  );
-                }).toList(),
-                onChanged: (newVal) {
-                  setState(() {
-                    dropdownvalue = newVal;
-
-                  });
-                },
-                value: dropdownvalue,
-              ),
-            ),
-          ),
-        ],
       ),
+      child:  DropdownButtonHideUnderline(
+        child: DropdownButton(
+          hint: Padding(
+            padding: const EdgeInsets.only(left: 9.0),
+            child: Text('Select',style: TextStyle(fontSize: 15),),
+          ),
 
+          items: locationItemlist.map((item) {
+            // int id = categoryItemlist[0]["id"];
+            // print("id->>>>>${id}");
+            return DropdownMenuItem(
+              onTap: (){setState((){
+                int id = item["id"];
+                Locationid = id.toString();
+                print("designatioids->>>>>>${Locationid}");
+              });},
+              value: item['id'].toString(),
+
+              child: Text(item['name'].toString()),
+            );
+          }).toList(),
+          onChanged: (newVal) {
+            setState(() {
+              dropdownvalue = newVal;
+
+            });
+          },
+          value: dropdownvalue,
+        ),
+      ),
     );
   }
 }

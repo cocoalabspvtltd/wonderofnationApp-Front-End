@@ -402,21 +402,16 @@ print("object=>>>>>${Imagelist}");
                                   width: size.width,
                                   child: CachedNetworkImage(
                                     fit: BoxFit.fitWidth,
-                                    imageUrl: imglist[index]["img"] == null
-                                        ? "assets/images/football.jpg"
-                                        : imglist[index]["img"],
+                                    imageUrl: imglist[index]["img"] ??"",
                                     placeholder: (context, url) => Center(
                                       child: Container(height: 20,
                                           width: 20,
                                           child: CircularProgressIndicator(color: ColorConstant.green6320,)),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                    imglist[index]["img"] == null
-                                        ? Image.asset(
-                                      "assets/images/football.jpg",
-                                      fit: BoxFit.fill,
-                                    )
-                                        : imglist[index]["img"],
+                                    errorWidget: (context, url, error) =>Container(
+                                        margin: EdgeInsets.all(5),
+                                        child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fill,)
+                                    ),
                                   ),
                                 );
                               },

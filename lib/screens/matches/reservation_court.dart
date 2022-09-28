@@ -463,9 +463,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  print("slots->>${slots}");
-                  //TimeId = slots[index]["id"];
-                  slotColor = slots[index]["slot_status"];
+
+
+
                   return SizedBox(
                     // height: 45,
                     width: 120,

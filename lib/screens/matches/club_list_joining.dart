@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
 import '../../apis/bloc/club_list_bloc.dart';
@@ -61,7 +60,7 @@ class _ClubListState extends State<ClubList> {
     setState(() {});
   }
 
- // String? _selectedTime;
+  // String? _selectedTime;
 
 
   DateTime selectedDate = DateTime.now();
@@ -125,7 +124,6 @@ class _ClubListState extends State<ClubList> {
           childAspectRatio: 0.60 / 0.90,
         ),
         itemCount: data.length,
-
         itemBuilder: (BuildContext context, int index) {
           print("data.length->${ data[index].img}");
           return GestureDetector(
@@ -150,14 +148,14 @@ class _ClubListState extends State<ClubList> {
                         width: 20,
                         child: CircularProgressIndicator(color: ColorConstant.green6320,))),
                     errorWidget: (context, url, error) =>Container(
-                      margin: EdgeInsets.all(5),
-                      child: Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
+                        margin: EdgeInsets.all(5),
+                        child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fill,)
                     ),
 
 
                   ),
                   decoration: BoxDecoration(
-                    borderRadius:BorderRadius.circular(30)
+                      borderRadius:BorderRadius.circular(30)
                   ),
                 ),
                 Positioned(
@@ -191,9 +189,9 @@ class _ClubListState extends State<ClubList> {
   bool isLoding = false;
 
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-
-
         body:
         RefreshIndicator(
           color: Colors.green,
@@ -212,8 +210,7 @@ class _ClubListState extends State<ClubList> {
                         return Center(child: Container(height: 20,
                             width: 20,
                             child: CircularProgressIndicator(color: ColorConstant.green6320,)));
-                      }); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                      break;
+                      });
                     case Status.SUCCESS:
                       List<ClubModel> patientappointmentList =
                           snapshot.data!.data;
@@ -221,235 +218,178 @@ class _ClubListState extends State<ClubList> {
                       return SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            top: getVerticalSize(
-                              33.50,
-                            ),
-                            bottom: getVerticalSize(
-                              20.00,
-                            ),
+                          padding: EdgeInsets.all(
+                              15
                           ),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: getHorizontalSize(
-                                  140.00,
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    0.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    170.00,
-                                  ),
-                                ),
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Create your \n',
-                                        style: TextStyle(
-                                          color: ColorConstant.black900,
-                                          fontSize: getFontSize(
-                                            24,
-                                          ),
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: 'matches',
-                                        style: TextStyle(
-                                          color: ColorConstant.green6320,
-                                          fontSize: getFontSize(
-                                            24,
-                                          ),
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: getVerticalSize(
-                                    20.00,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
+                              RichText(
+                                text: TextSpan(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(0.0),
-                                      child: Container(
-                                          height: getVerticalSize(
-                                            53.00,
-                                          ),
-                                          width: getHorizontalSize(
-                                            110.00,
-                                          ),
-                                          margin: EdgeInsets.only(
-                                            left: getHorizontalSize(
-                                              9.00,
-                                            ),
-
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: ColorConstant.whiteA700,
-                                            borderRadius: BorderRadius.circular(
-                                              getHorizontalSize(
-                                                5.00,
-                                              ),
-                                            ),
-                                            border: Border.all(
-                                              color: ColorConstant.black900,
-                                              width: getHorizontalSize(
-                                                1.00,
-                                              ),
-                                            ),
-                                          ),
-                                          child: DesignationDropdown()),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        height: getVerticalSize(
-                                          60.00,
+                                    TextSpan(
+                                      text: 'Create your \n',
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          24,
                                         ),
-                                        width: getHorizontalSize(
-                                          110.00,
-                                        ),
-
-                                        margin: EdgeInsets.only(
-                                          left: getHorizontalSize(
-                                            7.00,
-                                          ),
-
-                                        ),
-                                        child: TextField(
-                                          readOnly: true,
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                            EdgeInsets.only(left: 12),
-                                            suffixIcon: Icon(
-                                              Icons.calendar_month,
-                                              color: Colors.black, size: 14,),
-                                            fillColor: Colors.white,
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(5.0),
-                                              borderSide: BorderSide(
-                                                color:
-                                                Colors.black,
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(5.0),
-                                              borderSide: BorderSide(
-                                                color:
-                                                Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                          // dateMask: 'dd.MM.yy',
-                                          style: TextStyle(fontSize: 10.5,
-                                              fontFamily: 'Inter',
-                                              color: Colors.grey),
-                                          controller: dateinputcontroller,
-                                          // keyboardType: TextInputType.datetime,
-                                          onTap: () {
-                                            _selectDate(context);
-                                            print(
-                                                "dateinputcontroller.text===>${dateinputcontroller
-                                                    .text}");
-                                          },
-
-                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Navigator.push(context,
-                                        //     MaterialPageRoute(builder: (context) => Searchlocation()));
-                                      },
-                                      child: Container(
-                                          height: getVerticalSize(
-                                            53.00,
-                                          ),
-                                          width: getHorizontalSize(
-                                            104.00,
-                                          ),
-                                          margin: EdgeInsets.only(
-                                            left: getHorizontalSize(
-                                              7.00,
-                                            ),
-                                            bottom: getVerticalSize(
-                                              1.00,
-                                            ),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: ColorConstant.whiteA700,
-                                            borderRadius: BorderRadius.circular(
-                                              getHorizontalSize(
-                                                5.00,
-                                              ),
-                                            ),
-                                            border: Border.all(
-                                              color: ColorConstant.black900,
-                                              width: getHorizontalSize(
-                                                1.00,
-                                              ),
-                                            ),
-                                          ),
-                                          child: LocationDropdown()),
+                                    TextSpan(
+                                      text: 'matches',
+                                      style: TextStyle(
+                                        color: ColorConstant.green6320,
+                                        fontSize: getFontSize(
+                                          24,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
                                   ],
                                 ),
+                                textAlign: TextAlign.left,
+                              ),
+                              SizedBox(height: 10,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                      height: screenHeight * 0.052,
+                                      width: screenWidth * 0.32,
+                                      decoration: BoxDecoration(
+                                        color: ColorConstant.whiteA700,
+                                        borderRadius: BorderRadius.circular(
+                                          getHorizontalSize(
+                                            5.00,
+                                          ),
+                                        ),
+                                        border: Border.all(
+                                          color: ColorConstant.black900,
+                                          width: getHorizontalSize(
+                                            1.00,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child: DesignationDropdown(),
+                                      )),
+                      Spacer(),
+                                  Container(
+                                    width: screenWidth * 0.3,
+                                    child: TextField(
+                                      readOnly: true,
+                                      decoration: InputDecoration(
+                                        contentPadding:
+                                        EdgeInsets.only(left: 12),
+                                        suffixIcon: Icon(
+                                          Icons.calendar_month,
+                                          color: Colors.black, size: 14,),
+                                        fillColor: Colors.white,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius
+                                              .circular(5.0),
+                                          borderSide: BorderSide(
+                                            color:
+                                            Colors.black,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius
+                                              .circular(5.0),
+                                          borderSide: BorderSide(
+                                            color:
+                                            Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                      // dateMask: 'dd.MM.yy',
+                                      style: TextStyle(fontSize: 10.5,
+                                          fontFamily: 'Inter',
+                                          color: Colors.grey),
+                                      controller: dateinputcontroller,
+                                      // keyboardType: TextInputType.datetime,
+                                      onTap: () {
+                                        _selectDate(context);
+                                        print(
+                                            "dateinputcontroller.text===>${dateinputcontroller
+                                                .text}");
+                                      },
+
+                                    ),
+                                  ),
+                                  Spacer(),
+
+                                  GestureDetector(
+                                    onTap: () {
+                                      // Navigator.push(context,
+                                      //     MaterialPageRoute(builder: (context) => Searchlocation()));
+                                    },
+                                    child: Container(
+                                        height: screenHeight * 0.052,
+                                        width: screenWidth * 0.27,
+                                        decoration: BoxDecoration(
+                                          color: ColorConstant.whiteA700,
+                                          borderRadius: BorderRadius.circular(
+                                            getHorizontalSize(
+                                              5.00,
+                                            ),
+                                          ),
+                                          border: Border.all(
+                                            color: ColorConstant.black900,
+                                            width: getHorizontalSize(
+                                              1.00,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6.0),
+                                          child: LocationDropdown(),
+                                        )),
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 15,
                               ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(320, 45),
-                                  primary: ColorConstant.green6320,
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    //to set border radius to button
-                                      borderRadius:
-                                      BorderRadius.circular(10.0)),
-                                ),
-                                onPressed: () async {
-                                  _bloc.getvitalsignList();
-                                  patientappointmentsearchdata =
-                                  await sortListClub.getclubList();
-                                  setState(() {
-                                    updatedata = patientappointmentsearchdata;
+                              Center(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(320, 45),
+                                    primary: ColorConstant.green6320,
+                                    elevation: 2,
+                                    shape: RoundedRectangleBorder(
+                                      //to set border radius to button
+                                        borderRadius:
+                                        BorderRadius.circular(10.0)),
+                                  ),
+                                  onPressed: () async {
+                                    _bloc.getvitalsignList();
+                                    patientappointmentsearchdata =
+                                    await sortListClub.getclubList();
+                                    setState(() {
+                                      updatedata = patientappointmentsearchdata;
 
-                                    // onSearchTextChanged;
-                                    //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
-                                  });
+                                      // onSearchTextChanged;
+                                      //  Navigator.push(context, MaterialPageRoute(builder: (context)=>clublist1()));
+                                    });
 
-                                  ;
-                                },
-                                child: Text(
-                                  "Search",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: ColorConstant.whiteA700,
-                                    fontSize: getFontSize(
-                                      17,
+                                  },
+                                  child: Text(
+                                    "Search",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.whiteA700,
+                                      fontSize: getFontSize(
+                                        17,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w400,
                                   ),
                                 ),
                               ),
@@ -469,25 +409,14 @@ class _ClubListState extends State<ClubList> {
                               SizedBox(
                                 height: 15,
                               ),
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15),
-                                  child:
-                                  // (patientappointmentList.length!= 0)
-                                  //     ?
-                                   _jobsListView(patientappointmentList)
-                                      // : (updatedata.length !=
-                                      // 0) ? _jobsListView(
-                                      // updatedata):_jobsListView(patientappointmentList)
-
-
-                              ),
+                              patientappointmentList.isEmpty  ?
+                              Center(child: Container(child: Text("NO COURT AVAILABLE",style:
+                              TextStyle(fontWeight: FontWeight.w500),),)) :
+                              _jobsListView(patientappointmentList),
                             ],
                           ),
                         ),
                       );
-
-                      break;
                     case Status.ERROR:
                       return Container();
                   }
