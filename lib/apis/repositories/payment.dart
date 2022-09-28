@@ -7,7 +7,7 @@ import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/reservation_court.dart';
 String Orderid ="";
 String key ="";
-String amount ="";
+String amounts ="";
 String refferel = "";
 class Payemnt {
 
@@ -38,7 +38,7 @@ class Payemnt {
     print("res->>>--------${response}");
     Orderid= response["order_id"];
     key =response["key"];
-    amount = response["amount"];
+    amounts = response["amount"];
     refferel = response["referral_code"];
 
     print("refferel->>>${refferel}");

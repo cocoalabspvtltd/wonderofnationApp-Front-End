@@ -205,7 +205,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                     borderRadius: BorderRadius.circular(5)),
                                 child: ListTile(
                                   selected:
-                                      selectedIndex == index ? true : false,
+                                  selectedIndex == index ? true : false,
                                   selectedTileColor: ColorConstant.green6320,
                                   selectedColor: ColorConstant.whiteA700,
                                   title: Padding(
@@ -220,13 +220,32 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                       ),
                                     ),
                                   ),
-                                  onTap: () {
+                                  onTap: ()
+                                  async {
+                                    selectedIndex = index;
+                                    setState(() {});
+                                    if(selectedIndex==1)
+                                      await getTimeSlot(title[index]["id"]);
                                     setState(() {
-                                      selectedIndex = index;
-                                      print(
-                                          "selectedInex--->${selectedIndex = index}");
+                                      print("tfgh");
+                                      price = title[index]["price"];
+                                      courtid = title[index]['id'];
+                                      slot = title[index]["slots"];
+                                      double x = (price / slot);
+                                      y = x.toStringAsFixed(0);
+                                      print("y2 ->>>>>>>.${y}");
+                                      //
                                     });
+                                    //selectedIndex2 == index;
                                   },
+                                  // {
+                                  //   setState(() {
+                                  //     selectedIndex = index;
+                                  //
+                                  //     print(
+                                  //         "selectedInex--->${selectedIndex = index}");
+                                  //   });
+                                  // },
                                 )),
                           );
                         }),
@@ -463,9 +482,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 itemCount: slots.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-
-
-
+                  print("slots->>${slots}");
+                  //TimeId = slots[index]["id"];
+                  slotColor = slots[index]["slot_status"];
                   return SizedBox(
                     // height: 45,
                     width: 120,
@@ -536,6 +555,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 showAlertDialog(context);
                               });
                             }
+                            if (slots[index]["slot_status"] == "red") {
+                              setState(() {
+                                slotColor = 'red';
+
+                                slotColor = slots[index]["slot_status"];
+                                showAlertDialognoSlots(context);
+                              });
+                            }
                             slotColor = "green";
                             setState(() {});
                           },
@@ -550,7 +577,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   bool slotSelected = false;
 
   Widget build(BuildContext context) {
-    // print("json->>>>>>>>>>>${  (price/slot).floor()}");
+
 
     return Scaffold(
         appBar: AppBar(
@@ -687,9 +714,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             ],
                           ),
                           SizedBox(
-                            width: 110,
+                            width: 160,
                           ),
-                          ElevatedButton(
+                  slotColor=="red"? Container():ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 40),
                               primary: ColorConstant.green6320,
@@ -699,9 +726,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () async {
-                              await pay.getpaymentList(courtid, selectedIndex,
-                                  widget.date, TimeId, price);
 
+                            // await  pay.getpaymentList(courtid, selectedIndex,
+                            //       widget.date, TimeId, selectedIndex==0?price:y);
                               openCheckout();
                             },
                             child: Text(
@@ -830,6 +857,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
       selectedIndex,
       0,
     );
+
     _razorpay = Razorpay();
 
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -848,15 +876,17 @@ class _ReservationCourtState extends State<ReservationCourt> {
     var options = {
       'key': key,
       'order_id': Orderid,
-      'amount':   selectedIndex == 0? amount:y,
+      'amount':selectedIndex == 0?price:y,
       'name': "WON",
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
       'send_sms_hash': true,
-    "colours":Colors.green[900],
       'prefill': {'contact': phone, 'email': email, 'name': name},
       'external': {
         'wallets': ['paytm']
+      },
+      "theme": {
+        "color": "#1D6320"
       }
 
     };
@@ -936,6 +966,43 @@ class _ReservationCourtState extends State<ReservationCourt> {
               hintText: 'Enter Refferel',
             ),
           ),
+        ],
+      ),
+
+      // content: Text("${refferel}"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  showAlertDialognoSlots(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () {
+
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Not Avilable",
+            style: TextStyle(fontSize: 15, color: Colors.black),
+          ),
+
         ],
       ),
 
