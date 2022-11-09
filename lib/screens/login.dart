@@ -430,7 +430,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         0.00,
                                       ),
                                     ),
-                                    child: FlatButton(
+                                    child: TextButton(
                                       onPressed: () async{
                                         print("loading");
 

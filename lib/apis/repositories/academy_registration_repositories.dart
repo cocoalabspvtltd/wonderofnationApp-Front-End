@@ -5,8 +5,6 @@ import '../../constants/web_Api_provider.dart';
 import '../../screens/dropdowns/games_dropdown.dart';
 import '../../screens/homePage/navigator.dart';
 
-
-
 class AcademyRegistrationRepository{
   getacademyregistration( context, String sportid,String Name,dateofbirth,gender,address,phone,email, img,video) async {
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
