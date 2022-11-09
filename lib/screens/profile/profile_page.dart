@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/constants/commonapierror.dart';
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
 import '../../apis/repositories/joined_clubs.dart';
@@ -144,7 +145,21 @@ class _ProfileUiState extends State<ProfileUi> {
                                           ),
                                         ),
                                         Center(
-                                          child: Icon(Icons.account_box_outlined)
+                                          child:  Container(height:100,
+                                            width:100,
+                                            child: CachedNetworkImage(
+                                              fit: BoxFit.fitWidth,
+                                              imageUrl: data.profilePic ?? "",
+                                              placeholder: (context, url) => Center(
+                                                child: CircularProgressIndicator(),
+                                              ),
+                                              errorWidget: (context, url, error) => Container(
+                                                  margin: EdgeInsets.all(5),
+                                                  child: Image(
+                                                    image: AssetImage('assets/images/profile.png'),
+                                                  )),
+                                            ),
+                                          ),
                                           ),
 
                                         Align(
@@ -153,7 +168,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                             padding: EdgeInsets.only(
 
                                               top: getVerticalSize(
-                                                1.00,
+                                                5.00,
                                               ),
 
                                             ),
@@ -1094,7 +1109,17 @@ class _ProfileUiState extends State<ProfileUi> {
 
                       break;
                     case Status.ERROR:
-                      return Container();
+                      return
+                        SizedBox(
+                        height: 300,
+                          child: Column(
+                            children: [
+                              Center(child: Image.asset("assets/images/clouderror.png",color: Colors.green[900],)),
+
+                              Center(child: Text("Offline",style: TextStyle(color: Colors.green[900]),)),
+                            ],
+                          ));
+
                   }
                 }
                 return Container();

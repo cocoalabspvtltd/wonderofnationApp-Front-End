@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/user_suggestion_model.dart';
 import 'package:oo/apis/repositories/user_suggestion_repositories.dart';
+import 'package:oo/constants/commonapierror.dart';
 import '../../apis/bloc/user_suggestion_bloc.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
@@ -190,8 +191,11 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
 
                 break;
               case Status.ERROR:
-                return Container(
-                  child:Center(child: CircularProgressIndicator()),
+                return SizedBox(
+                  height: 100,
+                  child: CommonApiResultsEmptyWidget(
+                      "${snapshot.data!.message!}",
+                      textColorReceived: Colors.black),
                 );
             }
           }

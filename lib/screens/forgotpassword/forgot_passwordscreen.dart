@@ -1,13 +1,17 @@
 
 import 'package:flutter/material.dart';
+import 'package:oo/apis/repositories/register_game.dart';
 import 'package:oo/screens/forgotpassword/reset_password.dart';
 
+import '../../apis/repositories/edit_profile.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 
 
 
 class ForgotPasswordScreen extends StatelessWidget {
+  ForgotPassword forgotpassword = ForgotPassword();
+  TextEditingController ChangePasswordContraoller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,7 +72,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                        color: ColorConstant.orange900,
+                        color: Colors.green[900],
                         fontSize: getFontSize(
                           16,
                         ),
@@ -177,9 +181,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                         320.00,
                       ),
                       child: TextFormField(
+                        controller: ChangePasswordContraoller,
                         focusNode: FocusNode(),
                         decoration: InputDecoration(
-                          hintText: 'Enter your mail id or mobile no.',
+                          hintText: 'Enter your mail id',
                           hintStyle: TextStyle(
                             fontSize: getFontSize(
                               12.0,
@@ -265,11 +270,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                           20.00,
                         ),
                       ),
-                      child: GestureDetector(onTap: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) =>    Resetpassword()),
-                        );
+                      child: GestureDetector(onTap: ()async{
+                        await forgotpassword.forgotpassword(ChangePasswordContraoller.text,context);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(builder: (context) =>    Resetpassword()),
+                      //   );
                       },
                         child: Container(
                           alignment: Alignment.center,
@@ -278,7 +284,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                           ),
                           width: size.width,
                           decoration: BoxDecoration(
-                            color: ColorConstant.orange900,
+                            color: Colors.green[900],
                             borderRadius: BorderRadius.circular(
                               getHorizontalSize(
                                 5.00,

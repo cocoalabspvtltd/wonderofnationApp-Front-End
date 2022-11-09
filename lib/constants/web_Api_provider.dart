@@ -12,6 +12,11 @@ class WebApiProvider {
     BaseOptions(receiveTimeout: 50000, connectTimeout: 50000);
     _dio = Dio(options);
 
+
+  }
+  Dio getMultipartInstance() {
+    _dio.options.headers.addAll({"Content-Type": "multipart/form-data"});
+    return _dio;
   }
 
   Future<dynamic?> getData( {

@@ -26,17 +26,17 @@ class drLOginRepository {
     try {
       Dio _dio = new Dio();
       _dio.options.contentType = Headers.formUrlEncodedContentType;
-print("baseurl${baseurl}login");
+
       Response responseData = await dio.post("${baseurl}login",
           data: formData,
           options: Options(
             headers: {"Accept":'application/json'},
           )
       );
-      print("fdsf");
+
       print(responseData.toString());
       Map token = responseData.data;
-      print("Response->>>>>${responseData.toString()}");
+
       name = token["user"]["name"];
       phone = token["user"]["phone"];
       email = token["user"]["email"];
@@ -58,6 +58,7 @@ print("email->${email}");
         gravity: ToastGravity.BOTTOM,
         toastLength: Toast.LENGTH_SHORT,
       );
+      EasyLoading.dismiss();
     }
   }
 }
