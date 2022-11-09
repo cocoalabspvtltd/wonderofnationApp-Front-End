@@ -11,7 +11,7 @@ import '../addfriends/add_fried.dart';
 import '../chat/chat_screen.dart';
 
 import '../dashboardItems/about.dart';
-import '../dashboardItems/help.dart';
+import '../dashboardItems/faq.dart';
 import '../dashboardItems/my_matches.dart';
 import '../dashboardItems/privacy.dart';
 import '../dashboardItems/settingd.dart';
@@ -265,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Image.asset(
-                        "assets/images/help.png",color:Colors.black,
+                        "assets/images/faq.png",color:Colors.black,
                       ),
                     ),
                     SizedBox(
@@ -276,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HelpPage()));
+                                builder: (context) => FaqPage()));
                       },
                       child: Text(
                         "Help",
