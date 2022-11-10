@@ -56,7 +56,7 @@ class _AddClubsState extends State<AddClubs> {
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
           return _tile(data[index].name,
-             data[index].id,data[index].img );
+             data[index].id,data[index].img);
         });
   }
 

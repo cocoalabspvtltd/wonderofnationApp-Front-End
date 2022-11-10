@@ -1,4 +1,6 @@
+import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({Key? key}) : super(key: key);
@@ -26,188 +28,62 @@ class _FaqPageState extends State<FaqPage> {
         ),
       ),body: SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-            children: [
-              SizedBox(height: 20,),
-              // Padding(
-              //   padding: const EdgeInsets.all(20),
-              //   child: TextFormField(
-              //     controller: searchcontroller,
-              //     keyboardType: TextInputType.text,
-              //     decoration: InputDecoration(
-              //       contentPadding:  EdgeInsets.symmetric(vertical: 0.1, horizontal: 3.0),
-              //       enabledBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(4.0),
-              //           borderSide: BorderSide(
-              //             color: Colors.grey,
-              //           )
-              //       ),
-              //       focusedBorder: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(4.0),
-              //         borderSide: BorderSide(
-              //           color:Colors.grey,
-              //         ),
-              //       ),
-              //       hintText: 'Search',
-              //       prefixIcon: Icon(Icons.search,color: Colors.grey,),
-              //     ),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: EdgeInsets.only(right:140,top: 10 ),
-              //   child: Text("Commonly searched FAQ",style: TextStyle(fontSize: 16 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 40,right: 26),
-              //   child: Text('How to manage your account in WON App ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 25,right: 70),
-              //   child: Text('How reservation works in WON App ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 25,right: 43),
-              //   child: Text('How to book a court in specific location ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 25,right: 132),
-              //   child: Text('How to delete my account ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 25,right: 90),
-              //   child: Text('How to change my personal info ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 25,right: 75),
-              //   child: Text('How to register a credit/ debit card ?',style: TextStyle(fontSize: 15 ,fontWeight:FontWeight.w400,fontFamily: 'Inter',
-              //     color: Colors.black,)),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 20,right: 20),
-              //   child: Divider(
-              //     thickness: 0.3,
-              //     color: Colors.grey[300],
-              //   ),
-              // ),
-              ExpansionTile(
-                title: Text(
-                  "Question",
-                  style: TextStyle(
-                      fontSize: 18.0, fontWeight: FontWeight.w600, color: Colors.black),
-                ),
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-                    alignment: FractionalOffset.centerLeft,
-                    child: Text(
-                      "Answer",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16.0,
-                          height: 1.8,
-                          color: Colors.black),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
+                    child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 15,),
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount:4,
+                      itemBuilder: (context,index) {
+                        return ExpansionTileCard(
+                          baseColor: Colors.grey[200],
+                            elevation: 1,
+                            shadowColor:ColorConstant.green6320 ,
+                            leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
+                            child: Text('1',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+                          title: Text('Question!',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                          children: <Widget>[
+                            Divider(
+                              thickness: 1.5,
+                              height: 1.0,
+                            ),
+                            SizedBox(height: 10,),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16.0,
+                                  vertical: 8.0,
+                                ),
+                                child: Text(
+                                  """Hi there, I'm a drop-in replacement for Flutter's ExpansionTile.
+
+Use me any time you think your app could benefit from being just a bit more Material.
+
+These buttons control the next card down!""",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(fontSize: 16),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 20,)
+                          ],
+                        );
+                      }
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 20,),
-              // ExpansionTile(
-              //   title: Text(
-              //     "Question",
-              //     style: TextStyle(
-              //         fontSize: 14.0, fontWeight: FontWeight.w600, color: Colors.black),
-              //   ),
-              //   children: <Widget>[
-              //     Container(
-              //       padding: EdgeInsets.fromLTRB(15, 0, 15, 15),
-              //       alignment: FractionalOffset.centerLeft,
-              //       child: Column(
-              //         children: [
-              //           Text("Answer1",
-              //             style: TextStyle(
-              //                 fontWeight: FontWeight.w400,
-              //                 fontSize: 13.0,
-              //                 height: 1.8,
-              //                 color: Colors.black),
-              //           ),
-              //           Text("Answer2",
-              //             style: TextStyle(
-              //                 fontWeight: FontWeight.w400,
-              //                 fontSize: 13.0,
-              //                 height: 1.8,
-              //                 color: Colors.black),
-              //           ),
-              //           Text("Answer3",
-              //             style: TextStyle(
-              //                 fontWeight: FontWeight.w400,
-              //                 fontSize: 13.0,
-              //                 height: 1.8,
-              //                 color: Colors.black),
-              //           ),
-              //           Text("Answer4",
-              //             style: TextStyle(
-              //                 fontWeight: FontWeight.w400,
-              //                 fontSize: 13.0,
-              //                 height: 1.8,
-              //                 color: Colors.black),
-              //           ),
-              //           Text("Answer5",
-              //             style: TextStyle(
-              //                 fontWeight: FontWeight.w400,
-              //                 fontSize: 13.0,
-              //                 height: 1.8,
-              //                 color: Colors.black),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
-            ]
+                ),
+
+
+
+          ),
         ),
-      ),
-    ),
     );
   }
 }

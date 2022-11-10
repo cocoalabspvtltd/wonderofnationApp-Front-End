@@ -64,6 +64,7 @@ dependencies:
   flutter_share_me: ^1.4.0
   angles: ^2.1.1
   url_launcher: ^6.0.4
+  expansion_tile_card: ^2.0.0
 
 
 

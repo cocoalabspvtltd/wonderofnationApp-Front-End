@@ -126,7 +126,7 @@ class _DashBoardState extends State<DashBoard> {
               : _selectedIndex == 1
               ? events()
               : _selectedIndex == 0
-              ? HomePage(RegisterName: '',)
+              ? HomePage(RegisterName: widget.UserName1,)
               : Center(child: Text("hai"))),
     );
   }

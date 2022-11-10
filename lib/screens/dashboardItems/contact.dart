@@ -23,7 +23,7 @@ class _ContactPageState extends State<ContactPage> {
         elevation: 0,
         title: Padding(
           padding: const EdgeInsets.only(left: 90),
-          child: Text("Conatct Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
+          child: Text("Contact Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
           ),),
         ),
       ),body: SafeArea(
