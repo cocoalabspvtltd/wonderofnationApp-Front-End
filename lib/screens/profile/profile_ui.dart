@@ -10,7 +10,7 @@ import '../../constants/math_utils.dart';
 import '../chat/chat_screen.dart';
 
 import '../dashboardItems/about.dart';
-import '../dashboardItems/help.dart';
+import '../dashboardItems/faq.dart';
 import '../dashboardItems/privacy.dart';
 import '../homePage/navigator.dart';
 import '../payment_dash/payment_page.dart';
@@ -279,7 +279,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Image.asset(
-                      "assets/images/help.png",color:Colors.black,
+                      "assets/images/faq.png",color:Colors.black,
                     ),
                   ),
                   SizedBox(
@@ -290,7 +290,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HelpPage()));
+                              builder: (context) => FaqPage()));
                     },
                     child: Text(
                       "Help",

@@ -5,12 +5,12 @@ import 'package:oo/screens/Event/Events.dart';
 import 'package:oo/screens/addClubs/my_clubs.dart';
 import 'package:oo/screens/chat/chat_screen.dart';
 import 'package:oo/screens/dashboardItems/about.dart';
-import 'package:oo/screens/dashboardItems/help.dart';
+import 'package:oo/screens/dashboardItems/contact.dart';
+import 'package:oo/screens/dashboardItems/faq.dart';
 import 'package:oo/screens/dashboardItems/my_matches.dart';
 import 'package:oo/screens/dashboardItems/privacy.dart';
 import 'package:oo/screens/dashboardItems/settingd.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
-import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/login.dart';
 import 'package:oo/screens/matches/club_list_joining.dart';
 import 'package:oo/screens/myresults/games_list.dart';
@@ -126,7 +126,7 @@ class _DashBoardState extends State<DashBoard> {
               : _selectedIndex == 1
               ? events()
               : _selectedIndex == 0
-              ? HomePage(RegisterName: '',)
+              ? HomePage(RegisterName: widget.UserName1,)
               : Center(child: Text("hai"))),
     );
   }
@@ -350,8 +350,40 @@ class _DashBoardState extends State<DashBoard> {
               title: Row(children: [
                 Padding(
                   padding: const EdgeInsets.all(5.0),
+                  child:
+                    Icon(Icons.call,color: Colors.black,size: 20,),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ContactPage()));
+                  },
+                  child: Text(
+                    "Contact us",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[900]),
+                  ),
+                ),
+              ]),
+              onTap: () {
+                // WidgetsBinding.instance!.addPostFrameCallback((_) {
+                //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+                // });
+              },
+            ),
+            ListTile(
+              title: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
                   child: Image.asset(
-                    "assets/images/help.png",
+                    "assets/images/faq.png",
                     color: Colors.black,
                   ),
                 ),
@@ -363,10 +395,10 @@ class _DashBoardState extends State<DashBoard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HelpPage()));
+                            builder: (context) => FaqPage()));
                   },
                   child: Text(
-                    "Help",
+                    "FAQ",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

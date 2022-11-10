@@ -236,7 +236,6 @@ class _LevelingsecondState extends State<Levelingsecond> {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>Levelingfirst()));
                     _showDialog(
                       context,
                     );

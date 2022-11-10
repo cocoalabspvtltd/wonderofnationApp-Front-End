@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/homePage/sport_Academy.dart';
 import '../../apis/repositories/logoout_repositories.dart';
 import '../../apis/repositories/register_Repositories.dart';
@@ -11,7 +12,7 @@ import '../addfriends/add_fried.dart';
 import '../chat/chat_screen.dart';
 
 import '../dashboardItems/about.dart';
-import '../dashboardItems/help.dart';
+import '../dashboardItems/faq.dart';
 import '../dashboardItems/my_matches.dart';
 import '../dashboardItems/privacy.dart';
 import '../dashboardItems/settingd.dart';
@@ -37,331 +38,330 @@ class _HomePageState extends State<HomePage> {
 
   int radioGroup1 = 1;
 
+
   @override
   LogoutRepository LogOut = LogoutRepository();
   Widget build(BuildContext context) {
-
     double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
-    
-        drawer: Drawer(
-          child: Container(
-            color: Colors.white,
-            child: ListView(
-              children: [
-                Container(height: 100,
-                  child: DrawerHeader(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 260),
-                        child: Container(
-                            child: GestureDetector(onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: widget.RegisterName,)),
-                              );
-                            },
-                                child: Icon(CupertinoIcons.clear_circled)
-                )
-                      ),
-                      )),
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/mymatches.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(onTap: (){
-                      print("hg");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  MyMatches()),
-                      );
-                    },
-                      child: Text(
-                        "My Matches",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[900],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ]),
-
-
-
-                ),
-
-                SizedBox(
-                  height: 4,
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myclubs.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>MyClubs()));
-
-                    },
-                      child: Text(
-                        "My Clubs",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.MY_PROFILE);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/myresults.png",
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>GameDetail()));
-                    },
-                      child: Text(
-                        "My Results",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/payment.png",
-                      ),),
-
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PaymentMethod(
-
-                              )),
-                        );
-                      },
-                      child: Text(
-                        "Payment Methods",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {},
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Icon(Icons.settings,color:Colors.black,size:22)
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) =>Settingpage()));
-
-                    },
-                      child: Text(
-                        "Settings",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                Divider(color:Colors.grey),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                          "assets/images/privacy.png",color:Colors.black
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PrivacyPage()));
-                      },
-                      child: Text(
-                        "Privacy & Security",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/help.png",color:Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HelpPage()));
-                      },
-                      child: Text(
-                        "Help",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset(
-                        "assets/images/about.png",height: 20,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AboutIUsPage()));
-                      },
-                      child: Text(
-                        "About us",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-                    // WidgetsBinding.instance!.addPostFrameCallback((_) {
-                    //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
-                    // });
-                  },
-                ),
-                ListTile(
-                  title: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Icon(
-                          Icons.logout,color:Colors.black
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(onTap: (){
-                     // LogOut.getLogoutRepository(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                      );
-                    },
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[900]),
-                      ),
-                    ),
-                  ]),
-                  onTap: () {
-
-                  },
-                ),
-              ],
-            ),
-
-          ),
-        ),
+        // drawer: Drawer(
+        //   child: Container(
+        //     color: Colors.white,
+        //     child: ListView(
+        //       children: [
+        //         Container(height: 100,
+        //           child: DrawerHeader(
+        //               decoration: BoxDecoration(
+        //                 color: Colors.white,
+        //               ),
+        //               child: Padding(
+        //                 padding: const EdgeInsets.only(left: 260),
+        //                 child: Container(
+        //                     child: GestureDetector(onTap: (){
+        //                       Navigator.push(
+        //                         context,
+        //                         MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: widget.RegisterName,)),
+        //                       );
+        //                     },
+        //                         child: Icon(CupertinoIcons.clear_circled)
+        //         )
+        //               ),
+        //               )),
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/mymatches.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(onTap: (){
+        //               print("hg");
+        //               Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(builder: (context) =>  MyMatches()),
+        //               );
+        //             },
+        //               child: Text(
+        //                 "My Matches",
+        //                 style: TextStyle(
+        //                   fontSize: 18,
+        //                   color: Colors.grey[900],
+        //                   fontWeight: FontWeight.bold,
+        //                 ),
+        //               ),
+        //             ),
+        //           ]),
+        //
+        //
+        //
+        //         ),
+        //
+        //         SizedBox(
+        //           height: 4,
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/myclubs.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(onTap:(){ Navigator.push(context, MaterialPageRoute(builder: (context)=>MyClubs()));
+        //
+        //             },
+        //               child: Text(
+        //                 "My Clubs",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.MY_PROFILE);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/myresults.png",
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(onTap: (){
+        //               Navigator.push(context,
+        //                   MaterialPageRoute(builder: (context) =>GameDetail()));
+        //             },
+        //               child: Text(
+        //                 "My Results",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/payment.png",
+        //               ),),
+        //
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                   context,
+        //                   MaterialPageRoute(
+        //                       builder: (context) => PaymentMethod(
+        //
+        //                       )),
+        //                 );
+        //               },
+        //               child: Text(
+        //                 "Payment Methods",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {},
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //                 padding: const EdgeInsets.all(5.0),
+        //                 child: Icon(Icons.settings,color:Colors.black,size:22)
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(onTap: (){
+        //               Navigator.push(context,
+        //                   MaterialPageRoute(builder: (context) =>Settingpage()));
+        //
+        //             },
+        //               child: Text(
+        //                 "Settings",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         Divider(color:Colors.grey),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                   "assets/images/privacy.png",color:Colors.black
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => PrivacyPage()));
+        //               },
+        //               child: Text(
+        //                 "Privacy & Security",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/faq.png",color:Colors.black,
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => FaqPage()));
+        //               },
+        //               child: Text(
+        //                 "Help",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Image.asset(
+        //                 "assets/images/about.png",height: 20,
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(
+        //               onTap: () {
+        //                 Navigator.push(
+        //                     context,
+        //                     MaterialPageRoute(
+        //                         builder: (context) => AboutIUsPage()));
+        //               },
+        //               child: Text(
+        //                 "About us",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //             // WidgetsBinding.instance!.addPostFrameCallback((_) {
+        //             //   Navigator.pushNamed(context, RoutesName.CHANGE_PASSWORD);
+        //             // });
+        //           },
+        //         ),
+        //         ListTile(
+        //           title: Row(children: [
+        //             Padding(
+        //               padding: const EdgeInsets.all(5.0),
+        //               child: Icon(
+        //                   Icons.logout,color:Colors.black
+        //               ),
+        //             ),
+        //             SizedBox(
+        //               width: 15,
+        //             ),
+        //             GestureDetector(onTap: (){
+        //              // LogOut.getLogoutRepository(context);
+        //               Navigator.push(
+        //                 context,
+        //                 MaterialPageRoute(builder: (context) =>  LoginScreen()),
+        //               );
+        //             },
+        //               child: Text(
+        //                 "Log out",
+        //                 style: TextStyle(
+        //                     fontSize: 18,
+        //                     fontWeight: FontWeight.bold,
+        //                     color: Colors.grey[900]),
+        //               ),
+        //             ),
+        //           ]),
+        //           onTap: () {
+        //
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //
+        //   ),
+        // ),
         body: Container(
           decoration: BoxDecoration(
             color: ColorConstant.whiteA700,
@@ -390,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text("HELLO , ",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
+                            Text("HELLO ,",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
                             register_buuton=="Start Playing" ?
                             Text(" ${widget.RegisterName.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),):
                             Text(" ${name.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),

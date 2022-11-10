@@ -6,7 +6,7 @@ import '../addClubs/my_clubs.dart';
 import '../chat/chat_screen.dart';
 
 import '../dashboardItems/about.dart';
-import '../dashboardItems/help.dart';
+import '../dashboardItems/faq.dart';
 import '../dashboardItems/my_matches.dart';
 import '../dashboardItems/privacy.dart';
 import '../homePage/court.dart';
