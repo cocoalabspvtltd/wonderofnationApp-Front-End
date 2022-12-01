@@ -13,6 +13,7 @@ import 'my_clubs.dart';
 
 
 class AddClubs extends StatefulWidget {
+
   const AddClubs({Key? key}) : super(key: key);
 
   @override
@@ -43,110 +44,128 @@ class _AddClubsState extends State<AddClubs> {
       if (data.name!.toLowerCase().contains(text) ||
           data.name!.contains(text))
         patientappointmentserachlist.add(data);
-    });
+    }
+    );
 
     setState(() {});
   }
   @override
   ListView _jobsListView(data) {
-    return ListView.builder(
+    return ListView.separated(
+      separatorBuilder: (context,index)=>SizedBox(height: 8,),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data.length}");
           return _tile(data[index].name,
-             data[index].id,data[index].img);
+             data[index].id,
+              data[index].img
+              );
         });
   }
 
   SizedBox _tile(
       String title,int clubid,String image) =>
       SizedBox(
-          height: 300,
-          child: Card(
-            clipBehavior: Clip.antiAlias,
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: CachedNetworkImage(
-                      fit: BoxFit.fitHeight,
-                      imageUrl: image ,
-                      placeholder: (context, url) => Center(child: Container(height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(color: ColorConstant.green6320,))),
-                      errorWidget: (context, url, error) =>
-                          Image.asset("assets/images/football.jpg",fit: BoxFit.fill,)
-
-                  ),
+          height:MediaQuery.of(context).size.height*0.42,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+            child: Card(
+              clipBehavior: Clip.antiAlias,
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisSize:
-                    MainAxisSize.min,
-                    crossAxisAlignment:
-                    CrossAxisAlignment
-                        .start,
-                    mainAxisAlignment:
-                    MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Text("${title}", textAlign:
-                          TextAlign.left,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),),
-                        ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.27,
+                      width:MediaQuery.of(context).size.height*0.42,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+
                       ),
-                      Row(
-                        children: [
-                          SizedBox(width: 7,),
-                          Icon(Icons.location_on_outlined, size: 13),
-                          SizedBox(width: 3,),
-                          Text("Kochi,Ernakulam,Kerala", style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400),),
-                          SizedBox(width: 160,),
-                          Text("5 Km", style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400),),
-                          SizedBox(width: 7,),
-                        ],
+                      child: CachedNetworkImage(
+                          fit: BoxFit.fitHeight,
+
+                          imageUrl:  image,
+                          placeholder: (context, url) => Center(child: Container(height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(color: ColorConstant.green6320,))),
+                          errorWidget: (context, url, error) =>
+                              Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
+
+
                       ),
-                      SizedBox(height: 7,),
-                      SizedBox(
-                        height: 35,
-                        width: 400,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              primary: ColorConstant.green6320,
-                              onPrimary: Colors.white,
-                            ),
-                            onPressed: (){
-                              EasyLoading.show(status: 'loading...');
-                              joinclubapi.getLeaveeport( context, clubid);
-                              EasyLoading.dismiss();
-                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>Myclubs()));
-                            }, child: Text("Join Club")),
-                      )
-                    ],
+                    ),
                   ),
-                )
-              ],
+
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisSize:
+                      MainAxisSize.min,
+                      crossAxisAlignment:
+                      CrossAxisAlignment
+                          .start,
+                      mainAxisAlignment:
+                      MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            child: Text("${title}", textAlign:
+                            TextAlign.left,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 7,),
+                            Icon(Icons.location_on_outlined, size: 13),
+                            SizedBox(width: 3,),
+                            Text("Kochi,Ernakulam,Kerala", style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400),),
+                            SizedBox(width: 160,),
+                            Text("5 Km", style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400),),
+                            SizedBox(width: 7,),
+                          ],
+                        ),
+                        SizedBox(height: 7,),
+                        SizedBox(
+                          height: 35,
+                          width: 400,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: ColorConstant.green6320,
+                                onPrimary: Colors.white,
+                              ),
+                              onPressed: (){
+                                EasyLoading.show(status: 'loading...');
+                                joinclubapi.getLeaveeport( context, clubid);
+                                EasyLoading.dismiss();
+                                // Navigator.push(context, MaterialPageRoute(builder: (context)=>Myclubs()));
+                              }, child: Text("Join Club")),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ));
 
