@@ -9,17 +9,9 @@ import '../../constants/math_utils.dart';
 import '../addClubs/my_clubs.dart';
 import '../addfriends/add_fried.dart';
 
-import '../chat/chat_screen.dart';
 
-import '../dashboardItems/about.dart';
-import '../dashboardItems/faq.dart';
-import '../dashboardItems/my_matches.dart';
-import '../dashboardItems/privacy.dart';
-import '../dashboardItems/settingd.dart';
-import '../login.dart';
 import '../matches/club_list_joining.dart';
-import '../myresults/game_detail.dart';
-import '../payment_dash/payment_page.dart';
+
 import 'court.dart';
 import 'home_item.dart';
 import 'levelling2.dart';
@@ -46,6 +38,7 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
+
         // drawer: Drawer(
         //   child: Container(
         //     color: Colors.white,

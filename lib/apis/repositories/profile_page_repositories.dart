@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/screens/dropdowns/games_dropdown.dart';
 import '../../constants/base_urls.dart';
 import '../../constants/web_Api_provider.dart';
 import '../modelclass/joined_club_Model.dart';
@@ -56,6 +57,7 @@ class ProfilepageRepositories {
       WebApiProvider apiProvider= WebApiProvider();
 
   Future getprofileImageList(File reportFile) async {
+    print("file->$reportFile");
     String fileName = reportFile.path.split('/').last;
     FormData formData = FormData.fromMap({
       "profile_pic":
@@ -75,4 +77,5 @@ class ProfilepageRepositories {
     print("->>>>>>>>>>>${response}");
     return response;
   }
+
 }
