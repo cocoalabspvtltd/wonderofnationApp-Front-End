@@ -373,8 +373,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                               imageUrl: image,
                               placeholder: (context, url) =>
                                   CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/splash5.jpg",
+                              errorWidget: (context, url, error) => Image.asset("assets/images/splash6.jpg",
                                 fit: BoxFit.fill,
                               ),
                               height: getVerticalSize(
@@ -727,8 +726,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             ),
                             onPressed: () async {
 
-                            // await  pay.getpaymentList(courtid, selectedIndex,
-                            //       widget.date, TimeId, selectedIndex==0?price:y);
+                            await  pay.getpaymentList(courtid, selectedIndex,
+                                  widget.date, TimeId, selectedIndex==0?price:y);
                               openCheckout();
                             },
                             child: Text(
@@ -851,6 +850,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   void initState() {
     super.initState();
+
     _bloc = ReservationCourtBloc(widget.club_id, widget.date);
     _courtSlotBloc = CourtSlotBloc(
       widget.date,

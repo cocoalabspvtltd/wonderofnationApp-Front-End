@@ -3,8 +3,9 @@ class JoinedClubModel {
     int? id;
     int? laravel_through_key;
     String? name;
+    String ?img;
 
-    JoinedClubModel({this.email, this.id, this.laravel_through_key, this.name});
+    JoinedClubModel({this.email, this.id, this.laravel_through_key, this.name,this.img});
 
     factory JoinedClubModel.fromJson(Map<String, dynamic> json) {
         return JoinedClubModel(
@@ -12,6 +13,7 @@ class JoinedClubModel {
             id: json['id'],
             laravel_through_key: json['laravel_through_key'],
             name: json['name'],
+            img: json['img']
         );
     }
 
@@ -21,6 +23,7 @@ class JoinedClubModel {
         data['id'] = this.id;
         data['laravel_through_key'] = this.laravel_through_key;
         data['name'] = this.name;
+        data['img'] = this.img;
         return data;
     }
 }

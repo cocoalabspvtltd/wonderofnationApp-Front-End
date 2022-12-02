@@ -38,7 +38,7 @@ class Payemnt {
     print("res->>>--------${response}");
     Orderid= response["order_id"];
     key =response["key"];
-    amounts = response["amount"];
+    amounts = response["amount"].toString();
     refferel = response["referral_code"];
 
     print("refferel->>>${refferel}");
