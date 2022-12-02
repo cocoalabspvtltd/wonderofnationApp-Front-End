@@ -341,6 +341,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                     fontSize: getFontSize(
                                       12.0,
                                     ),
+
+
                                     color: ColorConstant.gray400,
                                   ),
                                   enabledBorder: OutlineInputBorder(
