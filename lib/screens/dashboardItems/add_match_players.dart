@@ -4,8 +4,6 @@ import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 
-
-
 class AddMatchPlayers extends StatefulWidget {
   const AddMatchPlayers({Key? key}) : super(key: key);
 
@@ -15,8 +13,6 @@ class AddMatchPlayers extends StatefulWidget {
 
 class _AddMatchPlayersState extends State<AddMatchPlayers> {
   @override
-  Color _colorContainer = ColorConstant.orange900;
-  String _contentContainer= "Remove";
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,14 +33,12 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-            child:Column(
-              children: [
-                SizedBox(height: 8,),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextField(onTap: (){
-
-                  },
+            child:Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                  TextField(
                     decoration: InputDecoration(
                       hintText: "Search",
                       hintStyle: TextStyle(color: Colors.grey.shade600),
@@ -68,88 +62,64 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                       ),
                     ),
                   ),
-                ),
-                GestureDetector(onTap: (){},
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      padding: const EdgeInsets.all(8),
-                      itemCount:7,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 70,
-                          child: Card(elevation: 0,
-                            child: Row(
-                              children: [
-                                SizedBox(width: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Container(
+                  GestureDetector(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        padding: const EdgeInsets.all(8),
+                        itemCount:7,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.1,
+                            child: Card(
+                              elevation: 0,
+                              child: Row(
+                                children: [
+                                  Container(
                                     height:50,width: 50,
                                     child: Image.asset("assets/images/user2.png",fit: BoxFit.fill,),
                                   ),
-                                ),
-                                SizedBox(width: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text("User Name",style: TextStyle(fontWeight: FontWeight.w500),),
-                                ),
-                                SizedBox(width: 40,),
-                                GestureDetector(
-                                  onTap: (){
-                                    setState(() {
-                                      _contentContainer = _contentContainer == "Add" ?
-                                      "Remove" :"Add";
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 30.0),
-                                    child: Container(width: 80,height: 30,
+                                  SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
+                                  Text("User Name",style: TextStyle(fontWeight: FontWeight.w500),),
+                                  Spacer(),
+                                  // SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
+                                  GestureDetector(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * 0.2,
+                                      height: 30,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           border: Border.all(
-                                              width: 0.5,
-                                              color: Colors.black)
+                                              width: 1,
+                                              color: ColorConstant.green6320)
                                       ),
-                                      child: Center(child: Text(_contentContainer,)),),
+                                      child: Center(child: Text("Add",)),),
                                   ),
-                                ),
-                                SizedBox(width: 10),
-                              ],
+                                  SizedBox( width: MediaQuery.of(context).size.width * 0.03,),
+                                  GestureDetector(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width * 0.2,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          border: Border.all(
+                                              width: 1,
+                                              color: Colors.red)
+                                      ),
+                                      child: Center(child: Text("Remove",)),),
+                                  ),
+                                  SizedBox( width: MediaQuery.of(context).size.width * 0.01,),
+                                ],
+                              ),
+
                             ),
+                          );
 
-                          ),
-                        );
-
-                      }
-                  ),
-                ),
-                SizedBox(height: 15,),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(320, 40),
-                    primary:  ColorConstant.gray200,
-                    shape: RoundedRectangleBorder( //to set border radius to button
-                        borderRadius: BorderRadius.circular(10.0)
-                    ),),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
-                  },
-                  child: Text(
-                    "Submit",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: ColorConstant.black900,
-                      fontSize: getFontSize(
-                        17,
-                      ),
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w400,
+                        }
                     ),
                   ),
-                ),
-                SizedBox(height: 30,),
-              ],
+                ],
+              ),
             )
         ),
       ),

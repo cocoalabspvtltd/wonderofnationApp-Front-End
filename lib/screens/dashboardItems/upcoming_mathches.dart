@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../constants/colors.dart';
-import '../../constants/math_utils.dart';
-
+import 'package:oo/constants/colors.dart';
+import 'package:oo/constants/math_utils.dart';
 import 'add_match_players.dart';
 import 'my_matches.dart';
-
 
 class Upcomingmatch extends StatefulWidget {
   const Upcomingmatch({Key? key}) : super(key: key);
@@ -615,12 +613,10 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(width: 100,),
-                                    Icon(Icons.add_circle_outline,size: 17,),
-                                    SizedBox(width: 4,),
                                     Text(
-                                      "Add 3 Players",
+                                      "Edit Players",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: ColorConstant.black901,
@@ -631,6 +627,8 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
+                                    SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                                    Icon(Icons.edit,size: 17,),
                                   ],
                                 ),
                               ),

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/constants/colors.dart';
 import 'package:oo/screens/dashboardItems/past_matches.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
-import '../../constants/colors.dart';
-import '../homePage/navigator.dart';
+import 'package:oo/screens/homePage/navigator.dart';
+
 
 
 class MyMatches extends StatefulWidget {
@@ -19,57 +20,13 @@ class _MyMatchesState extends State<MyMatches> {
   String mText1 = "See All";
   String mText2="See All";
   @override
-  ListView _jobsListView() {
-    return ListView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return _tile();
-        });
-  }
-
-  SizedBox _tile() => SizedBox(
-    height: 150,
-    child: Card(
-      margin: EdgeInsets.only(right: 15, left: 15, top: 10, bottom: 2),
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.green, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
-      shadowColor: Colors.grey,
-      child: ListTile(
-          title: Text("hj",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 25,
-              )),
-          subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${"subtitle"}",
-                  style: TextStyle(color: Colors.red[900], fontSize: 20),
-                ),
-                Text(
-                  "${"subtitle1"}",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
-                Text(
-                  "Prescribed By${"subtitle2"}",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
-              ]),
-          onTap: () {}),
-    ),
-  );
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(left: 68.0),
+          padding: const EdgeInsets.only(left: 70.0),
           child: Text(
             "My Matches",
             style: TextStyle(fontSize: 18, color: Colors.black),
@@ -87,32 +44,28 @@ class _MyMatchesState extends State<MyMatches> {
             )),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 200.0, top: 28),
-              child: Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
-            ),
-            SizedBox(height: 10,),
-            Divider(
-              color: Colors.grey,
-            ),
-            SizedBox(height: 20,),
-            a == true ?
-            ListView.separated(
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    height: 5,
-                  );
-                },
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: 4,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 10,right: 10),
-                    child: GestureDetector(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
+              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+              Divider(color: Colors.grey,),
+              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+              a == true ?
+              ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 5,
+                    );
+                  },
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: 4,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
                       },
@@ -131,68 +84,56 @@ class _MyMatchesState extends State<MyMatches> {
                                 child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 160,bottom: 5),
-                                    child: Text("12 hrs left", style: TextStyle(
-                                        color: ColorConstant.green6320, fontSize: 12),),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 70,bottom: 10),
-                                    child: Text(
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(left: 150),
+                                      child: Text("12 hrs left",
+                                        style: TextStyle(
+                                            color: ColorConstant.green6320, fontSize: 12),),
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                                    Text(
                                       "Beginner Session",
                                       style: new TextStyle(
                                           fontSize: 15.0, fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 30),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
                                       children: [
-                                        Image.asset(
-                                          "assets/images/location.png",
-                                          color: Colors.black,
-                                        ),
+                                        Image.asset("assets/images/location.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("Club name/Sport Centre"),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(height: 6,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 80),
-                                    child: Text("1.5 km away"),
-                                  ),
-                                  SizedBox(height: 6,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 40),
-                                    child: Row(
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text("1.5 km away"),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
                                       children: [
-                                        SizedBox(width: 5,),
                                         Image.asset("assets/images/calender.png", color: Colors.black,),
-                                        SizedBox(width: 4,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("03/06/2022"),
-                                        SizedBox(width: 9,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                         Icon(Icons.lock_clock, color: Colors.black,),
-                                        SizedBox(width: 4,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("3:00"),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               )
                             ],
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }
-            )
-                :Padding(
-              padding: const EdgeInsets.only(left: 10,right: 10),
-              child: GestureDetector(
+                    );
+                  }
+              )
+                  : GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
                 },
@@ -211,103 +152,93 @@ class _MyMatchesState extends State<MyMatches> {
                           child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
                           ),
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 160,bottom: 5),
-                              child: Text("12 hrs left", style: TextStyle(
-                                  color: ColorConstant.green6320, fontSize: 12),),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 70,bottom: 10),
-                              child: Text(
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left: 150),
+                                child: Text("12 hrs left",
+                                  style: TextStyle(
+                                      color: ColorConstant.green6320, fontSize: 12),),
+                              ),
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                              Text(
                                 "Beginner Session",
                                 style: new TextStyle(
                                     fontSize: 15.0, fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/location.png",
-                                    color: Colors.black,
-                                  ),
+                                  Image.asset("assets/images/location.png", color: Colors.black,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("Club name/Sport Centre"),
                                 ],
                               ),
-                            ),
-                            SizedBox(height: 6,),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 80),
-                              child: Text("1.5 km away"),
-                            ),
-                            SizedBox(height: 6,),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 40),
-                              child: Row(
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Text("1.5 km away"),
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Row(
                                 children: [
-                                  SizedBox(width: 5,),
                                   Image.asset("assets/images/calender.png", color: Colors.black,),
-                                  SizedBox(width: 4,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("03/06/2022"),
-                                  SizedBox(width: 9,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                   Icon(Icons.lock_clock, color: Colors.black,),
-                                  SizedBox(width: 4,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("3:00"),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
                 ),
-              ),
-            ) ,
-            SizedBox(height: 10,),
-            InkWell(
-              onTap: (){
-                _visibilitymethod1();
-              },
-              child: Text(
-                mText1,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.only(right: 250.0, top: 19),
-              child: Text(
-                "Past Matches",
-                style: TextStyle(color: Colors.black,fontSize: 14),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Divider(color: Colors.grey,),
-            SizedBox(height: 20,),
-            b == true ?
-            ListView.separated(
-                separatorBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    height: 5,
-                  );
+              ) ,
+              SizedBox(height: 10,),
+              InkWell(
+                onTap: (){
+                  _visibilitymethod1();
                 },
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemCount: 4,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
-                    },
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Center(
+                  child: Text(
+                    mText1,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.only(right: 250.0, top: 19),
+                child: Text(
+                  "Past Matches",
+                  style: TextStyle(color: Colors.black,fontSize: 14),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Divider(color: Colors.grey,),
+              SizedBox(height: 20,),
+              b == true ?
+              ListView.separated(
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 5,
+                    );
+                  },
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: 4,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
+                      },
+                      child: Container(
                         child: Card(
                           elevation: 2,
                           shape: RoundedRectangleBorder(
@@ -319,76 +250,64 @@ class _MyMatchesState extends State<MyMatches> {
                               Container(
                                 height: 150,
                                 width: 82,
-                                child: Image.asset("assets/images/match1.png",fit: BoxFit.fitHeight,
+                                child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
                                 ),
                               ),
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 160,bottom: 5),
-                                    child: Text("12 hrs left", style: TextStyle(
-                                        color: ColorConstant.green6320, fontSize: 12),),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 70,bottom: 10),
-                                    child: Text(
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding:  EdgeInsets.only(left: 150),
+                                      child: Text("12 hrs left",
+                                        style: TextStyle(
+                                            color: ColorConstant.green6320, fontSize: 12),),
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                                    Text(
                                       "Beginner Session",
                                       style: new TextStyle(
                                           fontSize: 15.0, fontWeight: FontWeight.bold),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 30),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
                                       children: [
-                                        Image.asset(
-                                          "assets/images/location.png",
-                                          color: Colors.black,
-                                        ),
+                                        Image.asset("assets/images/location.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("Club name/Sport Centre"),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(height: 6,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 80),
-                                    child: Text("1.5 km away"),
-                                  ),
-                                  SizedBox(height: 6,),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 40),
-                                    child: Row(
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text("1.5 km away"),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
                                       children: [
-                                        SizedBox(width: 5,),
                                         Image.asset("assets/images/calender.png", color: Colors.black,),
-                                        SizedBox(width: 4,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("03/06/2022"),
-                                        SizedBox(width: 9,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                         Icon(Icons.lock_clock, color: Colors.black,),
-                                        SizedBox(width: 4,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                         Text("3:00"),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               )
                             ],
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }
-            )
-                :   GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
-              },
-                  child: Container(
-                    child: Padding(
-              padding: const EdgeInsets.only(left: 10,right: 10),
-              child: Card(
+                    );
+                  }
+              )
+                  :   GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
+                },
+                child: Container(
+                  child: Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.green, width: 0.5),
@@ -402,75 +321,68 @@ class _MyMatchesState extends State<MyMatches> {
                           child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
                           ),
                         ),
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 160,bottom: 5),
-                              child: Text("12 hrs left", style: TextStyle(color:
-                              ColorConstant.green6320, fontSize: 12),),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 70,bottom: 10),
-                              child: Text(
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(left: 150),
+                                child: Text("12 hrs left",
+                                  style: TextStyle(
+                                      color: ColorConstant.green6320, fontSize: 12),),
+                              ),
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                              Text(
                                 "Beginner Session",
                                 style: new TextStyle(
                                     fontSize: 15.0, fontWeight: FontWeight.bold),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 30),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Row(
                                 children: [
-                                  Image.asset(
-                                    "assets/images/location.png",
-                                    color: Colors.black,
-                                  ),
+                                  Image.asset("assets/images/location.png", color: Colors.black,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("Club name/Sport Centre"),
                                 ],
                               ),
-                            ),
-                            SizedBox(height: 6,),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 80),
-                              child: Text("1.5 km away"),
-                            ),
-                            SizedBox(height: 6,),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 40),
-                              child: Row(
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Text("1.5 km away"),
+                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                              Row(
                                 children: [
-                                  SizedBox(width: 5,),
                                   Image.asset("assets/images/calender.png", color: Colors.black,),
-                                  SizedBox(width: 4,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("03/06/2022"),
-                                  SizedBox(width: 9,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                   Icon(Icons.lock_clock, color: Colors.black,),
-                                  SizedBox(width: 4,),
+                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
                                   Text("3:00"),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         )
                       ],
                     ),
-              ),
-            ),
                   ),
                 ),
-            SizedBox(height: 10,),
-            InkWell(
-              onTap: (){
-                _visibilitymethod2();
-              },
-              child: Text(
-                mText2,
-                style: TextStyle(color: Colors.grey),
               ),
-            ),
-            SizedBox(height: 30,),
-          ],
+              SizedBox(height: 10,),
+              InkWell(
+                onTap: (){
+                  _visibilitymethod2();
+                },
+                child: Center(
+                  child: Text(
+                    mText2,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30,),
+            ],
+          ),
         ),
       ),
     );
