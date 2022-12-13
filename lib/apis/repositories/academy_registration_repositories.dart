@@ -38,6 +38,7 @@ class AcademyRegistrationRepository {
             headers: {
               'Accept':'application/json',
               'Authorization':"Bearer"+TOKEN,
+
             }
         )
 
@@ -45,11 +46,12 @@ class AcademyRegistrationRepository {
     print("->>>>>>>>>>>${response}");
     if (response.statusCode==200){
       return Fluttertoast.showToast(msg:"Application Submitted");
-
-    };
+    }
+    else
+      {
+        return Fluttertoast.showToast(msg:response.data);
+      }
 
     return response;
   }
-
-
 }
