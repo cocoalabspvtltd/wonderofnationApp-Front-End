@@ -64,7 +64,7 @@ class _ClubListState extends State<ClubList> {
 
 
   DateTime selectedDate = DateTime.now();
-// print("date->>>>>>.${selectedDate}");
+
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
         context: context,

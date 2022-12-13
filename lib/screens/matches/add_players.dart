@@ -16,8 +16,6 @@ class AddPlayers extends StatefulWidget {
 
 class _AddPlayersState extends State<AddPlayers> {
   @override
-
-  Color _colorContainer = ColorConstant.orange900;
   String _contentContainer= "Remove";
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +43,6 @@ class _AddPlayersState extends State<AddPlayers> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: TextField(onTap: (){
-
                   },
                     decoration: InputDecoration(
                       hintText: "Search",

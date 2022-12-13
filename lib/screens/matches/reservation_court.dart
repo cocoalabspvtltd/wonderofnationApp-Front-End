@@ -1,14 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
-import 'package:oo/screens/matches/public_court.dart';
+import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/matches/whatsappshare.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../apis/bloc/Coiurt_slot_bloc.dart';
@@ -16,14 +13,11 @@ import '../../apis/repositories/payment.dart';
 import '../../apis/repositories/paymentcucesss.dart';
 import '../../apis/repositories/refferel_user.dart';
 import '../../apis/repositories/register_Repositories.dart';
-import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
 import '../payment_dash/payment_page.dart';
-import 'add_players.dart';
 import 'club_details.dart';
-import 'court_time_slot.dart';
 
 String? razorpay_signature = "";
 String? PaymentId = "";
@@ -90,9 +84,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
   TextEditingController dateinputcontroller =
       new TextEditingController(text: DateTime.now().toString());
 
-  Color _colorContainer1 = Colors.white;
-  Color _colorContainer2 = Colors.white;
-
   @override
   bool value = false;
 
@@ -148,13 +139,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       ),
                     )),
                 SizedBox(
-                  height: 13,
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 20, bottom: 10),
@@ -240,6 +225,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   },
                                   // {
                                   //   setState(() {
+                                  //     selectedIndex = index;
                                   //     selectedIndex = index;
                                   //
                                   //     print(
@@ -434,11 +420,55 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       return Container();
                     }),
                 SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
                   height: 20,
                 ),
+                  if(selectedIndex==0)
+                  Center(
+                    child:  GestureDetector(onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=> AddPlayers()));
+                    },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: getVerticalSize(
+                          45.00,
+                        ),
+                        width: getHorizontalSize(
+                          280.00,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black,width: 0.5),
+                          color: ColorConstant.whiteA700,
+                          borderRadius: BorderRadius.circular(
+                            getHorizontalSize(
+                              5.00,
+                            ),
+
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add_circle_outline,size: 17,),
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                            Text(
+                              "Add Players",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black901,
+                                fontSize: getFontSize(
+                                  14,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -557,7 +587,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             if (slots[index]["slot_status"] == "red") {
                               setState(() {
                                 slotColor = 'red';
-
                                 slotColor = slots[index]["slot_status"];
                                 showAlertDialognoSlots(context);
                               });
@@ -576,8 +605,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
   bool slotSelected = false;
 
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         appBar: AppBar(
           elevation: 0,

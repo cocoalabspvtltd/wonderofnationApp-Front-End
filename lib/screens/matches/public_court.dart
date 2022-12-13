@@ -32,8 +32,6 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
   TextEditingController dateinputcontroller =
   new TextEditingController(text: DateTime.now().toString());
 
-  Color _colorContainer1 = Colors.white;
-  Color _colorContainer2 = Colors.white;
 
   void initState() {
     super.initState();
