@@ -113,7 +113,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   SizedBox _tile(List title, List slots, String image) => SizedBox(
         height: size.height,
-        child: SingleChildScrollView(
+        child: SingleChildScrollView(scrollDirection: Axis.vertical,
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -434,13 +434,16 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 SizedBox(
                   height: 20,
                 ),
-             if(selectedIndex == 0) a == true?Padding(
+             if(selectedIndex == 0&& forAddPlayers.isNotEmpty) a == true?Padding(
                padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
+
+
                  separatorBuilder: (BuildContext context, int index) {     return SizedBox(
                    height: 7,
                  ); },
                        shrinkWrap: true,
+                 physics:NeverScrollableScrollPhysics(),
                        itemCount: forAddPlayers.length, itemBuilder: (context, index){
                      return Row(
                        children: [
@@ -465,7 +468,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                    height: 7,
                  ); },
                 shrinkWrap: true,
-                itemCount: 3, itemBuilder: (context, index){
+                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
             return Row(
                 children: [
                   CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
@@ -474,7 +477,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     imageBuilder: (context, imageProvider)=> CircleAvatar(
                       radius: 18,
                       backgroundImage: imageProvider,),
-                    errorWidget:(context, strin, dy)=> CircleAvatar(radius: 18, backgroundColor: Colors.blue,),
+                    errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
                   ),
                   SizedBox(width: 10,),
                   Text(forAddPlayers[index]['name']!)
@@ -540,7 +543,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         ),
                       ),
                     ),
-                  ),
+                  ),SizedBox(height: 150,)
               ],
             ),
           ),
@@ -724,7 +727,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 ),
                 elevation: 6,
                 child: Container(
-                  height: 122,
+                  height: 114,
                   width: 400,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
