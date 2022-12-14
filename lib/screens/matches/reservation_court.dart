@@ -509,7 +509,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                          imageBuilder: (context, imageProvider)=> CircleAvatar(
                            radius: 18,
                            backgroundImage: imageProvider,),
-                         errorWidget:(context, strin, dy)=> CircleAvatar(radius: 18, backgroundColor: Colors.blue,),
+                           errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
                          ),
                          SizedBox(width: 10,),
                          Text(forAddPlayers[index]['name']!)
