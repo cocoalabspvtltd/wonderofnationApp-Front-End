@@ -486,7 +486,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
           }),
              ),
                 SizedBox(height: 10,),
-               if(selectedIndex==0) InkWell(
+               if(selectedIndex==0&& forAddPlayers.length>=3) InkWell(
                   onTap: (){
                     _visibilitymethod1();
                   },

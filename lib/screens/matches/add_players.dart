@@ -100,6 +100,7 @@ class _AddPlayersState extends State<AddPlayers> {
                   ),
                   child: Center(child: GestureDetector(onTap: (){
                     forAddPlayers.add({"name":title, "dp": profilepic});
+
                     Fluttertoast.showToast(msg:"Player Added");
                     print(forAddPlayers[0]["name"]);
 
