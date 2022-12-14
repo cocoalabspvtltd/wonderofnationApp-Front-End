@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:oo/apis/bloc/addplayer_bloc.dart';
 
@@ -99,6 +100,7 @@ class _AddPlayersState extends State<AddPlayers> {
                   ),
                   child: Center(child: GestureDetector(onTap: (){
                     forAddPlayers.add({"name":title, "dp": profilepic});
+                    Fluttertoast.showToast(msg:"Player Added");
                     print(forAddPlayers[0]["name"]);
 
                   },
@@ -118,8 +120,12 @@ class _AddPlayersState extends State<AddPlayers> {
                           color: Colors.red)
                   ),
                   child: Center(child: GestureDetector(onTap:(){
-                    forAddPlayers.remove({"name":title, "dp": profilepic});
-                    print(forAddPlayers[0]["name"]);
+                    //forAddPlayers.clear();
+                    print(forAddPlayers.contains({"name":title, "dp": profilepic}));
+                    forAddPlayers.removeWhere((element) => element["name"] == title);
+                    Fluttertoast.showToast(msg:"Player Deleted");
+                    forAddPlayers.forEach((element) { print(element);});
+
                   },
                       child: Text("Remove",))),),
               ),
