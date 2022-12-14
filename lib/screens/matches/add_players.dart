@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -38,9 +37,9 @@ class _AddPlayersState extends State<AddPlayers> {
 
 
   }
-   getMyclubList (){
-   _bloc.getMyClubsList();
-   }
+  getMyclubList (){
+    _bloc.getMyClubsList();
+  }
 
   onSearchTextChanged(String text) async {
     patientappointmentserachlist!.clear();
@@ -173,70 +172,70 @@ class _AddPlayersState extends State<AddPlayers> {
                     patientappointmentsearchdata = patientappointmentList;
                     return
                       SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                              width: 370,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: 370,
 
-                              color: Colors.white,
-                              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.all(15),
-                              child: Padding(
-                                padding: const EdgeInsets.all(0),
-                                child: Material(
-                                  color: Colors.white,
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: TextField(
+                                color: Colors.white,
+                                // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                                margin: EdgeInsets.all(15),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(0),
+                                  child: Material(
+                                    color: Colors.white,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: TextField(
 
-                                            controller:
-                                            patientappointmentController,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.black54,
-                                            ),
-                                            decoration: InputDecoration(
-                                              hintText: "Search your player name",
-                                                contentPadding: EdgeInsets.only(
-                                                  left: 80,
-                                                ),
-                                                prefixIcon: Icon(Icons.search),
-                                                border: OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        color: Colors.black54,
-                                                        width: 32.0),
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(5.0)),
-                                                focusedBorder:
-                                                OutlineInputBorder(
-                                                    borderSide:
-                                                    BorderSide(
-                                                        color: Colors
-                                                            .black54,
-                                                        width: 32.0),
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(
-                                                        25.0))),
-                                            onChanged: onSearchTextChanged),
-                                      ),
-                                    ],
+                                              controller:
+                                              patientappointmentController,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.black54,
+                                              ),
+                                              decoration: InputDecoration(
+                                                  hintText: "Search your player name",
+                                                  contentPadding: EdgeInsets.only(
+                                                    left: 80,
+                                                  ),
+                                                  prefixIcon: Icon(Icons.search),
+                                                  border: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black54,
+                                                          width: 32.0),
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(5.0)),
+                                                  focusedBorder:
+                                                  OutlineInputBorder(
+                                                      borderSide:
+                                                      BorderSide(
+                                                          color: Colors
+                                                              .black54,
+                                                          width: 32.0),
+                                                      borderRadius:
+                                                      BorderRadius
+                                                          .circular(
+                                                          25.0))),
+                                              onChanged: onSearchTextChanged),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )),
+                                )),
 
-                          patientappointmentList!.length != 0 ||
-                              patientappointmentController.text.isNotEmpty
-                              ? _jobsListView(patientappointmentserachlist)
-                              : _jobsListView(patientappointmentList)
-                        ],
-                      ),
-                    );
+                            patientappointmentList!.length != 0 ||
+                                patientappointmentController.text.isNotEmpty
+                                ? _jobsListView(patientappointmentserachlist)
+                                : _jobsListView(patientappointmentList)
+                          ],
+                        ),
+                      );
 
                     break;
                   case Status.ERROR:
