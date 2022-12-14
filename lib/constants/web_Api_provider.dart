@@ -18,7 +18,10 @@ class WebApiProvider {
     _dio.options.headers.addAll({"Content-Type": "multipart/form-data"});
     return _dio;
   }
-
+  Dio getJsonInstance() {
+    _dio!.options.headers.addAll({"Content-Type": "application/json"});
+    return _dio!;
+  }
   Future<dynamic?> getData( {
     required String url,
     required bool isPost,

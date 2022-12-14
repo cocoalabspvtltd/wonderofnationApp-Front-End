@@ -56,6 +56,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   String y = "";
 
   int courtid = 0;
+  bool a = false;
+  String mText1 = "See All";
 
   int TimeId = 0;
   TextEditingController refferelCOntroller = TextEditingController();
@@ -75,7 +77,17 @@ class _ReservationCourtState extends State<ReservationCourt> {
       isLoading = false;
     });
   }
-
+  void _visibilitymethod1() {
+    setState(() {
+      if (a) {
+        a = false;
+        mText1 = "See All";
+      } else {
+        a = true;
+        mText1 = "See hide";
+      }
+    });
+  }
   int selectedIndex2 = -1;
 
   int selectedIndex1 = -1;
@@ -421,6 +433,66 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     }),
                 SizedBox(
                   height: 20,
+                ),
+             if(selectedIndex == 0) a == true?Padding(
+               padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               child: ListView.separated(
+                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                   height: 7,
+                 ); },
+                       shrinkWrap: true,
+                       itemCount: forAddPlayers.length, itemBuilder: (context, index){
+                     return Row(
+                       children: [
+                         CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
+                           placeholder: (context, url) =>
+                               CircularProgressIndicator(),
+                         imageBuilder: (context, imageProvider)=> CircleAvatar(
+                           radius: 18,
+                           backgroundImage: imageProvider,),
+                         errorWidget:(context, strin, dy)=> CircleAvatar(radius: 18, backgroundColor: Colors.blue,),
+                         ),
+                         SizedBox(width: 10,),
+                         Text(forAddPlayers[index]['name']!)
+                       ],
+
+                     );
+                   }, ),
+             ):Padding(
+               padding: const EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               child: ListView.separated(
+                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                   height: 7,
+                 ); },
+                shrinkWrap: true,
+                itemCount: 3, itemBuilder: (context, index){
+            return Row(
+                children: [
+                  CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    imageBuilder: (context, imageProvider)=> CircleAvatar(
+                      radius: 18,
+                      backgroundImage: imageProvider,),
+                    errorWidget:(context, strin, dy)=> CircleAvatar(radius: 18, backgroundColor: Colors.blue,),
+                  ),
+                  SizedBox(width: 10,),
+                  Text(forAddPlayers[index]['name']!)
+                ],
+            );
+          }),
+             ),
+                SizedBox(height: 10,),
+               if(selectedIndex==0) InkWell(
+                  onTap: (){
+                    _visibilitymethod1();
+                  },
+                  child: Center(
+                    child: Text(
+                      mText1,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 ),
                   if(selectedIndex==0)
                   Center(
