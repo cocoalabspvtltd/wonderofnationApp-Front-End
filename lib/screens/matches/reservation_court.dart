@@ -173,81 +173,137 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: SizedBox(
-                    height: 45,
-                    child: ListView.separated(
-                        separatorBuilder: (BuildContext context, int index) {
-                          return SizedBox(
-                            width: 10,
-                          );
-                        },
-                        physics: ClampingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: book_model.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 45,
-                            width: 120,
-                            child: Card(
-                                clipBehavior: Clip.antiAlias,
-                                elevation: 0,
-                                color: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(
-                                        color: ColorConstant.green6320,
-                                        width: 0.6),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: ListTile(
-                                  selected:
-                                  selectedIndex == index ? true : false,
-                                  selectedTileColor: ColorConstant.green6320,
-                                  selectedColor: ColorConstant.whiteA700,
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 20, left: 16),
-                                    child: Text(
-                                      book_model[index],
-                                      style: TextStyle(
-                                        color: selectedIndex == index
-                                            ? Colors.white
-                                            : Colors.black,
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: SizedBox(
+                        height: 45,
+                        child: ListView.separated(
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: 10,
+                              );
+                            },
+                            physics: ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: book_model.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                height: 45,
+                                width: 120,
+                                child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    elevation: 0,
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: ColorConstant.green6320,
+                                            width: 0.6),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: ListTile(
+                                      selected:
+                                      selectedIndex == index ? true : false,
+                                      selectedTileColor:
+                                      ColorConstant.green6320,
+                                      selectedColor: ColorConstant.whiteA700,
+                                      title: Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 20, left: 16),
+                                        child: Text(
+                                          book_model[index],
+                                          style: TextStyle(
+                                            color: selectedIndex == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  onTap: ()
-                                  async {
-                                    selectedIndex = index;
-                                    setState(() {});
-                                    if(selectedIndex==1)
-                                      await getTimeSlot(title[index]["id"]);
-                                    setState(() {
-                                      print("tfgh");
-                                      price = title[index]["price"];
-                                      courtid = title[index]['id'];
-                                      slot = title[index]["slots"];
-                                      double x = (price / slot);
-                                      y = x.toStringAsFixed(0);
-                                      print("y2 ->>>>>>>.${y}");
+                                      onTap: () async {
+                                        selectedIndex = index;
+                                        setState(() {});
+                                        if (selectedIndex == 1)
+                                          await getTimeSlot(title[index]["id"]);
+                                        setState(() {
+                                          print("tfgh");
+                                          price = title[index]["price"];
+                                          courtid = title[index]['id'];
+                                          slot = title[index]["slots"];
+                                          double x = (price / slot);
+                                          y = x.toStringAsFixed(0);
+                                          print("y2 ->>>>>>>.${y}");
+                                          //
+                                        });
+                                        //selectedIndex2 == index;
+                                      },
+                                      // {
+                                      //   setState(() {
+                                      //     selectedIndex = index;
+                                      //     selectedIndex = index;
                                       //
-                                    });
-                                    //selectedIndex2 == index;
-                                  },
-                                  // {
-                                  //   setState(() {
-                                  //     selectedIndex = index;
-                                  //     selectedIndex = index;
-                                  //
-                                  //     print(
-                                  //         "selectedInex--->${selectedIndex = index}");
-                                  //   });
-                                  // },
-                                )),
-                          );
-                        }),
-                  ),
+                                      //     print(
+                                      //         "selectedInex--->${selectedIndex = index}");
+                                      //   });
+                                      // },
+                                    )),
+                              );
+                            }),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    Tooltip(
+                      // height: MediaQuery.of(context).size.height * 0.05 ,
+                      message:
+                      '                     Description '
+                          '\n'
+                          'Private : Book a court for yourself and friends\n'
+                          'Public  : Book a court for a public match and play with other players',
+                      padding: EdgeInsets.all(20),
+                      margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                      decoration: BoxDecoration(
+                          color: ColorConstant.green6320.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(22)),
+                      showDuration: Duration(seconds: 5),
+                      textStyle: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.032,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Icon(
+                                Icons.question_mark_sharp,
+                                size: 15,
+                                color: ColorConstant.black901,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                side: BorderSide(
+                                  color: ColorConstant.green6320,
+                                ),
+                                primary: ColorConstant.whiteA700,
+                                shape: CircleBorder(),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.006,
+                          ),
+                          Text(
+                            "Tap and hold to info",
+                            style: TextStyle(
+                                fontSize: 8.2, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 10,
@@ -453,7 +509,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                          imageBuilder: (context, imageProvider)=> CircleAvatar(
                            radius: 18,
                            backgroundImage: imageProvider,),
-                         errorWidget:(context, strin, dy)=> CircleAvatar(radius: 18, backgroundColor: Colors.blue,),
+                           errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
                          ),
                          SizedBox(width: 10,),
                          Text(forAddPlayers[index]['name']!)
