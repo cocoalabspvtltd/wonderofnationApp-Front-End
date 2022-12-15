@@ -23,6 +23,7 @@ String? razorpay_signature = "";
 String? PaymentId = "";
 String? OrderRazorpayId = "";
 bool? holdSlotvalue;
+bool? addplayersvalue;
 
 TextEditingController refferelpasscontroller = TextEditingController();
 
@@ -54,6 +55,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int slot = 0;
   int price = 0;
   String y = "";
+  String addplayerdisplayvalue= "";
 
   int courtid = 0;
   bool a = false;
@@ -98,6 +100,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   @override
   bool value = false;
+  bool value1 = false;
 
   ListView _jobsListView(data) {
     return ListView.builder(
@@ -234,6 +237,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                           double x = (price / slot);
                                           y = x.toStringAsFixed(0);
                                           print("y2 ->>>>>>>.${y}");
+
                                           //
                                         });
                                         //selectedIndex2 == index;
@@ -541,7 +545,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
           }),
              ),
                 SizedBox(height: 10,),
-               if(selectedIndex==0&& forAddPlayers.length>=3) InkWell(
+               if(selectedIndex==0 && forAddPlayers.length>=3) InkWell(
                   onTap: (){
                     _visibilitymethod1();
                   },
@@ -793,8 +797,16 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 6,
+                        height: 2,
                       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.end,
+                      //   children: [
+                      //     IconButton(onPressed: (){
+                      //       Navigator.pop(context);
+                      //     }, icon: Icon(Icons.close)),
+                      //   ],
+                      // ),
                       Row(
                         children: [
                           SizedBox(
@@ -821,11 +833,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     )),
-                              if (selectedIndex == 0)
+
+
+    if (selectedIndex == 0&&addplayersvalue==true)
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Text(
-                                      "₹${price}",
+                                      "₹${price/forAddPlayers.length.toInt()}",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: ColorConstant.black900,
@@ -836,6 +850,21 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     )),
+                              if (selectedIndex == 0&&addplayersvalue==false)
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "₹${price}",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        28,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )),
                               if (selectedIndex == 0)
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
@@ -936,6 +965,36 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   //Checkbox
                                 ], //<Widget>[]
                               ),
+                      if (selectedIndex == 0)
+                        (slotColor == 'blue')
+                            ? Container()
+                            : Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Checkbox(
+                              value: this.value1,
+                              activeColor: ColorConstant.green6320,
+                              onChanged: (value1) {
+                                setState(() {
+                                  this.value1 = value1!;
+                                  addplayersvalue = this.value1;
+                                  print("value1-<<<<<<<<<${this.value1}");
+                                });
+                              },
+                            ),
+                            SizedBox(width: 0), //SizedBox
+                            Text(
+                              'Are you sure to add players ?',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w500),
+                            ), //Text
+                            //SizedBox
+                            //Checkbox
+                          ], //<Widget>[]
+                        ),
                     ],
                   ),
                 ),
