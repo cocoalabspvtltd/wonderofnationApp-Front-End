@@ -67,13 +67,14 @@ class _AddPlayersState extends State<AddPlayers> {
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index].name}");
           return _tile(data[index].name,
-              data[index].profilePic
+              data[index].profilePic,
+            data[index].id,
           );
         });
   }
 
   Container _tile(
-      String title,String profilepic) =>
+      String title,String profilepic,int id,) =>
       Container(
         height: MediaQuery.of(context).size.height * 0.1,
         child: Card(
@@ -99,7 +100,20 @@ class _AddPlayersState extends State<AddPlayers> {
                           color: ColorConstant.green6320)
                   ),
                   child: Center(child: GestureDetector(onTap: (){
-                    forAddPlayers.add({"name":title, "dp": profilepic});
+                  print(id);
+                  forAddPlayers.forEach((element) {
+                    {
+                      print("object");
+                      print(element['id']);
+                      if (element["id"]== id.toString()) {
+                        Fluttertoast.showToast(msg: "Player Already Exist");
+                        return;
+                      }
+                    }
+                  });
+
+                    forAddPlayers.add({"name":title, "dp": profilepic,"id":id.toString()});
+
 
                     Fluttertoast.showToast(msg:"Player Added");
                     print(forAddPlayers[0]["name"]);
