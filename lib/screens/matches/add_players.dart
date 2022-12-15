@@ -10,11 +10,9 @@ import 'package:oo/apis/repositories/joined_clubs.dart';
 import '../../constants/colors.dart';
 import '../../constants/response.dart';
 
-
-List<Map<String,String>> forAddPlayers =[];
+List<Map<String, String>> forAddPlayers = [];
 
 class AddPlayers extends StatefulWidget {
-
   const AddPlayers({Key? key}) : super(key: key);
 
   @override
@@ -29,15 +27,15 @@ class _AddPlayersState extends State<AddPlayers> {
 
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
+
   void initState() {
     super.initState();
-    _bloc =AddPlayersBloc();
+    _bloc = AddPlayersBloc();
     _bloc.getMyClubsList();
     print("forAddPlayers-.${forAddPlayers}");
-
-
   }
-  getMyclubList (){
+
+  getMyclubList() {
     _bloc.getMyClubsList();
   }
 
@@ -49,32 +47,37 @@ class _AddPlayersState extends State<AddPlayers> {
     }
 
     patientappointmentsearchdata!.forEach((data) {
-      if (data!.name!.toLowerCase().contains(text) ||
-          data.name!.contains(text))
+      if (data!.name!.toLowerCase().contains(text) || data.name!.contains(text))
         patientappointmentserachlist?.add(data);
-    }
-    );
+    });
 
     setState(() {});
   }
+
   @override
   ListView _jobsListView(data) {
     return ListView.separated(
-        separatorBuilder: (context,index)=>SizedBox(height: 8,),
+        separatorBuilder: (context, index) => SizedBox(
+              height: 8,
+            ),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index].name}");
-          return _tile(data[index].name,
-              data[index].profilePic,
+          return _tile(
+            data[index].name,
+            data[index].profilePic,
             data[index].id,
           );
         });
   }
 
   Container _tile(
-      String title,String profilepic,int id,) =>
+    String title,
+    String profilepic,
+    int id,
+  ) =>
       Container(
         height: MediaQuery.of(context).size.height * 0.1,
         child: Card(
@@ -82,11 +85,20 @@ class _AddPlayersState extends State<AddPlayers> {
           child: Row(
             children: [
               Container(
-                height:50,width: 50,
-                child: Image.asset("assets/images/user2.png",fit: BoxFit.fill,),
+                height: 50,
+                width: 50,
+                child: Image.asset(
+                  "assets/images/user2.png",
+                  fit: BoxFit.fill,
+                ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
-              Text("${title}",style: TextStyle(fontWeight: FontWeight.w500),),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.03,
+              ),
+              Text(
+                "${title}",
+                style: TextStyle(fontWeight: FontWeight.w500),
+              ),
               Spacer(),
               // SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
               GestureDetector(
@@ -95,65 +107,90 @@ class _AddPlayersState extends State<AddPlayers> {
                   height: 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 1,
-                          color: ColorConstant.green6320)
-                  ),
-                  child: Center(child: GestureDetector(onTap: (){
-                  print(id);
-                  forAddPlayers.forEach((element) {
-                    {
-                      print("object");
-                      print(element['id']);
-                      if (element["id"]== id.toString()) {
-                        Fluttertoast.showToast(msg: "Player Already Exist");
-                        return;
-                      }
-                    }
-                  });
+                      border:
+                          Border.all(width: 1, color: ColorConstant.green6320)),
+                  child: Center(
+                      child: GestureDetector(
+                          onTap: () {
+                            print(id);
+                            bool flag = false;
+                            if (forAddPlayers.isNotEmpty) {
+                              for (Map element in forAddPlayers) {
+                                {
+                                  print("object");
+                                  print(element['id']);
+                                  if (element["id"] == id.toString()) {
+                                    Fluttertoast.showToast(
+                                        msg: "Player Already Exist");
+                                    flag = true;
+                                    break;
+                                  }
+                                }
+                              }
+                            } else {
+                              forAddPlayers.add({
+                                "name": title,
+                                "dp": profilepic,
+                                "id": id.toString()
+                              });
+                              Fluttertoast.showToast(msg: "Player Added");
+                              return;
+                            }
+                            if (flag == false) {
+                              forAddPlayers.add({
+                                "name": title,
+                                "dp": profilepic,
+                                "id": id.toString()
+                              });
+                              Fluttertoast.showToast(msg: "Player Added");
+                              return;
+                            }
 
-                    forAddPlayers.add({"name":title, "dp": profilepic,"id":id.toString()});
-
-
-                    Fluttertoast.showToast(msg:"Player Added");
-                    print(forAddPlayers[0]["name"]);
-
-                  },
-
-
-                      child: Text("Add",))),),
+                            //  print(forAddPlayers[0]["name"]);
+                          },
+                          child: Text(
+                            "Add",
+                          ))),
+                ),
               ),
-              SizedBox( width: MediaQuery.of(context).size.width * 0.03,),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.03,
+              ),
               GestureDetector(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.2,
                   height: 30,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 1,
-                          color: Colors.red)
-                  ),
-                  child: Center(child: GestureDetector(onTap:(){
-                    //forAddPlayers.clear();
-                    print(forAddPlayers.contains({"name":title, "dp": profilepic}));
-                    forAddPlayers.removeWhere((element) => element["name"] == title);
-                    Fluttertoast.showToast(msg:"Player Deleted");
-                    forAddPlayers.forEach((element) { print(element);});
-
-                  },
-                      child: Text("Remove",))),),
+                      border: Border.all(width: 1, color: Colors.red)),
+                  child: Center(
+                      child: GestureDetector(
+                          onTap: () {
+                            //forAddPlayers.clear();
+                            print(forAddPlayers
+                                .contains({"name": title, "dp": profilepic}));
+                            forAddPlayers.removeWhere(
+                                (element) => element["name"] == title);
+                            Fluttertoast.showToast(msg: "Player Deleted");
+                            forAddPlayers.forEach((element) {
+                              print(element);
+                            });
+                          },
+                          child: Text(
+                            "Remove",
+                          ))),
+                ),
               ),
-              SizedBox( width: MediaQuery.of(context).size.width * 0.01,),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.01,
+              ),
             ],
           ),
-
         ),
       );
 
-
-
   TextEditingController searchcontroller = new TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -163,14 +200,24 @@ class _AddPlayersState extends State<AddPlayers> {
             iconTheme: const IconThemeData(
               color: Colors.indigo,
             ),
-            leading: IconButton(onPressed: (){
-              Navigator.pop(context);
-            }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                )),
             title: Padding(
-              padding: const EdgeInsets.only(left: 30,right: 30),
-              child: Text("Players List",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400),),
-            )
-        ),
+              padding: const EdgeInsets.only(left: 30, right: 30),
+              child: Text(
+                "Players List",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
+              ),
+            )),
         body: StreamBuilder<Response<AddPlayersModel>>(
             stream: _bloc.AddPlayersStream,
             builder: (context, snapshot) {
@@ -185,72 +232,69 @@ class _AddPlayersState extends State<AddPlayers> {
                         snapshot.data!.data.players;
                     print("data=>${snapshot.data!.data.players![0].name}");
                     patientappointmentsearchdata = patientappointmentList;
-                    return
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: 370,
-
-                                color: Colors.white,
-                                // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                                margin: EdgeInsets.all(15),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: Material(
-                                    color: Colors.white,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: TextField(
-
-                                              controller:
-                                              patientappointmentController,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.black54,
-                                              ),
-                                              decoration: InputDecoration(
-                                                  hintText: "Search your player name",
-                                                  contentPadding: EdgeInsets.only(
-                                                    left: 80,
-                                                  ),
-                                                  prefixIcon: Icon(Icons.search),
-                                                  border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.black54,
-                                                          width: 32.0),
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(5.0)),
-                                                  focusedBorder:
-                                                  OutlineInputBorder(
-                                                      borderSide:
-                                                      BorderSide(
-                                                          color: Colors
-                                                              .black54,
-                                                          width: 32.0),
-                                                      borderRadius:
-                                                      BorderRadius
-                                                          .circular(
-                                                          25.0))),
-                                              onChanged: onSearchTextChanged),
-                                        ),
-                                      ],
-                                    ),
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                              width: 370,
+                              color: Colors.white,
+                              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.all(15),
+                              child: Padding(
+                                padding: const EdgeInsets.all(0),
+                                child: Material(
+                                  color: Colors.white,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: TextField(
+                                            controller:
+                                                patientappointmentController,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.black54,
+                                            ),
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    "Search your player name",
+                                                contentPadding: EdgeInsets.only(
+                                                  left: 80,
+                                                ),
+                                                prefixIcon: Icon(Icons.search),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black54,
+                                                        width: 32.0),
+                                                    borderRadius:
+                                                        BorderRadius
+                                                            .circular(5.0)),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                        borderSide:
+                                                            BorderSide(
+                                                                color: Colors
+                                                                    .black54,
+                                                                width: 32.0),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    25.0))),
+                                            onChanged: onSearchTextChanged),
+                                      ),
+                                    ],
                                   ),
-                                )),
-
-                            patientappointmentList!.length != 0 ||
-                                patientappointmentController.text.isNotEmpty
-                                ? _jobsListView(patientappointmentserachlist)
-                                : _jobsListView(patientappointmentList)
-                          ],
-                        ),
-                      );
+                                ),
+                              )),
+                          patientappointmentList!.length != 0 ||
+                                  patientappointmentController.text.isNotEmpty
+                              ? _jobsListView(patientappointmentserachlist)
+                              : _jobsListView(patientappointmentList)
+                        ],
+                      ),
+                    );
 
                     break;
                   case Status.ERROR:
@@ -258,7 +302,6 @@ class _AddPlayersState extends State<AddPlayers> {
                 }
               }
               return Container();
-            })
-    );
+            }));
   }
 }
