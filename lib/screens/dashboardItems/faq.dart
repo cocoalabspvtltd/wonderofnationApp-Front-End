@@ -79,9 +79,6 @@ These buttons control the next card down!""",
                     ),
                   ),
                 ),
-
-
-
           ),
         ),
     );

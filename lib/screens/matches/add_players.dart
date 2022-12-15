@@ -27,7 +27,6 @@ class _AddPlayersState extends State<AddPlayers> {
 
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
-
   void initState() {
     super.initState();
     _bloc = AddPlayersBloc();
@@ -100,87 +99,66 @@ class _AddPlayersState extends State<AddPlayers> {
                 style: TextStyle(fontWeight: FontWeight.w500),
               ),
               Spacer(),
-              // SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
-              GestureDetector(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border:
-                          Border.all(width: 1, color: ColorConstant.green6320)),
-                  child: Center(
-                      child: GestureDetector(
-                          onTap: () {
-                            print(id);
-                            bool flag = false;
-                            if (forAddPlayers.isNotEmpty) {
-                              for (Map element in forAddPlayers) {
-                                {
-                                  print("object");
-                                  print(element['id']);
-                                  if (element["id"] == id.toString()) {
-                                    Fluttertoast.showToast(
-                                        msg: "Player Already Exist");
-                                    flag = true;
-                                    break;
-                                  }
-                                }
-                              }
-                            } else {
-                              forAddPlayers.add({
-                                "name": title,
-                                "dp": profilepic,
-                                "id": id.toString()
-                              });
-                              Fluttertoast.showToast(msg: "Player Added");
-                              return;
-                            }
-                            if (flag == false) {
-                              forAddPlayers.add({
-                                "name": title,
-                                "dp": profilepic,
-                                "id": id.toString()
-                              });
-                              Fluttertoast.showToast(msg: "Player Added");
-                              return;
-                            }
+              TextButton(
+                  onPressed: () {
+                    print(id);
+                    bool flag = false;
+                    if (forAddPlayers.isNotEmpty) {
+                      for (Map element in forAddPlayers) {
+                        {
+                          print("object");
+                          print(element['id']);
+                          if (element["id"] == id.toString()) {
+                            Fluttertoast.showToast(msg: "Player Already Exist");
+                            flag = true;
+                            break;
+                          }
+                        }
+                      }
+                    } else {
+                      forAddPlayers.add({
+                        "name": title,
+                        "dp": profilepic,
+                        "id": id.toString()
+                      });
+                      Fluttertoast.showToast(msg: "Player Added");
+                      return;
+                    }
+                    if (flag == false) {
+                      forAddPlayers.add({
+                        "name": title,
+                        "dp": profilepic,
+                        "id": id.toString()
+                      });
+                      Fluttertoast.showToast(msg: "Player Added");
+                      return;
+                    }
 
-                            //  print(forAddPlayers[0]["name"]);
-                          },
-                          child: Text(
-                            "Add",
-                          ))),
-                ),
-              ),
+                    //  print(forAddPlayers[0]["name"]);
+                  },
+                  child: Text(
+                    "Add",
+                    style:
+                        TextStyle(color: ColorConstant.green6320, fontSize: 16),
+                  )),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.03,
+                width: MediaQuery.of(context).size.width * 0.0,
               ),
-              GestureDetector(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(width: 1, color: Colors.red)),
-                  child: Center(
-                      child: GestureDetector(
-                          onTap: () {
-                            //forAddPlayers.clear();
-                            print(forAddPlayers
-                                .contains({"name": title, "dp": profilepic}));
-                            forAddPlayers.removeWhere(
-                                (element) => element["name"] == title);
-                            Fluttertoast.showToast(msg: "Player Deleted");
-                            forAddPlayers.forEach((element) {
-                              print(element);
-                            });
-                          },
-                          child: Text(
-                            "Remove",
-                          ))),
-                ),
-              ),
+              TextButton(
+                  onPressed: () {
+                    print(forAddPlayers
+                        .contains({"name": title, "dp": profilepic}));
+                    forAddPlayers
+                        .removeWhere((element) => element["name"] == title);
+                    Fluttertoast.showToast(msg: "Player Deleted");
+                    forAddPlayers.forEach((element) {
+                      print(element);
+                    });
+                  },
+                  child: Text(
+                    "Remove",
+                    style: TextStyle(color: Colors.red, fontSize: 16),
+                  )),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.01,
               ),
@@ -190,7 +168,6 @@ class _AddPlayersState extends State<AddPlayers> {
       );
 
   TextEditingController searchcontroller = new TextEditingController();
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(

@@ -490,14 +490,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 SizedBox(
                   height: 20,
                 ),
-             if(selectedIndex == 0&& forAddPlayers.isNotEmpty) a == true?Padding(
+             if(selectedIndex == 0 && forAddPlayers.isNotEmpty) a == true?Padding(
                padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
 
-
                  separatorBuilder: (BuildContext context, int index) {     return SizedBox(
                    height: 7,
-                 ); },
+              ); },
                        shrinkWrap: true,
                  physics:NeverScrollableScrollPhysics(),
                        itemCount: forAddPlayers.length, itemBuilder: (context, index){
@@ -553,6 +552,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     ),
                   ),
                 ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                   if(selectedIndex==0)
                   Center(
                     child:  GestureDetector(onTap: (){
