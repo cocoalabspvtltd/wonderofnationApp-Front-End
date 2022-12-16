@@ -69,6 +69,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
 
+
+
   getTimeSlot(int courtId) async {
     setState(() {
       isLoading = true;
@@ -79,6 +81,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
       isLoading = false;
     });
   }
+  int playerId=0;
+  String playername = "";
   void _visibilitymethod1() {
     setState(() {
       if (a) {
@@ -90,6 +94,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
       }
     });
   }
+
+
   int selectedIndex2 = -1;
 
   int selectedIndex1 = -1;
@@ -913,8 +919,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             ),
                             onPressed: () async {
 
+
                             await  pay.getpaymentList(courtid, selectedIndex,
-                                  widget.date, TimeId, selectedIndex==0?price:y);
+                                  widget.date, TimeId, selectedIndex==0?price:y,);
                               openCheckout();
                             },
                             child: Text(
@@ -1074,6 +1081,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
       selectedIndex,
       0,
     );
+
 
     _razorpay = Razorpay();
 
