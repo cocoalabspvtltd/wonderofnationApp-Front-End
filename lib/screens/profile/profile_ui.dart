@@ -13,7 +13,7 @@ import '../dashboardItems/about.dart';
 import '../dashboardItems/faq.dart';
 import '../dashboardItems/privacy.dart';
 import '../homePage/navigator.dart';
-import '../payment_dash/payment_page.dart';
+import '../dashboardItems/history_screen.dart';
 
 
 class ProfilrScreen extends StatefulWidget {
@@ -201,7 +201,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PaymentMethod(
+                            builder: (context) => HistoryScreen(
 
                             )),
                       );

@@ -67,8 +67,7 @@ class _AddPlayersState extends State<AddPlayers> {
         itemBuilder: (context, index) {
           print("data->>>>>>${data[index].name}");
           return _tile(data[index].name,
-              data[index].profilePic,
-          
+            data[index].profilePic,
             data[index].id,
           );
         });
@@ -89,63 +88,52 @@ class _AddPlayersState extends State<AddPlayers> {
               SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
               Text("${title}",style: TextStyle(fontWeight: FontWeight.w500),),
               Spacer(),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.20,
-                height: 30,
-                child: TextButton(
-                    onPressed: (){
-                  forAddPlayers.add({"name":title, "dp": profilepic,"id":id.toString() });
-                  Fluttertoast.showToast(msg:"Player Added");
-                  forAddPlayers.forEach((element) { print(element);});
-                }, child: Text("Add",style: TextStyle(color: ColorConstant.green6320,fontSize: 16),)),
-
-              // SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
-              GestureDetector(
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                          width: 1,
-                          color: ColorConstant.green6320)
-                  ),
-                  child: Center(child: GestureDetector(onTap: (){
-                  print(id);
-                  forAddPlayers.forEach((element) {
+              TextButton(onPressed: (){
+                print(id);
+                bool flag = false;
+                if (forAddPlayers.isNotEmpty) {
+                  for (Map element in forAddPlayers) {
                     {
                       print("object");
                       print(element['id']);
-                      if (element["id"]== id.toString()) {
-                        Fluttertoast.showToast(msg: "Player Already Exist");
-                        return;
+                      if (element["id"] == id.toString()) {
+                        Fluttertoast.showToast(
+                            msg: "Player Already Exist");
+                        flag = true;
+                        break;
                       }
                     }
+                  }
+                } else {
+                  forAddPlayers.add({
+                    "name": title,
+                    "dp": profilepic,
+                    "id": id.toString()
                   });
+                  Fluttertoast.showToast(msg: "Player Added");
+                  return;
+                }
+                if (flag == false) {
+                  forAddPlayers.add({
+                    "name": title,
+                    "dp": profilepic,
+                    "id": id.toString()
+                  });
+                  Fluttertoast.showToast(msg: "Player Added");
+                  return;
+                }
 
-                    forAddPlayers.add({"name":title, "dp": profilepic,"id":id.toString()});
-
-
-                    Fluttertoast.showToast(msg:"Player Added");
-                    print(forAddPlayers[0]["name"]);
-
-                  },
-
-
-                      child: Text("Add",))),),
-              ),
-              SizedBox( width: MediaQuery.of(context).size.width * 0.03,),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.20,
-                height: 30,
-                child: TextButton(onPressed: (){
-                  print(forAddPlayers.contains({"name":title, "dp": profilepic}));
-                  forAddPlayers.removeWhere((element) => element["name"] == title);
-                  Fluttertoast.showToast(msg:"Player Removed");
-                  forAddPlayers.forEach((element) { print(element);});
-                }, child: Text("Remove",style: TextStyle(color: Colors.red,fontSize: 16),)),
-              ),
-           
+                //  print(forAddPlayers[0]["name"]);
+              },
+                  child:Text("Add",style: TextStyle(color: ColorConstant.green6320,fontSize: 16),) ),
+              SizedBox( width: MediaQuery.of(context).size.width * 0.0,),
+              TextButton(onPressed: (){
+                print(forAddPlayers.contains({"name":title, "dp": profilepic}));
+                forAddPlayers.removeWhere((element) => element["name"] == title);
+                Fluttertoast.showToast(msg:"Player Deleted");
+                forAddPlayers.forEach((element) { print(element);});
+              },
+                  child:Text("Remove",style: TextStyle(color: Colors.red,fontSize: 16),) ),
               SizedBox( width: MediaQuery.of(context).size.width * 0.01,),
             ],
           ),

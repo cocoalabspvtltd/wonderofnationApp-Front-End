@@ -10,7 +10,7 @@ import '../../constants/math_utils.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/public_court.dart';
 import '../../screens/matches/reservation_court.dart';
-import '../../screens/payment_dash/payment_page.dart';
+import '../../screens/dashboardItems/history_screen.dart';
 String sucess ="";
 class PayemntSucess {
 
