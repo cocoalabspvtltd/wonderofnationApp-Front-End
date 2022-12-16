@@ -33,162 +33,182 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            children: [
-              Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
-              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-              Divider(color: Colors.grey,),
-              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-              a == true ?
-              ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 5,
-                    );
-                  },
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.green, width: 0.5),
-                            borderRadius: BorderRadius.all(Radius.circular(7))),
-                        shadowColor: Colors.grey,
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 150,
-                              width: 82,
-                              child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                SizedBox(height:MediaQuery.of(context).size.height * 0.02,),
+                Text("Your matches",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),),
+                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                Divider(color: Colors.grey,),
+                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                a == true ?
+                ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        height: 5,
+                      );
+                    },
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.green, width: 0.5),
+                              borderRadius: BorderRadius.all(Radius.circular(7))),
+                          shadowColor: Colors.grey,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(7.0),
+                                  bottomLeft: Radius.circular(7.0),
+                                ),
+                                child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                                  width: 90,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding:  EdgeInsets.only(left: 150),
-                                    child: Text("12 hrs left",
-                                      style: TextStyle(
-                                          color: ColorConstant.green6320, fontSize: 12),),
-                                  ),
-                                  SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                                  Text(
-                                    "Beginner Session",
-                                    style: new TextStyle(
-                                        fontSize: 15.0, fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                  Row(
-                                    children: [
-                                      Image.asset("assets/images/location.png", color: Colors.black,),
-                                      SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                      Text("Club name/Sport Centre"),
-                                    ],
-                                  ),
-                                  SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                  Text("1.5 km away"),
-                                  SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                  Row(
-                                    children: [
-                                      Image.asset("assets/images/calender.png", color: Colors.black,),
-                                      SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                      Text("03/06/2022"),
-                                      SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                      Icon(Icons.lock_clock, color: Colors.black,),
-                                      SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                      Text("3:00"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }
-              )
-                  : Container(
-                    child: Card(
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.green, width: 0.5),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      shadowColor: Colors.grey,
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 150,
-                            width: 82,
-                            child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text(
+                                      "Beginner Session",
+                                      style: new TextStyle(
+                                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
+                                      children: [
+                                        Image.asset("assets/images/location.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("Club name/Sport Centre",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text("1.5 km away",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
+                                      children: [
+                                        Image.asset("assets/images/calender.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("03/06/2022",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
+                                        Icon(Icons.lock_clock, color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("3:00",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:  EdgeInsets.only(left: 150),
-                                  child: Text("12 hrs left",
-                                    style: TextStyle(
-                                        color: ColorConstant.green6320, fontSize: 12),),
+                        ),
+                      );
+                    }
+                )
+                    :
+                ListView.separated(
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        height: 5,
+                      );
+                    },
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.green, width: 0.5),
+                              borderRadius: BorderRadius.all(Radius.circular(7))),
+                          shadowColor: Colors.grey,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(7.0),
+                                  bottomLeft: Radius.circular(7.0),
                                 ),
-                                SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                                Text(
-                                  "Beginner Session",
-                                  style: new TextStyle(
-                                      fontSize: 15.0, fontWeight: FontWeight.bold),
+                                child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                                  width: 90,
                                 ),
-                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                Row(
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Image.asset("assets/images/location.png", color: Colors.black,),
-                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("Club name/Sport Centre"),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text(
+                                      "Beginner Session",
+                                      style: new TextStyle(
+                                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
+                                      children: [
+                                        Image.asset("assets/images/location.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("Club name/Sport Centre",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text("1.5 km away",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Row(
+                                      children: [
+                                        Image.asset("assets/images/calender.png", color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("03/06/2022",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
+                                        Icon(Icons.lock_clock, color: Colors.black,),
+                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                        Text("3:00",style:  TextStyle(
+                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                Text("1.5 km away"),
-                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                Row(
-                                  children: [
-                                    Image.asset("assets/images/calender.png", color: Colors.black,),
-                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("03/06/2022"),
-                                    SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                    Icon(Icons.lock_clock, color: Colors.black,),
-                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("3:00"),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                ),
+                SizedBox(height: 10,),
+                InkWell(
+                  onTap: (){
+                    _visibilitymethod1();
+                  },
+                  child: Center(
+                    child: Text(
+                      mText1,
+                      style: TextStyle(color: Colors.grey),
                     ),
-                  ) ,
-              SizedBox(height: 10,),
-              InkWell(
-                onTap: (){
-                  _visibilitymethod1();
-                },
-                child: Center(
-                  child: Text(
-                    mText1,
-                    style: TextStyle(color: Colors.grey),
                   ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

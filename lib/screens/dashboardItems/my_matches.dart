@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oo/constants/colors.dart';
-import 'package:oo/screens/dashboardItems/past_matches.dart';
+import 'package:oo/apis/bloc/mybookingbloc.dart';
+import 'package:oo/apis/modelclass/mybookingmodel.dart';
+import 'package:oo/constants/commonapierror.dart';
+import 'package:oo/elements/LoadMoreListener.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
-import 'package:oo/screens/homePage/navigator.dart';
-
+import '../../constants/response.dart';
+import '../homePage/navigator.dart';
 
 
 class MyMatches extends StatefulWidget {
@@ -14,11 +15,55 @@ class MyMatches extends StatefulWidget {
   State<MyMatches> createState() => _MyMatchesState();
 }
 
-class _MyMatchesState extends State<MyMatches> {
+class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
+  late MyOrdersBlocUser _bloc;
+  late ScrollController _itemsScrollController;
+  bool isLoadingMore = false;
   bool a = false;
   bool b= false;
   String mText1 = "See All";
   String mText2="See All";
+  @override
+  void initState() {
+    print("My match Screen");
+    _bloc = MyOrdersBlocUser(listener: this);
+    _bloc.getmyordersDetailsList(false);
+    _itemsScrollController = ScrollController();
+    _itemsScrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  refresh(bool isLoading) {
+    if (mounted) {
+      setState(() {
+        isLoadingMore = isLoading;
+      });
+    }
+  }
+
+  paginate() async {
+    print('paginate');
+    await _bloc.getmyordersDetailsList(true);
+  }
+
+  void _scrollListener() async {
+    if (_itemsScrollController.offset >=
+        _itemsScrollController.position.maxScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the bottom");
+      // if (_bloc.hasNextPage) {
+      paginate();
+      //}
+    }
+    if (_itemsScrollController.offset <=
+        _itemsScrollController.position.minScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the top");
+    }
+  }
+
+  // late bool like;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,347 +88,242 @@ class _MyMatchesState extends State<MyMatches> {
               color: Colors.black,
             )),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
-              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-              Divider(color: Colors.grey,),
-              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-              a == true ?
-              ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 5,
-                    );
-                  },
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
-                      },
-                      child: Container(
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.green, width: 0.5),
-                              borderRadius: BorderRadius.all(Radius.circular(7))),
-                          shadowColor: Colors.grey,
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 82,
-                                child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:  EdgeInsets.only(left: 150),
-                                      child: Text("12 hrs left",
-                                        style: TextStyle(
-                                            color: ColorConstant.green6320, fontSize: 12),),
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                                    Text(
-                                      "Beginner Session",
-                                      style: new TextStyle(
-                                          fontSize: 15.0, fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Row(
-                                      children: [
-                                        Image.asset("assets/images/location.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("Club name/Sport Centre"),
-                                      ],
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Text("1.5 km away"),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Row(
-                                      children: [
-                                        Image.asset("assets/images/calender.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("03/06/2022"),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                        Icon(Icons.lock_clock, color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("3:00"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+      body: RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.white,
+        onRefresh: () {
+          return _bloc.getmyordersDetailsList(false);
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: StreamBuilder<Response<MyBookingModel>>(
+              stream: _bloc.myordersDetailsListStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  switch (snapshot.data!.status!) {
+                    case Status.LOADING:
+                      return Center(
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
+                      );
+                    case Status.COMPLETED:
+                      MyBookingModel resp = snapshot.data!.data;
+                      return _bloc.myordersDetailsList.isEmpty
+                          ? SizedBox(
+                        height: MediaQuery.of(context).size.height - 180,
+                        child: CommonApiResultsEmptyWidget(
+                            "${resp.success!}",
+                            textColorReceived: Colors.black),
+                      )
+                          : _buildProductSavedListView(_bloc.myordersDetailsList);
+                    case Status.ERROR:
+                      return CommonApiResultsEmptyWidget(
+                          "${snapshot.data!.message!}",
+                          textColorReceived: Colors.black);
                   }
-              )
-                  : GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
-                },
-                child: Container(
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.green, width: 0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(7))),
-                    shadowColor: Colors.grey,
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 150,
-                          width: 82,
-                          child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:  EdgeInsets.only(left: 150),
-                                child: Text("12 hrs left",
-                                  style: TextStyle(
-                                      color: ColorConstant.green6320, fontSize: 12),),
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                              Text(
-                                "Beginner Session",
-                                style: new TextStyle(
-                                    fontSize: 15.0, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/location.png", color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("Club name/Sport Centre"),
-                                ],
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Text("1.5 km away"),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/calender.png", color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("03/06/2022"),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                  Icon(Icons.lock_clock, color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("3:00"),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ) ,
-              SizedBox(height: 10,),
-              InkWell(
-                onTap: (){
-                  _visibilitymethod1();
-                },
-                child: Center(
-                  child: Text(
-                    mText1,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.only(right: 250.0, top: 19),
-                child: Text(
-                  "Past Matches",
-                  style: TextStyle(color: Colors.black,fontSize: 14),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Divider(color: Colors.grey,),
-              SizedBox(height: 20,),
-              b == true ?
-              ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 5,
-                    );
-                  },
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
-                      },
-                      child: Container(
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(color: Colors.green, width: 0.5),
-                              borderRadius: BorderRadius.all(Radius.circular(7))),
-                          shadowColor: Colors.grey,
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 150,
-                                width: 82,
-                                child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding:  EdgeInsets.only(left: 150),
-                                      child: Text("12 hrs left",
-                                        style: TextStyle(
-                                            color: ColorConstant.green6320, fontSize: 12),),
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                                    Text(
-                                      "Beginner Session",
-                                      style: new TextStyle(
-                                          fontSize: 15.0, fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Row(
-                                      children: [
-                                        Image.asset("assets/images/location.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("Club name/Sport Centre"),
-                                      ],
-                                    ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Text("1.5 km away"),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Row(
-                                      children: [
-                                        Image.asset("assets/images/calender.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("03/06/2022"),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                        Icon(Icons.lock_clock, color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("3:00"),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-              )
-                  :   GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Pastmatches()));
-                },
-                child: Container(
-                  child: Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.green, width: 0.5),
-                        borderRadius: BorderRadius.all(Radius.circular(7))),
-                    shadowColor: Colors.grey,
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 150,
-                          width: 82,
-                          child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:  EdgeInsets.only(left: 150),
-                                child: Text("12 hrs left",
-                                  style: TextStyle(
-                                      color: ColorConstant.green6320, fontSize: 12),),
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
-                              Text(
-                                "Beginner Session",
-                                style: new TextStyle(
-                                    fontSize: 15.0, fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/location.png", color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("Club name/Sport Centre"),
-                                ],
-                              ),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Text("1.5 km away"),
-                              SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                              Row(
-                                children: [
-                                  Image.asset("assets/images/calender.png", color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("03/06/2022"),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                  Icon(Icons.lock_clock, color: Colors.black,),
-                                  SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                  Text("3:00"),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
-              InkWell(
-                onTap: (){
-                  _visibilitymethod2();
-                },
-                child: Center(
-                  child: Text(
-                    mText2,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ),
-              SizedBox(height: 30,),
-            ],
-          ),
+                }
+                return Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
+                );
+              }),
         ),
+      ),
+    );
+  }
+
+  Widget _buildProductSavedListView(List<Matches> productDetails) {
+    return  Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
+          SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+          Divider(color: Colors.grey,),
+          SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+          a == true ?
+          ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 5,
+                );
+              },
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount: productDetails.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
+                  },
+                  child: Container(
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.green, width: 0.5),
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      shadowColor: Colors.grey,
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(7.0),
+                              bottomLeft: Radius.circular(7.0),
+                            ),
+                            child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                              width: 90,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                                Text(
+                                  "${productDetails[index].clubName}",
+                                  style: new TextStyle(
+                                      fontSize: 15.0, fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/images/location.png", color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                      style:  TextStyle(
+                                          fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                  ],
+                                ),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Text("Sport: ${productDetails[index].sport}",
+                                  style:  TextStyle(
+                                      fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/images/calender.png", color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].date}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
+                                    Icon(Icons.lock_clock, color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].time}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+          )
+              :  ListView.separated(
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(
+                  height: 5,
+                );
+              },
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemCount:3,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
+                  },
+                  child: Container(
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.green, width: 0.5),
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      shadowColor: Colors.grey,
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(7.0),
+                              bottomLeft: Radius.circular(7.0),
+                            ),
+                            child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                              width: 90,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
+                                Text(
+                                  "${productDetails[index].clubName}",
+                                  style: new TextStyle(
+                                      fontSize: 15.0, fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/images/location.png", color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                      style:  TextStyle(
+                                          fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                  ],
+                                ),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Text("Sport: ${productDetails[index].sport}",style:  TextStyle(
+                                    fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                Row(
+                                  children: [
+                                    Image.asset("assets/images/calender.png", color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].date}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
+                                    Icon(Icons.lock_clock, color: Colors.black,),
+                                    SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
+                                    Text("${productDetails[index].time}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+          ),
+          SizedBox(height: 10,),
+          InkWell(
+            onTap: (){
+              _visibilitymethod1();
+            },
+            child: Center(
+              child: Text(
+                mText1,
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
+          ),
+          SizedBox(height: 10,),
+
+          SizedBox(height: 30,),
+        ],
       ),
     );
   }
@@ -395,17 +335,6 @@ class _MyMatchesState extends State<MyMatches> {
       } else {
         a = true;
         mText1 = "See hide";
-      }
-    });
-  }
-  void _visibilitymethod2() {
-    setState(() {
-      if (b) {
-        b = false;
-        mText2 = "See All";
-      } else {
-        b= true;
-        mText2 = "See hide";
       }
     });
   }

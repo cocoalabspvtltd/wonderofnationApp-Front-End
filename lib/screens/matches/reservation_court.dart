@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
+import 'package:oo/screens/dashboardItems/history_screen.dart';
 import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/matches/whatsappshare.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -16,7 +17,6 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
-import '../dashboardItems/history_screen.dart';
 import 'club_details.dart';
 
 String? razorpay_signature = "";
@@ -55,7 +55,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int slot = 0;
   int price = 0;
   String y = "";
-  String addplayerdisplayvalue = "";
+  String addplayerdisplayvalue= "";
 
   int courtid = 0;
   bool a = false;
@@ -69,6 +69,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
 
+
+
   getTimeSlot(int courtId) async {
     setState(() {
       isLoading = true;
@@ -79,7 +81,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
       isLoading = false;
     });
   }
-
+  int playerId=0;
+  String playername = "";
   void _visibilitymethod1() {
     setState(() {
       if (a) {
@@ -92,13 +95,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
     });
   }
 
+
   int selectedIndex2 = -1;
 
   int selectedIndex1 = -1;
   String buttontext = "Book Now";
 
   TextEditingController dateinputcontroller =
-  new TextEditingController(text: DateTime.now().toString());
+      new TextEditingController(text: DateTime.now().toString());
 
   @override
   bool value = false;
@@ -117,84 +121,233 @@ class _ReservationCourtState extends State<ReservationCourt> {
   }
 
   SizedBox _tile(List title, List slots, String image) => SizedBox(
-    height: size.height,
-    child: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "Selected date",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: getFontSize(
-                    16,
-                  ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 13,
-            ),
-            Padding(
-                padding: const EdgeInsets.only(left: 20, right: 30),
-                child: Container(
-                  height: 40,
-                  width: size.width,
-                  decoration:
-                  BoxDecoration(border: Border.all(color: Colors.grey)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 18.0, top: 10),
-                    child: Text(widget.date),
-                  ),
-                )),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10),
-              child: Container(
-                child: Text(
-                  widget.ClubName,
-                  style: TextStyle(
-                      fontSize: 18, color: ColorConstant.green6320),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10),
-              child: Container(
-                child: Text(
-                  "${widget.state}/ ${widget.city}",
-                  style: TextStyle(
-                      fontSize: 18, color: ColorConstant.green6320),
-                ),
-              ),
-            ),
-            Row(
+        height: size.height,
+        child: SingleChildScrollView(scrollDirection: Axis.vertical,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Selected date",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: getFontSize(
+                        16,
+                      ),
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 13,
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 30),
+                    child: Container(
+                      height: 40,
+                      width: size.width,
+                      decoration:
+                          BoxDecoration(border: Border.all(color: Colors.grey)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 18.0, top: 10),
+                        child: Text(widget.date),
+                      ),
+                    )),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, bottom: 10),
+                  child: Container(
+                    child: Text(
+                      widget.ClubName,
+                      style: TextStyle(
+                          fontSize: 18, color: ColorConstant.green6320),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, bottom: 10),
+                  child: Container(
+                    child: Text(
+                      "${widget.state}/ ${widget.city}",
+                      style: TextStyle(
+                          fontSize: 18, color: ColorConstant.green6320),
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: SizedBox(
+                        height: 45,
+                        child: ListView.separated(
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return SizedBox(
+                                width: 10,
+                              );
+                            },
+                            physics: ClampingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            itemCount: book_model.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                height: 45,
+                                width: 120,
+                                child: Card(
+                                    clipBehavior: Clip.antiAlias,
+                                    elevation: 0,
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            color: ColorConstant.green6320,
+                                            width: 0.6),
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: ListTile(
+                                      selected:
+                                      selectedIndex == index ? true : false,
+                                      selectedTileColor:
+                                      ColorConstant.green6320,
+                                      selectedColor: ColorConstant.whiteA700,
+                                      title: Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 20, left: 16),
+                                        child: Text(
+                                          book_model[index],
+                                          style: TextStyle(
+                                            color: selectedIndex == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () async {
+                                        selectedIndex = index;
+                                        setState(() {});
+                                        if (selectedIndex == 1)
+                                          await getTimeSlot(title[index]["id"]);
+                                        setState(() {
+                                          print("tfgh");
+                                          price = title[index]["price"];
+                                          courtid = title[index]['id'];
+                                          slot = title[index]["slots"];
+                                          double x = (price / slot);
+                                          y = x.toStringAsFixed(0);
+                                          print("y2 ->>>>>>>.${y}");
+
+                                          //
+                                        });
+                                        //selectedIndex2 == index;
+                                      },
+                                      // {
+                                      //   setState(() {
+                                      //     selectedIndex = index;
+                                      //     selectedIndex = index;
+                                      //
+                                      //     print(
+                                      //         "selectedInex--->${selectedIndex = index}");
+                                      //   });
+                                      // },
+                                    )),
+                              );
+                            }),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.06,
+                    ),
+                    Tooltip(
+                      // height: MediaQuery.of(context).size.height * 0.05 ,
+                      message:
+                      '                     Description '
+                          '\n'
+                          'Private : Book a court for yourself and friends\n'
+                          'Public  : Book a court for a public match and play with other players',
+                      padding: EdgeInsets.all(20),
+                      margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                      decoration: BoxDecoration(
+                          color: ColorConstant.green6320.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(22)),
+                      showDuration: Duration(seconds: 5),
+                      textStyle: const TextStyle(
+                          fontSize: 15,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.white),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.032,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              child: Icon(
+                                Icons.question_mark_sharp,
+                                size: 15,
+                                color: ColorConstant.black901,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                side: BorderSide(
+                                  color: ColorConstant.green6320,
+                                ),
+                                primary: ColorConstant.whiteA700,
+                                shape: CircleBorder(),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.006,
+                          ),
+                          Text(
+                            "Tap and hold to info",
+                            style: TextStyle(
+                                fontSize: 8.2, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    "Select Court",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: getFontSize(
+                        16,
+                      ),
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18),
                   child: SizedBox(
                     height: 45,
                     child: ListView.separated(
-                        separatorBuilder:
-                            (BuildContext context, int index) {
+                        separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(
-                            width: 10,
+                            width: 7,
                           );
                         },
                         physics: ClampingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: book_model.length,
+                        itemCount: title.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return SizedBox(
@@ -203,455 +356,265 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 elevation: 0,
-                                color: Colors.white,
+                                color: ColorConstant.gray200,
                                 shape: RoundedRectangleBorder(
                                     side: BorderSide(
-                                        color: ColorConstant.green6320,
-                                        width: 0.6),
+                                        color: selectedIndex2 == index
+                                            ? Colors.white
+                                            : Colors.black,
+                                        width: 0.1),
                                     borderRadius: BorderRadius.circular(5)),
                                 child: ListTile(
                                   selected:
-                                  selectedIndex == index ? true : false,
-                                  selectedTileColor:
-                                  ColorConstant.green6320,
-                                  selectedColor: ColorConstant.whiteA700,
+                                      selectedIndex2 == index ? true : false,
+                                  selectedTileColor: ColorConstant.green6320,
+                                  selectedColor: ColorConstant.gray200,
                                   title: Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 20, left: 16),
-                                    child: Text(
-                                      book_model[index],
-                                      style: TextStyle(
-                                        color: selectedIndex == index
-                                            ? Colors.white
-                                            : Colors.black,
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        selectedIndex2 = index;
+                                        setState(() {});
+                                        await getTimeSlot(title[index]["id"]);
+                                        setState(() {
+                                          print("tfgh");
+
+                                          price = title[index]["price"];
+                                          courtid = title[index]['id'];
+                                          slot = title[index]["slots"];
+
+                                          double x = (price / slot);
+                                          y = x.toStringAsFixed(0);
+                                          print("y2 ->>>>>>>.${y}");
+                                          //
+                                        });
+                                        //selectedIndex2 == index;
+                                      },
+                                      child: Text(
+                                        title[index]["name"],
+                                        style: TextStyle(
+                                            color: selectedIndex2 == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 15),
                                       ),
                                     ),
                                   ),
-                                  onTap: () async {
-                                    selectedIndex = index;
-                                    setState(() {});
-                                    if (selectedIndex == 1)
-                                      await getTimeSlot(title[index]["id"]);
-                                    setState(() {
-                                      print("tfgh");
-                                      price = title[index]["price"];
-                                      courtid = title[index]['id'];
-                                      slot = title[index]["slots"];
-                                      double x = (price / slot);
-                                      y = x.toStringAsFixed(0);
-                                      print("y2 ->>>>>>>.${y}");
-
-                                      //
-                                    });
-                                    //selectedIndex2 == index;
-                                  },
-                                  // {
-                                  //   setState(() {
-                                  //     selectedIndex = index;
-                                  //     selectedIndex = index;
-                                  //
-                                  //     print(
-                                  //         "selectedInex--->${selectedIndex = index}");
-                                  //   });
-                                  // },
                                 )),
                           );
                         }),
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.06,
-                ),
-                Tooltip(
-                  // height: MediaQuery.of(context).size.height * 0.05 ,
-                  message: '                     Description '
-                      '\n'
-                      'Private : Book a court for yourself and friends\n'
-                      'Public  : Book a court for a public match and play with other players',
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.only(top: 30, left: 30, right: 30),
-                  decoration: BoxDecoration(
-                      color: ColorConstant.green6320.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(22)),
-                  showDuration: Duration(seconds: 5),
-                  textStyle: const TextStyle(
-                      fontSize: 15,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.032,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.question_mark_sharp,
-                            size: 15,
-                            color: ColorConstant.black901,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            side: BorderSide(
-                              color: ColorConstant.green6320,
-                            ),
-                            primary: ColorConstant.whiteA700,
-                            shape: CircleBorder(),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.006,
-                      ),
-                      Text(
-                        "Tap and hold to info",
-                        style: TextStyle(
-                            fontSize: 8.2, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20),
-              child: Text(
-                "Select Court",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: getFontSize(
-                    16,
-                  ),
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 18),
-              child: SizedBox(
-                height: 45,
-                child: ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        width: 7,
-                      );
-                    },
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: title.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        height: 45,
-                        width: 120,
-                        child: Card(
-                            clipBehavior: Clip.antiAlias,
-                            elevation: 0,
-                            color: ColorConstant.gray200,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: selectedIndex2 == index
-                                        ? Colors.white
-                                        : Colors.black,
-                                    width: 0.1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: ListTile(
-                              selected:
-                              selectedIndex2 == index ? true : false,
-                              selectedTileColor: ColorConstant.green6320,
-                              selectedColor: ColorConstant.gray200,
-                              title: Padding(
-                                padding: const EdgeInsets.only(bottom: 20),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    selectedIndex2 = index;
-                                    setState(() {});
-                                    await getTimeSlot(title[index]["id"]);
-                                    setState(() {
-                                      print("tfgh");
-
-                                      price = title[index]["price"];
-                                      courtid = title[index]['id'];
-                                      slot = title[index]["slots"];
-
-                                      double x = (price / slot);
-                                      y = x.toStringAsFixed(0);
-                                      print("y2 ->>>>>>>.${y}");
-                                      //
-                                    });
-                                    //selectedIndex2 == index;
-                                  },
-                                  child: Text(
-                                    title[index]["name"],
-                                    style: TextStyle(
-                                        color: selectedIndex2 == index
-                                            ? Colors.white
-                                            : Colors.black,
-                                        fontSize: 15),
-                                  ),
-                                ),
-                              ),
-                            )),
-                      );
-                    }),
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: getVerticalSize(
-                  170.00,
-                ),
-                width: getHorizontalSize(
-                  320.00,
-                ),
-                margin: EdgeInsets.only(
-                    left: getHorizontalSize(
-                      20.00,
-                    ),
-                    right: getHorizontalSize(
-                      20.00,
-                    ),
-                    top: 15),
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          getHorizontalSize(
-                            5.00,
-                          ),
-                        ),
-                        child: CachedNetworkImage(
-                          imageUrl: image,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Image.asset(
-                            "assets/images/splash6.jpg",
-                            fit: BoxFit.fill,
-                          ),
-                          height: getVerticalSize(
-                            400.00,
-                          ),
-                          width: getHorizontalSize(
-                            360.00,
-                          ),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            isLoading ?? false
-                ? Center(
-                child: Center(
+                Align(
+                  alignment: Alignment.center,
                   child: Container(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                        color: ColorConstant.green6320),
-                  ),
-                ))
-                : Container(),
-            StreamBuilder<Response<List<dynamic>>>(
-                stream: _courtSlotBloc.Court_clubDataStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    print("sdfghjk");
-                    switch (snapshot.data!.status) {
-                      case Status.LOADING:
-                        return Container(
-                          height: 20,
-                          width: 20,
-                        ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                        break;
-                      case Status.SUCCESS:
-                        List<dynamic> patientappointmentList =
-                            snapshot.data!.data;
-                        patientappointmentsearchdata =
-                            patientappointmentList;
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            timeSlotView(patientappointmentsearchdata),
-                          ],
-                        );
-
-                        break;
-                      case Status.ERROR:
-                        return Container();
-                    }
-                  }
-                  return Container();
-                }),
-            SizedBox(
-              height: 20,
-            ),
-            if (selectedIndex == 0 && forAddPlayers.isNotEmpty)
-              a == true
-                  ? Padding(
-                padding:
-                EdgeInsets.only(left: 30, top: 20, bottom: 20),
-                child: ListView.separated(
-                  separatorBuilder:
-                      (BuildContext context, int index) {
-                    return SizedBox(
-                      height: 7,
-                    );
-                  },
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: forAddPlayers.length,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: forAddPlayers[index]['dp']!,
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
-                          imageBuilder: (context, imageProvider) =>
-                              CircleAvatar(
-                                radius: 18,
-                                backgroundImage: imageProvider,
-                              ),
-                          errorWidget: (context, strin, dy) =>
-                              Icon(Icons.account_box_outlined),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(forAddPlayers[index]['name']!)
-                      ],
-                    );
-                  },
-                ),
-              )
-                  : Padding(
-                padding: const EdgeInsets.only(
-                    left: 30, top: 20, bottom: 20),
-                child: ListView.separated(
-                    separatorBuilder:
-                        (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 7,
-                      );
-                    },
-                    shrinkWrap: true,
-                    itemCount: forAddPlayers.length >= 3
-                        ? 3
-                        : forAddPlayers.length,
-                    itemBuilder: (context, index) {
-                      return Row(
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl: forAddPlayers[index]['dp']!,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
-                            imageBuilder: (context, imageProvider) =>
-                                CircleAvatar(
-                                  radius: 18,
-                                  backgroundImage: imageProvider,
-                                ),
-                            errorWidget: (context, strin, dy) =>
-                                Icon(Icons.account_box_outlined),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(forAddPlayers[index]['name']!)
-                        ],
-                      );
-                    }),
-              ),
-            SizedBox(
-              height: 10,
-            ),
-            if (selectedIndex == 0 && forAddPlayers.length >= 3)
-              InkWell(
-                onTap: () {
-                  _visibilitymethod1();
-                },
-                child: Center(
-                  child: Text(
-                    mText1,
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
-            ),
-            if (selectedIndex == 0)
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddPlayers()));
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
                     height: getVerticalSize(
-                      45.00,
+                      170.00,
                     ),
                     width: getHorizontalSize(
-                      280.00,
+                      320.00,
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 0.5),
-                      color: ColorConstant.whiteA700,
-                      borderRadius: BorderRadius.circular(
-                        getHorizontalSize(
-                          5.00,
+                    margin: EdgeInsets.only(
+                        left: getHorizontalSize(
+                          20.00,
                         ),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                        right: getHorizontalSize(
+                          20.00,
+                        ),
+                        top: 15),
+                    child: Stack(
+                      alignment: Alignment.topCenter,
                       children: [
-                        Icon(
-                          Icons.add_circle_outline,
-                          size: 17,
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.02,
-                        ),
-                        Text(
-                          "Add Players",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: ColorConstant.black901,
-                            fontSize: getFontSize(
-                              14,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                              getHorizontalSize(
+                                5.00,
+                              ),
                             ),
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
+                            child: CachedNetworkImage(
+                              imageUrl: image,
+                              placeholder: (context, url) =>
+                                  CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset("assets/images/splash6.jpg",
+                                fit: BoxFit.fill,
+                              ),
+                              height: getVerticalSize(
+                                400.00,
+                              ),
+                              width: getHorizontalSize(
+                                360.00,
+                              ),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ),
-            SizedBox(
-              height: 150,
-            )
-          ],
+                isLoading ?? false
+                    ? Center(
+                        child: Center(
+                        child: Container(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator(
+                              color: ColorConstant.green6320),
+                        ),
+                      ))
+                    : Container(),
+                StreamBuilder<Response<List<dynamic>>>(
+                    stream: _courtSlotBloc.Court_clubDataStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        print("sdfghjk");
+                        switch (snapshot.data!.status) {
+                          case Status.LOADING:
+                            return Container(
+                              height: 20,
+                              width: 20,
+                            ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                            break;
+                          case Status.SUCCESS:
+                            List<dynamic> patientappointmentList =
+                                snapshot.data!.data;
+                            patientappointmentsearchdata =
+                                patientappointmentList;
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                timeSlotView(patientappointmentsearchdata),
+                              ],
+                            );
+
+                            break;
+                          case Status.ERROR:
+                            return Container();
+                        }
+                      }
+                      return Container();
+                    }),
+                SizedBox(
+                  height: 20,
+                ),
+             if(selectedIndex == 0 && forAddPlayers.isNotEmpty) a == true?Padding(
+               padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               child: ListView.separated(
+
+                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                   height: 7,
+              ); },
+                       shrinkWrap: true,
+                 physics:NeverScrollableScrollPhysics(),
+                       itemCount: forAddPlayers.length, itemBuilder: (context, index){
+                     return Row(
+                       children: [
+                         CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
+                           placeholder: (context, url) =>
+                               CircularProgressIndicator(),
+                         imageBuilder: (context, imageProvider)=> CircleAvatar(
+                           radius: 18,
+                           backgroundImage: imageProvider,),
+                           errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
+                         ),
+                         SizedBox(width: 10,),
+                         Text(forAddPlayers[index]['name']!)
+                       ],
+
+                     );
+                   }, ),
+             ):Padding(
+               padding: const EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               child: ListView.separated(
+                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                   height: 7,
+                 ); },
+                shrinkWrap: true,
+                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
+            return Row(
+                children: [
+                  CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
+                    placeholder: (context, url) =>
+                        CircularProgressIndicator(),
+                    imageBuilder: (context, imageProvider)=> CircleAvatar(
+                      radius: 18,
+                      backgroundImage: imageProvider,),
+                    errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
+                  ),
+                  SizedBox(width: 10,),
+                  Text(forAddPlayers[index]['name']!)
+                ],
+            );
+          }),
+             ),
+                SizedBox(height: 10,),
+               if(selectedIndex==0 && forAddPlayers.length>=3) InkWell(
+                  onTap: (){
+                    _visibilitymethod1();
+                  },
+                  child: Center(
+                    child: Text(
+                      mText1,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  if(selectedIndex==0)
+                  Center(
+                    child:  GestureDetector(onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context)=> AddPlayers()));
+                    },
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: getVerticalSize(
+                          45.00,
+                        ),
+                        width: getHorizontalSize(
+                          280.00,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black,width: 0.5),
+                          color: ColorConstant.whiteA700,
+                          borderRadius: BorderRadius.circular(
+                            getHorizontalSize(
+                              5.00,
+                            ),
+
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add_circle_outline,size: 17,),
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                            Text(
+                              "Add Players",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black901,
+                                fontSize: getFontSize(
+                                  14,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),SizedBox(height: 150,)
+              ],
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
   String? slotColor;
 
   Widget timeSlotView(data) {
@@ -669,9 +632,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
   }
 
   SizedBox timeTile(
-      List slots,
-      String image,
-      ) =>
+    List slots,
+    String image,
+  ) =>
       SizedBox(
         width: size.width,
         child: Padding(
@@ -710,20 +673,19 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           selected: selectedIndex1 == index ? true : false,
                           selectedTileColor: selectedIndex == 1
                               ? (slotColor == "green")
-                              ? Colors.green[900]
-                              : (slotColor == "blue")
-                              ? Colors.blue[900]
-                              : (slotColor == "red")
-                              ? Colors.red[900]
-                              : Colors.grey
+                                  ? Colors.green[900]
+                                  : (slotColor == "blue")
+                                      ? Colors.blue[900]
+                                      : (slotColor == "red")
+                                          ? Colors.red[900]
+                                          : Colors.grey
                               : Colors.grey,
-                          tileColor: selectedIndex == 1
-                              ? (slotColor == "green")
+                          tileColor:
+                          selectedIndex ==1? (slotColor == "green")
                               ? Colors.green[400]
                               : (slotColor == "blue")
-                              ? Colors.blue[400]
-                              : Colors.red[400]
-                              : Colors.grey[100],
+                                  ? Colors.blue[400]
+                                  : Colors.red[400]:Colors.grey[100],
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -738,14 +700,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 ),
                                 selectedIndex == 1
                                     ? Text(
-                                  "${slots[index]["available_slots"].toString()} left",
-                                  style: TextStyle(
-                                      color: selectedIndex1 == index
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 9,
-                                      fontWeight: FontWeight.bold),
-                                )
+                                        "${slots[index]["available_slots"].toString()} left",
+                                        style: TextStyle(
+                                            color: selectedIndex1 == index
+                                                ? Colors.white
+                                                : Colors.black,
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold),
+                                      )
                                     : (SizedBox(height: 0))
                               ],
                             ),
@@ -798,9 +760,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ClubDetails(
-                          date: '',
-                          club_id: 0,
-                        )));
+                              date: '',
+                              club_id: 0,
+                            )));
               },
               icon: Icon(
                 Icons.arrow_back,
@@ -823,229 +785,227 @@ class _ReservationCourtState extends State<ReservationCourt> {
         ),
         bottomSheet: (!slotSelected)
             ? Container(
-          height: 0,
-        )
-            :
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          elevation: 6,
-          child: Container(
-            height: 114,
-            width: 400,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 2,
+                height: 0,
+              )
+            : Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.end,
-                //   children: [
-                //     IconButton(onPressed: (){
-                //       Navigator.pop(context);
-                //     }, icon: Icon(Icons.close)),
-                //   ],
-                // ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 12,
-                        ),
-                        if (selectedIndex == 1)
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "₹${y}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
+                elevation: 6,
+                child: Container(
+                  height: 114,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 2,
+                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.end,
+                      //   children: [
+                      //     IconButton(onPressed: (){
+                      //       Navigator.pop(context);
+                      //     }, icon: Icon(Icons.close)),
+                      //   ],
+                      // ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 12,
+                              ),
+                              if (selectedIndex == 1)
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "₹${y}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          28,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+
+
+    if (selectedIndex == 0&&addplayersvalue==true)
+                                Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "₹${price/forAddPlayers.length.toInt()}",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          28,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )),
+                              if (selectedIndex == 0&&addplayersvalue==false)
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "₹${price}",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        28,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )),
+                              if (selectedIndex == 0)
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "For one hour ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
                                 ),
-                              )),
-                        if (selectedIndex == 0 && addplayersvalue == true)
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "₹${price / forAddPlayers.length.toInt()}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
+                              if (selectedIndex == 1)
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "For Each One",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
                                 ),
-                              )),
-                        if (selectedIndex == 0 && addplayersvalue == false)
-                          Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Text(
-                                "₹${price}",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    28,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )),
-                        if (selectedIndex == 0)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
+                            ],
+                          ),
+                          SizedBox(
+                            width: 160,
+                          ),
+                  slotColor=="red"? Container():ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(100, 40),
+                              primary: ColorConstant.green6320,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                  //to set border radius to button
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            onPressed: () async {
+
+
+                            await  pay.getpaymentList(courtid, selectedIndex,
+                                  widget.date, TimeId, selectedIndex==0?price:y,);
+                              openCheckout();
+                            },
                             child: Text(
-                              "For one hour ",
+                              buttontext,
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                color: ColorConstant.black900,
+                                color: ColorConstant.whiteA700,
                                 fontSize: getFontSize(
-                                  15,
+                                  17,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
                           ),
-                        if (selectedIndex == 1)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              "For Each One",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: ColorConstant.black900,
-                                fontSize: getFontSize(
-                                  15,
-                                ),
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w400,
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      if (selectedIndex == 1)
+                        (slotColor == 'blue')
+                            ? Container()
+                            : Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Checkbox(
+                                    value: this.value,
+                                    activeColor: ColorConstant.green6320,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        this.value = value!;
+                                        holdSlotvalue = this.value;
+                                        print("value-<<<<<<<<<${this.value}");
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(width: 0), //SizedBox
+                                  Text(
+                                    'Do you want to hold this slot?',
+                                    style: TextStyle(
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w500),
+                                  ), //Text
+                                  //SizedBox
+                                  //Checkbox
+                                ], //<Widget>[]
                               ),
+                      if (selectedIndex == 0)
+                        (slotColor == 'blue')
+                            ? Container()
+                            : Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 10,
                             ),
-                          ),
-                      ],
-                    ),
-                    Spacer(),
-                    slotColor == "red"
-                        ? Container()
-                        : ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(100, 40),
-                        primary: ColorConstant.green6320,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          //to set border radius to button
-                            borderRadius:
-                            BorderRadius.circular(10.0)),
-                      ),
-                      onPressed: () async {
-                        await pay.getpaymentList(
-                            courtid,
-                            selectedIndex,
-                            widget.date,
-                            TimeId,
-                            selectedIndex == 0 ? price : y);
-                        openCheckout();
-                      },
-                      child: Text(
-                        buttontext,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: ColorConstant.whiteA700,
-                          fontSize: getFontSize(
-                            17,
-                          ),
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w400,
+                            Checkbox(
+                              value: this.value1,
+                              activeColor: ColorConstant.green6320,
+                              onChanged: (value1) {
+                                setState(() {
+                                  this.value1 = value1!;
+                                  addplayersvalue = this.value1;
+                                  print("value1-<<<<<<<<<${this.value1}");
+                                });
+                              },
+                            ),
+                            SizedBox(width: 0), //SizedBox
+                            Text(
+                              'Are you sure to add players ?',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.w500),
+                            ), //Text
+                            //SizedBox
+                            //Checkbox
+                          ], //<Widget>[]
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                if (selectedIndex == 1)
-                  (slotColor == 'blue')
-                      ? Container()
-                      : Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Checkbox(
-                        value: this.value,
-                        activeColor: ColorConstant.green6320,
-                        onChanged: (value) {
-                          setState(() {
-                            this.value = value!;
-                            holdSlotvalue = this.value;
-                            print("value-<<<<<<<<<${this.value}");
-                          });
-                        },
-                      ),
-                      SizedBox(width: 0), //SizedBox
-                      Text(
-                        'Do you want to hold this slot?',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500),
-                      ), //Text
-                      //SizedBox
-                      //Checkbox
-                    ], //<Widget>[]
+                    ],
                   ),
-                if (selectedIndex == 0)
-                  (slotColor == 'blue')
-                      ? Container()
-                      : Row(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Checkbox(
-                        value: this.value1,
-                        activeColor: ColorConstant.green6320,
-                        onChanged: (value1) {
-                          setState(() {
-                            this.value1 = value1!;
-                            addplayersvalue = this.value1;
-                            print("value1-<<<<<<<<<${this.value1}");
-                          });
-                        },
-                      ),
-                      SizedBox(width: 0), //SizedBox
-                      Text(
-                        'Are you sure to add players ?',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500),
-                      ), //Text
-                      //SizedBox
-                      //Checkbox
-                    ], //<Widget>[]
-                  ),
-              ],
-            ),
-          ),
-        ),
+                ),
+              ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -1122,6 +1082,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
       0,
     );
 
+
     _razorpay = Razorpay();
 
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -1136,10 +1097,11 @@ class _ReservationCourtState extends State<ReservationCourt> {
   }
 
   void openCheckout() async {
+
     var options = {
       'key': key,
       'order_id': Orderid,
-      'amount': selectedIndex == 0 ? price : y,
+      'amount':selectedIndex == 0?price:y,
       'name': "WON",
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
@@ -1148,7 +1110,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
       'external': {
         'wallets': ['paytm']
       },
-      "theme": {"color": "#1D6320"}
+      "theme": {
+        "color": "#1D6320"
+      }
+
     };
     print("options->${options}");
     try {
@@ -1165,7 +1130,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
     paysucess.getpaymentsucessList(
         PaymentId!, Orderid, razorpay_signature, context);
 
-    selectedIndex == 1 ? showAlertDialogrefferel(context) : Container();
+   selectedIndex == 1? showAlertDialogrefferel(context):Container();
     // sucess == "Payment successful"
     //     ? showAlertDialog
     //     : SizedBox(
@@ -1243,12 +1208,12 @@ class _ReservationCourtState extends State<ReservationCourt> {
       },
     );
   }
-
   showAlertDialognoSlots(BuildContext context) {
     // set up the button
     Widget okButton = TextButton(
       child: Text("OK"),
       onPressed: () {
+
         Navigator.pop(context);
       },
     );
@@ -1262,6 +1227,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
             "Not Avilable",
             style: TextStyle(fontSize: 15, color: Colors.black),
           ),
+
         ],
       ),
 
@@ -1326,8 +1292,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
           Center(
               child: WhatsappShare(
-                refferelwhatsapp: refferel,
-              )),
+            refferelwhatsapp: refferel,
+          )),
         ],
       ),
 

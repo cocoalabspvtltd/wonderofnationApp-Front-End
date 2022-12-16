@@ -261,7 +261,7 @@ class _DashBoardState extends State<DashBoard> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Image.asset(
-                    "assets/images/history.png",width: 20,height: 10,
+                    "assets/images/history.png",width: 30,height: 20,
                   ),
                 ),
                 SizedBox(

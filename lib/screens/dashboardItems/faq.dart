@@ -37,50 +37,63 @@ class _FaqPageState extends State<FaqPage> {
       ),body: SafeArea(
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
-                    child: ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 15,),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount:questions.length,
-                      itemBuilder: (context,index) {
-                        return ExpansionTileCard(
-                          baseColor: Colors.grey[200],
-                            elevation: 1,
-                            shadowColor:ColorConstant.green6320 ,
-                            leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
-                            child: Text("j",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
-                          title: Text(questions[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                          children: <Widget>[
-                            Divider(
-                              thickness: 1.5,
-                              height: 1.0,
-                            ),
-                            SizedBox(height: 10,),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0,
-                                  vertical: 8.0,
-                                ),
-                                child: Text(
-                                  answers[index],
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(fontSize: 16),
-                                ),
+          padding:  EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                      _howtobook(),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+                      Theme(
+                        data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
+                        child: ListView.separated(
+                            separatorBuilder: (context, index) =>
+                                SizedBox(height: 15,),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount:questions.length,
+                          itemBuilder: (context,index) {
+                            return Card(
+                              shadowColor:ColorConstant.green6320.withOpacity(0.4) ,
+                              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                              child: ExpansionTileCard(
+                                // baseColor: Colors.grey[400],
+                                  elevation:8 ,
+                                  shadowColor:ColorConstant.green6320 ,
+                                  // leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
+                                  // child: Text("j",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+                                title: Text(questions[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                                children: <Widget>[
+                                  Divider(
+                                    thickness: 1.5,
+                                    height: 1.0,
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0,
+                                        vertical: 8.0,
+                                      ),
+                                      child: Text(
+                                        answers[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(fontSize: 16),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 20,)
+                                ],
                               ),
-                            ),
-                            SizedBox(height: 20,)
-                          ],
-                        );
-                      }
-                    ),
+                            );
+                          }
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
@@ -88,6 +101,73 @@ class _FaqPageState extends State<FaqPage> {
 
           ),
         ),
+    );
+  }
+  _howtobook() {
+    return Theme(
+      data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
+      child: Card(
+        shadowColor:ColorConstant.green6320.withOpacity(0.4) ,
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        child: ExpansionTileCard(
+          elevation:5 ,
+          shadowColor:ColorConstant.green6320 ,
+          title: Text(
+            "How to book a court ?",
+            style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+          ),
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              alignment: FractionalOffset.centerLeft,
+              child: Text(
+                "Book a court",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.0,),
+              ),
+            ),
+            // Container(
+            //   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            //   alignment: FractionalOffset.centerLeft,
+            //   child: Text(
+            //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            //     style: TextStyle(
+            //         fontWeight: FontWeight.w500,
+            //         fontSize: 12.0,
+            //         height: 1.8,
+            //         color: Colors.red),
+            //   ),
+            // ),
+            _buildInfo("01", "Sign up or login if not"),
+            _buildInfo("02", "Open Create match screen"),
+            _buildInfo("03", "Choose a club"),
+            _buildInfo("04", "Click Reserve Court"),
+            _buildInfo("05", "Choose or select a court ,time slot and add players"),
+            _buildInfo("06", "Click Book Now for payment "),
+            SizedBox(
+              height: 20,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+  _buildInfo(String title, String subTitle) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+      child: ListTile(
+        leading: Text(
+          title,
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800, color: Colors.black45),
+        ),
+        title: Text(
+          subTitle,
+          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600,),
+        ),
+      ),
     );
   }
 }
