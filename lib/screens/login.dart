@@ -512,7 +512,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               14.00,
                                             ),
                                           ),
-                                          child: GestureDetector(onTap: (){
+                                          child: GestureDetector(onTap: (){ Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) =>  SignInDemo()),
+                                          );
 
                                           },
                                             child: Text(
@@ -546,7 +549,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           child: GestureDetector(onTap: (){
-                                            print("b");
+
                                           },
                                             child: Container(
                                               height: getSize(
