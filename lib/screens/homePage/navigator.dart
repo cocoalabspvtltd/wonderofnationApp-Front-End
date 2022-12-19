@@ -14,7 +14,7 @@ import 'package:oo/screens/homePage/home_page1.dart';
 import 'package:oo/screens/login.dart';
 import 'package:oo/screens/matches/club_list_joining.dart';
 import 'package:oo/screens/myresults/games_list.dart';
-import 'package:oo/screens/payment_dash/payment_page.dart';
+import 'package:oo/screens/dashboardItems/history_screen.dart';
 import 'package:oo/screens/profile/profile_page.dart';
 
 class DashBoard extends StatefulWidget {
@@ -261,7 +261,7 @@ class _DashBoardState extends State<DashBoard> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Image.asset(
-                    "assets/images/payment.png",
+                    "assets/images/history.png",width: 30,height: 20,
                   ),
                 ),
                 SizedBox(
@@ -272,11 +272,11 @@ class _DashBoardState extends State<DashBoard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PaymentMethod()),
+                          builder: (context) => HistoryScreen()),
                     );
                   },
                   child: Text(
-                    "Payment Methods",
+                    "History",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
