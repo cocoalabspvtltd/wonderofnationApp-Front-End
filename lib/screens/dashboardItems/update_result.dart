@@ -182,7 +182,7 @@ class _UpdateResultState extends State<UpdateResult> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                MyMatches()),
+                                MyMatches(fragmentToShow: 0,)),
                       );
                     },
                       child: Container(
