@@ -16,7 +16,8 @@ class MyOrdersRepositoryUser {
   Future<MyBookingModel> getAllOrdersList(int perPage, int page) async {
     FormData formData = FormData.fromMap({
       "page":page,
-      "per_page":perPage
+      "per_page":perPage,
+      "match_type":1
     });
     final response = await apiProvider
         .getJsonInstance()
