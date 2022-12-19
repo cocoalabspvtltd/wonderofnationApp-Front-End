@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/mybookingbloc.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
+import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/commonapierror.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
+import 'package:oo/screens/dashboardItems/past_matches.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
 import '../../constants/response.dart';
 import '../homePage/navigator.dart';
-import 'joinedmatches.dart';
 
 
-class MyMatches extends StatefulWidget {
-  const MyMatches({Key? key}) : super(key: key);
+class JoinedMatches extends StatefulWidget {
+  const JoinedMatches({Key? key}) : super(key: key);
 
   @override
-  State<MyMatches> createState() => _MyMatchesState();
+  State<JoinedMatches> createState() => _JoinedMatchesState();
 }
 
-class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
-  late MyOrdersBlocUser _bloc;
+class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
+  late MyOrdersBlocUser1 _bloc;
   late ScrollController _itemsScrollController;
   bool isLoadingMore = false;
   bool a = false;
@@ -27,7 +28,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
   @override
   void initState() {
     print("My match Screen");
-    _bloc = MyOrdersBlocUser(listener: this);
+    _bloc = MyOrdersBlocUser1(listener: this);
     _bloc.getmyordersDetailsList(false);
     _itemsScrollController = ScrollController();
     _itemsScrollController.addListener(_scrollListener);
@@ -42,7 +43,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
       });
     }
   }
-
+  int matchvalue = 1;
   paginate() async {
     print('paginate');
     await _bloc.getmyordersDetailsList(true);
@@ -74,7 +75,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
         title: Padding(
           padding: const EdgeInsets.only(left: 70.0),
           child: Text(
-            "My Matches",
+            "Joined Matches",
             style: TextStyle(fontSize: 18, color: Colors.black),
           ),
         ),
@@ -139,14 +140,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
-              Spacer(),
-              TextButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>JoinedMatches()));}, child: Text("Joined Matches"))
-            ],
-          ),
-
+          Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
           SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
           Divider(color: Colors.grey,),
           SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
@@ -317,23 +311,22 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
               }
           ),
           SizedBox(height: 10,),
-          InkWell(
-            onTap: (){
-              _visibilitymethod1();
-            },
-            child: Center(
-              child: Text(
-                mText1,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-          ),
-          SizedBox(height: 10,),
 
           SizedBox(height: 30,),
         ],
       ),
     );
+  }
+  void _visibilitymethod2() {
+    setState(() {
+      if (b) {
+        b = false;
+        mText2 = "See All";
+      } else {
+        b= true;
+        mText2 = "See hide";
+      }
+    });
   }
   void _visibilitymethod1() {
     setState(() {
