@@ -4,7 +4,6 @@ import 'package:oo/apis/modelclass/mybookingmodel.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/commonapierror.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
-import 'package:oo/screens/dashboardItems/creating_matches_screen.dart';
 import 'package:oo/screens/dashboardItems/privacy.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
 import '../../constants/response.dart';
@@ -12,17 +11,15 @@ import '../homePage/navigator.dart';
 import 'joinedmatches.dart';
 
 
-class MyMatches extends StatefulWidget {
-  final int fragmentToShow;
-  MyMatches({Key? key, required this.fragmentToShow}) : super(key: key);
+class creatingmatchesscreen extends StatefulWidget {
+  creatingmatchesscreen({Key? key,}) : super(key: key);
 
   @override
-  State<MyMatches> createState() => _MyMatchesState();
+  State<creatingmatchesscreen> createState() => _creatingmatchesscreenState();
 }
 
-class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTickerProviderStateMixin {
-  var selectedTabPos = 0;
-  TabController? _tabController;
+class _creatingmatchesscreenState extends State<creatingmatchesscreen> with LoadMoreListener{
+
   late MyOrdersBlocUser _bloc;
   late ScrollController _itemsScrollController;
   bool isLoadingMore = false;
@@ -33,9 +30,6 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
   @override
   void initState() {
     print("My match Screen");
-      _tabController = new TabController(vsync: this, length: 2);
-      selectedTabPos = widget.fragmentToShow != null ? widget.fragmentToShow : 0;
-      _tabController!.animateTo(selectedTabPos);
     _bloc = MyOrdersBlocUser(listener: this);
     _bloc.getmyordersDetailsList(false);
     _itemsScrollController = ScrollController();
@@ -77,163 +71,50 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      body: RefreshIndicator(
+        color: Colors.white,
         backgroundColor: Colors.white,
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70.0),
-          child: Text(
-            "My Matches",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-        ),
-        leading: GestureDetector(onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
-          );
+        onRefresh: () {
+          return _bloc.getmyordersDetailsList(false);
         },
-            child: Icon(
-              Icons.arrow_back_outlined,
-              color: Colors.black,
-            )),
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Colors.white,
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            constraints: BoxConstraints.expand(height: 55),
-            child: BottomAppBar(
-              child: infoTabs(),
-              color: Colors.white,
-            ),
-          ),
-          Expanded(
-            child: getSubFragment(selectedTabPos),
-            flex: 1,
-          ),
-        ],
-      ),
-      // RefreshIndicator(
-      //   color: Colors.white,
-      //   backgroundColor: Colors.white,
-      //   onRefresh: () {
-      //     return _bloc.getmyordersDetailsList(false);
-      //   },
-      //   child: SingleChildScrollView(
-      //     physics: AlwaysScrollableScrollPhysics(),
-      //     child: StreamBuilder<Response<MyBookingModel>>(
-      //         stream: _bloc.myordersDetailsListStream,
-      //         builder: (context, snapshot) {
-      //           if (snapshot.hasData) {
-      //             switch (snapshot.data!.status!) {
-      //               case Status.LOADING:
-      //                 return Center(
-      //                   child: SizedBox(
-      //                       width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
-      //                 );
-      //               case Status.COMPLETED:
-      //                 MyBookingModel resp = snapshot.data!.data;
-      //                 return _bloc.myordersDetailsList.isEmpty
-      //                     ? SizedBox(
-      //                   height: MediaQuery.of(context).size.height - 180,
-      //                   child: CommonApiResultsEmptyWidget(
-      //                       "${resp.success!}",
-      //                       textColorReceived: Colors.black),
-      //                 )
-      //                     : _buildProductSavedListView(_bloc.myordersDetailsList);
-      //               case Status.ERROR:
-      //                 return CommonApiResultsEmptyWidget(
-      //                     "${snapshot.data!.message!}",
-      //                     textColorReceived: Colors.black);
-      //             }
-      //           }
-      //           return Center(
-      //             child: SizedBox(
-      //                 width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
-      //           );
-      //         }),
-      //   ),
-      // ),
-    );
-  }
-  infoTabs() {
-    return TabBar(
-      controller: _tabController,
-      onTap: tabItemClicked,
-      tabs: [
-        Tab(
-          child: tabItem(context, 'Matches'),
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: StreamBuilder<Response<MyBookingModel>>(
+              stream: _bloc.myordersDetailsListStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  switch (snapshot.data!.status!) {
+                    case Status.LOADING:
+                      return Center(
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
+                      );
+                    case Status.COMPLETED:
+                      MyBookingModel resp = snapshot.data!.data;
+                      return _bloc.myordersDetailsList.isEmpty
+                          ? SizedBox(
+                        height: MediaQuery.of(context).size.height - 180,
+                        child: CommonApiResultsEmptyWidget(
+                            "${resp.success!}",
+                            textColorReceived: Colors.black),
+                      )
+                          : _buildProductSavedListView(_bloc.myordersDetailsList);
+                    case Status.ERROR:
+                      return CommonApiResultsEmptyWidget(
+                          "${snapshot.data!.message!}",
+                          textColorReceived: Colors.black);
+                  }
+                }
+                return Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
+                );
+              }),
         ),
-        Tab(
-          child: tabItem(context, 'Joined matches'),
-        ),
-      ],
-      labelColor: ColorConstant.green6320,
-      unselectedLabelColor: ColorConstant.black901,
-      indicatorSize: TabBarIndicatorSize.tab,
-      indicatorColor:  ColorConstant.green6320,
-      indicatorWeight: 3,
-      indicator: UnderlineTabIndicator(
-        borderSide: BorderSide(color:ColorConstant.green6320, width: 2.0),
-        insets: getIndicatorPadding(),
       ),
     );
   }
 
-  getIndicatorPadding() {
-    if (selectedTabPos == 0) {
-      return EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 2.0);
-    } else {
-      return EdgeInsets.fromLTRB(0.0, 0.0, 5.0, 2.0);
-    }
-  }
-
-  Row tabItem(BuildContext context, var title) {
-    return Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
-            ),
-            flex: 2,
-          ),
-        ]);
-  }
-
-  void tabItemClicked(int index) {
-    if (mounted) {
-      setState(() {
-        selectedTabPos = index;
-      });
-    }
-  }
-  getSubFragment(int pos) {
-    switch (pos) {
-      case 0:
-        return creatingmatchesscreen();
-        break;
-      case 1:
-        return JoinedMatches();
-        break;
-
-      default:
-        return new Center(
-          child: Text("Error"),
-        );
-    }
-  }
 
   Widget _buildProductSavedListView(List<Matches> productDetails) {
     return  Padding(
@@ -241,14 +122,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
-              Spacer(),
-              TextButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>JoinedMatches()));}, child: Text("Joined Matches"))
-            ],
-          ),
-
+          Text("Upcoming matches",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15),),
           SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
           Divider(color: Colors.grey,),
           SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
