@@ -1,17 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/route_manager.dart';
-
 import 'package:oo/apis/bloc/mybookingbloc.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
-import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/commonapierror.dart';
-
 import 'package:oo/elements/LoadMoreListener.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
-
-
 import '../../constants/response.dart';
 import '../homePage/navigator.dart';
 
@@ -110,8 +102,10 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                 if (snapshot.hasData) {
                   switch (snapshot.data!.status!) {
                     case Status.LOADING:
-                      return SizedBox(
-                          height: MediaQuery.of(context).size.height - 180, child: CircularProgressIndicator());
+                      return Center(
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
+                      );
                     case Status.COMPLETED:
                       MyBookingModel resp = snapshot.data!.data;
                       return _bloc.myordersDetailsList.isEmpty
@@ -128,9 +122,9 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                           textColorReceived: Colors.black);
                   }
                 }
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height - 180,
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
                 );
               }),
         ),
@@ -173,10 +167,13 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                       shadowColor: Colors.grey,
                       child: Row(
                         children: [
-                          Container(
-                            height: 150,
-                            width: 82,
-                            child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(7.0),
+                              bottomLeft: Radius.circular(7.0),
+                            ),
+                            child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                              width: 90,
                             ),
                           ),
                           Padding(
@@ -196,21 +193,27 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                                   children: [
                                     Image.asset("assets/images/location.png", color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}"),
+                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                      style:  TextStyle(
+                                          fontSize: 14.0, fontWeight: FontWeight.w500),),
                                   ],
                                 ),
                                 SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                Text("Sport: ${productDetails[index].sport}"),
+                                Text("Sport: ${productDetails[index].sport}",
+                                  style:  TextStyle(
+                                      fontSize: 14.0, fontWeight: FontWeight.w500),),
                                 SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
                                 Row(
                                   children: [
                                     Image.asset("assets/images/calender.png", color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].date}"),
+                                    Text("${productDetails[index].date}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                     Icon(Icons.lock_clock, color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].time}"),
+                                    Text("${productDetails[index].time}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
                                   ],
                                 ),
                               ],
@@ -247,10 +250,13 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                       shadowColor: Colors.grey,
                       child: Row(
                         children: [
-                          Container(
-                            height: 150,
-                            width: 82,
-                            child: Image.asset("assets/images/matches.png",fit: BoxFit.fitHeight,
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(7.0),
+                              bottomLeft: Radius.circular(7.0),
+                            ),
+                            child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                              width: 90,
                             ),
                           ),
                           Padding(
@@ -270,21 +276,26 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener {
                                   children: [
                                     Image.asset("assets/images/location.png", color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}"),
+                                    Text("${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                      style:  TextStyle(
+                                          fontSize: 14.0, fontWeight: FontWeight.w500),),
                                   ],
                                 ),
                                 SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                Text("Sport: ${productDetails[index].sport}"),
+                                Text("Sport: ${productDetails[index].sport}",style:  TextStyle(
+                                    fontSize: 14.0, fontWeight: FontWeight.w500),),
                                 SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
                                 Row(
                                   children: [
                                     Image.asset("assets/images/calender.png", color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].date}"),
+                                    Text("${productDetails[index].date}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
                                     Icon(Icons.lock_clock, color: Colors.black,),
                                     SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                    Text("${productDetails[index].time}"),
+                                    Text("${productDetails[index].time}",style:  TextStyle(
+                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
                                   ],
                                 ),
                               ],
