@@ -212,9 +212,6 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
         ]);
   }
 
-  /*
-    While clicking a tab item
-   */
   void tabItemClicked(int index) {
     if (mounted) {
       setState(() {

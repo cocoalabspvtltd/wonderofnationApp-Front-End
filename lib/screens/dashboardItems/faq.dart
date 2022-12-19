@@ -58,7 +58,6 @@ class _FaqPageState extends State<FaqPage> {
                               elevation: 8,
                               borderRadius: BorderRadius.circular(15),
                               baseColor: Colors.grey[300],
-                                // shadowColor:ColorConstant.green6320 ,
                                 // leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
                                 // child: Text("j",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
                               title: Text(questions[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
@@ -155,7 +154,7 @@ class _FaqPageState extends State<FaqPage> {
       child: ListTile(
         leading: Text(
           title,
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800, color: Colors.black45),
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800, color: Colors.black45),
         ),
         title: Text(
           subTitle,
