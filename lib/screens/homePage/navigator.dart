@@ -175,7 +175,7 @@ class _DashBoardState extends State<DashBoard> {
                     print("hg");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MyMatches()),
+                      MaterialPageRoute(builder: (context) => MyMatches(fragmentToShow: 0,)),
                     );
                   },
                   child: Text(

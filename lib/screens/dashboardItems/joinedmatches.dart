@@ -69,27 +69,6 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70.0),
-          child: Text(
-            "Joined Matches",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
-        ),
-        leading: GestureDetector(onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),
-          );
-        },
-            child: Icon(
-              Icons.arrow_back_outlined,
-              color: Colors.black,
-            )),
-      ),
       body: RefreshIndicator(
         color: Colors.white,
         backgroundColor: Colors.white,

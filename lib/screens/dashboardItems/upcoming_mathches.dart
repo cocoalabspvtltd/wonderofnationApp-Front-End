@@ -60,7 +60,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                         Positioned(
                             top:10,
                             left:10,child: IconButton(onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0,)));
                         }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 
                       ],
