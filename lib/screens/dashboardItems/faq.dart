@@ -113,28 +113,32 @@ class _FaqPageState extends State<FaqPage> {
           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
         ),
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-            alignment: FractionalOffset.centerLeft,
-            child: Text(
-              "Book a court",
-              style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14.0,),
-            ),
+          Divider(
+            thickness: 1.5,
+            height: 1.0,
           ),
           // Container(
           //   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
           //   alignment: FractionalOffset.centerLeft,
           //   child: Text(
-          //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          //     "Book a court",
           //     style: TextStyle(
-          //         fontWeight: FontWeight.w500,
-          //         fontSize: 12.0,
-          //         height: 1.8,
-          //         color: Colors.red),
+          //         fontWeight: FontWeight.w600,
+          //         fontSize: 17.0,),
           //   ),
           // ),
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            alignment: FractionalOffset.centerLeft,
+            child: Text(
+              "-> The follow given below steps for  book the court",
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16.5,
+                  height: 1.8,
+                  color: ColorConstant.black901),
+            ),
+          ),
           _buildInfo("01", "Sign up or login if not"),
           _buildInfo("02", "Open Create match screen"),
           _buildInfo("03", "Choose a club"),
@@ -154,11 +158,11 @@ class _FaqPageState extends State<FaqPage> {
       child: ListTile(
         leading: Text(
           title,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w800, color: Colors.black45),
+          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.black),
         ),
         title: Text(
           subTitle,
-          style: TextStyle(fontSize: 13.0, fontWeight: FontWeight.w600,),
+          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600,),
         ),
       ),
     );
