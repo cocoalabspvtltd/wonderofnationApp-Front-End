@@ -82,33 +82,28 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
                                   Text("User Name",style: TextStyle(fontWeight: FontWeight.w500),),
                                   Spacer(),
-                                  // SizedBox(width: MediaQuery.of(context).size.width * 0.1,),
-                                  GestureDetector(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.2,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: ColorConstant.green6320)
-                                      ),
-                                      child: Center(child: Text("Add",)),),
+                                  Spacer(),
+                                  TextButton(
+                                      onPressed: () {
+                                      },
+                                      child: Text(
+                                        "Add",
+                                        style:
+                                        TextStyle(color: ColorConstant.green6320, fontSize: 16),
+                                      )),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.0,
                                   ),
-                                  SizedBox( width: MediaQuery.of(context).size.width * 0.03,),
-                                  GestureDetector(
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.2,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          border: Border.all(
-                                              width: 1,
-                                              color: Colors.red)
-                                      ),
-                                      child: Center(child: Text("Remove",)),),
+                                  TextButton(
+                                      onPressed: (){
+                                      },
+                                      child: Text(
+                                        "Remove",
+                                        style: TextStyle(color: Colors.red, fontSize: 16),
+                                      )),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width * 0.01,
                                   ),
-                                  SizedBox( width: MediaQuery.of(context).size.width * 0.01,),
                                 ],
                               ),
 
