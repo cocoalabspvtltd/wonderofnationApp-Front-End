@@ -82,7 +82,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
                                   Text("User Name",style: TextStyle(fontWeight: FontWeight.w500),),
                                   Spacer(),
-                                  Spacer(),
                                   TextButton(
                                       onPressed: () {
                                       },
@@ -109,7 +108,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
 
                             ),
                           );
-
                         }
                     ),
                   ),
