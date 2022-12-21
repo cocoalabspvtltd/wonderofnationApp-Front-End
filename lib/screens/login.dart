@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/screens/google_signin.dart';
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import '../apis/repositories/register_Repositories.dart';
 import '../constants/colors.dart';
 import '../constants/math_utils.dart';
@@ -512,7 +513,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               14.00,
                                             ),
                                           ),
-                                          child: GestureDetector(onTap: (){
+                                          child: GestureDetector(onTap: (){ Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) =>  SignInDemo()),
+                                          );
 
                                           },
                                             child: Text(
@@ -546,7 +550,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           child: GestureDetector(onTap: (){
-                                            print("b");
+
                                           },
                                             child: Container(
                                               height: getSize(
@@ -561,15 +565,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
 
+
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
+
                             ],
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -581,6 +588,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
+  Future<String> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
 
 }

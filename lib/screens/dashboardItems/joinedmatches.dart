@@ -52,7 +52,7 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
   void _scrollListener() async {
     if (_itemsScrollController.offset >=
         _itemsScrollController.position.maxScrollExtent &&
-        !_itemsScrollController.position.outOfRange) {
+ !_itemsScrollController.position.outOfRange) {
       print("reach the bottom");
       // if (_bloc.hasNextPage) {
       paginate();
