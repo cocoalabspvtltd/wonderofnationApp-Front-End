@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import 'package:oo/screens/login.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
 
 
@@ -46,17 +47,68 @@ class _MyHomePageState extends State<WelcomeScreen> {
                   child: child,
                 );
               },// non-linear animation
-              child: Container(
-                  width: screenWidth *0.7,
-                  height: screenHeight * 0.8,
-                  alignment: Alignment.center,
-                  child:Image.asset("assets/images/GOLD WON.png")),
+              child: Column(
+                children: [
+                  Container(
+                      width: screenWidth *0.7,
+                      height: screenHeight * 0.8,
+                      alignment: Alignment.center,
+                      child:Image.asset("assets/images/GOLD WON.png")),
+                  Column(
+                    children: [
+                      Text(
+                        'Powered by',
+                        textAlign: TextAlign.center,
+                        style:
+                        TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Binary Sequence',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      FutureBuilder<String>(
+                          future: _getAppVersion(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot<String> snapshot) {
+                            String version = '';
+                            if (snapshot.connectionState == ConnectionState.done &&
+                                snapshot.hasData)
+                              version = snapshot.data == null
+                                  ? ''
+                                  : 'Version : ${snapshot.data}';
+                            return Text(
+                              '$version',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, color: Colors.white),
+                            );
+                          }),
+                      SizedBox(
+                        height: 18,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
             ),
           ),
 
         ),
       );
 
+
+  }
+  Future<String> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
   }
 }
 
