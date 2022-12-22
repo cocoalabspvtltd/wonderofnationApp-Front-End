@@ -505,7 +505,7 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                         ),
                                       ),
-SizedBox(height: 20,),
+                                         SizedBox(height: 20,),
                                          Row(
                                            children: [
                                              Padding(
