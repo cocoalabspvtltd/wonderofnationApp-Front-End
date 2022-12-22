@@ -14,11 +14,11 @@ class DepartmentRepositoryUser {
     apiProvider = new WebApiProvider();
   }
 
-   getAllDepartmentList(
+   getAllDepartmentList(int id
     ) async {
     print("respos->>>>>");
     FormData formData = FormData.fromMap({
-     "match_id":181
+     "match_id":id
     });
     try {
     final response = await apiProvider

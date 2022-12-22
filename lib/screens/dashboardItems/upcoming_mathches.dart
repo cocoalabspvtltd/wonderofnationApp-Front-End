@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/matchdescription_modelk.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/math_utils.dart';
+import 'package:oo/screens/matches/add_players.dart';
+import 'package:oo/screens/profile/edit_profile.dart';
 import '../../apis/bloc/matchdescriptionbloc.dart';
 import '../../apis/modelclass/club_details_model.dart';
 import '../../constants/response.dart';
@@ -11,8 +13,8 @@ import 'add_match_players.dart';
 import 'my_matches.dart';
 
 class Upcomingmatch extends StatefulWidget {
-  const Upcomingmatch({Key? key}) : super(key: key);
-
+   Upcomingmatch({Key? key,required this.id}) : super(key: key);
+int id ;
   @override
   State<Upcomingmatch> createState() => _UpcomingmatchState();
 }
@@ -20,78 +22,60 @@ class Upcomingmatch extends StatefulWidget {
 class _UpcomingmatchState extends State<Upcomingmatch> {
   @override
   PackagesBlocUser? _bloc;
+  List<Players> data =[];
   void initState() {
     super.initState();
 
     _bloc =PackagesBlocUser();
-    _bloc?.getAllPackagesList();
+    _bloc?.getAllPackagesList(widget.id);
 
     setState(() {});
   }
   int count = 0;
-  // SizedBox _jobsListView(List<Players> data,) {
+  // SizedBox _jobsListView(List<Players> data) {
   //   return SizedBox(width: MediaQuery.of(context).size.width,
   //     height: 20,
   //     child: ListView.builder(
   //         shrinkWrap: true,
-  //         scrollDirection: Axis.horizontal,
+  //         scrollDirection: Axis.vertical,
   //         physics: NeverScrollableScrollPhysics(),
   //         itemCount: data.length,
   //         itemBuilder: (context, index) {
   //           print("data->>>>>>${data.length}");
-  //           return _tile(data[index].profilePic.toString(),
-  //          );
+  //           return _tile(data[index].profilePic.toString(),data[index].name!.toUpperCase());
   //         }),
   //   );
   // }
   // SizedBox _tile(
-  //     String img ) =>
+  //     String img,String name ) =>
   //     SizedBox(height: 20,width:40,
-  //       child:
-  //         // crossAxisAlignment:
-  //         // CrossAxisAlignment.start,
-  //         // mainAxisSize: MainAxisSize.min,
-  //
-  //           Container(
-  //             // height: getVerticalSize(
-  //             //   25.00,
-  //             // ),
-  //             // width: getHorizontalSize(
-  //             //   56.00,
-  //             // ),
-  //             child: Stack(
-  //               alignment: Alignment.center,
-  //               children: [
-  //                 Padding(
-  //                   padding: EdgeInsets.only(left: 25
+  //       child:Row(
+  //         children: [
+  //           ClipRRect(
+  //             borderRadius:
+  //             BorderRadius.circular(
+  //               getHorizontalSize(
+  //                 12.50,
+  //               ),
   //             ),
-  //                   child: ClipRRect(
-  //                     borderRadius:
-  //                     BorderRadius.circular(
-  //                       getHorizontalSize(
-  //                         12.50,
-  //                       ),
-  //                     ),
-  //                     child: CachedNetworkImage(
-  //                       imageUrl: img,
-  //                       placeholder: (context, url) => CircularProgressIndicator(),
-  //                       errorWidget: (context, url, error) => Image.asset(
-  //                         "assets/images/user1.png",
-  //                         height: getSize(
-  //                           25.00,
-  //                         ),
-  //                         width: getSize(
-  //                           50.00,
-  //                         ),
-  //                         fit: BoxFit.fill,
-  //                       ),
-  //                     ),
-  //                   ),
+  //             child: CachedNetworkImage(
+  //               imageUrl: img,
+  //               placeholder: (context, url) => CircularProgressIndicator(),
+  //               errorWidget: (context, url, error) => Image.asset(
+  //                 "assets/images/user1.png",
+  //                 height: getSize(
+  //                   25.00,
   //                 ),
-  //
-  //               ],
+  //                 width: getSize(
+  //                   50.00,
+  //                 ),
+  //                 fit: BoxFit.fill,
+  //               ),
   //             ),
   //           ),
+  //           Text(name)
+  //         ],
+  //       )
   //
   //
   //
@@ -105,23 +89,19 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: Colors.white,
-
         body: RefreshIndicator(
           color: Colors.white,
           backgroundColor: Colors.blue,
           onRefresh: () {
-            return _bloc?.getAllPackagesList();
+            return _bloc?.getAllPackagesList(widget.id);
           },
           child: StreamBuilder<Response<MatchDescriptionModel>>(
               stream: _bloc?.allPackagesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-
                   switch (snapshot.data!.status) {
                     case Status.LOADING:
-
                       return Builder(builder: (context) {
                         return Center(child: CircularProgressIndicator());
                       }); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
@@ -130,6 +110,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                       MatchDescriptionModel clubdetailsList =
                           snapshot.data!.data;
 count= clubdetailsList.match!.playerCount!;
+ data = clubdetailsList.match!.players!;
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
                         width: size.width,
@@ -505,21 +486,23 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                         ),
                                       ),
-                                         SizedBox(height: 20,),
+                                       SizedBox(height: 20,),
                                          Row(
                                            children: [
                                              Padding(
                                                padding: const EdgeInsets.only(left: 27.0),
-                                               child: Text("${count} Players Added",style: TextStyle(color: Colors.green[900]),),
+                                               child: Text("${count} Players Added",style: TextStyle(color: Colors.black),),
                                              ),
                                              Spacer(),
-                                             GestureDetector(onTap: (){},
+                                              TextButton(onPressed: (){
+                                                _showPlayerListDialog(data);
+                                              }, child: Text("see players",style: TextStyle(
+                                                color: ColorConstant.green6320
+                                              ),)),
+                                             SizedBox(width: 10,),
 
-                                                 child:
-                                             Text("see Players"))
                                            ],
-                                         )
-                                      ,
+                                         ),
 
                                       Align(
                                         alignment: Alignment.center,
@@ -604,6 +587,67 @@ count= clubdetailsList.match!.playerCount!;
                 return Container(  color: Colors.red,);
               }),
         ));
+  }
+
+  Future _showPlayerListDialog(List<Players> data1) async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title:  Text("Players List"),
+          content:ListView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.all(8),
+              itemCount:data1.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 25,
+                        width: 25,
+                        child: ClipRRect(
+                          borderRadius:
+                          BorderRadius.circular(
+                            10
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl:data1[index]!.profilePic!,
+                            placeholder: (context, url) => CircularProgressIndicator(),
+                            errorWidget: (context, url, error) => Image.asset(
+                              "assets/images/user1.png",
+                              height:
+                                25.00,
+                              width:
+                                50.00,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
+                      Text("${data1[index].name}",style: TextStyle(fontWeight: FontWeight.w500),),
+                      Spacer(),
+
+                    ],
+                  ),
+                );
+              }
+          ),
+          actions: <Widget>[
+            TextButton(
+              child:  Text('Ok',style: TextStyle(color: ColorConstant.green6320,fontWeight: FontWeight.w500),),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
 }

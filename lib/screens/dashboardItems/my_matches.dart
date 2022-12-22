@@ -266,7 +266,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
                   },
                   child: Container(
                     child: Card(
@@ -349,7 +349,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
                   },
                   child: Container(
                     child: Card(

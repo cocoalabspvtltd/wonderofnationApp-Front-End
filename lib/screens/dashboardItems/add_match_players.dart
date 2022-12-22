@@ -24,7 +24,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
           ),
           leading: IconButton(onPressed: (){
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Upcomingmatch()));
+                MaterialPageRoute(builder: (context) => Upcomingmatch(id: 0,)));
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
             padding: const EdgeInsets.only(left: 30,right: 30),
@@ -82,7 +82,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
                                   Text("User Name",style: TextStyle(fontWeight: FontWeight.w500),),
                                   Spacer(),
-                                  Spacer(),
                                   TextButton(
                                       onPressed: () {
                                       },
@@ -109,7 +108,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
 
                             ),
                           );
-
                         }
                     ),
                   ),
