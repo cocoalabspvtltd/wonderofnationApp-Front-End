@@ -24,7 +24,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
           ),
           leading: IconButton(onPressed: (){
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Upcomingmatch()));
+                MaterialPageRoute(builder: (context) => Upcomingmatch(id: 0,)));
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
             padding: const EdgeInsets.only(left: 30,right: 30),

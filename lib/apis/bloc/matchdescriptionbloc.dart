@@ -24,11 +24,11 @@ class PackagesBlocUser {
         StreamController<Response<MatchDescriptionModel>>();
   }
 
-  getAllPackagesList() async {
+  getAllPackagesList(int id) async {
     allPackagesSink!.add(Response.loading('Fetching profile'));
     try {
       MatchDescriptionModel packagesResponse =
-      await _repository.getAllDepartmentList();
+      await _repository.getAllDepartmentList(id);
       if (packagesResponse.success == true) {
         allPackagesSink!.add(Response.completed(packagesResponse));
       } else {
