@@ -56,7 +56,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int price = 0;
   String y = "";
   String addplayerdisplayvalue= "";
-
+  List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
+int   Playercount =0;
   int courtid = 0;
   bool a = false;
   String mText1 = "See All";
@@ -107,6 +108,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   @override
   bool value = false;
   bool value1 = false;
+  bool value2 = false;
+
 
   ListView _jobsListView(data) {
     return ListView.builder(
@@ -504,14 +507,31 @@ class _ReservationCourtState extends State<ReservationCourt> {
                padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
 
-                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                 separatorBuilder: (BuildContext context, int index) {
+                   return SizedBox(
                    height: 7,
               ); },
                        shrinkWrap: true,
                  physics:NeverScrollableScrollPhysics(),
                        itemCount: forAddPlayers.length, itemBuilder: (context, index){
+
                      return Row(
+                       mainAxisAlignment: MainAxisAlignment.start,
                        children: [
+                         Checkbox(
+                           value: isChecked[index],
+                           activeColor: ColorConstant.green6320,
+                           onChanged: (checked) {
+                             setState(() {
+                               isChecked[index] = checked!;
+                               //  _title = _getTitle();
+                               Playercount=isChecked.where((check) => check == true).length;
+                               print("count->>>>>>>>>>${Playercount}");
+                               // print("title${_title}");
+                               print("value-<<<<<<<<<${isChecked}");
+                             });
+                           },
+                         ),
                          CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
                            placeholder: (context, url) =>
                                CircularProgressIndicator(),
@@ -529,13 +549,34 @@ class _ReservationCourtState extends State<ReservationCourt> {
              ):Padding(
                padding: const EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
-                 separatorBuilder: (BuildContext context, int index) {     return SizedBox(
+                 separatorBuilder: (BuildContext context, int index) {
+                   return SizedBox(
                    height: 7,
                  ); },
                 shrinkWrap: true,
                 itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
+
+
+                 // String _getTitle() =>
+                 //     "Checkbox Demo : Checked = ${isChecked.where((check) => check == true).length}, "
+                 //         "Unchecked = ${isChecked.where((check) => check == false).length}";
+                 // String _title = "Checkbox Demo";
             return Row(
                 children: [
+                  Checkbox(
+                    value: isChecked[index],
+                    activeColor: ColorConstant.green6320,
+                    onChanged: (checked) {
+                      setState(() {
+                        isChecked[index] = checked!;
+                        //  _title = _getTitle();
+                         Playercount=isChecked.where((check) => check == true).length;
+                        print("count->>>>>>>>>>${Playercount}");
+                        // print("title${_title}");
+                        print("value-<<<<<<<<<${isChecked}");
+                      });
+                    },
+                  ),
                   CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
                     placeholder: (context, url) =>
                         CircularProgressIndicator(),
@@ -845,7 +886,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Text(
-                                      "₹${price/forAddPlayers.length.toInt()}",
+                                      "₹${price/Playercount.toInt()}",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: ColorConstant.black900,
