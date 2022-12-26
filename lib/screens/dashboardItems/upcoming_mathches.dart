@@ -22,7 +22,7 @@ int id ;
 class _UpcomingmatchState extends State<Upcomingmatch> {
   @override
   PackagesBlocUser? _bloc;
-  List<Players> data =[];
+  List<PlayersupcomingPlayers> data =[];
   void initState() {
     super.initState();
 
@@ -111,6 +111,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                           snapshot.data!.data;
 count= clubdetailsList.match!.playerCount!;
  data = clubdetailsList.match!.players!;
+
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
                         width: size.width,
@@ -523,7 +524,7 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                           child: GestureDetector(onTap: (){
                                             Navigator.push(context,
-                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers()));
+                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(player_id: data,)));
 
                                           },
                                             child: Container(
@@ -589,7 +590,7 @@ count= clubdetailsList.match!.playerCount!;
         ));
   }
 
-  Future _showPlayerListDialog(List<Players> data1) async {
+  Future _showPlayerListDialog(List<PlayersupcomingPlayers> data1) async {
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -603,16 +604,16 @@ count= clubdetailsList.match!.playerCount!;
               itemCount:data1.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   child: Row(
                     children: [
                       Container(
-                        height: 25,
-                        width: 25,
+                        height: 35,
+                        width: 35,
                         child: ClipRRect(
                           borderRadius:
                           BorderRadius.circular(
-                            10
+                              10
                           ),
                           child: CachedNetworkImage(
                             imageUrl:data1[index]!.profilePic!,
@@ -620,9 +621,9 @@ count= clubdetailsList.match!.playerCount!;
                             errorWidget: (context, url, error) => Image.asset(
                               "assets/images/user1.png",
                               height:
-                                25.00,
+                              25.00,
                               width:
-                                50.00,
+                              50.00,
                               fit: BoxFit.fill,
                             ),
                           ),

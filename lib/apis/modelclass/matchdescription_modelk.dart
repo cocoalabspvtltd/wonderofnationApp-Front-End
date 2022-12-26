@@ -38,7 +38,7 @@ class Match {
   String? time;
   int? type;
   String? date;
-  List<Players>? players;
+  List<PlayersupcomingPlayers>? players;
   int? playerCount;
 
   Match(
@@ -69,9 +69,9 @@ class Match {
     type = json['type'];
     date = json['date'];
     if (json['players'] != null) {
-      players = <Players>[];
+      players = <PlayersupcomingPlayers>[];
       json['players'].forEach((v) {
-        players!.add(new Players.fromJson(v));
+        players!.add(new PlayersupcomingPlayers.fromJson(v));
       });
     }
     playerCount = json['player_count'];
@@ -98,17 +98,17 @@ class Match {
   }
 }
 
-class Players {
+class PlayersupcomingPlayers {
   int? playerId;
   int? userId;
   int? bookingId;
   String? name;
   String? profilePic;
 
-  Players(
+  PlayersupcomingPlayers(
       {this.playerId, this.userId, this.bookingId, this.name, this.profilePic});
 
-  Players.fromJson(Map<String, dynamic> json) {
+  PlayersupcomingPlayers.fromJson(Map<String, dynamic> json) {
     playerId = json['player_id'];
     userId = json['user_id'];
     bookingId = json['booking_id'];

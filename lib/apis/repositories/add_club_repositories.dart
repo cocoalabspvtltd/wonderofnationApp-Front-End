@@ -27,3 +27,27 @@ class AddClubRepositories {
         .toList();
   }
 }
+class EditPlayerRepo {
+
+  Future  getEditPlayer(int player_id,user_id) async {
+    print("token=${TOKEN}");
+    final Map<String, dynamic> _queryParameters = <String, dynamic>{
+
+      "player_id":9,
+      "user_id":119,
+      "player_name":"nima"
+    };
+
+
+    final response = await WebApiProvider().getData(
+        url: "player/update",
+        isPost: true,
+        token: TOKEN,
+        queryParameters: _queryParameters,
+        isQueryParmeter: true);
+    // club_id = response[3]["id"];
+
+    print("res->>>${club_id}");
+    return response;
+  }
+}
