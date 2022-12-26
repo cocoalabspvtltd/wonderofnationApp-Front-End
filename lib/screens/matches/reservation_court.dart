@@ -24,7 +24,9 @@ String? PaymentId = "";
 String? OrderRazorpayId = "";
 bool? holdSlotvalue;
 bool? addplayersvalue;
-
+int   Playercount =0;
+List check = [];
+List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
 TextEditingController refferelpasscontroller = TextEditingController();
 
 class ReservationCourt extends StatefulWidget {
@@ -56,8 +58,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int price = 0;
   String y = "";
   String addplayerdisplayvalue= "";
-  List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
-int   Playercount =0;
+
+
   int courtid = 0;
   bool a = false;
   String mText1 = "See All";
@@ -524,11 +526,12 @@ int   Playercount =0;
                            onChanged: (checked) {
                              setState(() {
                                isChecked[index] = checked!;
+
                                //  _title = _getTitle();
                                Playercount=isChecked.where((check) => check == true).length;
                                print("count->>>>>>>>>>${Playercount}");
                                // print("title${_title}");
-                               print("value-<<<<<<<<<${isChecked}");
+                               print("value-<<<<<<<<<${isChecked[index]}");
                              });
                            },
                          ),
@@ -569,6 +572,7 @@ int   Playercount =0;
                     onChanged: (checked) {
                       setState(() {
                         isChecked[index] = checked!;
+
                         //  _title = _getTitle();
                          Playercount=isChecked.where((check) => check == true).length;
                         print("count->>>>>>>>>>${Playercount}");

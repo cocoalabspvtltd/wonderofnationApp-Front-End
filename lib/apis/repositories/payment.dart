@@ -12,7 +12,7 @@ String amounts ="";
 String refferel = "";
 class Payemnt {
 
-  Future  getpaymentList( int court_id,type,String date, int time_slot,amount,) async {
+  Future  getpaymentList( int court_id,type,String date, int time_slot,amount) async {
     final format = DateFormat("dd-MM-yyyy");
     DateTime gettingDate = format.parse( date);
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
@@ -21,25 +21,22 @@ class Payemnt {
 
 List<Map> playerData =[];
     forAddPlayers.forEach((element) {
-
-     playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":addplayersvalue});
+print ("check->${check}");
+     playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked});
 
 
     });
     final Map<String, dynamic> _queryParameters = <String, dynamic>
 
     {
-
-
-        "court_id":court_id,
+      "court_id":court_id,
         "type":type,
         "date": formatted,
         "time_slot_id":time_slot,
         "amount":amount,
         "hold_court":holdSlotvalue,
         "players": addplayersvalue==true?
-       playerData:null
-
+       playerData:null,
     };
     print("court/payment");
     print("_queryParameters : " + _queryParameters.toString());
@@ -59,3 +56,9 @@ List<Map> playerData =[];
     return response;
   }
 }
+
+
+
+
+
+

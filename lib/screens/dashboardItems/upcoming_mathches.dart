@@ -11,7 +11,7 @@ import '../../apis/modelclass/club_details_model.dart';
 import '../../constants/response.dart';
 import 'add_match_players.dart';
 import 'my_matches.dart';
-
+List<PlayersupcomingPlayers> datas =[];
 class Upcomingmatch extends StatefulWidget {
    Upcomingmatch({Key? key,required this.id}) : super(key: key);
 int id ;
@@ -22,7 +22,7 @@ int id ;
 class _UpcomingmatchState extends State<Upcomingmatch> {
   @override
   PackagesBlocUser? _bloc;
-  List<PlayersupcomingPlayers> data =[];
+
   void initState() {
     super.initState();
 
@@ -110,7 +110,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                       MatchDescriptionModel clubdetailsList =
                           snapshot.data!.data;
 count= clubdetailsList.match!.playerCount!;
- data = clubdetailsList.match!.players!;
+ datas = clubdetailsList.match!.players!;
 
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
@@ -496,7 +496,7 @@ count= clubdetailsList.match!.playerCount!;
                                              ),
                                              Spacer(),
                                               TextButton(onPressed: (){
-                                                _showPlayerListDialog(data);
+                                                _showPlayerListDialog(datas);
                                               }, child: Text("see players",style: TextStyle(
                                                 color: ColorConstant.green6320
                                               ),)),
@@ -524,7 +524,7 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                           child: GestureDetector(onTap: (){
                                             Navigator.push(context,
-                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(player_id: data,)));
+                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers()));
 
                                           },
                                             child: Container(
@@ -597,46 +597,49 @@ count= clubdetailsList.match!.playerCount!;
       builder: (BuildContext context) {
         return AlertDialog(
           title:  Text("Players List"),
-          content:ListView.builder(
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(8),
-              itemCount:data1.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 35,
-                        width: 35,
-                        child: ClipRRect(
-                          borderRadius:
-                          BorderRadius.circular(
-                              10
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl:data1[index]!.profilePic!,
-                            placeholder: (context, url) => CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => Image.asset(
-                              "assets/images/user1.png",
-                              height:
-                              25.00,
-                              width:
-                              50.00,
-                              fit: BoxFit.fill,
+          content:Container(    height: 300.0, // Change as per your requirement
+            width: 300.0,
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(8),
+                itemCount:data1.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: Row(mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 35,
+                          width: 35,
+                          child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(
+                                10
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl:data1[index]!.profilePic!,
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/user1.png",
+                                height:
+                                25.00,
+                                width:
+                                50.00,
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
-                      Text("${data1[index].name}",style: TextStyle(fontWeight: FontWeight.w500),),
-                      Spacer(),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
+                        Text("${data1[index].name}",style: TextStyle(fontWeight: FontWeight.w500),),
+                        Spacer(),
 
-                    ],
-                  ),
-                );
-              }
+                      ],
+                    ),
+                  );
+                }
+            ),
           ),
           actions: <Widget>[
             TextButton(

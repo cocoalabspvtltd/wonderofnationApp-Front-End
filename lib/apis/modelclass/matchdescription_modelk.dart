@@ -71,7 +71,7 @@ class Match {
     if (json['players'] != null) {
       players = <PlayersupcomingPlayers>[];
       json['players'].forEach((v) {
-        players!.add(new PlayersupcomingPlayers.fromJson(v));
+        players! .add(new PlayersupcomingPlayers.fromJson(v));
       });
     }
     playerCount = json['player_count'];
@@ -104,9 +104,15 @@ class PlayersupcomingPlayers {
   int? bookingId;
   String? name;
   String? profilePic;
+  String? paymentStatus;
 
   PlayersupcomingPlayers(
-      {this.playerId, this.userId, this.bookingId, this.name, this.profilePic});
+      {this.playerId,
+        this.userId,
+        this.bookingId,
+        this.name,
+        this.profilePic,
+        this.paymentStatus});
 
   PlayersupcomingPlayers.fromJson(Map<String, dynamic> json) {
     playerId = json['player_id'];
@@ -114,6 +120,7 @@ class PlayersupcomingPlayers {
     bookingId = json['booking_id'];
     name = json['name'];
     profilePic = json['profilePic'];
+    paymentStatus = json['payment_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -123,6 +130,7 @@ class PlayersupcomingPlayers {
     data['booking_id'] = this.bookingId;
     data['name'] = this.name;
     data['profilePic'] = this.profilePic;
+    data['payment_status'] = this.paymentStatus;
     return data;
   }
 }
