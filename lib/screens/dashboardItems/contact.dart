@@ -53,8 +53,9 @@ class _ContactPageState extends State<ContactPage> {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.08,
         alignment: FractionalOffset.center,
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: BoxDecoration(
             color: Colors.grey[300],
@@ -114,8 +115,9 @@ class _ContactPageState extends State<ContactPage> {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.08,
         alignment: FractionalOffset.center,
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
         decoration: BoxDecoration(
             color: Colors.grey[300],
@@ -176,6 +178,7 @@ class _ContactPageState extends State<ContactPage> {
     return Padding(
       padding: const EdgeInsets.all(6.0),
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.16,
         alignment: FractionalOffset.center,
         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
