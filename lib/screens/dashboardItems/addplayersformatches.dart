@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'package:oo/apis/bloc/addplayer_bloc.dart';
 
@@ -90,7 +91,8 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer> {
                   Spacer(),
                   TextButton(
                       onPressed: () {
-                        playerUpadtion.getUpdateplayer(data[index].id, datas[index].bookingId, data[index].name,datas[index].paymentStatus );
+                        playerUpadtion.getUpdateplayer(data[index].id,  data[index].name,index,context);
+
 
                         //  print(forAddPlayers[0]["name"]);
                       },

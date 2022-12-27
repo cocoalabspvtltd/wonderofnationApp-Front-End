@@ -18,18 +18,18 @@ class Payemnt {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(gettingDate);
   //  print("formatted-<>>>>>>>${playerid}");
-
-List<Map> playerData =[];
+int i =0;
+          List<Map> playerData =[];
     forAddPlayers.forEach((element) {
-print ("check->${check}");
-     playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked});
+   print ("check->${check}");
+     playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked[i]});
 
-
+   i+=1;
     });
-    final Map<String, dynamic> _queryParameters = <String, dynamic>
+     final Map<String, dynamic> _queryParameters = <String, dynamic>
 
     {
-      "court_id":court_id,
+        "court_id":court_id,
         "type":type,
         "date": formatted,
         "time_slot_id":time_slot,

@@ -572,12 +572,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     onChanged: (checked) {
                       setState(() {
                         isChecked[index] = checked!;
-
-                        //  _title = _getTitle();
                          Playercount=isChecked.where((check) => check == true).length;
                         print("count->>>>>>>>>>${Playercount}");
-                        // print("title${_title}");
-                        print("value-<<<<<<<<<${isChecked}");
+                        print("value-<<<<<<<<<${ isChecked}");
                       });
                     },
                   ),

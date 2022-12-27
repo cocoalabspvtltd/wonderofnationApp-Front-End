@@ -194,10 +194,19 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                         Spacer(),
 
 
+                    datas[index].paymentStatus=="0"?    TextButton(
+                            onPressed: () {
+                              DeletePlayer.getDeleteplayer(datas[index].playerId!);
+                            },
+                            child: Text(
+                              "Pay",
+                              style: TextStyle(color: Colors.green, fontSize: 16),
+                            )):Text(""),
 
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.0,
                         ),
+
                         TextButton(
                             onPressed: () {
                               DeletePlayer.getDeleteplayer(datas[index].playerId!);

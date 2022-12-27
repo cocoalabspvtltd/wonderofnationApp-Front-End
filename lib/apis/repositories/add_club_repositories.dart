@@ -1,8 +1,13 @@
 import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/screens/dashboardItems/my_matches.dart';
 import '../../constants/web_Api_provider.dart';
+import '../../screens/dashboardItems/upcoming_mathches.dart';
 import '../modelclass/add_club_modelclass.dart';
 
 
@@ -77,13 +82,15 @@ print("object->>>>>>>>>>>${_queryParameters}");
 }
 class UpdatePalyer {
 
-  Future  getUpdateplayer(int userid,bookingid,String name,paymentatus) async {
+  Future  getUpdateplayer(int userid,String name,index,context) async {
     print("token=${TOKEN}");
+    int bookingid = datas[index].bookingId!;
+    String paymentstatus = datas[index].paymentStatus!;
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "user_id":userid,
       "booking_id":bookingid,
       "player_name":name,
-      "payment_status":paymentatus
+      "payment_status":paymentstatus
 
     };
 
@@ -96,7 +103,11 @@ class UpdatePalyer {
         isQueryParmeter: true);
     // club_id = response[3]["id"];
 
-    if(response["success"]==true)Fluttertoast.showToast(msg: "Player Addes");
+    if(response["success"]==true){Fluttertoast.showToast(msg: "Player Added");
+
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0)));}
+
     return response;
   }
 }

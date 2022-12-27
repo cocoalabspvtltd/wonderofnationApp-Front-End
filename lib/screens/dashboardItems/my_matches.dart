@@ -115,47 +115,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
           ),
         ],
       ),
-      // RefreshIndicator(
-      //   color: Colors.white,
-      //   backgroundColor: Colors.white,
-      //   onRefresh: () {
-      //     return _bloc.getmyordersDetailsList(false);
-      //   },
-      //   child: SingleChildScrollView(
-      //     physics: AlwaysScrollableScrollPhysics(),
-      //     child: StreamBuilder<Response<MyBookingModel>>(
-      //         stream: _bloc.myordersDetailsListStream,
-      //         builder: (context, snapshot) {
-      //           if (snapshot.hasData) {
-      //             switch (snapshot.data!.status!) {
-      //               case Status.LOADING:
-      //                 return Center(
-      //                   child: SizedBox(
-      //                       width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
-      //                 );
-      //               case Status.COMPLETED:
-      //                 MyBookingModel resp = snapshot.data!.data;
-      //                 return _bloc.myordersDetailsList.isEmpty
-      //                     ? SizedBox(
-      //                   height: MediaQuery.of(context).size.height - 180,
-      //                   child: CommonApiResultsEmptyWidget(
-      //                       "${resp.success!}",
-      //                       textColorReceived: Colors.black),
-      //                 )
-      //                     : _buildProductSavedListView(_bloc.myordersDetailsList);
-      //               case Status.ERROR:
-      //                 return CommonApiResultsEmptyWidget(
-      //                     "${snapshot.data!.message!}",
-      //                     textColorReceived: Colors.black);
-      //             }
-      //           }
-      //           return Center(
-      //             child: SizedBox(
-      //                 width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
-      //           );
-      //         }),
-      //   ),
-      // ),
+
     );
   }
   infoTabs() {

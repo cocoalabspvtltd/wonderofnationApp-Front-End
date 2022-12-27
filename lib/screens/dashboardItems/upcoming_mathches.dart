@@ -494,13 +494,6 @@ count= clubdetailsList.match!.playerCount!;
                                                padding: const EdgeInsets.only(left: 27.0),
                                                child: Text("${count} Players Added",style: TextStyle(color: Colors.black),),
                                              ),
-                                             Spacer(),
-                                              TextButton(onPressed: (){
-                                                _showPlayerListDialog(datas);
-                                              }, child: Text("see players",style: TextStyle(
-                                                color: ColorConstant.green6320
-                                              ),)),
-                                             SizedBox(width: 10,),
 
                                            ],
                                          ),
@@ -590,68 +583,68 @@ count= clubdetailsList.match!.playerCount!;
         ));
   }
 
-  Future _showPlayerListDialog(List<PlayersupcomingPlayers> data1) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title:  Text("Players List"),
-          content:Container(    height: 300.0, // Change as per your requirement
-            width: 300.0,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(8),
-                itemCount:data1.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 35,
-                          width: 35,
-                          child: ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(
-                                10
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl:data1[index]!.profilePic!,
-                              placeholder: (context, url) => CircularProgressIndicator(),
-                              errorWidget: (context, url, error) => Image.asset(
-                                "assets/images/user1.png",
-                                height:
-                                25.00,
-                                width:
-                                50.00,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
-                        Text("${data1[index].name}",style: TextStyle(fontWeight: FontWeight.w500),),
-                        Spacer(),
-
-                      ],
-                    ),
-                  );
-                }
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child:  Text('Ok',style: TextStyle(color: ColorConstant.green6320,fontWeight: FontWeight.w500),),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // Future _showPlayerListDialog(List<PlayersupcomingPlayers> data1) async {
+  //   return showDialog(
+  //     context: context,
+  //     barrierDismissible: false, // user must tap button!
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title:  Text("Players List"),
+  //         content:Container(    height: 300.0, // Change as per your requirement
+  //           width: 300.0,
+  //           child: ListView.builder(
+  //               shrinkWrap: true,
+  //               physics: BouncingScrollPhysics(),
+  //               padding: const EdgeInsets.all(8),
+  //               itemCount:data1.length,
+  //               itemBuilder: (BuildContext context, int index) {
+  //                 return Container(
+  //                   height: MediaQuery.of(context).size.height * 0.3,
+  //                   child: Row(mainAxisAlignment: MainAxisAlignment.start,
+  //                     children: [
+  //                       Container(
+  //                         height: 35,
+  //                         width: 35,
+  //                         child: ClipRRect(
+  //                           borderRadius:
+  //                           BorderRadius.circular(
+  //                               10
+  //                           ),
+  //                           child: CachedNetworkImage(
+  //                             imageUrl:data1[index]!.profilePic!,
+  //                             placeholder: (context, url) => CircularProgressIndicator(),
+  //                             errorWidget: (context, url, error) => Image.asset(
+  //                               "assets/images/user1.png",
+  //                               height:
+  //                               25.00,
+  //                               width:
+  //                               50.00,
+  //                               fit: BoxFit.fill,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       SizedBox(width: MediaQuery.of(context).size.width * 0.05,),
+  //                       Text("${data1[index].name}",style: TextStyle(fontWeight: FontWeight.w500),),
+  //                       Spacer(),
+  //
+  //                     ],
+  //                   ),
+  //                 );
+  //               }
+  //           ),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child:  Text('Ok',style: TextStyle(color: ColorConstant.green6320,fontWeight: FontWeight.w500),),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
 }
