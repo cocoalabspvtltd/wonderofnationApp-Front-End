@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:oo/apis/bloc/addplayer_bloc.dart';
+import 'package:oo/apis/bloc/myplayerbloc.dart';
 
 import 'package:oo/apis/modelclass/addplayers_model.dart';
 
@@ -23,7 +24,7 @@ class AddMatchPlayers extends StatefulWidget {
 }
 
 class _AddMatchPlayersState extends State<AddMatchPlayers> {
-   AddPlayersBloc? _bloc;
+   myplayerbloc? _bloc;
 
   List<Players>? patientappointmentsearchdata = [];
   List<Players>? patientappointmentserachlist = [];
@@ -35,13 +36,13 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
   void initState() {
     super.initState();
 
-    _bloc = AddPlayersBloc();
-    _bloc?.getMyClubsList();
+    _bloc = myplayerbloc();
+    _bloc?.getmyordersDetailsList(false);
     print("forAddPlayers-.${forAddPlayers}");
   }
 
   getMyclubList() {
-    _bloc?.getMyClubsList();
+    _bloc?.getmyordersDetailsList(true);
   }
 
   onSearchTextChanged(String text) async {

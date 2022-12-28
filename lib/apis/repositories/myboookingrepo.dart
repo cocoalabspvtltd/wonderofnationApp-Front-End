@@ -13,7 +13,7 @@ class MyOrdersRepositoryUser {
     apiProvider = new WebApiProvider();
   }
 
-  Future<MyBookingModel> getAllOrdersList(int perPage, int page) async {
+  Future<AddPlayersModel> getAllOrdersList(int perPage, int page) async {
     FormData formData = FormData.fromMap({
       "page":page,
       "per_page":perPage,
@@ -31,7 +31,7 @@ class MyOrdersRepositoryUser {
 
     );
     print("->>>>>>>>>>>${response.data}");
-    return MyBookingModel.fromJson(response.data);
+    return AddPlayersModel.fromJson(response.data);
 
   }
 }
@@ -43,7 +43,7 @@ class MyOrdersRepositoryUser1 {
     apiProvider = new WebApiProvider();
   }
 
-  Future<MyBookingModel> getAllOrdersList(int perPage, int page) async {
+  Future<AddPlayersModel> getAllOrdersList(int perPage, int page) async {
     FormData formData = FormData.fromMap({
       "page":page,
       "per_page":perPage,
@@ -61,7 +61,7 @@ class MyOrdersRepositoryUser1 {
 
     );
     print("->>>>>>>>>>>${response.data}");
-    return MyBookingModel.fromJson(response.data);
+    return AddPlayersModel.fromJson(response.data);
 
   }
 }

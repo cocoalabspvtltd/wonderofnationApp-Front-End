@@ -31,7 +31,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
   void initState() {
     print("My match Screen");
     _bloc = MyOrdersBlocUser(listener: this);
-    _bloc.getmyordersDetailsList(false);
+    _bloc.getmyplayerDetailsList(false);
     _itemsScrollController = ScrollController();
     _itemsScrollController.addListener(_scrollListener);
     super.initState();
@@ -48,7 +48,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
 
   paginate() async {
     print('paginate');
-    await _bloc.getmyordersDetailsList(true);
+    await _bloc.getmyplayerDetailsList(true);
   }
 
   void _scrollListener() async {
@@ -75,11 +75,11 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
         color: Colors.white,
         backgroundColor: Colors.white,
         onRefresh: () {
-          return _bloc.getmyordersDetailsList(false);
+          return _bloc.getmyplayerDetailsList(false);
         },
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<Response<MyBookingModel>>(
+          child: StreamBuilder<Response<AddPlayersModel>>(
               stream: _bloc.myordersDetailsListStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -90,7 +90,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
                             width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
                       );
                     case Status.COMPLETED:
-                      MyBookingModel resp = snapshot.data!.data;
+                      AddPlayersModel resp = snapshot.data!.data;
                       return _bloc.myordersDetailsList.isEmpty
                           ? SizedBox(
                         height: MediaQuery.of(context).size.height - 180,

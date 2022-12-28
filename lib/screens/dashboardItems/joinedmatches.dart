@@ -77,7 +77,7 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
         },
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<Response<MyBookingModel>>(
+          child: StreamBuilder<Response<AddPlayersModel>>(
               stream: _bloc.myordersDetailsListStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -88,7 +88,7 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
                             width: MediaQuery.of(context).size.height * 0.05, child: CircularProgressIndicator()),
                       );
                     case Status.COMPLETED:
-                      MyBookingModel resp = snapshot.data!.data;
+                      AddPlayersModel resp = snapshot.data!.data;
                       return _bloc.myordersDetailsList.isEmpty
                           ? SizedBox(
                         height: MediaQuery.of(context).size.height - 180,

@@ -14,7 +14,7 @@ class MyOrdersBlocUser {
       _myordersRepository = MyOrdersRepositoryUser();
 
     _myordersListController =
-    StreamController<Response<MyBookingModel>>.broadcast();
+    StreamController<Response<AddPlayersModel>>.broadcast();
   }
 
   bool hasNextPage = false;
@@ -23,18 +23,18 @@ class MyOrdersBlocUser {
 
   LoadMoreListener? listener;
 
-  late StreamController<Response<MyBookingModel>>
+  late StreamController<Response<AddPlayersModel>>
   _myordersListController;
 
-  StreamSink<Response<MyBookingModel>>? get myordersDetailsListSink =>
+  StreamSink<Response<AddPlayersModel>>? get myordersDetailsListSink =>
       _myordersListController.sink;
 
-  Stream<Response<MyBookingModel>> get myordersDetailsListStream =>
+  Stream<Response<AddPlayersModel>> get myordersDetailsListStream =>
       _myordersListController.stream;
 
   List<Matches> myordersDetailsList = [];
 
-  getmyordersDetailsList(bool isPagination, {int? perPage}) async {
+  getmyplayerDetailsList(bool isPagination, {int? perPage}) async {
     if (isPagination) {
       pageNumber = pageNumber + 1;
       listener!.refresh(true);
@@ -46,7 +46,7 @@ class MyOrdersBlocUser {
       //productDetailsListSink!.add(ApiResponse.loading('Fetching items'));
     }
     try {
-      MyBookingModel response =
+      AddPlayersModel response =
       await _myordersRepository!.getAllOrdersList(20, pageNumber);
       // pageNumber = response.products!.total!;
       hasNextPage =
@@ -88,7 +88,7 @@ class MyOrdersBlocUser1 {
       _myordersRepository = MyOrdersRepositoryUser1();
 
     _myordersListController =
-    StreamController<Response<MyBookingModel>>.broadcast();
+    StreamController<Response<AddPlayersModel>>.broadcast();
   }
 
   bool hasNextPage = false;
@@ -97,13 +97,13 @@ class MyOrdersBlocUser1 {
 
   LoadMoreListener? listener;
 
-  late StreamController<Response<MyBookingModel>>
+  late StreamController<Response<AddPlayersModel>>
   _myordersListController;
 
-  StreamSink<Response<MyBookingModel>>? get myordersDetailsListSink =>
+  StreamSink<Response<AddPlayersModel>>? get myordersDetailsListSink =>
       _myordersListController.sink;
 
-  Stream<Response<MyBookingModel>> get myordersDetailsListStream =>
+  Stream<Response<AddPlayersModel>> get myordersDetailsListStream =>
       _myordersListController.stream;
 
   List<Matches> myordersDetailsList = [];
@@ -120,7 +120,7 @@ class MyOrdersBlocUser1 {
       //productDetailsListSink!.add(ApiResponse.loading('Fetching items'));
     }
     try {
-      MyBookingModel response =
+      AddPlayersModel response =
       await _myordersRepository!.getAllOrdersList(20, pageNumber);
       // pageNumber = response.products!.total!;
       hasNextPage =

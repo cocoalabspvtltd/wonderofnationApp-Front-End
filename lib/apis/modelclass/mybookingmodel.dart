@@ -1,4 +1,4 @@
-class MyBookingModel {
+class AddPlayersModel {
   bool? success;
   int? statusCode;
   int ?total;
@@ -6,7 +6,7 @@ class MyBookingModel {
   int? lastPage;
   List<Matches>? matches;
 
-  MyBookingModel(
+  AddPlayersModel(
       {this.success,
         this.statusCode,
         this.total,
@@ -14,7 +14,7 @@ class MyBookingModel {
         this.lastPage,
         this.matches});
 
-  MyBookingModel.fromJson(Map<String, dynamic> json) {
+  AddPlayersModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     statusCode = json['status_code'];
     total = json['total'];
