@@ -91,8 +91,31 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer> {
                   Spacer(),
                   TextButton(
                       onPressed: () {
-                        playerUpadtion.getUpdateplayer(data[index].id,  data[index].name,index,context);
-
+                        bool flag = false;
+                        if (forAddPlayers.isNotEmpty) {
+                          for (Map element in forAddPlayers) {
+                            {
+                              print("object");
+                              print(element['id']);
+                              if (element["id"] == data[index].id.toString()) {
+                                Fluttertoast.showToast(msg: "Player Already Exist");
+                                flag = true;
+                                break;
+                              }
+                            }
+                          }
+                        } else {
+                          playerUpadtion.getUpdateplayer(
+                              data[index].id, data[index].name, index, context);
+                          Fluttertoast.showToast(msg: "Player Added");
+                          return;
+                        }
+                        if (flag == false) {
+                          playerUpadtion.getUpdateplayer(
+                              data[index].id, data[index].name, index, context);
+                          Fluttertoast.showToast(msg: "Player Added");
+                          return;
+                        }
 
                         //  print(forAddPlayers[0]["name"]);
                       },
