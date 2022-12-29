@@ -112,7 +112,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
   bool value1 = false;
   bool value2 = false;
 
-
   ListView _jobsListView(data) {
     return ListView.builder(
         shrinkWrap: true,
@@ -508,7 +507,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
              if(selectedIndex == 0 && forAddPlayers.isNotEmpty) a == true?Padding(
                padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
-
                  separatorBuilder: (BuildContext context, int index) {
                    return SizedBox(
                    height: 7,
@@ -516,7 +514,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                        shrinkWrap: true,
                  physics:NeverScrollableScrollPhysics(),
                        itemCount: forAddPlayers.length, itemBuilder: (context, index){
-
                      return Row(
                        mainAxisAlignment: MainAxisAlignment.start,
                        children: [
@@ -526,7 +523,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                            onChanged: (checked) {
                              setState(() {
                                isChecked[index] = checked!;
-
                                //  _title = _getTitle();
                                Playercount=isChecked.where((check) => check == true).length;
                                print("count->>>>>>>>>>${Playercount}");
@@ -557,7 +553,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                    height: 7,
                  ); },
                 shrinkWrap: true,
-                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
+                itemCount: forAddPlayers.length >=5  ? 5: forAddPlayers.length, itemBuilder: (context, index){
 
 
                  // String _getTitle() =>
@@ -572,9 +568,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
                     onChanged: (checked) {
                       setState(() {
                         isChecked[index] = checked!;
-                         Playercount=isChecked.where((check) => check == true).length;
+                        Playercount=isChecked.where((check) => check == true).length;
                         print("count->>>>>>>>>>${Playercount}");
-                        print("value-<<<<<<<<<${ isChecked}");
+                        // print("title${_title}");
+                        print("value-<<<<<<<<<${isChecked[index]}");
                       });
                     },
                   ),
