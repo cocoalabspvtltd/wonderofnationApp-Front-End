@@ -112,7 +112,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
   bool value1 = false;
   bool value2 = false;
 
-
   ListView _jobsListView(data) {
     return ListView.builder(
         shrinkWrap: true,
