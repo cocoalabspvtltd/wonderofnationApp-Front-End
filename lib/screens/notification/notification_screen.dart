@@ -163,6 +163,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: notificationlist.notifications!.length,
+
       itemBuilder: (context, index) {
         if(notificationlist.notifications![index].data!.type == "match_invite") {
           return SizedBox(
@@ -172,7 +173,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 .height * 0.14,
             child: InkWell(
               onTap: (){
-                _showDialog();
+                _showDialog(notificationlist.notifications![index].data!.match_id);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -295,7 +296,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       },
     ) ;
   }
-  void _showDialog() {
+  void _showDialog(int notificationId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -315,8 +316,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                  ),
                 child:  Text("Accept",style: TextStyle(color: Colors.white),),
                 onPressed: () {
-                   notifi_api.acceptInvitation(9,"accepted");
-                   Fluttertoast.showToast(msg: "You accepted invitation");
+                   notifi_api.acceptInvitation(notificationId,"accepted");
+                   inviationaccept();
+                  // Fluttertoast.showToast(msg: "You accepted invitation");
 
                 },
             ),
@@ -329,10 +331,52 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
                 child:  Text("Reject",style: TextStyle(color: Colors.white),),
                 onPressed: () {
+                  notifi_api.acceptInvitation(notificationId,"rejected");
+                  inviationreject();
                 },
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+  void inviationaccept() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pop(true);
+        });
+        return AlertDialog(
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: MediaQuery.of(context).size.width * 0.2,
+            color: Colors.white,
+            child: const Image(
+              image: AssetImage('assets/images/invitation_accept.gif'),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  void inviationreject() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pop(true);
+        });
+        return AlertDialog(
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: MediaQuery.of(context).size.width * 0.2,
+            color: Colors.white,
+            child: const Image(
+              image: AssetImage('assets/images/invitation_reject.gif'),
+            ),
+          ),
         );
       },
     );

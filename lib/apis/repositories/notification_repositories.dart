@@ -27,12 +27,13 @@ print("=>${response.data}");
     return NotificationModelClass.fromJson(response.data);
 
   }
-  Future acceptInvitation(int playerid,String invitestatus) async {
+  Future acceptInvitation(int matchid,String invitestatus) async {
 
     FormData formData = FormData.fromMap({
-      "player_id":playerid,
+      "match_id":9,
       "invite_status":invitestatus,
     });
+    print("formdata--->${formData.fields}");
     final response = await apiProvider
         .getJsonInstance()
         .post(baseurl+"player/update",
@@ -43,7 +44,6 @@ print("=>${response.data}");
               'Authorization':"Bearer " + TOKEN,
             }
         )
-
     );
     print("=>${response.data}");
     return NotificationModelClass.fromJson(response.data);
