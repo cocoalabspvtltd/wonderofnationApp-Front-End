@@ -205,7 +205,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                         TextButton(
                             onPressed: () {
                               DeletePlayer.getDeleteplayer(datas[index].playerId!,context);
-
                             },
                             child: Text(
                               "Remove",
