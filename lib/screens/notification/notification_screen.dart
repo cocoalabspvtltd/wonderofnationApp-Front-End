@@ -74,71 +74,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             break;
                           case Status.SUCCESS:
                             NotificationModelClass notificationlist = snapshot.data!.data;
-                            return SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  inviteview(notificationlist)
-                                  // ListView.separated(
-                                  //   separatorBuilder: (context, index) =>
-                                  //       SizedBox(
-                                  //     height: 10,
-                                  //   ),
-                                  //   scrollDirection: Axis.vertical,
-                                  //   shrinkWrap: true,
-                                  //   itemCount: notificationlist.notifications!.length,
-                                  //   itemBuilder: (context, index) {
-                                  //     return
-                                  //
-                                  //       SizedBox(
-                                  //       height: MediaQuery.of(context).size.height * 0.14,
-                                  //       child: Card(
-                                  //         shape: RoundedRectangleBorder(
-                                  //           borderRadius: BorderRadius.circular(10),
-                                  //         ),
-                                  //         elevation: 2,
-                                  //         color: Colors.grey[300],
-                                  //         child: Padding(
-                                  //           padding: const EdgeInsets.all(10.0),
-                                  //           child: Column(
-                                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                                  //             children: [
-                                  //               SizedBox(height: 6,),
-                                  //               Align(
-                                  //                 alignment: Alignment.topRight,
-                                  //                 child: Text(
-                                  //                   '${notificationlist.notifications![index].time}',
-                                  //                   style: TextStyle(
-                                  //                     fontSize: 16,
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //               SizedBox(height: 10,),
-                                  //               Align(
-                                  //                 alignment: Alignment.topLeft,
-                                  //                child: Text("${notificationlist.notifications![index].data!.name!} has invited you to the match on "
-                                  //                    "${notificationlist.notifications![index].data!.date}",
-                                  //                    style: TextStyle(
-                                  //                          fontSize: 18,
-                                  //                          fontWeight: FontWeight.bold,
-                                  //                        ),
-                                  //                )
-                                  //               ),
-                                  //               SizedBox(
-                                  //                 height: 6,
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ) ;
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                            );
-
+                            return inviteview(notificationlist);
                             break;
                           case Status.ERROR:
                             return Container();
@@ -146,7 +82,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       }
                       return Container();
                     })
-
               ],
             ),
           ),
@@ -163,7 +98,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: notificationlist.notifications!.length,
-
       itemBuilder: (context, index) {
         if(notificationlist.notifications![index].data!.type == "match_invite") {
           return SizedBox(
@@ -235,7 +169,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             height: MediaQuery
                 .of(context)
                 .size
-                .height * 0.14,
+                .height * 0.15,
             child: InkWell(
               onTap: (){
                 // _showDialog();

@@ -30,7 +30,7 @@ print("=>${response.data}");
   Future acceptInvitation(int matchid,String invitestatus) async {
 
     FormData formData = FormData.fromMap({
-      "match_id":9,
+      "match_id":matchid,
       "invite_status":invitestatus,
     });
     print("formdata--->${formData.fields}");
