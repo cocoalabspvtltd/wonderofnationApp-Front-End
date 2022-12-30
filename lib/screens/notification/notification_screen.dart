@@ -58,9 +58,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
@@ -97,7 +96,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             height: 10,
           ),
       shrinkWrap: true,
-      scrollDirection: Axis.vertical,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: notificationlist.notifications!.length,
       itemBuilder: (context, index) {
         if(notificationlist.notifications![index].data!.type == "match_invite") {
@@ -155,9 +154,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                     ],
                   ),
                 ),
@@ -205,11 +202,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               backgroundColor: Colors.grey[400],
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text(" Your invitation accepted by ${notificationlist.notifications![index]
-                                  .data!.name!}",
+                              child: Text("Your invitation accepted by ${notificationlist.notifications![index].data!.name!}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -218,9 +214,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                     ],
                   ),
                 ),
