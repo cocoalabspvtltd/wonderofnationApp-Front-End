@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
@@ -12,6 +13,7 @@ import '../../screens/matches/public_court.dart';
 import '../../screens/matches/reservation_court.dart';
 import '../../screens/dashboardItems/history_screen.dart';
 String sucess ="";
+String PendingSucess = "";
 class PayemntSucess {
 
   Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context) async {
@@ -41,6 +43,34 @@ class PayemntSucess {
    //   }
 
     return response;
+
+  }
+
+  Future  getPendingpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context, int playerid) async {
+
+    final Map<String, dynamic> _queryParameters = <String, dynamic>{
+      "razorpay_payment_id":razorpay_payment_id,
+      "razorpay_signature":razorpay_signature,
+      "razorpay_order_id":razorpay_order_id,
+      "player_id":playerid
+
+    };
+    print("_queryParameters : " + _queryParameters.toString());
+
+    final response = await WebApiProvider().getData(
+        url: "player/payment/signature-verify",
+        isPost: true,
+        token: TOKEN,
+        queryParameters: _queryParameters,
+        isQueryParmeter: true);
+
+    PendingSucess = response["message"];
+    if (response["message"]=="Payment successful"){
+    Fluttertoast.showToast(msg: "Payment Completed");}
+    else Fluttertoast.showToast(msg: "Payment Failed");
+
+    return response;
+
   }
   _showDialog(
       BuildContext context,

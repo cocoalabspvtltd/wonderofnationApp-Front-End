@@ -112,6 +112,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
 count= clubdetailsList.match!.playerCount!;
  datas = clubdetailsList.match!.players!;
 
+
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
                         width: size.width,
@@ -153,8 +154,8 @@ count= clubdetailsList.match!.playerCount!;
                                         ),
                                       ),
                                       Positioned(
-                                          top:10,
-                                          left:10,child: IconButton(onPressed: (){
+                                          top:30,
+                                          left:15,child: IconButton(onPressed: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0,)));
                                       }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 

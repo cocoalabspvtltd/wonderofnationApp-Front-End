@@ -1,17 +1,26 @@
 
-
+import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/screens/matches/add_players.dart';
 
+import '../../constants/base_urls.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/reservation_court.dart';
 String Orderid ="";
 String key ="";
 String amounts ="";
 String refferel = "";
-class Payemnt {
+String PendingOrderid  = "";
 
+String Pendingkey ="";
+String PEndingpayName = "";
+String PendingEmail = '';
+String PendingPayAmount ="";
+
+
+class Payemnt {
+  WebApiProvider apiProvider= WebApiProvider();
   Future  getpaymentList( int court_id,type,String date, int time_slot,amount) async {
     final format = DateFormat("dd-MM-yyyy");
     DateTime gettingDate = format.parse( date);
@@ -52,6 +61,34 @@ int i =0;
 
     print("refferel->>>${refferel}");
     return response;
+  }
+  Future getpendingpayment(int playerid,String amount) async {
+
+    FormData formData = FormData.fromMap({
+      "player_id":playerid,
+      "amount":amount,
+    });
+    print("99${formData.fields}");
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl+"player/payment",
+        data: formData,
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + TOKEN,
+            }
+        )
+
+    );
+    Pendingkey = response.data["key"];
+    PendingOrderid = response.data["order_id"];
+    PendingEmail = response.data['email'];
+    PEndingpayName = response.data["name"];
+    PendingPayAmount = response.data["amount"].toString();
+    print("=>${response.data["key"]}");
+    return response.data;
+
   }
 }
 
