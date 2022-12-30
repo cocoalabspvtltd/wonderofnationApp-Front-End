@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:oo/apis/bloc/addplayer_bloc.dart';
-import 'package:oo/apis/bloc/myplayerbloc.dart';
 
 import 'package:oo/apis/modelclass/addplayers_model.dart';
 
 import 'package:oo/apis/repositories/joined_clubs.dart';
+import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/screens/dashboardItems/addplayersformatches.dart';
 import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
 
@@ -24,7 +24,7 @@ class AddMatchPlayers extends StatefulWidget {
 }
 
 class _AddMatchPlayersState extends State<AddMatchPlayers> {
-   myplayerbloc? _bloc;
+   AddPlayersBloc? _bloc;
 
   List<Players>? patientappointmentsearchdata = [];
   List<Players>? patientappointmentserachlist = [];
@@ -35,14 +35,13 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
    Deleteplayer DeletePlayer =Deleteplayer();
   void initState() {
     super.initState();
-
-    _bloc = myplayerbloc();
-    _bloc?.getmyordersDetailsList(false);
+    _bloc = AddPlayersBloc();
+    _bloc?.getMyClubsList();
     print("forAddPlayers-.${forAddPlayers}");
   }
 
   getMyclubList() {
-    _bloc?.getmyordersDetailsList(true);
+    _bloc?.getMyClubsList();
   }
 
   onSearchTextChanged(String text) async {
@@ -110,7 +109,6 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               Container(
                   width: 370,
                   color: Colors.white,
@@ -193,30 +191,26 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                         Spacer(),
-
-
                     datas[index].paymentStatus=="0"?    TextButton(
                             onPressed: () {
-                              DeletePlayer.getDeleteplayer(datas[index].playerId!);
+                              DeletePlayer.getDeleteplayer(datas[index].playerId!,context);
                             },
                             child: Text(
                               "Pay",
                               style: TextStyle(color: Colors.green, fontSize: 16),
                             )):Text(""),
-
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.0,
                         ),
-
                         TextButton(
                             onPressed: () {
-                              DeletePlayer.getDeleteplayer(datas[index].playerId!);
+                              DeletePlayer.getDeleteplayer(datas[index].playerId!,context);
+
                             },
                             child: Text(
                               "Remove",
                               style: TextStyle(color: Colors.red, fontSize: 16),
                             )),
-
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.01,
                         ),
@@ -225,13 +219,9 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                   ),
                 );
               })
-
-
             ],
           ),
         )
-
-
     );
 
   }

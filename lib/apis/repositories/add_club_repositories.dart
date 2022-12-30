@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/screens/dashboardItems/add_match_players.dart';
 import 'package:oo/screens/dashboardItems/my_matches.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/dashboardItems/upcoming_mathches.dart';
@@ -59,15 +59,13 @@ class EditPlayerRepo {
 }
 class Deleteplayer {
 
-  Future  getDeleteplayer(int playerid,) async {
+  Future  getDeleteplayer(int playerid,context) async {
     print("token=${TOKEN}");
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-
-      "player_id":playerid
-
+      "player_id": playerid
     };
 
-print("object->>>>>>>>>>>${_queryParameters}");
+    print("object->>>>>>>>>>>${_queryParameters}");
     final response = await WebApiProvider().getData(
         url: "player/delete",
         isPost: true,
@@ -76,8 +74,11 @@ print("object->>>>>>>>>>>${_queryParameters}");
         isQueryParmeter: true);
     // club_id = response[3]["id"];
 
-    if(response["success"]==true)Fluttertoast.showToast(msg: "Player deleted");
-    return response;
+    if (response["success"] == true) {
+      Fluttertoast.showToast(msg: "Player Deleted");
+      Navigator.pop(context);
+      return response;
+    }
   }
 }
 class UpdatePalyer {
@@ -106,7 +107,7 @@ class UpdatePalyer {
     if(response["success"]==true){Fluttertoast.showToast(msg: "Player Added");
 
       Navigator.push(context,
-        MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0)));}
+        MaterialPageRoute(builder: (context)=>AddMatchPlayers()));}
 
     return response;
   }
