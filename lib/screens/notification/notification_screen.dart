@@ -56,8 +56,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          // scrollDirection: Axis.vertical,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
@@ -89,14 +90,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     );
   }
-  Widget inviteview(notificationlist){
+  ListView inviteview(notificationlist){
     return ListView.separated(
       separatorBuilder: (context, index) =>
           SizedBox(
             height: 10,
           ),
-      scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      scrollDirection: Axis.vertical,
       itemCount: notificationlist.notifications!.length,
       itemBuilder: (context, index) {
         if(notificationlist.notifications![index].data!.type == "match_invite") {
@@ -121,7 +122,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 3,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Align(
                         alignment: Alignment.topRight,
                         child: Text(
@@ -131,7 +132,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Row(
                         children: [
                           CircleAvatar(
@@ -139,7 +140,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               backgroundColor: Colors.grey[400],
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text("${notificationlist.notifications![index]
@@ -186,7 +187,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 6,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Align(
                         alignment: Alignment.topRight,
                         child: Text(
@@ -196,7 +197,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Row(
                         children: [
                           CircleAvatar(
@@ -204,7 +205,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               backgroundColor: Colors.grey[400],
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.01,),
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text(" Your invitation accepted by ${notificationlist.notifications![index]
