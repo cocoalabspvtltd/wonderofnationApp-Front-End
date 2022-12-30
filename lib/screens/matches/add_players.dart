@@ -331,9 +331,7 @@ class _AddPlayersState extends State<AddPlayers>
   @override
   void initState() {
     print("My match Screen");
-    //_tabController = new TabController(vsync: this, length: 2);
-    // selectedTabPos = widget.fragmentToShow != null ? widget.fragmentToShow : 0;
-    // _tabController!.animateTo(selectedTabPos);
+
     _bloc = myplayerbloc(listener: this);
     _bloc.getmyordersDetailsList(false);
 
@@ -500,100 +498,96 @@ TextEditingController patientappointmentController = TextEditingController();
               physics: NeverScrollableScrollPhysics(),
               itemCount: productDetails!.length,
               itemBuilder: (context, index) {
-                return Container(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  child: Card(
-                    elevation: 0,
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: Image.asset(
-                            "assets/images/user2.png",
-                            fit: BoxFit.fill,
+                return
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Card(
+                      elevation: 0,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: Image.asset(
+                              "assets/images/user2.png",
+                              fit: BoxFit.fill,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.03,
-                        ),
-                        Text(
-                          "${productDetails[index].name}",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        Spacer(),
-                        TextButton(
-                            onPressed: () {
-                              // print(id);
-                              bool flag = false;
-                              if (forAddPlayers.isNotEmpty) {
-                                for (Map element in forAddPlayers) {
-                                  {
-                                    print("object");
-                                    print(element['id']);
-                                    if (element["id"] ==
-                                        productDetails[index].id.toString()) {
-                                      Fluttertoast.showToast(
-                                          msg: "Player Already Exist");
-                                      flag = true;
-                                      break;
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.03,
+                          ),
+                          Text(
+                            "${productDetails[index].name}",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Spacer(),
+                          TextButton(
+                              onPressed: () {
+                                print(productDetails[index].id);
+                                bool flag = false;
+                                if (forAddPlayers.isNotEmpty) {
+                                  for (Map element in forAddPlayers) {
+                                    {
+                                      print("object");
+                                      print(element['id']);
+                                      if (element["id"] == productDetails[index].id.toString()) {
+                                        Fluttertoast.showToast(msg: "Player Already Exist");
+                                        flag = true;
+                                        break;
+                                      }
                                     }
                                   }
+                                } else {
+                                  forAddPlayers.add({
+                                    "name": productDetails[index].name!,
+                                    "dp": productDetails[index].profilePic!,
+                                    "id": productDetails[index].id.toString(),
+                                  });
+                                  Fluttertoast.showToast(msg: "Player Added");
+                                  return;
                                 }
-                              } else {
-                                forAddPlayers.add({
-                                  "name": productDetails[index].name!,
-                                  "dp": productDetails[index].profilePic!,
-                                  "id": productDetails[index].id!.toString(),
-                                });
-                                Fluttertoast.showToast(msg: "Player Added");
-                                return;
-                              }
-                              if (flag == false) {
-                                forAddPlayers.add({
-                                  "name": productDetails[index].name!,
-                                  "dp": productDetails[index].profilePic!,
-                                  "id": productDetails[index].id!.toString(),
-                                });
-                                Fluttertoast.showToast(msg: "Player Added");
-                                return;
-                              }
+                                if (flag == false) {
+                                  forAddPlayers.add({
+                                    "name": productDetails[index].name!,
+                                    "dp": productDetails[index].profilePic!,
+                                    "id": productDetails[index].id.toString(),
+                                  });
+                                  Fluttertoast.showToast(msg: "Player Added");
+                                  return;
+                                }
 
-                              //  print(forAddPlayers[0]["name"]);
-                            },
-                            child: Text(
-                              "Add",
-                              style: TextStyle(
-                                  color: ColorConstant.green6320, fontSize: 16),
-                            )),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.0,
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              print(forAddPlayers.contains({
-                                "name": productDetails[index].name!,
-                                "dp": productDetails[index].profilePic!
-                              }));
-                              forAddPlayers.removeWhere((element) =>
-                                  element["name"] ==
-                                  productDetails[index].name!);
-                              Fluttertoast.showToast(msg: "Player Deleted");
-                              forAddPlayers.forEach((element) {
-                                print(element);
-                              });
-                            },
-                            child: Text(
-                              "Remove",
-                              style: TextStyle(color: Colors.red, fontSize: 16),
-                            )),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.01,
-                        ),
-                      ],
+                                //  print(forAddPlayers[0]["name"]);
+                              },
+                              child: Text(
+                                "Add",
+                                style:
+                                TextStyle(color: ColorConstant.green6320, fontSize: 16),
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.0,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                print(forAddPlayers
+                                    .contains({"name": productDetails[index].name, "dp": productDetails[index].profilePic}));
+                                forAddPlayers
+                                    .removeWhere((element) => element["name"] == productDetails[index].name);
+                                Fluttertoast.showToast(msg: "Player Deleted");
+                                forAddPlayers.forEach((element) {
+                                  print(element);
+                                });
+                              },
+                              child: Text(
+                                "Remove",
+                                style: TextStyle(color: Colors.red, fontSize: 16),
+                              )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.01,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
+                  );
               })
         ],
       ),

@@ -128,6 +128,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
           SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
           a == true ?
           ListView.separated(
+              itemCount: productDetails.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 5,
@@ -135,7 +136,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               },
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: productDetails.length,
+
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return GestureDetector(
@@ -211,6 +212,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               }
           )
               :  ListView.separated(
+              itemCount:productDetails.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(
                   height: 5,
@@ -218,12 +220,11 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               },
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount:3,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!,)));
                   },
                   child: Container(
                     child: Card(

@@ -20,12 +20,10 @@ class Payemnt {
   //  print("formatted-<>>>>>>>${playerid}");
 int i =0;
           List<Map> playerData =[];
-    forAddPlayers.forEach((element) {
-   print ("check->${check}");
-     playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked[i]});
-
-   i+=1;
-    });
+              forAddPlayers.forEach((element) {
+                playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked[i]});
+                     i++;
+                                          });
      final Map<String, dynamic> _queryParameters = <String, dynamic>
 
     {

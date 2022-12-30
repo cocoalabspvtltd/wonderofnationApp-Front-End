@@ -25,7 +25,7 @@ String? OrderRazorpayId = "";
 bool? holdSlotvalue;
 bool? addplayersvalue;
 int   Playercount =0;
-List check = [];
+
 List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
 TextEditingController refferelpasscontroller = TextEditingController();
 
@@ -253,15 +253,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                         });
                                         //selectedIndex2 == index;
                                       },
-                                      // {
-                                      //   setState(() {
-                                      //     selectedIndex = index;
-                                      //     selectedIndex = index;
-                                      //
-                                      //     print(
-                                      //         "selectedInex--->${selectedIndex = index}");
-                                      //   });
-                                      // },
+
                                     )),
                               );
                             }),
@@ -508,14 +500,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
              if(selectedIndex == 0 && forAddPlayers.isNotEmpty) a == true?Padding(
                padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
-
+                 itemCount: forAddPlayers.length,
                  separatorBuilder: (BuildContext context, int index) {
                    return SizedBox(
                    height: 7,
               ); },
                        shrinkWrap: true,
                  physics:NeverScrollableScrollPhysics(),
-                       itemCount: forAddPlayers.length, itemBuilder: (context, index){
+                     itemBuilder: (context, index){
 
                      return Row(
                        mainAxisAlignment: MainAxisAlignment.start,
@@ -552,18 +544,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
              ):Padding(
                padding: const EdgeInsets.only(left: 30,top: 20,bottom: 20),
                child: ListView.separated(
+                   itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length,
                  separatorBuilder: (BuildContext context, int index) {
                    return SizedBox(
                    height: 7,
                  ); },
                 shrinkWrap: true,
-                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
+            itemBuilder: (context, index){
 
-
-                 // String _getTitle() =>
-                 //     "Checkbox Demo : Checked = ${isChecked.where((check) => check == true).length}, "
-                 //         "Unchecked = ${isChecked.where((check) => check == false).length}";
-                 // String _title = "Checkbox Demo";
             return Row(
                 children: [
                   Checkbox(
@@ -960,6 +948,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
                             onPressed: () async {
+
 
 
                             await  pay.getpaymentList(courtid, selectedIndex,
