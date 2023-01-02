@@ -33,55 +33,6 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
     setState(() {});
   }
   int count = 0;
-  // SizedBox _jobsListView(List<Players> data) {
-  //   return SizedBox(width: MediaQuery.of(context).size.width,
-  //     height: 20,
-  //     child: ListView.builder(
-  //         shrinkWrap: true,
-  //         scrollDirection: Axis.vertical,
-  //         physics: NeverScrollableScrollPhysics(),
-  //         itemCount: data.length,
-  //         itemBuilder: (context, index) {
-  //           print("data->>>>>>${data.length}");
-  //           return _tile(data[index].profilePic.toString(),data[index].name!.toUpperCase());
-  //         }),
-  //   );
-  // }
-  // SizedBox _tile(
-  //     String img,String name ) =>
-  //     SizedBox(height: 20,width:40,
-  //       child:Row(
-  //         children: [
-  //           ClipRRect(
-  //             borderRadius:
-  //             BorderRadius.circular(
-  //               getHorizontalSize(
-  //                 12.50,
-  //               ),
-  //             ),
-  //             child: CachedNetworkImage(
-  //               imageUrl: img,
-  //               placeholder: (context, url) => CircularProgressIndicator(),
-  //               errorWidget: (context, url, error) => Image.asset(
-  //                 "assets/images/user1.png",
-  //                 height: getSize(
-  //                   25.00,
-  //                 ),
-  //                 width: getSize(
-  //                   50.00,
-  //                 ),
-  //                 fit: BoxFit.fill,
-  //               ),
-  //             ),
-  //           ),
-  //           Text(name)
-  //         ],
-  //       )
-  //
-  //
-  //
-  //
-  //     );
 
   TextEditingController searchcontroller = new TextEditingController();
   TextEditingController dateinputcontroller =

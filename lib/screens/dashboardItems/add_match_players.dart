@@ -28,6 +28,7 @@ List<Map<String, String>> forAddPlayers = [];
 class AddMatchPlayers extends StatefulWidget {
   AddMatchPlayers({Key? key,required this.Amount}) : super(key: key);
 String Amount;
+
   @override
   State<AddMatchPlayers> createState() => _AddMatchPlayersState();
 }
@@ -263,7 +264,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
                             Spacer(),
-                            datas[index].paymentStatus == "0" ? TextButton(
+                            datas[index].paymentStatus == "0"  ? TextButton(
                                 onPressed: () async {
                                   playerid = datas[index].playerId!;
                                   await pendingPayment.getpendingpayment(

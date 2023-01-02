@@ -709,13 +709,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                       : (slotColor == "red")
                                           ? Colors.red[900]
                                           : Colors.grey
-                              : Colors.grey,
+                              : Colors.green[400],
                           tileColor:
                           selectedIndex ==1? (slotColor == "green")
                               ? Colors.green[400]
                               : (slotColor == "blue")
                                   ? Colors.blue[400]
-                                  : Colors.red[400]:Colors.grey[100],
+                                  : Colors.red[400]:Colors.green[900],
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -1095,8 +1095,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   void _showDialog(int price,int playercount) {
     double a=(price/(forAddPlayers.length + 1));
-    double c= (a*(playercount +1));
-     b= (price -(a*(playercount +1)));
+    double c= (a*(playercount +1).toInt());
+    double b= (price -(a*(playercount +1).toInt()));
     showDialog(
       context: context,
       builder: (BuildContext context) {
