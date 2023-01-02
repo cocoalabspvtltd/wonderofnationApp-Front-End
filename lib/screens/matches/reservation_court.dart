@@ -26,8 +26,8 @@ bool? holdSlotvalue;
 bool? addplayersvalue;
 int   Playercount =0;
 List check = [];
-List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
 TextEditingController refferelpasscontroller = TextEditingController();
+List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
 
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({
@@ -59,11 +59,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
   String y = "";
   String addplayerdisplayvalue= "";
 
-
+  List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
   int courtid = 0;
   bool a = false;
   String mText1 = "See All";
-
   int TimeId = 0;
   TextEditingController refferelCOntroller = TextEditingController();
   List<dynamic> patientappointmentsearchdata = [];
@@ -103,7 +102,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   int selectedIndex1 = -1;
   String buttontext = "Book Now";
-
   TextEditingController dateinputcontroller =
       new TextEditingController(text: DateTime.now().toString());
 
@@ -526,7 +524,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                //  _title = _getTitle();
                                Playercount=isChecked.where((check) => check == true).length;
                                print("count->>>>>>>>>>${Playercount}");
-                               // print("title${_title}");
                                print("value-<<<<<<<<<${isChecked[index]}");
                              });
                            },
@@ -944,24 +941,24 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 ),
                             ],
                           ),
-                          SizedBox(
-                            width: 160,
-                          ),
-                  slotColor=="red"? Container():ElevatedButton(
+                          Spacer(),
+                          slotColor=="red"? Container():ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 40),
                               primary: ColorConstant.green6320,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
-                                  //to set border radius to button
+                                //to set border radius to button
                                   borderRadius: BorderRadius.circular(10.0)),
                             ),
-                            onPressed: () async {
-
-
-                            await  pay.getpaymentList(courtid, selectedIndex,
-                                  widget.date, TimeId, selectedIndex==0?price:y,);
-                              openCheckout();
+                            onPressed: () {
+                              if (selectedIndex == 0) {
+                                _showDialog(price, Playercount);
+                              }
+                              else {
+                                pay.getpaymentList(courtid, selectedIndex, widget.date, TimeId, y) ;
+                                openCheckout();
+                              }
                             },
                             child: Text(
                               buttontext,
@@ -1100,6 +1097,54 @@ class _ReservationCourtState extends State<ReservationCourt> {
             ],
           ),
         ));
+  }
+
+  void _showDialog(int price,int playercount) {
+    double a=(price/(forAddPlayers.length + 1));
+    double c= (a*(playercount +1));
+    double b= (price -(a*(playercount +1)));
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(15.0)
+            ),
+          ),
+          title: Center(child: Text("Payment details",style: TextStyle(fontSize: 24),)) ,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+             Text("Total court amount : $price"),
+              Text("Number of players in court : ${forAddPlayers.length + 1}"),
+              Text("Number of players added in payment : ${playercount +1}"),
+              Text("Your payment amount : $c"),
+              Text("Pending amount : $b"),
+            ],
+          ),
+          actions:[
+            SizedBox(
+              width: 80,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: ColorConstant.green6320
+                ),
+                child:  Text("Pay",style: TextStyle(color: Colors.white),),
+                onPressed: () async {
+
+                            await  pay.getpaymentList(courtid, selectedIndex,
+                                  widget.date, TimeId, c,);
+                              openCheckout();
+                            },
+
+
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   String OrderId = "";
