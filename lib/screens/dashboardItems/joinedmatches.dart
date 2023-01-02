@@ -137,7 +137,7 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: '',)));
                   },
                   child: Container(
                     child: Card(
@@ -220,7 +220,7 @@ class _JoinedMatchesState extends State<JoinedMatches> with LoadMoreListener {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: '',)));
                   },
                   child: Container(
                     child: Card(

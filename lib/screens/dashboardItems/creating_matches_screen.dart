@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/mybookingbloc.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
+import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/commonapierror.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
@@ -12,8 +13,8 @@ import 'joinedmatches.dart';
 
 
 class creatingmatchesscreen extends StatefulWidget {
-  creatingmatchesscreen({Key? key,}) : super(key: key);
-
+  creatingmatchesscreen({Key? key,required this.amount}) : super(key: key);
+String amount;
   @override
   State<creatingmatchesscreen> createState() => _creatingmatchesscreenState();
 }
@@ -141,7 +142,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,)));
                   },
                   child: Container(
                     child: Card(
@@ -224,7 +225,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!, pendingamount: widget.amount)));
                   },
                   child: Container(
                     child: Card(

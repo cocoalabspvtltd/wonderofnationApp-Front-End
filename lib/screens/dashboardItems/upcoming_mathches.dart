@@ -13,8 +13,9 @@ import 'add_match_players.dart';
 import 'my_matches.dart';
 List<PlayersupcomingPlayers> datas =[];
 class Upcomingmatch extends StatefulWidget {
-   Upcomingmatch({Key? key,required this.id}) : super(key: key);
+   Upcomingmatch({Key? key,required this.id,required this.pendingamount}) : super(key: key);
 int id ;
+String pendingamount;
   @override
   State<Upcomingmatch> createState() => _UpcomingmatchState();
 }
@@ -107,7 +108,7 @@ count= clubdetailsList.match!.playerCount!;
                                       Positioned(
                                           top:30,
                                           left:15,child: IconButton(onPressed: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0,)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: '',)));
                                       }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 
                                     ],
@@ -473,9 +474,7 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                           child: GestureDetector(onTap: (){
                                             Navigator.push(context,
-                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(
-                                                  // price:clubdetailsList!.match!.courtPrice,
-                                                )));
+                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,)));
 
                                           },
                                             child: Container(

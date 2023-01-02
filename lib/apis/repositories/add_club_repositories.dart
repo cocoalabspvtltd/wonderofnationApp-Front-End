@@ -107,7 +107,7 @@ class UpdatePalyer {
     if(response["success"]==true){Fluttertoast.showToast(msg: "Player Added");
 
       Navigator.push(context,
-        MaterialPageRoute(builder: (context)=>AddMatchPlayers()));}
+        MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: '',)));}
 
     return response;
   }
