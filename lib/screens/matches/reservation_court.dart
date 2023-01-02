@@ -29,6 +29,7 @@ List check = [];
 TextEditingController refferelpasscontroller = TextEditingController();
 List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
 
+
 class ReservationCourt extends StatefulWidget {
   const ReservationCourt({
     Key? key,
@@ -58,8 +59,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
   int price = 0;
   String y = "";
   String addplayerdisplayvalue= "";
-
-  List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
   int courtid = 0;
   bool a = false;
   String mText1 = "See All";
@@ -524,7 +523,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                //  _title = _getTitle();
                                Playercount=isChecked.where((check) => check == true).length;
                                print("count->>>>>>>>>>${Playercount}");
-                               print("value-<<<<<<<<<${isChecked[index]}");
+                              print("Array---->>>>${isChecked[index]}");
+
                              });
                            },
                          ),
@@ -550,13 +550,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                    height: 7,
                  ); },
                 shrinkWrap: true,
-                itemCount: forAddPlayers.length >=5  ? 5: forAddPlayers.length, itemBuilder: (context, index){
-
-
-                 // String _getTitle() =>
-                 //     "Checkbox Demo : Checked = ${isChecked.where((check) => check == true).length}, "
-                 //         "Unchecked = ${isChecked.where((check) => check == false).length}";
-                 // String _title = "Checkbox Demo";
+                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
             return Row(
                 children: [
                   Checkbox(
@@ -568,7 +562,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         Playercount=isChecked.where((check) => check == true).length;
                         print("count->>>>>>>>>>${Playercount}");
                         // print("title${_title}");
-                        print("value-<<<<<<<<<${isChecked[index]}");
+                        print("value-<<<<<<<<<${isChecked}");
                       });
                     },
                   ),
@@ -1113,15 +1107,23 @@ class _ReservationCourtState extends State<ReservationCourt> {
             ),
           ),
           title: Center(child: Text("Payment details",style: TextStyle(fontSize: 24),)) ,
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-             Text("Total court amount : $price"),
-              Text("Number of players in court : ${forAddPlayers.length + 1}"),
-              Text("Number of players added in payment : ${playercount +1}"),
-              Text("Your payment amount : $c"),
-              Text("Pending amount : $b"),
-            ],
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Total court amount : $price"),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
+                Text("Number of players in court : ${forAddPlayers.length + 1.toInt()}"),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
+                Text("Number of players added in payment : ${playercount +1.toInt()}"),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
+                Text("Your payment amount : $c"),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
+                Text("Pending amount : $b"),
+              ],
+            ),
           ),
           actions:[
             SizedBox(
@@ -1130,9 +1132,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 style: ElevatedButton.styleFrom(
                     primary: ColorConstant.green6320
                 ),
-                child:  Text("Pay",style: TextStyle(color: Colors.white),),
+                child:  Text("Pay",style: TextStyle(color: Colors.white,fontSize: 17),),
                 onPressed: () async {
-
                             await  pay.getpaymentList(courtid, selectedIndex,
                                   widget.date, TimeId, c,);
                               openCheckout();
