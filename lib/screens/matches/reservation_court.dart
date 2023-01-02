@@ -708,14 +708,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                       ? Colors.blue[900]
                                       : (slotColor == "red")
                                           ? Colors.red[900]
-                                          : Colors.grey
-                              : Colors.green[400],
+                                          : (slotColor =="grey")?Colors.grey:Colors.green:Colors.grey,
+
                           tileColor:
                           selectedIndex ==1? (slotColor == "green")
                               ? Colors.green[400]
                               : (slotColor == "blue")
                                   ? Colors.blue[400]
-                                  : Colors.red[400]:Colors.green[900],
+                                  : Colors.red[400]:(selectedIndex ==0 && slotColor == "green")?Colors.green[900]:Colors.grey,
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
@@ -758,6 +758,13 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             if (slots[index]["slot_status"] == "red") {
                               setState(() {
                                 slotColor = 'red';
+                                slotColor = slots[index]["slot_status"];
+                                showAlertDialognoSlots(context);
+                              });
+                            }
+                            if (slots[index]["slot_status"] == "grey") {
+                              setState(() {
+                                slotColor = 'grey';
                                 slotColor = slots[index]["slot_status"];
                                 showAlertDialognoSlots(context);
                               });
