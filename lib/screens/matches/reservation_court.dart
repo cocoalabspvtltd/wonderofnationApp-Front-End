@@ -59,11 +59,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
   String y = "";
   String addplayerdisplayvalue= "";
 
-
+  List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
   int courtid = 0;
   bool a = false;
   String mText1 = "See All";
-
   int TimeId = 0;
   TextEditingController refferelCOntroller = TextEditingController();
   List<dynamic> patientappointmentsearchdata = [];
@@ -1101,10 +1100,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
   }
 
   void _showDialog(int price,int playercount) {
-
     double a=(price/(forAddPlayers.length + 1));
-    double b= (price -(a*(playercount +1)));
     double c= (a*(playercount +1));
+    double b= (price -(a*(playercount +1)));
     showDialog(
       context: context,
       builder: (BuildContext context) {
