@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/screens/dashboardItems/creating_matches_screen.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/web_Api_provider.dart';
+import '../../screens/dashboardItems/my_matches.dart';
 import '../../screens/matches/public_court.dart';
 import '../../screens/matches/reservation_court.dart';
 import '../../screens/dashboardItems/history_screen.dart';
@@ -16,7 +18,7 @@ String sucess ="";
 String PendingSucess = "";
 class PayemntSucess {
 
-  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context) async {
+  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context,String Pending) async {
 
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "razorpay_payment_id":PaymentId,
@@ -36,11 +38,11 @@ class PayemntSucess {
 
     //print("=>>>>>>>>>${response["message"] =""}");
 
-   // if (response["message"] =="Payment successful") {
-   //   print("object");
-   //   Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage(RegisterName: "")));
-   //
-   //   }
+   if (response["message"] =="Payment successful") {
+     print("object");
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: Pending,)));
+
+     }
 
     return response;
 

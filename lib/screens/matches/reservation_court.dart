@@ -18,7 +18,7 @@ import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
 import 'club_details.dart';
-
+double b = 0.0;
 String? razorpay_signature = "";
 String? PaymentId = "";
 String? OrderRazorpayId = "";
@@ -369,7 +369,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                   selected:
                                       selectedIndex2 == index ? true : false,
                                   selectedTileColor: ColorConstant.green6320,
-                                  selectedColor: ColorConstant.gray200,
+                                  selectedColor: ColorConstant.bluegray100,
                                   title: Padding(
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: GestureDetector(
@@ -701,7 +701,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                             borderRadius: BorderRadius.circular(5)),
                         child: ListTile(
                           selected: selectedIndex1 == index ? true : false,
-                          selectedTileColor: selectedIndex == 1
+                          selectedTileColor: selectedIndex == 1 && selectedIndex==0
                               ? (slotColor == "green")
                                   ? Colors.green[900]
                                   : (slotColor == "blue")
@@ -1096,7 +1096,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   void _showDialog(int price,int playercount) {
     double a=(price/(forAddPlayers.length + 1));
     double c= (a*(playercount +1));
-    double b= (price -(a*(playercount +1)));
+     b= (price -(a*(playercount +1)));
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1213,8 +1213,10 @@ class _ReservationCourtState extends State<ReservationCourt> {
     razorpay_signature = response.signature;
     OrderRazorpayId = response.orderId;
     paysucess.getpaymentsucessList(
-        PaymentId!, Orderid, razorpay_signature, context);
-
+        PaymentId!, Orderid, razorpay_signature, context,b.toString());
+    Fluttertoast.showToast(
+        msg: "Payment SuccessFully Completed",
+        toastLength: Toast.LENGTH_SHORT);
    selectedIndex == 1? showAlertDialogrefferel(context):Container();
     // sucess == "Payment successful"
     //     ? showAlertDialog

@@ -18,6 +18,7 @@ import '../../apis/repositories/payment.dart';
 import '../../apis/repositories/paymentcucesss.dart';
 import '../../constants/colors.dart';
 import '../../constants/response.dart';
+import '../matches/reservation_court.dart';
 
 String? PendingPayrazorpay_signature = "";
 String? PendingPaymentId = "";
@@ -25,8 +26,8 @@ String? PendingOrderRazorpayId = "";
 List<Map<String, String>> forAddPlayers = [];
 
 class AddMatchPlayers extends StatefulWidget {
-  AddMatchPlayers({Key? key,}) : super(key: key);
-
+  AddMatchPlayers({Key? key,required this.Amount}) : super(key: key);
+String Amount;
   @override
   State<AddMatchPlayers> createState() => _AddMatchPlayersState();
 }
@@ -266,7 +267,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                                 onPressed: () async {
                                   playerid = datas[index].playerId!;
                                   await pendingPayment.getpendingpayment(
-                                      playerid, "200");
+                                      playerid, widget.Amount);
                                   openCheckout();
                                 },
                                 child: Text(
