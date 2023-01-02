@@ -8,7 +8,7 @@
 // import '../../constants/response.dart';
 //
 //
-// class AddPlayersBloc {`
+// class AddPlayersBloc {
 //   AddplayerRepository _AddplayerRepository = new AddplayerRepository();
 //   final _AddplayerDataController =
 //   StreamController<Response<AddPlayersModel>>();
@@ -44,4 +44,4 @@
 //     AddPlayersDataSink.close();
 //   }
 // }
-
+//

@@ -431,6 +431,10 @@ count= clubdetailsList.match!.playerCount!;
                                         ),
                                       ),
                                       Padding(
+                                        padding: const EdgeInsets.only(left: 28.0,top: 18),
+                                        child: Text("BOOKINGID : ${clubdetailsList.match?.booking_id}",style: TextStyle(fontWeight: FontWeight.bold)),
+                                      ),
+                                      Padding(
                                         padding: EdgeInsets.only(
                                           left: getHorizontalSize(
                                             30.00,

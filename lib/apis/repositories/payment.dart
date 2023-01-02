@@ -1,4 +1,7 @@
 
+import 'dart:core';
+
+
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
@@ -26,24 +29,26 @@ class Payemnt {
     DateTime gettingDate = format.parse( date);
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(gettingDate);
-  //  print("formatted-<>>>>>>>${playerid}");
-int i =0;
-          List<Map> playerData =[];
-              forAddPlayers.forEach((element) {
-                playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked[i]});
-                     i++;
-                                          });
-     final Map<String, dynamic> _queryParameters = <String, dynamic>
+    //  print("formatted-<>>>>>>>${playerid}");
+    int i =0;
+    List<Map> playerData =[];
+    forAddPlayers.forEach((element) {
+      print ("check->${check}");
+      playerData.add({"player_name":element["name"],"user_id":element["id"],"payment_status":isChecked[i]});
+
+      i+=1;
+    });
+    final Map<String, dynamic> _queryParameters = <String, dynamic>
 
     {
-        "court_id":court_id,
-        "type":type,
-        "date": formatted,
-        "time_slot_id":time_slot,
-        "amount":amount,
-        "hold_court":holdSlotvalue,
-        "players": addplayersvalue==true?
-       playerData:null,
+      "court_id":court_id,
+      "type":type,
+      "date": formatted,
+      "time_slot_id":time_slot,
+      "amount":amount,
+      "hold_court":holdSlotvalue,
+      "players": addplayersvalue==true?
+      playerData:null,
     };
     print("court/payment");
     print("_queryParameters : " + _queryParameters.toString());

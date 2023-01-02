@@ -38,6 +38,7 @@ class Match {
   String? time;
   int? type;
   String? date;
+String ?booking_id;
   List<PlayersupcomingPlayers>? players;
   int? playerCount;
 
@@ -54,7 +55,8 @@ class Match {
         this.type,
         this.date,
         this.players,
-        this.playerCount});
+        this.playerCount,
+      this.booking_id});
 
   Match.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -68,6 +70,7 @@ class Match {
     time = json['time'];
     type = json['type'];
     date = json['date'];
+    booking_id = json['booking_id'];
     if (json['players'] != null) {
       players = <PlayersupcomingPlayers>[];
       json['players'].forEach((v) {
@@ -90,6 +93,8 @@ class Match {
     data['time'] = this.time;
     data['type'] = this.type;
     data['date'] = this.date;
+  data ['booking_id'] = this.booking_id;
+
     if (this.players != null) {
       data['players'] = this.players!.map((v) => v.toJson()).toList();
     }

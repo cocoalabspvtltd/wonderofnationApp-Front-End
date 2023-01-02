@@ -56,10 +56,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
@@ -74,71 +74,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             break;
                           case Status.SUCCESS:
                             NotificationModelClass notificationlist = snapshot.data!.data;
-                            return SingleChildScrollView(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  inviteview(notificationlist)
-                                  // ListView.separated(
-                                  //   separatorBuilder: (context, index) =>
-                                  //       SizedBox(
-                                  //     height: 10,
-                                  //   ),
-                                  //   scrollDirection: Axis.vertical,
-                                  //   shrinkWrap: true,
-                                  //   itemCount: notificationlist.notifications!.length,
-                                  //   itemBuilder: (context, index) {
-                                  //     return
-                                  //
-                                  //       SizedBox(
-                                  //       height: MediaQuery.of(context).size.height * 0.14,
-                                  //       child: Card(
-                                  //         shape: RoundedRectangleBorder(
-                                  //           borderRadius: BorderRadius.circular(10),
-                                  //         ),
-                                  //         elevation: 2,
-                                  //         color: Colors.grey[300],
-                                  //         child: Padding(
-                                  //           padding: const EdgeInsets.all(10.0),
-                                  //           child: Column(
-                                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                                  //             children: [
-                                  //               SizedBox(height: 6,),
-                                  //               Align(
-                                  //                 alignment: Alignment.topRight,
-                                  //                 child: Text(
-                                  //                   '${notificationlist.notifications![index].time}',
-                                  //                   style: TextStyle(
-                                  //                     fontSize: 16,
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //               SizedBox(height: 10,),
-                                  //               Align(
-                                  //                 alignment: Alignment.topLeft,
-                                  //                child: Text("${notificationlist.notifications![index].data!.name!} has invited you to the match on "
-                                  //                    "${notificationlist.notifications![index].data!.date}",
-                                  //                    style: TextStyle(
-                                  //                          fontSize: 18,
-                                  //                          fontWeight: FontWeight.bold,
-                                  //                        ),
-                                  //                )
-                                  //               ),
-                                  //               SizedBox(
-                                  //                 height: 6,
-                                  //               ),
-                                  //             ],
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ) ;
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                            );
-
+                            return inviteview(notificationlist);
                             break;
                           case Status.ERROR:
                             return Container();
@@ -146,7 +82,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       }
                       return Container();
                     })
-
               ],
             ),
           ),
@@ -154,14 +89,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     );
   }
-  Widget inviteview(notificationlist){
+  ListView inviteview(notificationlist){
     return ListView.separated(
       separatorBuilder: (context, index) =>
           SizedBox(
             height: 10,
           ),
-      scrollDirection: Axis.vertical,
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: notificationlist.notifications!.length,
       itemBuilder: (context, index) {
         if(notificationlist.notifications![index].data!.type == "match_invite") {
@@ -172,7 +107,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 .height * 0.14,
             child: InkWell(
               onTap: (){
-                _showDialog();
+                _showDialog(notificationlist.notifications![index].data!.match_id);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -186,7 +121,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 3,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Align(
                         alignment: Alignment.topRight,
                         child: Text(
@@ -196,7 +131,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Row(
                         children: [
                           CircleAvatar(
@@ -204,7 +139,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               backgroundColor: Colors.grey[400],
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text("${notificationlist.notifications![index]
@@ -219,9 +154,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                     ],
                   ),
                 ),
@@ -234,7 +167,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             height: MediaQuery
                 .of(context)
                 .size
-                .height * 0.14,
+                .height * 0.15,
             child: InkWell(
               onTap: (){
                 // _showDialog();
@@ -251,7 +184,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 6,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Align(
                         alignment: Alignment.topRight,
                         child: Text(
@@ -261,7 +194,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
                       Row(
                         children: [
                           CircleAvatar(
@@ -269,11 +202,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               backgroundColor: Colors.grey[400],
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text(" Your invitation accepted by ${notificationlist.notifications![index]
-                                  .data!.name!}",
+                              child: Text("Your invitation accepted by ${notificationlist.notifications![index].data!.name!}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -282,9 +214,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 6,
-                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                     ],
                   ),
                 ),
@@ -295,7 +225,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       },
     ) ;
   }
-  void _showDialog() {
+  void _showDialog(int notificationId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -315,8 +245,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                  ),
                 child:  Text("Accept",style: TextStyle(color: Colors.white),),
                 onPressed: () {
-                   notifi_api.acceptInvitation(9,"accepted");
-                   Fluttertoast.showToast(msg: "You accepted invitation");
+                   notifi_api.acceptInvitation(notificationId,"accepted");
+                   inviationaccept();
+                  // Fluttertoast.showToast(msg: "You accepted invitation");
 
                 },
             ),
@@ -329,10 +260,52 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
                 child:  Text("Reject",style: TextStyle(color: Colors.white),),
                 onPressed: () {
+                  notifi_api.acceptInvitation(notificationId,"rejected");
+                  inviationreject();
                 },
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+  void inviationaccept() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pop(true);
+        });
+        return AlertDialog(
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: MediaQuery.of(context).size.width * 0.2,
+            color: Colors.white,
+            child: const Image(
+              image: AssetImage('assets/images/invitation_accept.gif'),
+            ),
+          ),
+        );
+      },
+    );
+  }
+  void inviationreject() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pop(true);
+        });
+        return AlertDialog(
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            width: MediaQuery.of(context).size.width * 0.2,
+            color: Colors.white,
+            child: const Image(
+              image: AssetImage('assets/images/invitation_reject.gif'),
+            ),
+          ),
         );
       },
     );
