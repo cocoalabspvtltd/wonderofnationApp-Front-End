@@ -1103,7 +1103,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   void _showDialog(int price,int playercount) {
     double a=(price/(forAddPlayers.length + 1));
     double c= (a*(playercount +1).toInt());
-    double b= (price -(a*(playercount +1).toInt()));
+     b= (price -(a*(playercount +1).toInt()));
     showDialog(
       context: context,
       builder: (BuildContext context) {
