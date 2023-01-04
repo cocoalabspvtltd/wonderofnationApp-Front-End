@@ -16,10 +16,10 @@ class AcademyRegistrationRepository {
       gender, address, phone, email, File img, File video) async {
     String videoname = video.path.split('/').last;
     String imgname = img!.path.split('/').last;
-   var imge =  await MultipartFile.fromFile(img.path, filename: imgname);
-   var vido=  await MultipartFile.fromFile(video.path, filename: videoname);
-   print("img->$imge");
-   print("vido->$vido");
+    var imge =  await MultipartFile.fromFile(img.path, filename: imgname);
+    var vido=  await MultipartFile.fromFile(video.path, filename: videoname);
+    print("img->$imge");
+    print("vido->$vido");
     FormData formData = FormData.fromMap({
       "sport_id": designatioids,
       "name": Name,
@@ -37,8 +37,7 @@ class AcademyRegistrationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer"+TOKEN,
-
+              'Authorization':"Bearer "+TOKEN,
             }
         )
 
@@ -46,12 +45,15 @@ class AcademyRegistrationRepository {
     print("->>>>>>>>>>>${response}");
     if (response.statusCode==200){
       return Fluttertoast.showToast(msg:"Application Submitted");
+
     }
     else
-      {
-        return Fluttertoast.showToast(msg:response.data);
-      }
+    {
+      return Fluttertoast.showToast(msg:response.data);
+    }
 
     return response;
   }
+
+
 }

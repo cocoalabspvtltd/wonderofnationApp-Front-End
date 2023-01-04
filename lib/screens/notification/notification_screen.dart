@@ -205,7 +205,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text("Your invitation accepted by ${notificationlist.notifications![index].data!.name!}",
+                              child: Text("Your invitation ${notificationlist.notifications![index].data!.status} by ${notificationlist.notifications![index].data!.name!}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,

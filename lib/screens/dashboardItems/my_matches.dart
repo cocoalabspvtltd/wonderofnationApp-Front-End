@@ -15,7 +15,8 @@ import 'joinedmatches.dart';
 class MyMatches extends StatefulWidget {
   final int fragmentToShow;
   String pendingamount;
-  MyMatches({Key? key, required this.fragmentToShow,required this.pendingamount}) : super(key: key);
+  String nopaycount;
+  MyMatches({Key? key, required this.fragmentToShow,required this.pendingamount,required this.nopaycount}) : super(key: key);
 
   @override
   State<MyMatches> createState() => _MyMatchesState();
@@ -34,6 +35,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
   @override
   void initState() {
     print("My match Screen");
+    print(widget.pendingamount);
       _tabController = new TabController(vsync: this, length: 2);
       selectedTabPos = widget.fragmentToShow != null ? widget.fragmentToShow : 0;
       _tabController!.animateTo(selectedTabPos);
@@ -183,7 +185,7 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
   getSubFragment(int pos) {
     switch (pos) {
       case 0:
-        return creatingmatchesscreen(amount: widget.pendingamount,);
+        return creatingmatchesscreen(amount: widget.pendingamount,nopaycount :widget.nopaycount);
         break;
       case 1:
         return JoinedMatches();
