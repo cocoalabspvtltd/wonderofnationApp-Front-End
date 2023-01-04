@@ -13,9 +13,10 @@ import 'add_match_players.dart';
 import 'my_matches.dart';
 List<PlayersupcomingPlayers> datas =[];
 class Upcomingmatch extends StatefulWidget {
-   Upcomingmatch({Key? key,required this.id,required this.pendingamount}) : super(key: key);
+   Upcomingmatch({Key? key,required this.id,required this.pendingamount,required this.nopaycount}) : super(key: key);
 int id ;
 String pendingamount;
+String nopaycount;
   @override
   State<Upcomingmatch> createState() => _UpcomingmatchState();
 }
@@ -33,6 +34,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
     setState(() {});
   }
   int count = 0;
+  String paymentDone="";
 
   TextEditingController searchcontroller = new TextEditingController();
   TextEditingController dateinputcontroller =
@@ -40,6 +42,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
 
 
   Widget build(BuildContext context) {
+    print(widget.pendingamount);
     return Scaffold(
         backgroundColor: Colors.white,
         body: RefreshIndicator(
@@ -62,9 +65,8 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                       MatchDescriptionModel clubdetailsList =
                           snapshot.data!.data;
 count= clubdetailsList.match!.playerCount!;
+paymentDone=clubdetailsList.match!.paymentDone!;
  datas = clubdetailsList.match!.players!;
-
-
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
                         width: size.width,
@@ -108,7 +110,7 @@ count= clubdetailsList.match!.playerCount!;
                                       Positioned(
                                           top:30,
                                           left:15,child: IconButton(onPressed: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: '',)));
+                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: '', nopaycount: '',)));
                                       }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
 
                                     ],
@@ -474,7 +476,7 @@ count= clubdetailsList.match!.playerCount!;
                                           ),
                                           child: GestureDetector(onTap: (){
                                             Navigator.push(context,
-                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,)));
+                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
 
                                           },
                                             child: Container(

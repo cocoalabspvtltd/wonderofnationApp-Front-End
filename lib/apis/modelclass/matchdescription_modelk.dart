@@ -38,6 +38,7 @@ class Match {
   String? time;
   int? type;
   int? courtPrice;
+  String ? paymentDone;
   String? date;
 String ?booking_id;
   List<PlayersupcomingPlayers>? players;
@@ -74,6 +75,7 @@ String ?booking_id;
     date = json['date'];
     courtPrice = json['court_price'];
     booking_id = json['booking_id'];
+    paymentDone = json['payment_done'];
     if (json['players'] != null) {
       players = <PlayersupcomingPlayers>[];
       json['players'].forEach((v) {
@@ -98,6 +100,7 @@ String ?booking_id;
     data['date'] = this.date;
   data ['booking_id'] = this.booking_id;
   data['court_price'] = this.courtPrice;
+  data['payment_done'] =this.paymentDone;
 
     if (this.players != null) {
       data['players'] = this.players!.map((v) => v.toJson()).toList();

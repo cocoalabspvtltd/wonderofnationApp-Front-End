@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 import 'package:oo/apis/bloc/addplayer_bloc.dart';
 import 'package:oo/apis/bloc/myplayerbloc.dart';
@@ -26,8 +27,10 @@ String? PendingOrderRazorpayId = "";
 List<Map<String, String>> forAddPlayers = [];
 
 class AddMatchPlayers extends StatefulWidget {
-  AddMatchPlayers({Key? key,required this.Amount}) : super(key: key);
+  AddMatchPlayers({Key? key,required this.Amount,required this.PaymentDone,required this.Nopaycount}) : super(key: key);
 String Amount;
+String PaymentDone;
+String Nopaycount;
 
   @override
   State<AddMatchPlayers> createState() => _AddMatchPlayersState();
@@ -47,6 +50,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
   PayemntSucess PendingPeyment = PayemntSucess();
   int playerid = 0;
   late Razorpay _razorpay;
+
 
   void initState() {
     super.initState();
@@ -124,8 +128,12 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
 
   @override
   TextEditingController searchcontroller = new TextEditingController();
-
   Widget build(BuildContext context) {
+    // print(widget.Nopaycount);
+    // print(int.parse(widget.Nopaycount));
+    // print((int.parse(widget.Amount))/(int.parse(widget.Nopaycount)));
+    // int? test =int.parse(widget.Amount,radix: 10);
+    // print("${test}");
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -264,7 +272,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                               style: TextStyle(fontWeight: FontWeight.w500),
                             ),
                             Spacer(),
-                            datas[index].paymentStatus == "0"  ? TextButton(
+                            datas[index].paymentStatus == "0"  && widget.PaymentDone != "paid"? TextButton(
                                 onPressed: () async {
                                   playerid = datas[index].playerId!;
                                   await pendingPayment.getpendingpayment(

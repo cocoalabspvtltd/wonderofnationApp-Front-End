@@ -25,6 +25,7 @@ String? OrderRazorpayId = "";
 bool? holdSlotvalue;
 bool? addplayersvalue;
 int   Playercount =0;
+int Nopaycount=0;
 List check = [];
 TextEditingController refferelpasscontroller = TextEditingController();
 List<bool> isChecked = List.generate(forAddPlayers.length, (index) => false);
@@ -50,6 +51,7 @@ class ReservationCourt extends StatefulWidget {
 }
 
 class _ReservationCourtState extends State<ReservationCourt> {
+  bool? check1 = true;
   late ReservationCourtBloc _bloc;
   late CourtSlotBloc _courtSlotBloc;
   bool? isLoading;
@@ -276,9 +278,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       padding: EdgeInsets.all(20),
                       margin: EdgeInsets.only(top: 30, left: 30, right: 30),
                       decoration: BoxDecoration(
-                          color: ColorConstant.green6320.withOpacity(0.8),
+                          color: ColorConstant.black900.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(22)),
-                      showDuration: Duration(seconds: 5),
+                      showDuration: Duration(seconds: 7),
                       textStyle: const TextStyle(
                           fontSize: 15,
                           fontStyle: FontStyle.italic,
@@ -490,7 +492,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                 timeSlotView(patientappointmentsearchdata),
                               ],
                             );
-
                             break;
                           case Status.ERROR:
                             return Container();
@@ -501,8 +502,34 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 SizedBox(
                   height: 20,
                 ),
+                if(selectedIndex==0 && forAddPlayers.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.only(left: 20,top: 10,bottom: 3),
+                    child: Text("Select players to pay",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),),
+                  ),
+                if(selectedIndex==0 && forAddPlayers.isNotEmpty)
+               Padding(
+                 padding: EdgeInsets.only(left: 30,top: 10,bottom: 3),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                     Checkbox( //only check box
+                         value: check1,
+                         activeColor: ColorConstant.green6320,
+                         onChanged: (bool? value){
+                           setState(() {
+                             // check1 = value;
+                           });
+                         }
+                     ),
+                     Icon(Icons.account_box_outlined),
+                     SizedBox(width: 10,),
+                     Text("You")
+                   ],
+                 ),
+               ),
              if(selectedIndex == 0 && forAddPlayers.isNotEmpty) a == true?Padding(
-               padding: EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               padding: EdgeInsets.only(left: 30,bottom: 20),
                child: ListView.separated(
                  separatorBuilder: (BuildContext context, int index) {
                    return SizedBox(
@@ -522,6 +549,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                isChecked[index] = checked!;
                                //  _title = _getTitle();
                                Playercount=isChecked.where((check) => check == true).length;
+                               Nopaycount=isChecked.where((check) => check == false).length;
+                               print("Nocount----->${Nopaycount}");
                                print("count->>>>>>>>>>${Playercount}");
                               print("Array---->>>>${isChecked[index]}");
 
@@ -543,14 +572,14 @@ class _ReservationCourtState extends State<ReservationCourt> {
                      );
                    }, ),
              ):Padding(
-               padding: const EdgeInsets.only(left: 30,top: 20,bottom: 20),
+               padding: const EdgeInsets.only(left: 30,bottom: 20),
                child: ListView.separated(
                  separatorBuilder: (BuildContext context, int index) {
                    return SizedBox(
                    height: 7,
                  ); },
                 shrinkWrap: true,
-                itemCount: forAddPlayers.length >=3 ? 3: forAddPlayers.length, itemBuilder: (context, index){
+                itemCount: forAddPlayers.length >=5 ? 5: forAddPlayers.length, itemBuilder: (context, index){
             return Row(
                 children: [
                   Checkbox(
@@ -560,6 +589,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       setState(() {
                         isChecked[index] = checked!;
                         Playercount=isChecked.where((check) => check == true).length;
+                        Nopaycount=isChecked.where((check) => check == false).length;
+                        print("Nocount----->${Nopaycount}");
                         print("count->>>>>>>>>>${Playercount}");
                         // print("title${_title}");
                         print("value-<<<<<<<<<${isChecked}");
@@ -876,13 +907,11 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     )),
-
-
-    if (selectedIndex == 0&&addplayersvalue==true)
+    if (selectedIndex == 0&& addplayersvalue==true)
                                 Padding(
                                     padding: const EdgeInsets.only(left: 10),
                                     child: Text(
-                                      "₹${price/Playercount.toInt()}",
+                                      "₹${price}",
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: ColorConstant.black900,
@@ -1102,8 +1131,8 @@ class _ReservationCourtState extends State<ReservationCourt> {
 
   void _showDialog(int price,int playercount) {
     double a=(price/(forAddPlayers.length + 1));
-    double c= (a*(playercount +1).toInt());
-    double b= (price -(a*(playercount +1).toInt()));
+    double c= (a*(playercount +1));
+     b= (price -(a*(playercount +1)));
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1126,9 +1155,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
                 Text("Number of players added in payment : ${playercount +1.toInt()}"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
-                Text("Your payment amount : $c"),
+                Text("Your payment amount : ${c.toInt()}"),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.003,),
-                Text("Pending amount : $b"),
+                Text("Pending amount : ${b.toInt()}"),
               ],
             ),
           ),
@@ -1142,7 +1171,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 child:  Text("Pay",style: TextStyle(color: Colors.white,fontSize: 17),),
                 onPressed: () async {
                             await  pay.getpaymentList(courtid, selectedIndex,
-                                  widget.date, TimeId, c,);
+                                  widget.date, TimeId, c.toInt(),);
                               openCheckout();
                             },
 
@@ -1220,26 +1249,26 @@ class _ReservationCourtState extends State<ReservationCourt> {
     razorpay_signature = response.signature;
     OrderRazorpayId = response.orderId;
     paysucess.getpaymentsucessList(
-        PaymentId!, Orderid, razorpay_signature, context,b.toString());
+        PaymentId!, Orderid, razorpay_signature, context,b.toString(),Nopaycount.toString());
     Fluttertoast.showToast(
         msg: "Payment SuccessFully Completed",
         toastLength: Toast.LENGTH_SHORT);
    selectedIndex == 1? showAlertDialogrefferel(context):Container();
+   print("${b}");
     // sucess == "Payment successful"
+
     //     ? showAlertDialog
     //     : SizedBox(
     //         height: 0,
     //       );
     // print("dfv");
   }
-
   void _handlePaymentError(PaymentFailureResponse response) {
     print('Error Response: $response');
     Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
         toastLength: Toast.LENGTH_SHORT);
   }
-
   void _handleExternalWallet(ExternalWalletResponse response) {
     print('External SDK Response: $response');
     /* Fluttertoast.showToast(
@@ -1287,14 +1316,11 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
         ],
       ),
-
       // content: Text("${refferel}"),
       actions: [
         okButton,
       ],
     );
-
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1303,29 +1329,17 @@ class _ReservationCourtState extends State<ReservationCourt> {
     );
   }
   showAlertDialognoSlots(BuildContext context) {
-    // set up the button
     Widget okButton = TextButton(
-      child: Text("OK"),
+      child: Text("OK",style: TextStyle(color: ColorConstant.green6320),),
       onPressed: () {
-
         Navigator.pop(context);
       },
     );
-
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Not Avilable",
-            style: TextStyle(fontSize: 15, color: Colors.black),
-          ),
-
-        ],
+      content: Text(
+        "Not Available",
+        style: TextStyle(fontSize: 18, color: Colors.black),
       ),
-
-      // content: Text("${refferel}"),
       actions: [
         okButton,
       ],

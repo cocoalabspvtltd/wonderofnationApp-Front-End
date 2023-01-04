@@ -68,6 +68,7 @@ class _MyHomePageState extends State<WelcomeScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
+                          color: Colors.white
                         ),
                       ),
                       SizedBox(
