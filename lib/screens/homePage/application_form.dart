@@ -24,7 +24,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   File? ImgPath;
   VideoPlayerController? _videoPlayerController;
   AcademyRegistrationRepository AppicationformApi =
-      AcademyRegistrationRepository();
+  AcademyRegistrationRepository();
   final ImagePicker _picker = ImagePicker();
 
   String dropdownvalue = 'Select';
@@ -79,12 +79,12 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                 ),
                 child: Center(
                     child: Text(
-                  "Application Form",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                )),
+                      "Application Form",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )),
               ),
               SizedBox(
                 width: 27,
@@ -828,57 +828,57 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                             },
                             child: _image != null
                                 ? Container(
-                                    height: getVerticalSize(
-                                      50.00,
-                                    ),
-                                    width: getHorizontalSize(
-                                      150.00,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      top: getVerticalSize(
-                                        13.00,
-                                      ),
-                                    ),
-                                    child: Image.file(
-                                      File(_image!.path),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
+                              height: getVerticalSize(
+                                50.00,
+                              ),
+                              width: getHorizontalSize(
+                                150.00,
+                              ),
+                              margin: EdgeInsets.only(
+                                top: getVerticalSize(
+                                  13.00,
+                                ),
+                              ),
+                              child: Image.file(
+                                File(_image!.path),
+                                fit: BoxFit.fill,
+                              ),
+                            )
                                 : Container(
-                                    height: getVerticalSize(
-                                      39.00,
-                                    ),
-                                    width: getHorizontalSize(
-                                      320.00,
-                                    ),
-                                    margin: EdgeInsets.only(
-                                      top: getVerticalSize(
-                                        13.00,
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: ColorConstant.whiteA700,
-                                      borderRadius: BorderRadius.circular(
-                                        getHorizontalSize(
-                                          5.00,
-                                        ),
-                                      ),
-                                      border: Border.all(
-                                        color: ColorConstant.bluegray100,
-                                        width: getHorizontalSize(
-                                          1.00,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 230),
-                                      child: Icon(
-                                        Icons.file_present_rounded,
-                                        size: 20,
-                                        color: Colors.blueGrey,
-                                      ),
-                                    ),
+                              height: getVerticalSize(
+                                39.00,
+                              ),
+                              width: getHorizontalSize(
+                                320.00,
+                              ),
+                              margin: EdgeInsets.only(
+                                top: getVerticalSize(
+                                  13.00,
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: ColorConstant.whiteA700,
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
                                   ),
+                                ),
+                                border: Border.all(
+                                  color: ColorConstant.bluegray100,
+                                  width: getHorizontalSize(
+                                    1.00,
+                                  ),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 230),
+                                child: Icon(
+                                  Icons.file_present_rounded,
+                                  size: 20,
+                                  color: Colors.blueGrey,
+                                ),
+                              ),
+                            ),
                           ),
                           Container(
                             width: getHorizontalSize(
@@ -909,15 +909,15 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                           if (_video != null)
                             _videoPlayerController!.value.isInitialized
                                 ? AspectRatio(
-                                    aspectRatio: _videoPlayerController!
-                                        .value.aspectRatio,
-                                    child: VideoPlayer(_videoPlayerController!),
-                                  )
+                              aspectRatio: _videoPlayerController!
+                                  .value.aspectRatio,
+                              child: VideoPlayer(_videoPlayerController!),
+                            )
                                 : Container()
                           else
                             GestureDetector(
                               onTap: () {
-                               _pickVideo();
+                                _pickVideo();
                               },
                               child: Container(
                                 height: getVerticalSize(
@@ -998,7 +998,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                             ),
                             child: GestureDetector(
                               onTap: () async {
-                               await AppicationformApi.getacademyregistration(
+                                await AppicationformApi.getacademyregistration(
                                     context,
                                     designatioids.toString(),
                                     NameController.text,
@@ -1007,10 +1007,10 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                     AddressController.text,
                                     Mobilenumbercontroller.text,
                                     EmailController.text,
-                                   _image!,
-                                  _video!
-                               );
-                           Navigator.pop(context);
+                                    _image!,
+                                    _video!
+                                );
+                                Navigator.pop(context);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -1056,9 +1056,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
 
   _pickVideo() async {
     PickedFile? pickedFile =
-        await _picker.getVideo(source: ImageSource.gallery);
+    await _picker.getVideo(source: ImageSource.gallery);
     _video = File(pickedFile!.path);
-print("video=>>>$_video");
+    print("video=>>>$_video");
     videoPath = _video!.path;
     _videoPlayerController = VideoPlayerController.file(_video!)
       ..initialize().then((_) {
@@ -1090,9 +1090,9 @@ print("video=>>>$_video");
       final  image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       _image = File(image.path);
-setState(() {
+      setState(() {
 
-});
+      });
 
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
@@ -1102,7 +1102,7 @@ setState(() {
   _showpicker() {
     showModalBottomSheet(
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         backgroundColor: Colors.white,
         context: context,
         builder: (context) {
@@ -1118,7 +1118,7 @@ setState(() {
                     children: [
                       IconButton(
                         onPressed: () {
-                        //  _imagefromComera();
+                          //  _imagefromComera();
                         },
                         icon: Icon(Icons.camera_alt_rounded,
                             color: Colors.orangeAccent),

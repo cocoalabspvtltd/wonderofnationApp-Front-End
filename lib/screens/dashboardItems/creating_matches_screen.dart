@@ -13,8 +13,9 @@ import 'joinedmatches.dart';
 
 
 class creatingmatchesscreen extends StatefulWidget {
-  creatingmatchesscreen({Key? key,required this.amount}) : super(key: key);
+  creatingmatchesscreen({Key? key,required this.amount,required this.nopaycount}) : super(key: key);
 String amount;
+String nopaycount;
   @override
   State<creatingmatchesscreen> createState() => _creatingmatchesscreenState();
 }
@@ -142,7 +143,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,nopaycount:widget.nopaycount)));
                   },
                   child: Container(
                     child: Card(
@@ -225,7 +226,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!, pendingamount: widget.amount)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!, pendingamount: widget.amount,nopaycount: widget.nopaycount,)));
                   },
                   child: Container(
                     child: Card(

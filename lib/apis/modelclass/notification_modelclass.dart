@@ -54,14 +54,16 @@ class Data {
     String? date;
     String? type;
     int? match_id;
+    String? status;
 
-    Data({this.name, this.date, this.type,this.match_id});
+    Data({this.name, this.date, this.type,this.match_id,this.status});
 
     Data.fromJson(Map<String, dynamic> json) {
         name = json['name'];
         date = json['date'];
         type = json['type'];
         match_id= json['match_id'];
+        status=json['status'];
     }
 
     Map<String, dynamic> toJson() {
@@ -70,6 +72,7 @@ class Data {
         data['date'] = this.date;
         data['type'] = this.type;
         data['match_id']=this.match_id;
+        data['status']=this.status;
         return data;
     }
 }

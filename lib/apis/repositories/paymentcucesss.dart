@@ -16,10 +16,12 @@ import '../../screens/matches/reservation_court.dart';
 import '../../screens/dashboardItems/history_screen.dart';
 String sucess ="";
 String PendingSucess = "";
+String nopaycount="";
+String Pending="";
 class PayemntSucess {
 
-  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context,String Pending) async {
-print("->${Pending}");
+  Future  getpaymentsucessList(String razorpay_payment_id,razorpay_order_id ,razorpay_signature,context,String Pending, String nopaycount)async {
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "razorpay_payment_id":PaymentId,
       "razorpay_order_id":Orderid,
@@ -40,7 +42,7 @@ print("->${Pending}");
 
    if (response["message"] =="Payment successful") {
      print("object");
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: Pending,)));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: Pending,nopaycount: nopaycount)));
 
      }
 
