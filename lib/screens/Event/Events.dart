@@ -12,7 +12,6 @@ import '../dashboardItems/privacy.dart';
 import '../homePage/court.dart';
 import '../homePage/navigator.dart';
 import '../login.dart';
-import '../myresults/game_detail.dart';
 import '../dashboardItems/history_screen.dart';
 
 class events extends StatefulWidget {

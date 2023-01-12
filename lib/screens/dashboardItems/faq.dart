@@ -117,21 +117,11 @@ class _FaqPageState extends State<FaqPage> {
             thickness: 1.5,
             height: 1.0,
           ),
-          // Container(
-          //   padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-          //   alignment: FractionalOffset.centerLeft,
-          //   child: Text(
-          //     "Book a court",
-          //     style: TextStyle(
-          //         fontWeight: FontWeight.w600,
-          //         fontSize: 17.0,),
-          //   ),
-          // ),
           Container(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             alignment: FractionalOffset.centerLeft,
             child: Text(
-              "-> The follow given below steps for  book the court",
+              " -> The follow given below steps for  book the court",
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16.5,
@@ -139,12 +129,12 @@ class _FaqPageState extends State<FaqPage> {
                   color: ColorConstant.black901),
             ),
           ),
-          _buildInfo("01", "Sign up or login if not"),
-          _buildInfo("02", "Open Create match screen"),
-          _buildInfo("03", "Choose a club"),
-          _buildInfo("04", "Click Reserve Court"),
-          _buildInfo("05", "Choose or select a court ,time slot and add players"),
-          _buildInfo("06", "Click Book Now for payment "),
+          _buildInfo("Step 1  :", "Sign up or login if not"),
+          _buildInfo("Step 2  :", "Open Create match screen"),
+          _buildInfo("Step 3  :", "Choose a club"),
+          _buildInfo("Step 4  :", "Click Reserve Court"),
+          _buildInfo("Step 5  :", "Choose or select a court ,time slot and add players"),
+          _buildInfo("Step 6  :", "Click Book Now for payment "),
           SizedBox(
             height: 20,
           )
@@ -158,12 +148,9 @@ class _FaqPageState extends State<FaqPage> {
       child: ListTile(
         leading: Text(
           title,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500, color: Colors.black),
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w800, color: Colors.black),
         ),
-        title: Text(
-          subTitle,
-          style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600,),
-        ),
+        title: Text(subTitle,style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.w600,),),
       ),
     );
   }
