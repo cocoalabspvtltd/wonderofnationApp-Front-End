@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+    import 'package:fluttertoast/fluttertoast.dart';
 import '../../constants/base_urls.dart';
 import '../../screens/homePage/navigator.dart';
 
@@ -14,7 +14,7 @@ String confpass ="";
 var TOKEN;
 var userid;
 var DoctorName;
-class drLOginRepository {
+class drLOginRepository  {
   var dio = Dio();
   Future createUser(String username, String password, context) async {
     EasyLoading.show(status: 'loading...');
@@ -33,15 +33,12 @@ class drLOginRepository {
             headers: {"Accept":'application/json'},
           )
       );
-
-      print(responseData.toString());
       Map token = responseData.data;
-
       name = token["user"]["name"];
       phone = token["user"]["phone"];
       email = token["user"]["email"];
       TOKEN = token["token"];
-print("email->${email}");
+
       if (responseData.statusCode == 200) {
         Navigator.push(
           context,
