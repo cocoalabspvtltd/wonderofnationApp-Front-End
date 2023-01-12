@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/bloc/notification_bloc.dart';
 import 'package:oo/apis/modelclass/notification_modelclass.dart';
 import 'package:oo/apis/repositories/notification_repositories.dart';

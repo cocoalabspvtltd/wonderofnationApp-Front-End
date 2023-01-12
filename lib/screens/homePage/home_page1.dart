@@ -1,21 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/homePage/sport_Academy.dart';
 import '../../apis/repositories/logoout_repositories.dart';
 import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
-import '../addClubs/my_clubs.dart';
 import '../addfriends/add_fried.dart';
-
-
 import '../matches/club_list_joining.dart';
-
 import 'court.dart';
 import 'home_item.dart';
 import 'levelling2.dart';
-import 'navigator.dart';
+
 
 
 class HomePage extends StatefulWidget {

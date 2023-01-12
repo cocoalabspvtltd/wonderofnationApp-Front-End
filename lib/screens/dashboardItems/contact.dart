@@ -9,8 +9,8 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  String number="7560911122";
-  String mail="info@crowdworksindia.org";
+  String number="+917560911122";
+  String mail="info@wonderofnation.com";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _ContactPageState extends State<ContactPage> {
         ),
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(left: 90),
+          padding: const EdgeInsets.only(left: 80),
           child: Text("Contact Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
           ),),
         ),
@@ -41,7 +41,6 @@ class _ContactPageState extends State<ContactPage> {
               _buildCompanyAddressDetails(),
               SizedBox(
                   height: MediaQuery.of(context).size.height * .02),
-
             ]
         ),
       ),
@@ -84,7 +83,8 @@ class _ContactPageState extends State<ContactPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.mail_outline,color: Colors.black,size: 40,),
+                  Icon(Icons.mail_outline,color: Colors.black,size: 30,),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -146,13 +146,14 @@ class _ContactPageState extends State<ContactPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.call,color: Colors.black,size: 40,),
+                  Icon(Icons.call,color: Colors.black,size: 30,),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       alignment: FractionalOffset.centerLeft,
                       child: InkWell(
-                        onTap: ()=>launch("tel:+91 $number"),
+                        onTap: ()=>launch("tel: $number"),
                         child: Text(
                           number,
                           textAlign: TextAlign.justify,
@@ -209,7 +210,8 @@ class _ContactPageState extends State<ContactPage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Icon(Icons.location_on_outlined,color: Colors.black,size: 40,),
+                  Icon(Icons.location_on_outlined,color: Colors.black,size: 35 ,),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
