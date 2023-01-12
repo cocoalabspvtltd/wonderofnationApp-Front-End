@@ -269,18 +269,21 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       width: MediaQuery.of(context).size.width * 0.06,
                     ),
                     Tooltip(
-                      // height: MediaQuery.of(context).size.height * 0.05 ,
+                      height: MediaQuery.of(context).size.height * 0.05 ,
                       message:
-                      '                     Description '
-                          '\n'
+                      '                        Description '
+                          '\n\n'
                           'Private : Book a court for yourself and friends\n'
-                          'Public  : Book a court for a public match and play with other players',
+                          'Players will not be able to see and join your match,unless you share the private link.\n'
+                          '\n'
+                          'Public  : Book a court for a public match and play with other players.'
+                          'All players in public match will have to play their share in the app',
                       padding: EdgeInsets.all(20),
                       margin: EdgeInsets.only(top: 30, left: 30, right: 30),
                       decoration: BoxDecoration(
                           color: ColorConstant.black900.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(22)),
-                      showDuration: Duration(seconds: 7),
+                      showDuration: Duration(seconds: 10),
                       textStyle: const TextStyle(
                           fontSize: 15,
                           fontStyle: FontStyle.italic,
