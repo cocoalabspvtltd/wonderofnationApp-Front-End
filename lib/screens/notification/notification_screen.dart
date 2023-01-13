@@ -171,7 +171,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   .height * 0.15,
               child: InkWell(
                 onTap: (){
-                  _showDialogmatch(notificationlist.notifications![index].data!.match_id);
+                  // print(notificationlist.notifications![index].data!.status_id);
+                  // print(notificationlist.notifications![index].data!.match_id);
+                  _showDialogmatch(notificationlist.notifications![index].data!.statusId,notificationlist.notifications![index].data!.matchId);
                 },
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -206,7 +208,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("Player  ${notificationlist.notifications![index].data!.player_name} updated the status of the match as  ${notificationlist.notifications![index].data!.status}",
+                                child: Text("Player ${notificationlist.notifications![index].data!.name} updated the status of \nthe match as  ${notificationlist.notifications![index].data!.winStatus}",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -372,7 +374,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  void _showDialogmatch(int notificationId) {
+  void _showDialogmatch(int statusid,int match_id) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -391,8 +393,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     primary: ColorConstant.green6320
                 ),
                 child:  Text("Agree",style: TextStyle(color: Colors.white),),
-                onPressed: () {
-
+                onPressed: ()async {
+                  print(statusid);
+                  print(match_id);
+                   await   notifi_api.statusAcceptInvitation(statusid,match_id, 1);
                 },
               ),
             ),

@@ -52,6 +52,7 @@ class Matches {
   int? type;
   String? date;
   int?win_status;
+  String?status;
 
   Matches(
       {this.id,
@@ -64,7 +65,7 @@ class Matches {
         this.time,
         this.type,
         this.date,
-      this.win_status});
+      this.win_status,this.status});
 
   Matches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -78,6 +79,7 @@ class Matches {
     type = json['type'];
     date = json['date'];
     win_status = json['win_status'];
+    status=json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,6 +95,8 @@ class Matches {
     data['type'] = this.type;
     data['date'] = this.date;
     data['win_status']= this.win_status;
+    data['status']=this.status;
     return data;
+
   }
 }
