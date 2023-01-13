@@ -162,6 +162,67 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
           );
         }
+        else if(notificationlist.notifications![index].data!.type == "win_status")
+          {
+            return  SizedBox(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.15,
+              child: InkWell(
+                onTap: (){
+                  _showDialogmatch(notificationlist.notifications![index].data!.match_id);
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  shadowColor: ColorConstant.green6320,
+                  elevation: 2,
+                  color: Colors.grey[300],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            '${notificationlist.notifications![index].time}',
+                            style: TextStyle(
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Colors.grey[400],
+                                child: Icon(Icons.notifications,color: Colors.blue[800],)
+                            ),
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Text("Player  ${notificationlist.notifications![index].data!.player_name} updated the status of the match as  ${notificationlist.notifications![index].data!.status}",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }
         else{
           return  SizedBox(
             height: MediaQuery
@@ -247,6 +308,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: () {
                    notifi_api.acceptInvitation(notificationId,"accepted");
                    inviationaccept();
+                   Navigator.pop(context);
                 },
             ),
              ),
@@ -260,6 +322,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: () {
                   notifi_api.acceptInvitation(notificationId,"rejected");
                   inviationreject();
+                  Navigator.pop(context);
                 },
               ),
             ),
@@ -304,6 +367,50 @@ class _NotificationScreenState extends State<NotificationScreen> {
               image: AssetImage('assets/images/invitation_reject.gif'),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _showDialogmatch(int notificationId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.blue),
+            borderRadius: BorderRadius.all(Radius.circular(15.0)
+            ),
+          ),
+          content: Text("Are you confirm this status ",style: TextStyle(fontSize: 22),),
+          actions:[
+            SizedBox(
+              width: 80,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: ColorConstant.green6320
+                ),
+                child:  Text("Agree",style: TextStyle(color: Colors.white),),
+                onPressed: () {
+
+                },
+              ),
+            ),
+            SizedBox(
+              width: 80,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.red
+                ),
+                child:  Text("Disagree",style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  // notifi_api.acceptInvitation(notificationId,"rejected");
+                  // inviationreject();
+                  // Navigator.pop(context);
+                },
+              ),
+            ),
+          ],
         );
       },
     );
