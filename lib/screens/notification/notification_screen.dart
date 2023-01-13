@@ -5,6 +5,7 @@ import 'package:oo/apis/repositories/notification_repositories.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/math_utils.dart';
 import 'package:oo/constants/response.dart';
+import 'package:oo/screens/homePage/navigator.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -246,8 +247,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: () {
                    notifi_api.acceptInvitation(notificationId,"accepted");
                    inviationaccept();
-                  // Fluttertoast.showToast(msg: "You accepted invitation");
-
                 },
             ),
              ),
