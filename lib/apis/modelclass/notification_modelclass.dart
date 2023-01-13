@@ -11,7 +11,6 @@ class NotificationModelClass {
                 notifications!.add(new Notifications.fromJson(v));
             });
         }
-
     }
 
     Map<String, dynamic> toJson() {
@@ -26,9 +25,9 @@ class NotificationModelClass {
 }
 
 class Notifications {
-    String ?id;
-    Data ?data;
-    String ?time;
+    String? id;
+    Data? data;
+    String? time;
 
     Notifications({this.id, this.data, this.time});
 
@@ -50,29 +49,46 @@ class Notifications {
 }
 
 class Data {
-    String ?name;
-    String? date;
+    String? name;
     String? type;
-    int? match_id;
-    String? status;
+    int? statusId;
+    int? matchId;
+    String? matchDate;
+    String? clubName;
+    String? winStatus;
+    String? date;
 
-    Data({this.name, this.date, this.type,this.match_id,this.status});
+    Data(
+        {this.name,
+            this.type,
+            this.statusId,
+            this.matchId,
+            this.matchDate,
+            this.clubName,
+            this.winStatus,
+            this.date});
 
     Data.fromJson(Map<String, dynamic> json) {
         name = json['name'];
-        date = json['date'];
         type = json['type'];
-        match_id= json['match_id'];
-        status=json['status'];
+        statusId = json['status_id'];
+        matchId = json['match_id'];
+        matchDate = json['match_date'];
+        clubName = json['club_name'];
+        winStatus = json['win_status'];
+        date = json['date'];
     }
 
     Map<String, dynamic> toJson() {
         final Map<String, dynamic> data = new Map<String, dynamic>();
         data['name'] = this.name;
-        data['date'] = this.date;
         data['type'] = this.type;
-        data['match_id']=this.match_id;
-        data['status']=this.status;
+        data['status_id'] = this.statusId;
+        data['match_id'] = this.matchId;
+        data['match_date'] = this.matchDate;
+        data['club_name'] = this.clubName;
+        data['win_status'] = this.winStatus;
+        data['date'] = this.date;
         return data;
     }
 }

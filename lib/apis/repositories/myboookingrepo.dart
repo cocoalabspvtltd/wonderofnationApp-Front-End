@@ -1,5 +1,9 @@
 
+
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
 import 'package:oo/constants/base_urls.dart';
 import 'package:oo/constants/web_Api_provider.dart';
@@ -101,7 +105,7 @@ class historyRepositories {
   Future  getStataus(int id , status) async {
     FormData formData = FormData.fromMap({
       "match_id":id,
-      "win_status":1,
+      "win_status":status,
     });
     print("formdata->${formData.fields}");
     final response = await  apiProvider
@@ -116,6 +120,8 @@ class historyRepositories {
 
     );
     print("->>>>>>>>>>>${response.data}");
+    Fluttertoast.showToast(msg: response.data['message']);
+
     return response.data;
 
   }

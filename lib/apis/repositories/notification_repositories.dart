@@ -49,4 +49,27 @@ print("=>${response.data}");
     return NotificationModelClass.fromJson(response.data);
 
   }
+  Future statusAcceptInvitation(int statusid,matchid,int invitestatus) async {
+
+    FormData formData = FormData.fromMap({
+      "status_id":statusid,
+      "match_id":matchid,
+      "approved":invitestatus,
+    });
+    print("formdata--->${formData.fields}");
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl+"win/status/update",
+        data: formData,
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + TOKEN,
+            }
+        )
+    );
+    print("=>${response.data}");
+    return NotificationModelClass.fromJson(response.data);
+
+  }
 }

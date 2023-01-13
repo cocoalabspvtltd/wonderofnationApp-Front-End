@@ -161,6 +161,7 @@ class _HistoryScreenState extends State<HistoryScreen> with LoadMoreListener {
                                       id: productDetails[index].id!,
                                       clubname: productDetails[index].clubName!,
                                       win_status: winsttaus,
+                                  status: productDetails[index].status,
                                     )));
                       },
                       child: Container(
@@ -314,6 +315,7 @@ class _HistoryScreenState extends State<HistoryScreen> with LoadMoreListener {
                                       id: productDetails[index].id!,
                                       clubname: productDetails[index].clubName!,
                                       win_status: win,
+                                  status: productDetails[index].status ,
                                     )));
                       },
                       child: Container(

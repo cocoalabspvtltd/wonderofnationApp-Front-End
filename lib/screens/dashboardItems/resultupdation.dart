@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:oo/apis/modelclass/matchdescription_modelk.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/constants/math_utils.dart';
+import 'package:oo/screens/dashboardItems/history_screen.dart';
+import 'package:oo/screens/dashboardItems/historymatch.dart';
 import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/profile/edit_profile.dart';
 import '../../apis/bloc/matchdescriptionbloc.dart';
@@ -12,12 +16,21 @@ import '../../apis/repositories/myboookingrepo.dart';
 import '../../constants/response.dart';
 import 'add_match_players.dart';
 import 'my_matches.dart';
-List<PlayersupcomingPlayers> datas =[];
+
+List<PlayersupcomingPlayers> datas = [];
+
 class ResultUpdation extends StatefulWidget {
-  ResultUpdation({Key? key,required this.id,required this.clubname,required this.win_status }) : super(key: key);
-  int id ;
+  ResultUpdation(
+      {Key? key,
+      required this.id,
+      required this.clubname,
+      required this.win_status,
+      required this.status})
+      : super(key: key);
+  int id;
   String clubname;
   int? win_status;
+  String? status;
 
   @override
   State<ResultUpdation> createState() => _ResultUpdationState();
@@ -30,359 +43,533 @@ class _ResultUpdationState extends State<ResultUpdation> {
   void initState() {
     super.initState();
 
-    _bloc =PackagesBlocUser();
-   // _bloc?.getAllPackagesList(widget.id);
+    _bloc = PackagesBlocUser();
+    // _bloc?.getAllPackagesList(widget.id);
 
     setState(() {});
   }
+
   int count = 0;
-  String paymentDone="";
+  String paymentDone = "";
 
   TextEditingController searchcontroller = new TextEditingController();
   TextEditingController dateinputcontroller =
-  new TextEditingController(text: DateTime.now().toString());
-
+      new TextEditingController(text: DateTime.now().toString());
 
   Widget build(BuildContext context) {
-  //  print(widget.pendingamount);
+    //  print(widget.pendingamount);
     return Scaffold(
-        backgroundColor: Colors.white,
-        body:   Container(
-          height: size.height,
-          width: size.width,
-          decoration: BoxDecoration(
-            color: ColorConstant.gray400,
-          ),
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  height: getVerticalSize(
-                    450.00,
+      backgroundColor: Colors.white,
+      body: Container(
+        height: size.height,
+        width: size.width,
+        decoration: BoxDecoration(
+          color: ColorConstant.gray400,
+        ),
+        child: Stack(
+          alignment: Alignment.bottomLeft,
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Container(
+                height: getVerticalSize(
+                  450.00,
+                ),
+                width: size.width,
+                margin: EdgeInsets.only(
+                  bottom: getVerticalSize(
+                    10.00,
                   ),
-                  width: size.width,
-                  margin: EdgeInsets.only(
-                    bottom: getVerticalSize(
-                      10.00,
-                    ),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.topLeft,
-                    children: [
-                      Container(
-                        child: Image.asset(
-                          "assets/images/football.jpg",
-                          height: getVerticalSize(
-                            450.00,
-                          ),
-                          width: getHorizontalSize(
-                            360.00,
-                          ),
-                          fit: BoxFit.fill,
+                ),
+                child: Stack(
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        "assets/images/football.jpg",
+                        height: getVerticalSize(
+                          450.00,
                         ),
+                        width: getHorizontalSize(
+                          360.00,
+                        ),
+                        fit: BoxFit.fill,
                       ),
-                      Positioned(
-                          top:30,
-                          left:15,child: IconButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MyMatches(fragmentToShow: 0, pendingamount: '', nopaycount: '',)));
-                      }, icon: Icon(Icons.arrow_back_outlined,color: Colors.white,))),
-
-                    ],
-                  ),
-
+                    ),
+                    Positioned(
+                        top: 30,
+                        left: 15,
+                        child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_outlined,
+                              color: Colors.white,
+                            ))),
+                  ],
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: getVerticalSize(
-                      1.00,
-                    ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                margin: EdgeInsets.only(
+                  top: getVerticalSize(
+                    1.00,
                   ),
-                  decoration: BoxDecoration(
-                    color: ColorConstant.whiteA700,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(
-                        getHorizontalSize(
-                          40.00,
-                        ),
-                      ),
-                      topRight: Radius.circular(
-                        getHorizontalSize(
-                          40.00,
-                        ),
-                      ),
-                      bottomLeft: Radius.circular(
-                        getHorizontalSize(
-                          0.00,
-                        ),
-                      ),
-                      bottomRight: Radius.circular(
-                        getHorizontalSize(
-                          0.00,
-                        ),
+                ),
+                decoration: BoxDecoration(
+                  color: ColorConstant.whiteA700,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(
+                      getHorizontalSize(
+                        40.00,
                       ),
                     ),
+                    topRight: Radius.circular(
+                      getHorizontalSize(
+                        40.00,
+                      ),
+                    ),
+                    bottomLeft: Radius.circular(
+                      getHorizontalSize(
+                        0.00,
+                      ),
+                    ),
+                    bottomRight: Radius.circular(
+                      getHorizontalSize(
+                        0.00,
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: getVerticalSize(
-                            50.00,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: getVerticalSize(
+                          50.00,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: getHorizontalSize(
+                              162.00,
+                            ),
+                            margin: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                30.00,
+                              ),
+                            ),
+                            child: Text(
+                              "${widget.clubname}",
+                              maxLines: null,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black900,
+                                fontSize: getFontSize(
+                                  24,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: getVerticalSize(
+                          37.00,
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                33.33,
+                              ),
+                              top: getVerticalSize(
+                                4.67,
+                              ),
+                              bottom: getVerticalSize(
+                                11.66,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
                               width: getHorizontalSize(
-                                162.00,
+                                13.33,
                               ),
-                              margin: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  30.00,
-                                ),
-                              ),
-                              child: Text(
-                                "${widget.clubname}",
-                                maxLines: null,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    24,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              child: Image.asset(
+                                "assets/images/location.png",
+                                fit: BoxFit.fill,
+                                color: Colors.black,
                               ),
                             ),
-
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: getVerticalSize(
-                            37.00,
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  33.33,
-                                ),
-                                top: getVerticalSize(
-                                  4.67,
-                                ),
-                                bottom: getVerticalSize(
-                                  11.66,
-                                ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                13.34,
                               ),
-                              child: Container(
-                                height: getVerticalSize(
-                                  16.67,
-                                ),
-                                width: getHorizontalSize(
-                                  13.33,
-                                ),
-                                child: Image.asset(
-                                  "assets/images/location.png",
-                                  fit: BoxFit.fill,color: Colors.black,
-                                ),
+                              right: getHorizontalSize(
+                                135.00,
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  13.34,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Club Name/ Sports Center",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      13,
+                                    ),
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                                right: getHorizontalSize(
-                                  135.00,
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Club Name/ Sports Center",
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: getVerticalSize(
+                                      2.00,
+                                    ),
+                                    right: getHorizontalSize(
+                                      10.00,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "3.5 km away",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: ColorConstant.black900,
                                       fontSize: getFontSize(
-                                        13,
+                                        12,
                                       ),
                                       fontFamily: 'Inter',
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      top: getVerticalSize(
-                                        2.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        10.00,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "3.5 km away",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: ColorConstant.black900,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Inter',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          top: getVerticalSize(
-                            18.00,
                           ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  33.00,
-                                ),
-                              ),
-                              child: Container(
-                                height: getSize(
-                                  15.00,
-                                ),
-                                width: getSize(
-                                  15.00,
-                                ),
-                                child: Image.asset(
-                                  "assets/images/calender.png",
-                                  fit: BoxFit.fill,color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  12.00,
-                                ),
-                                right: getHorizontalSize(
-                                  148.00,
-                                ),
-                              ),
-                              child: Text(
-                                "21.08.2022  Monday , 19.00",
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  color: ColorConstant.black900,
-                                  fontSize: getFontSize(
-                                    12,
-                                  ),
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ],
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: getVerticalSize(
+                          18.00,
                         ),
                       ),
-
-                      Padding(
-                        padding: EdgeInsets.only(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                33.00,
+                              ),
+                            ),
+                            child: Container(
+                              height: getSize(
+                                15.00,
+                              ),
+                              width: getSize(
+                                15.00,
+                              ),
+                              child: Image.asset(
+                                "assets/images/calender.png",
+                                fit: BoxFit.fill,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                12.00,
+                              ),
+                              right: getHorizontalSize(
+                                148.00,
+                              ),
+                            ),
+                            child: Text(
+                              "21.08.2022  Monday , 19.00",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: ColorConstant.black900,
+                                fontSize: getFontSize(
+                                  12,
+                                ),
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: getHorizontalSize(
+                          30.00,
+                        ),
+                        top: getVerticalSize(
+                          30.00,
+                        ),
+                        right: getHorizontalSize(
+                          30.00,
+                        ),
+                      ),
+                      child: Text(
+                        "Description",
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: ColorConstant.green6320,
+                          fontSize: getFontSize(
+                            18,
+                          ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: getHorizontalSize(
+                          300.00,
+                        ),
+                        margin: EdgeInsets.only(
                           left: getHorizontalSize(
                             30.00,
                           ),
                           top: getVerticalSize(
-                            30.00,
+                            7.00,
                           ),
                           right: getHorizontalSize(
                             30.00,
                           ),
                         ),
                         child: Text(
-                          "Description",
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
+                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus in dolor volutpat facilisi fringilla amet aliquam  rhoncus elit. Eget bibendum proin habitant pellentesque  lectus ut vitae. Sed mollis euismod malesuada.",
+                          maxLines: null,
+                          textAlign: TextAlign.justify,
                           style: TextStyle(
-                            color: ColorConstant.green6320,
+                            color: ColorConstant.black900,
                             fontSize: getFontSize(
-                              18,
+                              11,
                             ),
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          width: getHorizontalSize(
-                            300.00,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Visibility(
+                        visible: widget.win_status == 1 &&
+                            widget.status == "approved",
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                30.00,
+                              ),
+                              right: getHorizontalSize(
+                                30.00,
+                              ),
+                              bottom: getVerticalSize(
+                                40.00,
+                              ),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: getVerticalSize(
+                                45.00,
+                              ),
+                              width: getHorizontalSize(
+                                300.00,
+                              ),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 0.5),
+                                color: Colors.green[900],
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                "You won the match",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
                           ),
-                          margin: EdgeInsets.only(
+                        )),
+                    Visibility(
+                        visible: widget.win_status == 1 &&
+                            widget.status == "pending",
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                30.00,
+                              ),
+                              right: getHorizontalSize(
+                                30.00,
+                              ),
+                              bottom: getVerticalSize(
+                                40.00,
+                              ),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: getVerticalSize(
+                                45.00,
+                              ),
+                              width: getHorizontalSize(
+                                300.00,
+                              ),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 0.5),
+                                color: Colors.green[900],
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                "Waiting for player approval",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        )),
+                    Visibility(
+                      visible:
+                          widget.win_status == 0 && widget.status == "pending",
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(
                             left: getHorizontalSize(
                               30.00,
-                            ),
-                            top: getVerticalSize(
-                              7.00,
                             ),
                             right: getHorizontalSize(
                               30.00,
                             ),
+                            bottom: getVerticalSize(
+                              30.00,
+                            ),
                           ),
-                          child: Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus in dolor volutpat facilisi fringilla amet aliquam  rhoncus elit. Eget bibendum proin habitant pellentesque  lectus ut vitae. Sed mollis euismod malesuada.",
-                            maxLines: null,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(
-                                11,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: getVerticalSize(
+                              45.00,
+                            ),
+                            width: getHorizontalSize(
+                              300.00,
+                            ),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 0.5),
+                              color: Colors.red[900],
+                              borderRadius: BorderRadius.circular(
+                                getHorizontalSize(
+                                  5.00,
+                                ),
                               ),
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
+                            ),
+                            child: Text(
+                              "Waiting for player approval",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20,),
-
-
-
-                Align(
+                    ),
+                    Visibility(
+                      visible: widget.win_status == 0 &&
+                          widget.status == "disapproved",
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: getHorizontalSize(
+                              30.00,
+                            ),
+                            right: getHorizontalSize(
+                              30.00,
+                            ),
+                            bottom: getVerticalSize(
+                              30.00,
+                            ),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: getVerticalSize(
+                              45.00,
+                            ),
+                            width: getHorizontalSize(
+                              300.00,
+                            ),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 0.5),
+                              color: Colors.red[900],
+                              borderRadius: BorderRadius.circular(
+                                getHorizontalSize(
+                                  5.00,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "You lost the match",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: widget.win_status == null,
+                      child: Align(
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -399,13 +586,12 @@ class _ResultUpdationState extends State<ResultUpdation> {
                               20.00,
                             ),
                           ),
-                          child: GestureDetector(onTap: (){
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
-
-                          },
-                            child:
-                            Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              // Navigator.push(context,
+                              //     MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
+                            },
+                            child: Container(
                               alignment: Alignment.center,
                               height: getVerticalSize(
                                 45.00,
@@ -414,108 +600,125 @@ class _ResultUpdationState extends State<ResultUpdation> {
                                 300.00,
                               ),
                               decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black,width: 0.5),
+                                border:
+                                    Border.all(color: Colors.black, width: 0.5),
                                 color: Colors.green[900],
                                 borderRadius: BorderRadius.circular(
                                   getHorizontalSize(
                                     5.00,
                                   ),
-
                                 ),
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-
-                       TextButton(onPressed: ()async{
-
-                         await historystatus.getStataus(widget.id, 1);
-
-
-                            }, child:  Text("You won the match"
-                                "") ),
-
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-
+                                  TextButton(
+                                      onPressed: () async {
+                                        await historystatus.getStataus(
+                                            widget.id, 1);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HistoryMyMatches(
+                                                      fragmentToShow: 0,
+                                                      nopaycount: '',
+                                                      pendingamount: '',
+                                                    )));
+                                      },
+                                      child: Text(
+                                        "Won",
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.02,
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
                       ),
-
-                  Align(
-                     alignment: Alignment.center,
-                     child: Padding(
-                       padding: EdgeInsets.only(
-                         left: getHorizontalSize(
-                           30.00,
-                         ),
-
-                         right: getHorizontalSize(
-                           30.00,
-                         ),
-                         bottom: getVerticalSize(
-                           20.00,
-                         ),
-                       ),
-                       child: GestureDetector(onTap: (){
-                         // Navigator.push(context,
-                         //     MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
-
-                       },
-                         child:
-                         Container(
-                           alignment: Alignment.center,
-                           height: getVerticalSize(
-                             45.00,
-                           ),
-                           width: getHorizontalSize(
-                             300.00,
-                           ),
-                           decoration: BoxDecoration(
-                             border: Border.all(color: Colors.black,width: 0.5),
-                             color: Colors.red[900],
-                             borderRadius: BorderRadius.circular(
-                               getHorizontalSize(
-                                 5.00,
-                               ),
-
-                             ),
-                           ),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.center,
-                             children: [
-
-                               TextButton(onPressed: ()async{
-
-                                 await historystatus.getStataus(widget.id, 0);
-
-                               }, child:  Text(" Lost"
-                               ) ),
-
-                               SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-
-                             ],
-                           ),
-                         ),
-                       ),
-                     ),
-                   ),
-
-                    ],
-                  ),
-
+                    ),
+                    Visibility(
+                      visible: widget.win_status == null,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: getHorizontalSize(
+                              30.00,
+                            ),
+                            right: getHorizontalSize(
+                              30.00,
+                            ),
+                            bottom: getVerticalSize(
+                              20.00,
+                            ),
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                             // dget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: getVerticalSize(
+                                45.00,
+                              ),
+                              width: getHorizontalSize(
+                                300.00,
+                              ),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.black, width: 0.5),
+                                color: Colors.red[900],
+                                borderRadius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    5.00,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                      onPressed: () async {
+                                        await historystatus.getStataus(
+                                            widget.id, 0);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HistoryMyMatches(
+                                                      fragmentToShow: 0,
+                                                      nopaycount: '',
+                                                      pendingamount: '',
+                                                    )));
+                                      },
+                                      child: Text(" Lost",
+                                          style:
+                                              TextStyle(color: Colors.white))),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.02,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-
               ),
-
-
-            ],
-          ),
-        ),);
+            ),
+          ],
+        ),
+      ),
+    );
   }
-
 
   // void _showDialog() {
   //
