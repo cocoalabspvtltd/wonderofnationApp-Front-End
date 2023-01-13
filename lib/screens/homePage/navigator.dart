@@ -64,9 +64,34 @@ class _DashBoardState extends State<DashBoard> {
                 onTap: (){
                   Navigator.push(context,  MaterialPageRoute(builder: (context) => NotificationScreen()));
                 },
-                child: Container(
-                    child:
-                    Icon(Icons.notifications_none_rounded,size: 25,color: ColorConstant.black901)
+                child: Stack(
+                  children: [
+                    Container(
+                        child:
+                        Icon(Icons.notifications_none_rounded,size: 25,color: ColorConstant.black901)
+                    ),
+              Positioned(
+                right: 0,
+                child:  Container(
+                  padding: EdgeInsets.all(1),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 13,
+                    minHeight: 13,
+                  ),
+                  child: new Text(
+                    '0',
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 9,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),),
+                  ],
                 ),
               ),
             ),

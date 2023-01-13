@@ -128,7 +128,19 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                                 ),
                                 child: Center(child: Text("Won",style: TextStyle(color: Colors.white),)),
                               ),
-                            )
+                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left:3),
+                            //   child: Container(
+                            //     height: screenHeight * 0.15,
+                            //     width: screenWidth * 0.23,
+                            //     decoration: BoxDecoration(
+                            //         color: Colors.red[900],
+                            //         borderRadius: BorderRadius.all(Radius.circular(5))
+                            //     ),
+                            //     child: Center(child: Text("Lost",style: TextStyle(color: Colors.white),)),
+                            //   ),
+                            // )
                           ],
                         ),
                       );
