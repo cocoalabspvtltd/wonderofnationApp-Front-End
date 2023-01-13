@@ -7,6 +7,7 @@ import 'package:oo/screens/chat/chat_screen.dart';
 import 'package:oo/screens/dashboardItems/about.dart';
 import 'package:oo/screens/dashboardItems/contact.dart';
 import 'package:oo/screens/dashboardItems/faq.dart';
+import 'package:oo/screens/dashboardItems/historymatch.dart';
 import 'package:oo/screens/dashboardItems/my_matches.dart';
 import 'package:oo/screens/dashboardItems/privacy.dart';
 import 'package:oo/screens/dashboardItems/settingd.dart';
@@ -278,7 +279,7 @@ class _DashBoardState extends State<DashBoard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HistoryScreen()),
+                          builder: (context) => HistoryMyMatches(fragmentToShow: 0, pendingamount: '', nopaycount: '')),
                     );
                   },
                   child: Text(

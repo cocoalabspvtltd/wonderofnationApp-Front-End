@@ -17,11 +17,43 @@ class MyOrdersRepositoryUser {
     FormData formData = FormData.fromMap({
       "page":page,
       "per_page":perPage,
-      "match_type":1
+      "match_type":1 ,
+      "request_page":1,
     });
     final response = await apiProvider
         .getJsonInstance()
-        .post(baseurl+"bookings/upcoming", data: formData,
+        .post(baseurl+"bookings/matches", data: formData,
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + TOKEN,
+            }
+        )
+
+    );
+    print("->>>>>>>>>>>${response.data}");
+    return AddPlayersModel.fromJson(response.data) ;
+
+  }
+}
+
+class MyOrdersRepositoryUser1 {
+  late WebApiProvider apiProvider;
+
+  MyOrdersRepositoryUser1() {
+    apiProvider = new WebApiProvider();
+  }
+
+  Future<AddPlayersModel> getAllOrdersList(int perPage, int page) async {
+    FormData formData = FormData.fromMap({
+      "page":page,
+      "per_page":perPage,
+      "match_type":2,
+      "request_page":1,
+    });
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl+"bookings/matches", data: formData,
         options: Options(
             headers: {
               'Accept':'application/json',
@@ -36,10 +68,10 @@ class MyOrdersRepositoryUser {
   }
 }
 
-class MyOrdersRepositoryUser1 {
+class historyRepositories {
   late WebApiProvider apiProvider;
 
-  MyOrdersRepositoryUser() {
+  historyRepositories() {
     apiProvider = new WebApiProvider();
   }
 
@@ -47,11 +79,13 @@ class MyOrdersRepositoryUser1 {
     FormData formData = FormData.fromMap({
       "page":page,
       "per_page":perPage,
-      "match_type":2
+      "match_type":1,
+      "request_page":2,
     });
-    final response = await apiProvider
+    print("formdata->${formData.fields}");
+    final response = await  apiProvider
         .getJsonInstance()
-        .post(baseurl+"bookings/upcoming", data: formData,
+        .post(baseurl+"bookings/matches", data: formData,
         options: Options(
             headers: {
               'Accept':'application/json',
@@ -62,6 +96,27 @@ class MyOrdersRepositoryUser1 {
     );
     print("->>>>>>>>>>>${response.data}");
     return AddPlayersModel.fromJson(response.data);
+
+  }
+  Future  getStataus(int id , status) async {
+    FormData formData = FormData.fromMap({
+      "match_id":id,
+      "win_status":1,
+    });
+    print("formdata->${formData.fields}");
+    final response = await  apiProvider
+        .getJsonInstance()
+        .post(baseurl+"booking/win/status", data: formData,
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + TOKEN,
+            }
+        )
+
+    );
+    print("->>>>>>>>>>>${response.data}");
+    return response.data;
 
   }
 }

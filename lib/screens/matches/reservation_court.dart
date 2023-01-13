@@ -17,6 +17,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
+import '../homePage/home_page1.dart';
 import 'club_details.dart';
 double b = 0.0;
 String? razorpay_signature = "";
@@ -1442,5 +1443,72 @@ class _ReservationCourtState extends State<ReservationCourt> {
         MaterialPageRoute(builder: (context) => OrderPlaced()),
       );
     }
+  }
+}
+class OrderPlaced extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Confirmation',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
+            );
+          },
+          icon: Icon(Icons.arrow_back,),
+        ),
+
+
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(child:
+            Container(height: 40,width: 40,
+                margin: EdgeInsets.only(top: 200),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/tick.png'),
+                      fit: BoxFit.fill),
+                )
+            ),
+
+            ),
+            Container(
+              child: Text("Your Order has been placed successfully",style: TextStyle(fontSize:20),),
+            ),
+            Container(
+              child: Text("Submitted!!",style: TextStyle(fontSize:20),),
+            ),SizedBox(
+              height: 30,
+            ),
+            SizedBox(height: 60),
+            Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.green,),
+                height: 50,width:50,
+                child:TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
+                    );
+                  },
+                  child: Text(
+                    "Continue Shopping",
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:80),
+                  ),
+                )
+            )
+
+
+          ],
+        ),
+      ),
+    );
   }
 }

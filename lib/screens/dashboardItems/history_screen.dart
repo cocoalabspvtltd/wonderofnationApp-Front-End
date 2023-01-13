@@ -1,68 +1,175 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:oo/constants/math_utils.dart';
+import 'package:oo/apis/bloc/mybookingbloc.dart';
+import 'package:oo/apis/modelclass/mybookingmodel.dart';
+import 'package:oo/apis/repositories/payment.dart';
+import 'package:oo/constants/colors.dart';
+import 'package:oo/constants/commonapierror.dart';
+import 'package:oo/elements/LoadMoreListener.dart';
+import 'package:oo/screens/dashboardItems/privacy.dart';
 import 'package:oo/screens/dashboardItems/resultupdation.dart';
-import 'package:oo/screens/homePage/home_page1.dart';
-
-import '../../constants/colors.dart';
-
+import 'package:oo/screens/dashboardItems/upcoming_mathches.dart';
+import '../../constants/response.dart';
+import '../homePage/navigator.dart';
+import 'joinedmatches.dart';
 
 class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({Key? key}) : super(key: key);
-
+  HistoryScreen({Key? key, required}) : super(key: key);
+// String amount;
+// String nopaycount;
   @override
   State<HistoryScreen> createState() => _HistoryScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
-  @override
+class _HistoryScreenState extends State<HistoryScreen> with LoadMoreListener {
+  late HistoryBloc _bloc;
+  late ScrollController _itemsScrollController;
+  bool isLoadingMore = false;
   bool a = false;
+  bool b = false;
   String mText1 = "See All";
+  String mText2 = "See All";
+
+  @override
+  void initState() {
+    print("My history");
+    _bloc = HistoryBloc(listener: this);
+    _bloc.getmyordersDetailsList(false);
+    _itemsScrollController = ScrollController();
+    _itemsScrollController.addListener(_scrollListener);
+    super.initState();
+  }
+
+  @override
+  refresh(bool isLoading) {
+    if (mounted) {
+      setState(() {
+        isLoadingMore = isLoading;
+      });
+    }
+  }
+
+  paginate() async {
+    print('paginate');
+    await _bloc.getmyordersDetailsList(true);
+  }
+
+  void _scrollListener() async {
+    if (_itemsScrollController.offset >=
+            _itemsScrollController.position.maxScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the bottom");
+      // if (_bloc.hasNextPage) {
+      paginate();
+      //}
+    }
+    if (_itemsScrollController.offset <=
+            _itemsScrollController.position.minScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the top");
+    }
+  }
+
+  // late bool like;
+  @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
+    return Scaffold(
+      body: RefreshIndicator(
+        color: Colors.white,
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(
-            color: Colors.black,
-            size: 23
-        ),
-        elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 90),
-          child: Text("History",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
-          ),),
+        onRefresh: () {
+          return _bloc.getmyordersDetailsList(false);
+        },
+        child: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
+          child: StreamBuilder<Response<AddPlayersModel>>(
+              stream: _bloc.myordersDetailsListStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  switch (snapshot.data!.status!) {
+                    case Status.LOADING:
+                      return Center(
+                        child: SizedBox(
+                            width: MediaQuery.of(context).size.height * 0.05,
+                            child: CircularProgressIndicator()),
+                      );
+                    case Status.COMPLETED:
+                      AddPlayersModel resp = snapshot.data!.data;
+                      return _bloc.myordersDetailsList.isEmpty
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height - 180,
+                              child: CommonApiResultsEmptyWidget(
+                                  "${resp.success!}",
+                                  textColorReceived: Colors.black),
+                            )
+                          : _buildProductSavedListView(
+                              _bloc.myordersDetailsList);
+                    case Status.ERROR:
+                      return CommonApiResultsEmptyWidget(
+                          "${snapshot.data!.message!}",
+                          textColorReceived: Colors.black);
+                  }
+                }
+                return Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      child: CircularProgressIndicator()),
+                );
+              }),
         ),
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                SizedBox(height:MediaQuery.of(context).size.height * 0.02,),
-                Text("Your matches",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 15),),
-                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                Divider(color: Colors.grey,),
-                SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                a == true ?
-                ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 5,
-                      );
-                    },
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 10,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Container(
+    );
+  }
+
+  Widget _buildProductSavedListView(List<Matches> productDetails) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Upcoming matches",
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.01,
+          ),
+          a == true
+              ? ListView.separated(
+                  itemCount: productDetails.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 5,
+                    );
+                  },
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        int? winsttaus = productDetails[index].win_status;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ResultUpdation(
+                                      id: productDetails[index].id!,
+                                      clubname: productDetails[index].clubName!,
+                                      win_status: winsttaus,
+                                    )));
+                      },
+                      child: Container(
                         child: Card(
                           elevation: 2,
                           shape: RoundedRectangleBorder(
                               side: BorderSide(color: Colors.green, width: 0.5),
-                              borderRadius: BorderRadius.all(Radius.circular(7))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7))),
                           shadowColor: Colors.grey,
                           child: Row(
                             children: [
@@ -71,7 +178,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                   topLeft: Radius.circular(7.0),
                                   bottomLeft: Radius.circular(7.0),
                                 ),
-                                child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
+                                child: Image.asset(
+                                  "assets/images/clubmixed.jpg",
+                                  fit: BoxFit.fitHeight,
+                                  height: 150,
                                   width: 90,
                                 ),
                               ),
@@ -80,38 +190,99 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Text(
-                                      "Beginner Session",
-                                      style: new TextStyle(
-                                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
                                     ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    Text(
+                                      "${productDetails[index].clubName}",
+                                      style: new TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
                                     Row(
                                       children: [
-                                        Image.asset("assets/images/location.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("Club name/Sport Centre",style:  TextStyle(
-                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
+                                        Image.asset(
+                                          "assets/images/location.png",
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                    Text("1.5 km away",style:  TextStyle(
-                                        fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                    SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Text(
+                                      "Sport: ${productDetails[index].sport}",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
                                     Row(
                                       children: [
-
-                                        Image.asset("assets/images/calender.png", color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("03/06/2022",style:  TextStyle(
-                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                        Icon(Icons.lock_clock, color: Colors.black,),
-                                        SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                        Text("3:00",style:  TextStyle(
-                                            fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                               ],
+                                        Image.asset(
+                                          "assets/images/calender.png",
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].date}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02,
+                                        ),
+                                        Icon(
+                                          Icons.lock_clock,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].time}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -119,109 +290,187 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             ],
                           ),
                         ),
-                      );
-                    }
-                )
-                    :
-                ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        height: 5,
-                      );
-                    },
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: 3,
-                    shrinkWrap: true,
-
-                    itemBuilder: (context, index) {
-                      return GestureDetector(onTap: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>ResultUpdation()));},
-                        child: Container(
-                          child: Card(
-
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.green, width: 0.5),
-                                borderRadius: BorderRadius.all(Radius.circular(7))),
-                            shadowColor: Colors.grey,
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(7.0),
-                                    bottomLeft: Radius.circular(7.0),
-                                  ),
-                                  child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fitHeight,height: 150,
-                                    width: 90,
-                                  ),
+                      ),
+                    );
+                  })
+              : ListView.separated(
+                  itemCount: productDetails.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 5,
+                    );
+                  },
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        int? win = productDetails[index].win_status;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ResultUpdation(
+                                      id: productDetails[index].id!,
+                                      clubname: productDetails[index].clubName!,
+                                      win_status: win,
+                                    )));
+                      },
+                      child: Container(
+                        child: Card(
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.green, width: 0.5),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(7))),
+                          shadowColor: Colors.grey,
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(7.0),
+                                  bottomLeft: Radius.circular(7.0),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                      Text(
-                                        "Beginner Session",
-                                        style: new TextStyle(
-                                            fontSize: 15.0, fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                      Row(
-                                        children: [
-                                          Image.asset("assets/images/location.png", color: Colors.black,),
-                                          SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                          Text("Club name/Sport Centre",style:  TextStyle(
-                                              fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                        ],
-                                      ),
-                                      SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                      Text("1.5 km away",style:  TextStyle(
-                                          fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                      SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
-                                      Row(
-                                        children: [
-                                          Image.asset("assets/images/calender.png", color: Colors.black,),
-                                          SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                          Text("03/06/2022",style:  TextStyle(
-                                              fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                          SizedBox(width:MediaQuery.of(context).size.width * 0.02,),
-                                          Icon(Icons.lock_clock, color: Colors.black,),
-                                          SizedBox(width:MediaQuery.of(context).size.width * 0.01,),
-                                          Text("3:00",style:  TextStyle(
-                                              fontSize: 14.0, fontWeight: FontWeight.w500),),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
+                                child: Image.asset(
+                                  "assets/images/clubmixed.jpg",
+                                  fit: BoxFit.fitHeight,
+                                  height: 150,
+                                  width: 90,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.00,
+                                    ),
+                                    Text(
+                                      "${productDetails[index].clubName}",
+                                      style: new TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/location.png",
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].cityName}/${productDetails[index].stateName}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Text(
+                                      "Sport: ${productDetails[index].sport}",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/calender.png",
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].date}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02,
+                                        ),
+                                        Icon(
+                                          Icons.lock_clock,
+                                          color: Colors.black,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.01,
+                                        ),
+                                        Text(
+                                          "${productDetails[index].time}",
+                                          style: TextStyle(
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
                         ),
-                      );
-                    }
-                ),
-                SizedBox(height: 10,),
-                InkWell(
-                  onTap: (){
-                    _visibilitymethod1();
-                  },
-                  child: Center(
-                    child: Text(
-                      mText1,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-
-              ],
+                      ),
+                    );
+                  }),
+          SizedBox(
+            height: 10,
+          ),
+          InkWell(
+            onTap: () {
+              _visibilitymethod1();
+            },
+            child: Center(
+              child: Text(
+                mText1,
+                style: TextStyle(color: Colors.grey),
+              ),
             ),
           ),
-        ),
+          SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+        ],
       ),
     );
   }
+
   void _visibilitymethod1() {
     setState(() {
       if (a) {
@@ -232,74 +481,5 @@ class _HistoryScreenState extends State<HistoryScreen> {
         mText1 = "See hide";
       }
     });
-  }
-}
-
-
-class OrderPlaced extends StatelessWidget {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Confirmation',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16),),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
-            );
-          },
-          icon: Icon(Icons.arrow_back,),
-        ),
-
-
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(child:
-            Container(height: 40,width: 40,
-                margin: EdgeInsets.only(top: 200),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/tick.png'),
-                      fit: BoxFit.fill),
-                )
-            ),
-
-            ),
-            Container(
-              child: Text("Your Order has been placed successfully",style: TextStyle(fontSize:20),),
-            ),
-            Container(
-              child: Text("Submitted!!",style: TextStyle(fontSize:20),),
-            ),SizedBox(
-              height: 30,
-            ),
-            SizedBox(height: 60),
-            Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),color:Colors.green,),
-                height: 50,width:50,
-                child:TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage(RegisterName: "")),
-                    );
-                  },
-                  child: Text(
-                    "Continue Shopping",
-                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize:80),
-                  ),
-                )
-            )
-
-
-          ],
-        ),
-      ),
-    );
   }
 }

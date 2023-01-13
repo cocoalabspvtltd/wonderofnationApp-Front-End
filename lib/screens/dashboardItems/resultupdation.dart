@@ -8,15 +8,17 @@ import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/profile/edit_profile.dart';
 import '../../apis/bloc/matchdescriptionbloc.dart';
 import '../../apis/modelclass/club_details_model.dart';
+import '../../apis/repositories/myboookingrepo.dart';
 import '../../constants/response.dart';
 import 'add_match_players.dart';
 import 'my_matches.dart';
 List<PlayersupcomingPlayers> datas =[];
 class ResultUpdation extends StatefulWidget {
-  ResultUpdation({Key? key,required }) : super(key: key);
-  // int id ;
-  // String pendingamount;
-  // String nopaycount;
+  ResultUpdation({Key? key,required this.id,required this.clubname,required this.win_status }) : super(key: key);
+  int id ;
+  String clubname;
+  int? win_status;
+
   @override
   State<ResultUpdation> createState() => _ResultUpdationState();
 }
@@ -24,7 +26,7 @@ class ResultUpdation extends StatefulWidget {
 class _ResultUpdationState extends State<ResultUpdation> {
   @override
   PackagesBlocUser? _bloc;
-
+  historyRepositories historystatus = historyRepositories();
   void initState() {
     super.initState();
 
@@ -151,7 +153,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                                 ),
                               ),
                               child: Text(
-                                "clubName",
+                                "${widget.clubname}",
                                 maxLines: null,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -377,17 +379,10 @@ class _ResultUpdationState extends State<ResultUpdation> {
                         ),
                       ),
                       SizedBox(height: 20,),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 27.0),
-                            child: Text("${count} Players Added",style: TextStyle(color: Colors.black),),
-                          ),
 
-                        ],
-                      ),
 
-                      Align(
+
+                Align(
                         alignment: Alignment.center,
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -432,10 +427,12 @@ class _ResultUpdationState extends State<ResultUpdation> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
 
-                       TextButton(onPressed: (){
+                       TextButton(onPressed: ()async{
+
+                         await historystatus.getStataus(widget.id, 1);
 
 
-                            }, child:  Text("Won"
+                            }, child:  Text("You won the match"
                                 "") ),
 
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
@@ -447,63 +444,64 @@ class _ResultUpdationState extends State<ResultUpdation> {
                         ),
                       ),
 
-                      Align(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: getHorizontalSize(
-                              30.00,
-                            ),
+                  Align(
+                     alignment: Alignment.center,
+                     child: Padding(
+                       padding: EdgeInsets.only(
+                         left: getHorizontalSize(
+                           30.00,
+                         ),
 
-                            right: getHorizontalSize(
-                              30.00,
-                            ),
-                            bottom: getVerticalSize(
-                              20.00,
-                            ),
-                          ),
-                          child: GestureDetector(onTap: (){
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
+                         right: getHorizontalSize(
+                           30.00,
+                         ),
+                         bottom: getVerticalSize(
+                           20.00,
+                         ),
+                       ),
+                       child: GestureDetector(onTap: (){
+                         // Navigator.push(context,
+                         //     MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
 
-                          },
-                            child:
-                            Container(
-                              alignment: Alignment.center,
-                              height: getVerticalSize(
-                                45.00,
-                              ),
-                              width: getHorizontalSize(
-                                300.00,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black,width: 0.5),
-                                color: Colors.red[900],
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    5.00,
-                                  ),
+                       },
+                         child:
+                         Container(
+                           alignment: Alignment.center,
+                           height: getVerticalSize(
+                             45.00,
+                           ),
+                           width: getHorizontalSize(
+                             300.00,
+                           ),
+                           decoration: BoxDecoration(
+                             border: Border.all(color: Colors.black,width: 0.5),
+                             color: Colors.red[900],
+                             borderRadius: BorderRadius.circular(
+                               getHorizontalSize(
+                                 5.00,
+                               ),
 
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                             ),
+                           ),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
 
-                                  TextButton(onPressed: (){
+                               TextButton(onPressed: ()async{
 
+                                 await historystatus.getStataus(widget.id, 0);
 
-                                  }, child:  Text("Lost"
-                                      "") ),
+                               }, child:  Text(" Lost"
+                               ) ),
 
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                               SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
 
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                             ],
+                           ),
+                         ),
+                       ),
+                     ),
+                   ),
 
                     ],
                   ),

@@ -153,3 +153,80 @@ class MyOrdersBlocUser1 {
 //GET PRODUCT SAVED
 
 }
+
+///////////////////////////////////////
+
+
+class HistoryBloc {
+  historyRepositories? _myordersRepository;
+
+  HistoryBloc({this.listener}) {
+    if (_myordersRepository == null)
+      _myordersRepository = historyRepositories();
+
+    _myordersListController =
+    StreamController<Response<AddPlayersModel>>.broadcast();
+  }
+
+  bool hasNextPage = false;
+  int pageNumber = 1;
+  int perPage = 20;
+
+  LoadMoreListener? listener;
+
+  late StreamController<Response<AddPlayersModel>>
+  _myordersListController;
+
+  StreamSink<Response<AddPlayersModel>>? get myordersDetailsListSink =>
+      _myordersListController.sink;
+
+  Stream<Response<AddPlayersModel>> get myordersDetailsListStream =>
+      _myordersListController.stream;
+
+  List<Matches> myordersDetailsList = [];
+
+  getmyordersDetailsList(bool isPagination, {int? perPage}) async {
+    if (isPagination) {
+      pageNumber = pageNumber + 1;
+      listener!.refresh(true);
+
+      print("page number=========" + pageNumber.toString());
+    } else {
+      myordersDetailsListSink!.add(Response.loading('Fetching Data'));
+      pageNumber = 1;
+      //productDetailsListSink!.add(ApiResponse.loading('Fetching items'));
+    }
+    try {
+      AddPlayersModel response =
+      await _myordersRepository!.getAllOrdersList(20, pageNumber);
+      // pageNumber = response.products!.total!;
+      hasNextPage =
+      response.lastPage! >= pageNumber.toInt() ? true : false;
+      //pageNumber = !hasNextPage ? pageNumber - 1 : pageNumber;
+      if (isPagination) {
+        if (myordersDetailsList.length == 0) {
+          myordersDetailsList = response.matches!;
+        } else {
+          myordersDetailsList.addAll(response.matches!);
+        }
+      } else {
+        myordersDetailsList = response.matches ?? [];
+      }
+      myordersDetailsListSink!.add(Response.completed(response));
+      if (isPagination) {
+        listener!.refresh(false);
+      }
+    } catch (error, s) {
+      Completer().completeError(error, s);
+      if (isPagination) {
+        listener!.refresh(false);
+      } else {
+        myordersDetailsListSink!
+            .add(Response.error(e.toString()));
+      }
+    } finally {}
+  }
+
+//GET PRODUCT SAVED
+
+}
