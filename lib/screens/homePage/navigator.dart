@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oo/apis/bloc/notification_bloc.dart';
+import 'package:oo/apis/repositories/notification_repositories.dart';
 import 'package:oo/constants/colors.dart';
 import 'package:oo/screens/Event/Events.dart';
 import 'package:oo/screens/addClubs/my_clubs.dart';
@@ -29,6 +31,15 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   @override
+  late NotificationBloc _bloc;
+  NotificationRepository notifi_api= NotificationRepository();
+  void initState() {
+    super.initState();
+    _bloc =NotificationBloc();
+    _bloc.getNotification(false);
+    notifi_api.getnotification(1, 20);
+    setState(() {});
+  }
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   int _selectedIndex = 0;
   DateTime? currentBackPressTime;
@@ -39,6 +50,7 @@ class _DashBoardState extends State<DashBoard> {
   }
   Widget build(BuildContext context) {
     print("username->${widget.UserName1}");
+    print("=============count--${notificationCount}");
     return Scaffold(
       key: _scaffoldKey,
       appBar:AppBar(
@@ -84,7 +96,7 @@ class _DashBoardState extends State<DashBoard> {
                     minHeight: 13,
                   ),
                   child: new Text(
-                    '0',
+                    "${notificationCount}",
                     style: new TextStyle(
                       color: Colors.white,
                       fontSize: 9,

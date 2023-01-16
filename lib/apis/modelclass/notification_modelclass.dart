@@ -1,8 +1,11 @@
 class NotificationModelClass {
     List<Notifications>? notifications;
     List<Null>? unread;
+    int? uCount;
+    int? tCount;
 
-    NotificationModelClass({this.notifications, this.unread});
+    NotificationModelClass(
+        {this.notifications, this.unread, this.uCount, this.tCount});
 
     NotificationModelClass.fromJson(Map<String, dynamic> json) {
         if (json['notifications'] != null) {
@@ -11,6 +14,8 @@ class NotificationModelClass {
                 notifications!.add(new Notifications.fromJson(v));
             });
         }
+        uCount = json['uCount'];
+        tCount = json['tCount'];
     }
 
     Map<String, dynamic> toJson() {
@@ -19,7 +24,8 @@ class NotificationModelClass {
             data['notifications'] =
                 this.notifications!.map((v) => v.toJson()).toList();
         }
-
+        data['uCount'] = this.uCount;
+        data['tCount'] = this.tCount;
         return data;
     }
 }
@@ -27,7 +33,7 @@ class NotificationModelClass {
 class Notifications {
     String? id;
     Data? data;
-    String? time;
+    String?  time;
 
     Notifications({this.id, this.data, this.time});
 
@@ -51,50 +57,48 @@ class Notifications {
 class Data {
     String? name;
     String? type;
-    int? statusId;
+    String? status;
+    int? playerId;
     int? matchId;
+    int? statusId;
     String? matchDate;
     String? clubName;
     String? winStatus;
-    String? date;
-    String? status;
-
 
     Data(
         {this.name,
             this.type,
-            this.statusId,
+            this.status,
+            this.playerId,
             this.matchId,
+            this.statusId,
             this.matchDate,
             this.clubName,
-            this.winStatus,
-            this.date,
-        this.status});
+            this.winStatus});
 
     Data.fromJson(Map<String, dynamic> json) {
         name = json['name'];
         type = json['type'];
-        statusId = json['status_id'];
+        status = json['status'];
+        playerId = json['player_id'];
         matchId = json['match_id'];
+        statusId = json['status_id'];
         matchDate = json['match_date'];
         clubName = json['club_name'];
         winStatus = json['win_status'];
-        date = json['date'];
-        status = json['status'];
-
     }
 
     Map<String, dynamic> toJson() {
         final Map<String, dynamic> data = new Map<String, dynamic>();
         data['name'] = this.name;
         data['type'] = this.type;
-        data['status_id'] = this.statusId;
+        data['status'] = this.status;
+        data['player_id'] = this.playerId;
         data['match_id'] = this.matchId;
+        data['status_id'] = this.statusId;
         data['match_date'] = this.matchDate;
         data['club_name'] = this.clubName;
         data['win_status'] = this.winStatus;
-        data['date'] = this.date;
-        data['status'] = this.status;
         return data;
     }
 }
