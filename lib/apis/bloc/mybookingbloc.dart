@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:oo/apis/modelclass/ResultModel.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
+import 'package:oo/apis/repositories/appplayers_repositories.dart';
 import 'package:oo/apis/repositories/myboookingrepo.dart';
 import 'package:oo/constants/response.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
@@ -211,6 +213,83 @@ class HistoryBloc {
         }
       } else {
         myordersDetailsList = response.matches ?? [];
+      }
+      myordersDetailsListSink!.add(Response.completed(response));
+      if (isPagination) {
+        listener!.refresh(false);
+      }
+    } catch (error, s) {
+      Completer().completeError(error, s);
+      if (isPagination) {
+        listener!.refresh(false);
+      } else {
+        myordersDetailsListSink!
+            .add(Response.error(e.toString()));
+      }
+    } finally {}
+  }
+
+//GET PRODUCT SAVED
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class ResultBloc {
+  AddplayerRepository? _myresultRepository;
+
+  ResultBloc({this.listener}) {
+    if (_myresultRepository == null)
+      _myresultRepository = AddplayerRepository();
+
+    _myordersListController =
+    StreamController<Response<ResultModelClass>>.broadcast();
+  }
+
+  bool hasNextPage = false;
+  int pageNumber = 1;
+  int perPage = 20;
+
+  LoadMoreListener? listener;
+
+  late StreamController<Response<ResultModelClass>>
+  _myordersListController;
+
+  StreamSink<Response<ResultModelClass>>? get myordersDetailsListSink =>
+      _myordersListController.sink;
+
+  Stream<Response<ResultModelClass>> get myordersDetailsListStream =>
+      _myordersListController.stream;
+
+  List<Results> myResultdetails = [];
+
+  getmyordersDetailsList(bool isPagination, {int? perPage}) async {
+    if (isPagination) {
+      pageNumber = pageNumber + 1;
+      listener!.refresh(true);
+
+      print("page number=========" + pageNumber.toString());
+    } else {
+      myordersDetailsListSink!.add(Response.loading('Fetching Data'));
+      pageNumber = 1;
+      //productDetailsListSink!.add(ApiResponse.loading('Fetching items'));
+    }
+    try {
+      ResultModelClass response =
+      await _myresultRepository!.getResultplayersRepository(20, pageNumber);
+      // pageNumber = response.products!.total!;
+      hasNextPage =
+      response.lastPage! >= pageNumber.toInt() ? true : false;
+      //pageNumber = !hasNextPage ? pageNumber - 1 : pageNumber;
+      if (isPagination) {
+        if (myResultdetails.length == 0) {
+          myResultdetails = response.results!;
+        } else {
+          myResultdetails.addAll(response.results!);
+        }
+      } else {
+        myResultdetails = response.results ?? [];
       }
       myordersDetailsListSink!.add(Response.completed(response));
       if (isPagination) {

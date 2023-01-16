@@ -16,6 +16,7 @@ import 'package:oo/screens/login.dart';
 import 'package:oo/screens/matches/club_list_joining.dart';
 import 'package:oo/screens/myresults/game_detail_screen.dart';
 import 'package:oo/screens/dashboardItems/history_screen.dart';
+import 'package:oo/screens/myresults/myresult.dart';
 import 'package:oo/screens/notification/notification_screen.dart';
 import 'package:oo/screens/profile/profile_page.dart';
 
@@ -271,7 +272,7 @@ class _DashBoardState extends State<DashBoard> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => GameDetailScreen()));
+                            builder: (context) => MyResultScreen()));
                   },
                   child: Text(
                     "My Results",

@@ -126,10 +126,7 @@ class _HistoryScreenState extends State<HistoryScreen> with LoadMoreListener {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Upcoming matches",
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
-          ),
+
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
           ),
