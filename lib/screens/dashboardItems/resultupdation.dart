@@ -395,7 +395,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                     Visibility(
                         visible: widget.win_status == 1 &&
@@ -453,7 +453,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                                 30.00,
                               ),
                               bottom: getVerticalSize(
-                                40.00,
+                                70.00,
                               ),
                             ),
                             child: Container(
@@ -464,7 +464,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                               width: getHorizontalSize(
                                 300.00,
                               ),
-                              decoration: BoxDecoration(
+                              decoration:BoxDecoration(
                                 border:
                                     Border.all(color: Colors.black, width: 0.5),
                                 color: Colors.green[900],
@@ -495,7 +495,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                               30.00,
                             ),
                             bottom: getVerticalSize(
-                              30.00,
+                              70.00,
                             ),
                           ),
                           child: Container(
