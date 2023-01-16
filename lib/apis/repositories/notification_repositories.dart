@@ -1,5 +1,10 @@
+
+
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+
+import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:oo/apis/modelclass/notification_modelclass.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
@@ -64,6 +69,14 @@ print("=>${response.data}");
         )
     );
     print("=>${response.data}");
+    if (response.data["message"]=="success"){
+      Fluttertoast.showToast(msg: response.data["message"]);
+
+    }
+    else{
+      Fluttertoast.showToast(msg: response.data['message']);
+    }
+
     return NotificationModelClass.fromJson(response.data);
 
   }
@@ -87,6 +100,14 @@ print("=>${response.data}");
         )
     );
     print("=>${response.data}");
+    if (response.data["message"]=="success"){
+      Fluttertoast.showToast(msg: response.data["message"]);
+
+    }
+    else{
+      Fluttertoast.showToast(msg: response.data['message']);
+    }
+
     return NotificationModelClass.fromJson(response.data);
 
   }

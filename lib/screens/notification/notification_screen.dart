@@ -108,7 +108,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 .height * 0.14,
             child: InkWell(
               onTap: (){
-                _showDialog(notificationlist.notifications![index].data!.match_id);
+                _showDialog(notificationlist.notifications![index].data!.matchId);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -209,7 +209,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("Player ${notificationlist.notifications![index].data!.name} updated the status of \nthe match as  ${notificationlist.notifications![index].data!.winStatus}",
+                                child: Text("  Player ${notificationlist.notifications![index].data!.name} updated the status of\n match as ${notificationlist.notifications![index].data!.winStatus==0?"Lost":"Win"} ",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -269,7 +269,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text("Your invitation ${notificationlist.notifications![index].data!.status} by ${notificationlist.notifications![index].data!.name!}",
+                              child: Text("Your invitation ${notificationlist.notifications![index].data!.status}\n by ${notificationlist.notifications![index].data!.name}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -398,6 +398,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   print(statusid);
                   print(match_id);
                    await   notifi_api.statusAcceptInvitation(statusid,match_id, 1);
+
                 },
               ),
             ),
@@ -408,10 +409,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     primary: Colors.red
                 ),
                 child:  Text("Disagree",style: TextStyle(color: Colors.white),),
-                onPressed: () {
-                  // notifi_api.acceptInvitation(notificationId,"rejected");
-                  // inviationreject();
-                  // Navigator.pop(context);
+                onPressed: ()async {
+                  print(statusid);
+                  print(match_id);
+                  await   notifi_api.statusAcceptInvitation(statusid,match_id, 0);
                 },
               ),
             ),
