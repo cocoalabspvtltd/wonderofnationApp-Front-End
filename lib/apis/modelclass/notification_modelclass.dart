@@ -57,6 +57,8 @@ class Data {
     String? clubName;
     String? winStatus;
     String? date;
+    String? status;
+
 
     Data(
         {this.name,
@@ -66,7 +68,8 @@ class Data {
             this.matchDate,
             this.clubName,
             this.winStatus,
-            this.date});
+            this.date,
+        this.status});
 
     Data.fromJson(Map<String, dynamic> json) {
         name = json['name'];
@@ -77,6 +80,8 @@ class Data {
         clubName = json['club_name'];
         winStatus = json['win_status'];
         date = json['date'];
+        status = json['status'];
+
     }
 
     Map<String, dynamic> toJson() {
@@ -89,6 +94,7 @@ class Data {
         data['club_name'] = this.clubName;
         data['win_status'] = this.winStatus;
         data['date'] = this.date;
+        data['status'] = this.status;
         return data;
     }
 }
