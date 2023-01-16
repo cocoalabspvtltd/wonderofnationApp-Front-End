@@ -67,7 +67,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(height: 10,),
+                                      SizedBox(height:MediaQuery.of(context).size.height * 0.01,),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 0.0,left: 180),
                                         child: Text(
@@ -84,7 +84,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                                               fontSize: 15.0, fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      SizedBox(height: 8,),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
@@ -97,20 +97,20 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                                           Text("Club name/Sport Centre"),
                                         ],
                                       ),
-                                      SizedBox(height: 4,),
+                                      SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          SizedBox(width: 33,),
+                                          SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
                                           Text("2.5 km away"),
-                                          SizedBox(width: 10,),
+                                          SizedBox(width: MediaQuery.of(context).size.width * 0.025,),
                                           Image.asset(
                                             "assets/images/calender.png",
                                             color: Colors.black,
                                           ),
-                                          SizedBox(width: 8,),
+                                          SizedBox(width: MediaQuery.of(context).size.width * 0.025,),
                                           Text("04.07.22"),
-                                          SizedBox(height: 20,),
+                                          SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                                         ],
                                       ),
                                     ],

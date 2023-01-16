@@ -27,6 +27,24 @@ print("=>${response.data}");
     return NotificationModelClass.fromJson(response.data);
 
   }
+
+  Future markRead() async {
+
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl+"mark-read",
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + TOKEN,
+            }
+        )
+
+    );
+    print("=>${response.data}");
+    return NotificationModelClass.fromJson(response.data);
+
+  }
   Future acceptInvitation(int matchid,String invitestatus) async {
 
     FormData formData = FormData.fromMap({

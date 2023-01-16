@@ -21,6 +21,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   void initState() {
     super.initState();
     _bloc =NotificationBloc();
+    notifi_api.markRead();
     setState(() {});
   }
   @override
