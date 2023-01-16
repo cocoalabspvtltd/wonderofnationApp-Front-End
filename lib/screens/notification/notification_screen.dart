@@ -16,15 +16,47 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   late NotificationBloc _bloc;
+  late ScrollController _notificationScrollController;
   List<dynamic> notificationdata = [];
+  bool isLoadingMore = false;
+  // int ucount= 100;
   NotificationRepository notifi_api= NotificationRepository();
   void initState() {
     super.initState();
     _bloc =NotificationBloc();
-    notifi_api.markRead();
+    _bloc.getNotification(false);
+    _notificationScrollController = ScrollController();
+    _notificationScrollController.addListener(_scrollListener);
+     notifi_api.markRead();
     setState(() {});
   }
+  paginate() async{
+    await _bloc.getNotification(true);
+  }
+
+  void _scrollListener() async {
+    if (_notificationScrollController.offset >=
+        _notificationScrollController.position.maxScrollExtent &&
+        !_notificationScrollController.position.outOfRange) {
+      print("reach the bottom");
+      // if (_bloc.hasNextPage) {
+      paginate();
+      //}
+    }
+    if (_notificationScrollController.offset <=
+        _notificationScrollController.position.minScrollExtent &&
+        !_notificationScrollController.position.outOfRange) {
+      print("reach the top");
+    }
+  }
   @override
+  refresh(bool isLoading) {
+    if (mounted) {
+      setState(() {
+        isLoadingMore = isLoading;
+      });
+    }
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,6 +69,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => DashBoard(UserName1: '',)),
+              // );
             },
             icon: Icon(
               Icons.arrow_back,
@@ -209,7 +245,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("  Player ${notificationlist.notifications![index].data!.name} updated the status of\n match as ${notificationlist.notifications![index].data!.winStatus==0?"Lost":"Win"} ",
+                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as ${notificationlist.notifications![index].data!.winStatus==0?"Lost":"Win"} ",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,

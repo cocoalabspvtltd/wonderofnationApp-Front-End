@@ -1,25 +1,24 @@
-
-
 import 'package:dio/dio.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/notification_modelclass.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
 import 'package:oo/constants/web_Api_provider.dart';
-
+int notificationCount=0;
 class NotificationRepository {
 
   WebApiProvider apiProvider= WebApiProvider();
 
-  Future getnotification() async {
-
+  Future getnotification(int page,int perPage) async {
+    FormData formData = FormData.fromMap({
+      "page": page,
+      "per_page": perPage,
+    });
 
     final response = await apiProvider
         .getJsonInstance()
         .post(baseurl+"user/notifications",
+        data: formData,
         options: Options(
             headers: {
               'Accept':'application/json',
@@ -28,7 +27,9 @@ class NotificationRepository {
         )
 
     );
-print("=>${response.data}");
+
+   // notificationCount = response.data;
+   //  print("=>${}");
     return NotificationModelClass.fromJson(response.data);
 
   }
@@ -37,7 +38,7 @@ print("=>${response.data}");
 
     final response = await apiProvider
         .getJsonInstance()
-        .post(baseurl+"mark-read",
+        .get(baseurl+"mark-read",
         options: Options(
             headers: {
               'Accept':'application/json',
@@ -69,14 +70,6 @@ print("=>${response.data}");
         )
     );
     print("=>${response.data}");
-    if (response.data["message"]=="success"){
-      Fluttertoast.showToast(msg: response.data["message"]);
-
-    }
-    else{
-      Fluttertoast.showToast(msg: response.data['message']);
-    }
-
     return NotificationModelClass.fromJson(response.data);
 
   }
@@ -100,14 +93,6 @@ print("=>${response.data}");
         )
     );
     print("=>${response.data}");
-    if (response.data["message"]=="success"){
-      Fluttertoast.showToast(msg: response.data["message"]);
-
-    }
-    else{
-      Fluttertoast.showToast(msg: response.data['message']);
-    }
-
     return NotificationModelClass.fromJson(response.data);
 
   }

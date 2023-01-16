@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _bloc= NotificationBloc();
-    _bloc.getNotification();
+    // _bloc.getNotification();
     setState(() {});
   }
 
