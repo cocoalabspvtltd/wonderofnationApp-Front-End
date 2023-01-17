@@ -27,7 +27,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
 
   void initState() {
     super.initState();
-
+print("id-??${widget.id}");
     _bloc =PackagesBlocUser();
     _bloc?.getAllPackagesList(widget.id);
 
@@ -65,7 +65,7 @@ class _UpcomingmatchState extends State<Upcomingmatch> {
                       MatchDescriptionModel clubdetailsList =
                           snapshot.data!.data;
 count= clubdetailsList.match!.playerCount!;
-paymentDone=clubdetailsList.match!.paymentDone!;
+paymentDone=clubdetailsList!.match!.paymentDone!;
  datas = clubdetailsList.match!.players!;
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(

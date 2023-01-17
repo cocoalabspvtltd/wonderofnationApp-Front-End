@@ -16,7 +16,7 @@ class DepartmentRepositoryUser {
 
    getAllDepartmentList(int id
     ) async {
-    print("respos->>>>>");
+    print("respos->>>>>${id}");
     FormData formData = FormData.fromMap({
      "match_id":id
     });

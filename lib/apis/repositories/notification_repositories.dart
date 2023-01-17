@@ -28,8 +28,6 @@ class NotificationRepository {
 
     );
 
-   // notificationCount = response.data;
-   //  print("=>${}");
     return NotificationModelClass.fromJson(response.data);
 
   }

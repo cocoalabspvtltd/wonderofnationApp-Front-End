@@ -93,6 +93,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
                       );
                     case Status.COMPLETED:
                       AddPlayersModel resp = snapshot.data!.data;
+
                       return _bloc.myordersDetailsList.isEmpty
                           ? SizedBox(
                         height: MediaQuery.of(context).size.height - 180,
@@ -119,6 +120,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
 
 
   Widget _buildProductSavedListView(List<Matches> productDetails) {
+
     return  Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -141,9 +143,12 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
 
               shrinkWrap: true,
               itemBuilder: (context, index) {
+
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,nopaycount:widget.nopaycount)));
+                    print("object");
+                    print("id->${productDetails[index].id}");
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,nopaycount:widget.nopaycount)));
                   },
                   child: Container(
                     child: Card(
@@ -226,7 +231,7 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[0]!.id!, pendingamount: widget.amount,nopaycount: widget.nopaycount,)));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Upcomingmatch(id: productDetails[index]!.id!, pendingamount: widget.amount,nopaycount: widget.nopaycount,)));
                   },
                   child: Container(
                     child: Card(
