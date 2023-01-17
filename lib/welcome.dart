@@ -1,12 +1,11 @@
 import 'dart:async';
-
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:oo/screens/login.dart';
 
-import 'constants/colors.dart';
-import 'constants/mathutils.dart';
+import 'package:oo/screens/login.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:simple_animations/stateless_animation/play_animation.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -19,93 +18,113 @@ class _MyHomePageState extends State<WelcomeScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(seconds: 3),
+        Duration(seconds:4),
             () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.indigo[900],
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: getVerticalSize(
-                    104.00,
-                  ),
-                  bottom: getVerticalSize(
-                    20.00,
-                  ),
-                ),
-                child: Image.asset(
-                  "assets/images/img_rectangle180.png",
-                  height: getVerticalSize(
-                    419.00,
-                  ),
-                  width: getHorizontalSize(
-                    360.00,
-                  ),
-                  fit: BoxFit.fill,
-                ),
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return
+      Container(
+        decoration:  BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/logo.jpg",
               ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: getHorizontalSize(
-                    40.00,
+              fit: BoxFit.fill,
+            )),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: const EdgeInsets.only(left: 50),
+            child: PlayAnimation<double>(
+              tween: Tween(begin: -60, end:screenHeight * 0.07), // value for offset x-coordinate
+              duration:Duration(milliseconds:800),
+              builder: (context, child, value) {
+                return Transform.translate(
+                  offset: Offset(0, value), // use animated value for x-coordinate
+                  child: child,
+                );
+              },// non-linear animation
+              child: Column(
+                children: [
+                  Container(
+                      width: screenWidth *0.7,
+                      height: screenHeight * 0.8,
+                      alignment: Alignment.center,
+                      child:Image.asset("assets/images/GOLD WON.png")),
+                  Column(
+                    children: [
+                      Text(
+                        'Powered by',
+                        textAlign: TextAlign.center,
+                        style:
+                        TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Binary Sequence',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      FutureBuilder<String>(
+                          future: _getAppVersion(),
+                          builder:
+                              (BuildContext context, AsyncSnapshot<String> snapshot) {
+                            String version = '';
+                            if (snapshot.connectionState == ConnectionState.done &&
+                                snapshot.hasData)
+                              version = snapshot.data == null
+                                  ? ''
+                                  : 'Version : ${snapshot.data}';
+                            return Text(
+                              '$version',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, color: Colors.white),
+                            );
+                          }),
+                      SizedBox(
+                        height: 18,
+                      ),
+                    ],
                   ),
-                  top: getVerticalSize(
-                    40.00,
-                  ),
-                  right: getHorizontalSize(
-                    40.00,
-                  ),
-                  bottom: getVerticalSize(
-                    40.00,
-                  ),
-                ),
-                child: Text(
-                  "Wonder of nation",
-
-
-                  style: TextStyle(
-                    color: ColorConstant.whiteA700,
-                    fontSize: getFontSize(
-                      24,
-                    ),
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                ],
               ),
+
             ),
-          ],
+          ),
+
         ),
-      ),
-    );
+      );
+
+
+  }
+  Future<String> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
   }
 }
 
 class SecondScreen extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body:ImageSlideshow(
+      body: ImageSlideshow(
         width: double.infinity,
-        height: height,
+        height: double.infinity,
         initialPage: 0,
-        indicatorColor: Colors.blue,
+        indicatorColor: Colors.white,
         indicatorBackgroundColor: Colors.grey,
         onPageChanged: (value) {
           debugPrint('Page changed: $value');
@@ -113,135 +132,228 @@ class SecondScreen extends StatelessWidget {
         autoPlayInterval: 3000,
         isLoop: true,
         children: [
-          Center(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/splash6.jpg',
-                    height: height,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+          Stack(
+            children: [
+              Image.asset(
+                "assets/images/splash1.jpg",
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              Positioned(
+                top: 37,
+                right: 20,
+                child: TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                }, child: Text("Skip",style: TextStyle(color: Colors.white,fontFamily: 'Inter',
+                    fontSize: 13,fontWeight: FontWeight.bold),)),
+              ),
+              Positioned(
+                top: screenHeight * 0.67,
+                left: screenWidth * 0.3,
+                child: Text(
+                  'Lorem ipsum dolor sit',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0, fontFamily: 'Inter'),
                 ),
-                Center(
-                  child: Container(width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.transparent,),
-                      margin: EdgeInsets.only(top: 400,left: 30),
+              ),
+              Positioned(
+                top: screenHeight * 0.72,
+                left: screenWidth * 0.23,
+                child: Text("Lorem ipsum dolor sit amet, "
+                    "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11.0),),
+              ),
+              Positioned(
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  child: Container(
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.07,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.white,width:0.5)
+                      ),
+                      margin: EdgeInsets.only(
+                        top: 500,
+                      ),
                       child: Center(
                         child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor /nsit amet',
-                          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 18.0),
+                          'Get Started',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0),
                         ),
                       )),
                 ),
-                Center(
-                  child: GestureDetector(onTap: (){
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Image.asset(
+                "assets/images/splash2.jpg",
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              Positioned(
+                top: 37,
+                right: 20,
+                child: TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                }, child: Text("Skip",style: TextStyle(color: Colors.white,fontFamily: 'Inter',
+                    fontSize: 13),)),
+              ),
+              Positioned(
+                top: screenHeight * 0.67,
+                left:screenWidth * 0.3,
+                child: Text(
+                  'Lorem ipsum dolor sit',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0, fontFamily: 'Inter'),
+                ),
+              ),
+              Positioned(
+                top: screenHeight * 0.72,
+                left: screenWidth * 0.23,
+                child: Text("Lorem ipsum dolor sit amet, "
+                    "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11.0),),
+              ),
+              Positioned(
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
+                child: GestureDetector(
+                  onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) =>  LoginScreen()),
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
                     );
                   },
-                    child: Container(height: 40,width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.deepOrange,),
-                        margin: EdgeInsets.only(top: 600,),
+                  child: Container(
+                      width: screenWidth * 0.9,
+                      height: screenHeight * 0.07,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.white,width:0.5)
+                      ),
+                      margin: EdgeInsets.only(
+                        top: 500,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Get Started',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0),
+                        ),
+                      )),
+                ),
+              ),
+            ],
+          ),
+          Stack(
+            children: [
+              Image.asset(
+                "assets/images/splash3.jpg",
+                height: double.infinity,
+                fit: BoxFit.fill,
+              ),
+              Positioned(
+                top: 37,
+                right: 20,
+                child: TextButton(onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                }, child: Text("Skip",style: TextStyle(color: Colors.white,fontFamily: 'Inter',
+                    fontSize: 13),)),
+              ),
+              Positioned(
+                top: screenHeight * 0.67,
+                left: screenWidth * 0.3,
+                child: Text(
+                  'Lorem ipsum dolor sit',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0, fontFamily: 'Inter'),
+                ),
+              ),
+              Positioned(
+                top: screenHeight * 0.72,
+                left:screenWidth * 0.23,
+                child: Text("Lorem ipsum dolor sit amet, "
+                    "consectetur adipiscing elit.\nDiam in quam aliquam fames tellus a facilisi vivamus",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 11.0),),
+              ),
+              Positioned(
+                top: screenHeight * 0.24,
+                left: screenWidth * 0.05,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  child: Center(
+                    child: Container(
+                        width: screenWidth * 0.9,
+                        height: screenHeight * 0.07,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: Colors.white,width:0.5)
+                        ),
+                        margin: EdgeInsets.only(
+                          top: 500,
+                        ),
                         child: Center(
                           child: Text(
                             'Get Started',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0),
                           ),
                         )),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Center(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/spash5.jpg',
-                    height: height,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Center(
-                  child: Container(width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.transparent,),
-                      margin: EdgeInsets.only(top: 400,left: 30),
-                      child: Center(
-                        child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor /nsit amet',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
-                        ),
-                      )),
-                ),
-                Center(
-                  child: GestureDetector(onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                    );
-                  },
-                    child: Container(height: 40,width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.deepOrange,),
-                        margin: EdgeInsets.only(top: 600,),
-                        child: Center(
-                          child: Text(
-                            'Get Started',
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
-                          ),
-                        )),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Center(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    'assets/images/splash4.jpg',
-                    height: height,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Center(
-                  child: Container(width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.transparent,),
-                      margin: EdgeInsets.only(top: 400,left: 30),
-                      child: Center(
-                        child: Text(
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor /nsit amet',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18.0),
-                        ),
-                      )),
-                ),
-                Center(
-                  child: GestureDetector(onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>  LoginScreen()),
-                    );
-                  },
-                    child: Container(height: 40,width: 300,decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.transparent,),
-                        margin: EdgeInsets.only(top: 600,),
-                        child: Center(
-                          child: Text(
-                            'Get Started',
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18.0),
-                          ),
-                        )),
-                  ),
-                ),
-              ],
-            ),
-          ),
+
+
         ],
       ),
     );
-
   }
 }

@@ -1,47 +1,94 @@
-
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:oo/screens/googlesignin.dart';
-
-
-
-import '../constants/app_textbox.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oo/screens/google_signin.dart';
+import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
+import '../apis/repositories/register_Repositories.dart';
 import '../constants/colors.dart';
-import '../constants/mathUtils.dart';
-import '../homePage/navigator.dart';
-import '../homePage/register.dart';
-
-
-
+import '../constants/math_utils.dart';
+import 'forgotpassword/forgot_passwordscreen.dart';
+import 'homePage/home_page1.dart';
+import 'homePage/register.dart';
+String login_button = "LOGIN";
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
   @override
-
   State<LoginScreen> createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
+
   @override
+
   bool _passwordVisible = false;
 
   void initState() {
     _passwordVisible = false;
+    setState(() {    passwordController1.text= "";});
 
   }
+
+  TextEditingController passwordController1 = TextEditingController();
+  RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+
+  bool validatePassword(String pass){
+
+    String _password = pass.trim();
+    if(pass_valid.hasMatch(_password)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
+  bool _validate = false;
+  bool _validatePassword = false;
+  bool _isobsucure = true;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
-
+  drLOginRepository loginApiCall = new drLOginRepository();
+  TextEditingController EmailLoginController = TextEditingController();
   String _email = "";
   String _pass = "";
+  Future login() async {
+    Map data = {
+      'name': emailController.text,
+      'password': passwordController1.text,
 
-  _showSnackbar() {
-    var snackBar = new SnackBar(content: Text("Login Successful"));
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  DashBoard()),
+    };
+    print(data);
+    print("---body-->>>${data}");
+    var response = await http.post(
+      Uri.parse('https://1526-59-98-51-243.ngrok.io/api/login'),
+      body:data,
+      headers: {
+        "accept": "application/json",
+      },
     );
-    scaffoldKey.currentState?.showSnackBar(snackBar);
+
+    Map EditResponse = json.decode(response.body);
+    print("resoo000>>>>>>${EditResponse}");
+
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) =>  HomePage(RegisterName: '',)),
+      );
+      print('success');
+
+    } else {
+      Fluttertoast.showToast(
+        msg: "Username or password is not registerd",
+        gravity: ToastGravity.BOTTOM,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      print('error');
+    }
   }
 
   Widget build(BuildContext context) {
@@ -51,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
       key: formKey,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: ColorConstant.indigo900,
+          backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Container(
               width: size.width,
@@ -60,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Container(
 
                   decoration: BoxDecoration(
-                    color: ColorConstant.indigo900,
+                    color: Colors.white,
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -92,11 +139,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                     right: getHorizontalSize(
                                       20.00,
                                     ),
+                                    top: 20
                                   ),
                                   child: Image.asset(
-                                    "assets/images/img_rectangle180.png",
+                                    "assets/images/GOLD WON.png",
                                     height: getVerticalSize(
-                                      113.00,
+                                      83.00,
                                     ),
                                     width: getHorizontalSize(
                                       154.00,
@@ -110,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Padding(
                                   padding: EdgeInsets.only(
                                     top: getVerticalSize(
-                                      20.00,
+                                      60.00,
                                     ),
                                   ),
                                   child: Row(
@@ -129,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: TextStyle(
-                                            color: ColorConstant.orange900,
+                                            color: ColorConstant.green6320,
                                             fontSize: getFontSize(
                                               18,
                                             ),
@@ -159,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
-                                              color: ColorConstant.whiteA700,
+                                              color: Colors.black,
                                               fontSize: getFontSize(
                                                 18,
                                               ),
@@ -181,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       25.00,
                                     ),
                                     top: getVerticalSize(
-                                      30.00,
+                                      60.00,
                                     ),
                                     right: getHorizontalSize(
                                       20.00,
@@ -192,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: ColorConstant.whiteA700,
+                                      color: ColorConstant.black900,
                                       fontSize: getFontSize(
                                         12,
                                       ),
@@ -215,50 +263,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 child: Container(
-                                  height: getVerticalSize(
-                                    40.00,
-                                  ),
+
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
-                                  child:
-
-                                  TextFormField(style: TextStyle(color: ColorConstant.gray400,fontSize: 15),
-                                    validator: (val) => !val!.contains("@") ? "Email Id is not Valid" : null ,
-                                    onSaved: (val) => _email = val!,
-                                    decoration: InputDecoration( contentPadding: EdgeInsets.all(7.0),
-                                      hintStyle: TextStyle(
-                                          color: ColorConstant.gray400,fontSize: 12
-                                      ),
-                                      hintText: "Enter Your mail Id",
-
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      prefixIcon: Icon(Icons.email_outlined,color: Colors.grey,)
+                                  child:   Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(controller: EmailLoginController,
+                                      keyboardType: TextInputType.name,
+                                      decoration:InputDecoration(hintText: "UserName",
+                                        errorText:
+                                        _validatePassword ? 'Please fill this field' : null,
+                                        contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return '*Required';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (String? value){
+                                        EmailLoginController.text = value!;
+                                      },
                                     ),
                                   ),
-
                                 ),
                               ),
                               Align(
@@ -280,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
-                                      color: ColorConstant.whiteA700,
+                                      color: ColorConstant.black900,
                                       fontSize: getFontSize(
                                         12,
                                       ),
@@ -302,58 +331,51 @@ class _LoginScreenState extends State<LoginScreen> {
                                     20.00,
                                   ),
                                 ),
-                                child: Container(
-                                  height: getVerticalSize(
-                                    40.00,
-                                  ),
-                                  width: getHorizontalSize(
-                                    320.00,
-                                  ),
-                                  child:
+                                child:
+                                Container(
+                                    child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 15,),
+                                    child: TextFormField(
 
-                                  TextFormField(
-                                    style: TextStyle(color: ColorConstant.gray400,fontSize: 15),
-                                    obscureText: _passwordVisible,
+                                      controller: passwordController1,
+                                      keyboardType: TextInputType.text,
+                                      obscureText: _isobsucure,
 
-                                    onSaved: (val) => _pass = val!,
-                                    validator: (val) => val!.length < 8  ? "Password length should be Greater than 6" : null ,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(7.0),
-                                      hintStyle: TextStyle(
-                                          color: ColorConstant.gray400,fontSize: 12
-                                      ),
-                                      hintText: "Enter your Password",
+                                      decoration:InputDecoration(hintText: "Password",
+                                                suffixIcon: IconButton(
+                                                    icon: Icon(
+                                                      _isobsucure ? Icons.visibility : Icons.visibility_off,
+                                                    ),
+                                                    onPressed: () {
+                                                      setState(() {
 
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: ColorConstant.bluegray100,
-                                          width: 1,
-                                        ),
-                                      ),
-                                      suffixIcon: IconButton(
-                                          icon: Icon(_passwordVisible ? Icons.visibility:Icons.visibility_off,color: Colors.white,size: 14,
-                                          ),
-                                          onPressed: () {
-                                            setState(() {
-                                              _passwordVisible = !_passwordVisible;
-                                            });
-                                          }),
+
+                                                        _isobsucure = !_isobsucure;
+
+                                                      });
+                                                    }),
+                                        errorText:
+                                        _validatePassword ? 'Please fill this field' : null,
+                                        contentPadding:
+                                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+                                      validator: (value){
+                                        if(value!.isEmpty){
+                                          return "Please enter password";
+                                        }else{
+                                          //call function to check password
+                                          bool result = validatePassword(value);
+                                          if(result){
+                                            // create account event
+                                            return null;
+                                          }else{
+                                            return " Password should contain Capital, small letter & Number & Special";
+                                          }
+                                        }
+                                      },
+                                      onSaved: (String? value){
+                                        passwordController1.text = value!;
+                                      },
                                     ),
                                   ),
                                 ),
@@ -372,17 +394,24 @@ class _LoginScreenState extends State<LoginScreen> {
                                       20.00,
                                     ),
                                   ),
-                                  child: Text(
-                                    "Forgot Password?",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      color: ColorConstant.orange900,
-                                      fontSize: getFontSize(
-                                        10,
+                                  child: GestureDetector(onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) =>  ForgotPasswordScreen()),
+                                    );
+                                  },
+                                    child: Text(
+                                      "Forgot Password?",
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: ColorConstant.orange900,
+                                        fontSize: getFontSize(
+                                          10,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
@@ -393,62 +422,47 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.only(
                                       left: getHorizontalSize(
-                                        20.00,
+                                        0.00,
                                       ),
                                       top: getVerticalSize(
                                         26.00,
                                       ),
                                       right: getHorizontalSize(
-                                        20.00,
+                                        0.00,
                                       ),
                                     ),
-                                    child: GestureDetector(onTap: () {
-                                      // setState(() {
-                                      //   print("-->>>>Form was Submitted Successfully");
-                                      //   if (_formKey.currentState!.validate()) {
-                                      //     print("Form was Submitted Successfully");
-                                      //     NameController.text.isEmpty ? _validate = true : _validate = false;
-                                      //     print("Form was Submitted Successfully");
-                                      //     EmailControler.text.isEmpty
-                                      //         ? _validatePassword = true
-                                      //         : _validatePassword = false;
-                                      //   }
-                                      //
-                                      // });
+                                    child: TextButton(
+                                      onPressed: () async{
+                                        print("loading");
 
-                                      if (formKey.currentState!.validate()) {
-                                        formKey.currentState!.save();
+                                        setState(() {
+                                          if (_formKey.currentState!.validate()) {
+                                            print("Form was Submitted Successfully");
+                                            passwordController1.text.isEmpty
+                                                ? _validate = true
+                                                : _validate = false;
+                                            passwordController1.text.isEmpty
+                                                ? _validatePassword = true
+                                                : _validatePassword = false;
+                                          }
+                                        });
 
-                                        _showSnackbar();
-                                      }
+                                      //  EasyLoading.showProgress(0.3, status: 'downloading...');
+                                      await  loginApiCall.createUser(EmailLoginController.text,
+                                            passwordController1.text, context);
 
-                                    },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        height: getVerticalSize(
-                                          42.00,
+                                      },
+                                      child: Container(height: 40,width: 360,
+                                        decoration: BoxDecoration(color: ColorConstant.green6320,
+                                          borderRadius: BorderRadius.circular(8)
                                         ),
-                                        width: getHorizontalSize(
-                                          320.00,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: ColorConstant.orange900,
-                                          borderRadius: BorderRadius.circular(
-                                            getHorizontalSize(
-                                              5.00,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          "Login",
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: ColorConstant.whiteA700,
-                                            fontSize: getFontSize(
-                                              14,
-                                            ),
-                                            fontFamily: 'Inter',
-                                            fontWeight: FontWeight.w400,
+                                        child: Center(
+                                          child: Text(
+                                          login_button,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                //fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                         ),
                                       ),
@@ -464,17 +478,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: Container(
                                     margin: EdgeInsets.only(
                                       left: getHorizontalSize(
-                                        20.00,
+                                        80.00,
                                       ),
                                       top: getVerticalSize(
-                                        43.00,
+                                        48.00,
                                       ),
                                       right: getHorizontalSize(
-                                        20.00,
+                                        80.00,
                                       ),
                                     ),
                                     decoration: BoxDecoration(
-                                      color: ColorConstant.indigo900,
+                                      color: ColorConstant.whiteA700,
                                       border: Border.all(
                                         color: ColorConstant.gray500,
                                         width: getHorizontalSize(
@@ -499,7 +513,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                               14.00,
                                             ),
                                           ),
-                                          child: GestureDetector(onTap: (){
+                                          child: GestureDetector(onTap: (){ Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) =>  SignInDemo()),
+                                          );
 
                                           },
                                             child: Text(
@@ -507,7 +524,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
-                                                color: ColorConstant.whiteA700,
+                                                color: ColorConstant.black900,
                                                 fontSize: getFontSize(
                                                   12,
                                                 ),
@@ -533,7 +550,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           child: GestureDetector(onTap: (){
-                                            print("b");
+
                                           },
                                             child: Container(
                                               height: getSize(
@@ -548,15 +565,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
 
+
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
+
                             ],
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
@@ -568,6 +588,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
+  Future<String> _getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.version;
+  }
 
 }
