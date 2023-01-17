@@ -234,7 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                   child: Text(
-                                    "User Name",
+                                    "Name",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
@@ -261,7 +261,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 child: Container(
-
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
@@ -269,12 +268,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     padding: const EdgeInsets.only(bottom: 15,),
                                     child: TextFormField(controller: usernameController,
                                       keyboardType: TextInputType.name,
-                                      decoration:InputDecoration(hintText: "UserName",contentPadding:
+                                      decoration:InputDecoration(hintText: "Name",contentPadding:
                                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),),
+
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return '*Required';
+                                          return 'Please enter your name';
                                         }
                                         return null;
                                       },
@@ -341,7 +341,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       validator: (String? value){
                                         if(value!.isEmpty)
                                         {
-                                          return 'Please a Enter';
+                                          return 'Please a Enter email id';
                                         }
                                         if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
                                           return 'Please a valid Email';
@@ -397,7 +397,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 child: Container(
-
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
@@ -612,15 +611,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 child: GestureDetector(
                                   onTap: () async{
-
-                                    await  register(
-                                        usernameController.text,
-                                        emailController.text,
-                                        mobileController.text,
-                                        passwordController.text,
-                                        confirmpassController.text,
-                                        context);
-
                                     setState(() {
                                       if (_formKey.currentState!.validate()) {
                                         print("Form was Submitted Successfully");
@@ -631,8 +621,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ? _validatePassword = true
                                             : _validatePassword = false;
                                       }
-
-                                    });
+                                    }
+                                    );
+                                    await  register(
+                                        usernameController.text,
+                                        emailController.text,
+                                        mobileController.text,
+                                        passwordController.text,
+                                        confirmpassController.text,
+                                        context);
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

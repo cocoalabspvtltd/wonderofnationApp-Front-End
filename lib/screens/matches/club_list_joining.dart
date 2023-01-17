@@ -129,7 +129,6 @@ class _ClubListState extends State<ClubList> {
                       builder: (context) =>
                           ClubDetails(club_id: data[index].id,
                             date: dateinputcontroller.text,
-
                           )));
             },
             child: Stack(
