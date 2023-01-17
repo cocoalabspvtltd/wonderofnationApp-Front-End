@@ -27,7 +27,8 @@ class NotificationRepository {
         )
 
     );
-
+    notificationCount=response.data['uCount'];
+  print("Notificatio response--->${response.data}");
     return NotificationModelClass.fromJson(response.data);
 
   }

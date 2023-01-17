@@ -181,8 +181,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               alignment: Alignment.topLeft,
                               child: Text("${notificationlist.notifications![index]
                                   .data!.name!} has invited you to the match on \n"
-                                  "${notificationlist.notifications![index].data!
-                                  .date}",
+                                "${notificationlist.notifications![index].data!
+                                    .date}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -347,7 +347,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: () {
                    notifi_api.acceptInvitation(notificationId,"accepted");
                    inviationaccept();
-                   Navigator.pop(context);
                 },
             ),
              ),
@@ -361,7 +360,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: () {
                   notifi_api.acceptInvitation(notificationId,"rejected");
                   inviationreject();
-                  Navigator.pop(context);
                 },
               ),
             ),
