@@ -720,12 +720,13 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ),
+                              SizedBox(width: 10,),
                               Container(
                                 height: getVerticalSize(
                                   152.00,
                                 ),
                                 width: getHorizontalSize(
-                                  241.00,
+                                  230.00,
                                 ),
                                 child:
                                 HomeItemWidget()

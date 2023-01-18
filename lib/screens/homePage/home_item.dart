@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oo/apis/modelclass/user_suggestion_model.dart';
 import 'package:oo/apis/repositories/user_suggestion_repositories.dart';
 import 'package:oo/constants/commonapierror.dart';
 import '../../apis/bloc/user_suggestion_bloc.dart';
+import '../../apis/repositories/followunfollowusers.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,34 +21,71 @@ class HomeItemWidget extends StatefulWidget {
 
 class _HomeItemWidgetState extends State<HomeItemWidget> {
   late UserSuggestionDetailsBloc _bloc;
-
-  List<UserSuggestionModel> JoinedClubsearchdata = [];
+  late ScrollController _itemsScrollController;
+  bool isLoadingMore = false;
+ late UserSuggestionModel JoinedClubsearchdata;
   List<UserSuggestionModel> JoinedClubserachlist = [];
   TextEditingController JoinedClubController = TextEditingController();
   UserSuggestionRepository joinclubapi = UserSuggestionRepository();
+  FollowRepositories followapi = FollowRepositories();
+  FollowRepositories unFollowapi = FollowRepositories();
   void initState() {
     super.initState();
-    _bloc = UserSuggestionDetailsBloc();
-
+       _bloc = UserSuggestionDetailsBloc( );
+        _itemsScrollController = ScrollController();
+        _bloc.getmyordersDetailsList(false);
     setState(() {});
   }
 
+  @override
+  refresh(bool isLoading) {
+    if (mounted) {
+      setState(() {
+        isLoadingMore = isLoading;
+      });
+    }
+  }
+
+  paginate() async {
+    print('paginate');
+    await _bloc.getmyordersDetailsList(true);
+  }
+
+  void _scrollListener() async {
+    if (_itemsScrollController.offset >=
+        _itemsScrollController.position.maxScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the bottom");
+      // if (_bloc.hasNextPage) {
+      paginate();
+      //}
+    }
+    if (_itemsScrollController.offset <=
+        _itemsScrollController.position.minScrollExtent &&
+        !_itemsScrollController.position.outOfRange) {
+      print("reach the top");
+    }
+  }
+var buttonText = "Follow";
   ListView _jobsListView(data) {
     return ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
-        itemCount: data.length,
+        itemCount:data.length,
         itemBuilder: (context, index) {
-          print("data->>>>>>${data.length}");
+
           return _tile(
             data[index].name,
+            data[index].id,data[index].followStatus
           );
         });
   }
 
   SizedBox _tile(
     String title,
+      int id,
+      int follow_status
   ) =>
       SizedBox(
         height: 300,
@@ -138,36 +177,61 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
                       16.00,
                     ),
                   ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: getVerticalSize(
-                      23.00,
-                    ),
-                    width: getHorizontalSize(
-                      92.00,
-                    ),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.green6320,
-                      borderRadius: BorderRadius.circular(
-                        getHorizontalSize(
-                          5.00,
-                        ),
+                  child:
+
+
+                  GestureDetector(
+                    onTap: () async{
+                      await follow_status == 0?followapi.doFollow(id):unFollowapi.doUnFollow(id);
+                     // followMessage== "sucess"?  EasyLoading.show(status: 'loading...'):EasyLoading.dismiss();
+
+                      setState(() {
+                        followMessage =
+                        followMessage == "Follow" ? "Unfollow" : "Follow";
+                      });
+
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: getVerticalSize(
+                        37.00,
                       ),
-                    ),
-                    child: Text(
-                      "Follow",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: ColorConstant.whiteA700,
-                        fontSize: getFontSize(
-                          10,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          color: follow_status == 0 ? ColorConstant.green6320: Colors.white10,
+                          borderRadius: BorderRadius.circular(18.50),
+                          border: Border.all(
+                            color: follow_status == 1 ? Colors.white : Colors.black,
+                          )
+                      ),
+                      child: follow_status==0?Text("Follow",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: follow_status == 0 ? Colors.white : Colors.black,
+                          fontSize: getFontSize(
+                            14,
+                          ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 1.36,
                         ),
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
+                      ):Text("UnFollow",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: follow_status == 0 ? Colors.white : Colors.black,
+                          fontSize: getFontSize(
+                            14,
+                          ),
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w400,
+                          height: 1.36,
+                        ),
                       ),
                     ),
                   ),
                 ),
+
+
+
+
               ],
             ),
           ),
@@ -175,37 +239,38 @@ class _HomeItemWidgetState extends State<HomeItemWidget> {
       );
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Response>(
-        stream: _bloc.UserSuggestionDataStream,
+    return  StreamBuilder<Response<UserSuggestionModel>>(
+        stream: _bloc.myordersDetailsListStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print("sdfghjk");
-            switch (snapshot.data!.status) {
+            switch (snapshot.data!.status!) {
               case Status.LOADING:
-                return Container(
-                  child: Center(
-                      child: Center(
-                          child: CircularProgressIndicator(
-                    color: ColorConstant.green6320,
-                  ))),
-                ); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                break;
-              case Status.SUCCESS:
-                var patientappointmentList = snapshot.data!.data;
-                JoinedClubsearchdata = patientappointmentList;
-                return _jobsListView(JoinedClubsearchdata);
-                break;
-              case Status.ERROR:
-                return SizedBox(
-                  height: 100,
-                  child: CommonApiResultsEmptyWidget(
-                      "${snapshot.data!.message!}",
-                      textColorReceived: Colors.black),
+                return Center(
+                  child: SizedBox(
+                      width: MediaQuery.of(context).size.height * 0.05,
+                      child: CircularProgressIndicator()),
                 );
+              case Status.COMPLETED:
+                UserSuggestionModel resp = snapshot.data!.data;
+                return _bloc.myResultdetails.isEmpty
+                    ? SizedBox(
+                  height: MediaQuery.of(context).size.height - 180,
+                  child: CommonApiResultsEmptyWidget(
+                      "${resp.success!}",
+                      textColorReceived: Colors.black),
+                )
+                    : _jobsListView(
+                    _bloc.myResultdetails);
+              case Status.ERROR:
+                return CommonApiResultsEmptyWidget(
+                    "${snapshot.data!.message!}",
+                    textColorReceived: Colors.black);
             }
           }
-          return Container(
-            child: Center(child: CircularProgressIndicator()),
+          return Center(
+            child: SizedBox(
+                width: MediaQuery.of(context).size.height * 0.05,
+                child: CircularProgressIndicator()),
           );
         });
   }

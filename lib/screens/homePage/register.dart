@@ -613,13 +613,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: GestureDetector(
                                   onTap: () async{
 
-                                    await  register(
-                                        usernameController.text,
-                                        emailController.text,
-                                        mobileController.text,
-                                        passwordController.text,
-                                        confirmpassController.text,
-                                        context);
+
 
                                     setState(() {
                                       if (_formKey.currentState!.validate()) {
@@ -633,6 +627,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       }
 
                                     });
+                                    await  register(
+                                        usernameController.text,
+                                        emailController.text,
+                                        mobileController.text,
+                                        passwordController.text,
+                                        confirmpassController.text,
+                                        context);
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
