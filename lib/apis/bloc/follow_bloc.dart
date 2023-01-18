@@ -15,7 +15,7 @@ class FollowBloc {
   int perPage = 20;
   LoadMoreListener? listener;
   final _followController =
-  StreamController<Response<FollowModelClass>>();
+  StreamController<Response<FollowModelClass>>.broadcast();
 
   StreamSink<Response<FollowModelClass>> get followDataSink =>
       _followController.sink;

@@ -179,7 +179,6 @@ var buttonText = "Follow";
                   ),
                   child:
 
-
                   GestureDetector(
                     onTap: () async{
                       await follow_status == 0?followapi.doFollow(id):unFollowapi.doUnFollow(id);
