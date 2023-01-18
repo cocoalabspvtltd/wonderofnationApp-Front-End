@@ -173,7 +173,6 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 SizedBox(height:MediaQuery.of(context).size.height * 0.00,),
                                 Text(
                                   "${productDetails[index].clubName}",
