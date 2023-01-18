@@ -6,6 +6,7 @@ class FollowModelClass {
   String? page;
   int? lastPage;
   List<Following>? following;
+  List<Followers>? followers;
 
   FollowModelClass(
       {this.success,
@@ -14,7 +15,8 @@ class FollowModelClass {
         this.total,
         this.page,
         this.lastPage,
-        this.following});
+        this.following,
+      this.followers});
 
   FollowModelClass.fromJson(Map<String, dynamic> json) {
     success = json['success'];
@@ -29,6 +31,12 @@ class FollowModelClass {
         following!.add(new Following.fromJson(v));
       });
     }
+    if (json['followers'] != null) {
+      followers = <Followers>[] ;
+      json['followers'].forEach((v) {
+        followers!.add(new Followers.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -41,6 +49,9 @@ class FollowModelClass {
     data['last_page'] = this.lastPage;
     if (this.following != null) {
       data['following'] = this.following!.map((v) => v.toJson()).toList();
+    }
+    if (this.followers != null) {
+      data['followers'] = this.followers!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -77,6 +88,71 @@ class Following {
         this.laravelThroughKey});
 
   Following.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    email = json['email'];
+    emailVerifiedAt = json['email_verified_at'];
+    phone = json['phone'];
+    profilePic = json['profilePic'];
+    role = json['role'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    authType = json['auth_type'];
+    bio = json['bio'];
+    isVerified = json['is_verified'];
+    laravelThroughKey = json['laravel_through_key'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['email_verified_at'] = this.emailVerifiedAt;
+    data['phone'] = this.phone;
+    data['profilePic'] = this.profilePic;
+    data['role'] = this.role;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    data['auth_type'] = this.authType;
+    data['bio'] = this.bio;
+    data['is_verified'] = this.isVerified;
+    data['laravel_through_key'] = this.laravelThroughKey;
+    return data;
+  }
+}
+
+class Followers {
+  int? id;
+  String? name;
+  String? email;
+  Null? emailVerifiedAt;
+  String? phone;
+  Null? profilePic;
+  int? role;
+  String? createdAt;
+  String? updatedAt;
+  String? authType;
+  String? bio;
+  Null? isVerified;
+  int? laravelThroughKey;
+
+  Followers(
+      {this.id,
+        this.name,
+        this.email,
+        this.emailVerifiedAt,
+        this.phone,
+        this.profilePic,
+        this.role,
+        this.createdAt,
+        this.updatedAt,
+        this.authType,
+        this.bio,
+        this.isVerified,
+        this.laravelThroughKey});
+
+  Followers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];

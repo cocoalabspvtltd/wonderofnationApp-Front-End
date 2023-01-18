@@ -65,7 +65,11 @@ class _FollowingScreenState extends State<FollowingScreen>
               if (snapshot.hasData) {
                 switch (snapshot.data!.status) {
                   case Status.LOADING:
-                    return Container();
+                    return Center(
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.height * 0.05,
+                          child: CircularProgressIndicator()),
+                    );
                     break;
                   case Status.SUCCESS:
                     FollowModelClass followinglist = snapshot.data!.data;
@@ -78,7 +82,6 @@ class _FollowingScreenState extends State<FollowingScreen>
                           Container(
                               width: 370,
                               color: Colors.white,
-                              // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.all(15),
                               child: Padding(
                                 padding: const EdgeInsets.all(0),
