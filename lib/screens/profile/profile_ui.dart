@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:oo/screens/profile/profile_details.dart';
 
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
@@ -182,7 +183,6 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                           ),
                                           child: Text(
                                             "${name.toUpperCase()}",
-
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: ColorConstant.black900,
@@ -286,10 +286,10 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                                       Container(
                                                         width:
                                                         getHorizontalSize(
-                                                          59.00,
+                                                          58.00,
                                                         ),
                                                         child: Text(
-                                                          "40\nFollowers",
+                                                          "31\nFollowing",
                                                           maxLines: null,
                                                           textAlign: TextAlign
                                                               .center,
@@ -313,10 +313,10 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                                       Container(
                                                         width:
                                                         getHorizontalSize(
-                                                          58.00,
+                                                          59.00,
                                                         ),
                                                         child: Text(
-                                                          "31\nFollowing",
+                                                          "40\nFollowers",
                                                           maxLines: null,
                                                           textAlign: TextAlign
                                                               .center,

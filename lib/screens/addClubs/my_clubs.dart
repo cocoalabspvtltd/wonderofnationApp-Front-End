@@ -179,7 +179,6 @@ class _MyClubsState extends State<MyClubs> {
                         children: [
                           Container(
                               width: 370,
-
                               color: Colors.white,
                               // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.all(15),
