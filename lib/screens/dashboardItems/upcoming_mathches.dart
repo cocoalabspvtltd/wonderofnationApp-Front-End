@@ -64,9 +64,9 @@ print("id-??${widget.id}");
                     case Status.COMPLETED:
                       MatchDescriptionModel clubdetailsList =
                           snapshot.data!.data;
-count= clubdetailsList.match!.playerCount!;
-paymentDone=clubdetailsList!.match!.paymentDone!;
- datas = clubdetailsList.match!.players!;
+                 count= clubdetailsList.match!.playerCount!;
+                  paymentDone=clubdetailsList!.match!.paymentDone!;
+                    datas = clubdetailsList.match!.players!;
                      // ClubDetailsModelserachlist = clubdetailsList;
                       return SingleChildScrollView(child: Container(
                         width: size.width,
