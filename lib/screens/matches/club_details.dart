@@ -64,10 +64,8 @@ print("object=>>>>>${Imagelist}");
     },);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      setState(() {
-        imglist = jsonData;
-        print("Imagelist->${imglist}");
-      });
+      imglist = jsonData;
+      print("Imagelist->${imglist}");
     }
   }
 
@@ -403,7 +401,7 @@ print("object=>>>>>${Imagelist}");
                                   width: size.width,
                                   child: CachedNetworkImage(
                                     fit: BoxFit.fitWidth,
-                                    imageUrl: imglist[index]["img"] ??"",
+                                    imageUrl: imglist![index]["img"] ??"",
                                     placeholder: (context, url) => Center(
                                       child: Container(height: 20,
                                           width: 20,

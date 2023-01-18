@@ -30,8 +30,6 @@ class ClubRepository {
         return (response as List)
         .map((x) => ClubModel.fromJson(x))
         .toList();
-
-
   }
 }
 // class ClubRepository1 {

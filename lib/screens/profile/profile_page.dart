@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/constants/commonapierror.dart';
+import 'package:oo/screens/profile/profile_details.dart';
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
 import '../../apis/repositories/joined_clubs.dart';
@@ -31,7 +32,6 @@ class _ProfileUiState extends State<ProfileUi> {
   void initState() {
     super.initState();
     _bloc = ProfilePageBloc();
-
     setState(() {});
   }
   //
@@ -55,7 +55,6 @@ class _ProfileUiState extends State<ProfileUi> {
           children: [
             Expanded(
               child: Container(
-
                 child: SingleChildScrollView(
                   child: Container(
                     decoration: BoxDecoration(
@@ -275,57 +274,73 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width:
-                                                          getHorizontalSize(
-                                                            59.00,
-                                                          ),
-                                                          child: Text(
-                                                            "${data.followersCount}\nFollowers",
-                                                            maxLines: null,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color:
-                                                              ColorConstant
-                                                                  .black901,
-                                                              fontSize:
-                                                              getFontSize(
-                                                                13,
+                                                        InkWell(
+                                                          onTap: (){
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 0,UserName: data.name?? "")),
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width:
+                                                            getHorizontalSize(
+                                                              59.00,
+                                                            ),
+                                                            child: Text(
+                                                              "${data.followersCount}\nFollowers",
+                                                              maxLines: null,
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                              style: TextStyle(
+                                                                color:
+                                                                ColorConstant
+                                                                    .black901,
+                                                                fontSize:
+                                                                getFontSize(
+                                                                  13,
+                                                                ),
+                                                                fontFamily:
+                                                                'Inter',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                                height: 1.46,
                                                               ),
-                                                              fontFamily:
-                                                              'Inter',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w400,
-                                                              height: 1.46,
                                                             ),
                                                           ),
                                                         ),
-                                                        Container(
-                                                          width:
-                                                          getHorizontalSize(
-                                                            58.00,
-                                                          ),
-                                                          child: Text(
-                                                            "${data.followingCount}\nFollowing",
-                                                            maxLines: null,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              color:
-                                                              ColorConstant
-                                                                  .black901,
-                                                              fontSize:
-                                                              getFontSize(
-                                                                13,
+                                                        InkWell(
+                                                          onTap: (){
+                                                            Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 1,UserName: data.name?? "")),
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            width:
+                                                            getHorizontalSize(
+                                                              58.00,
+                                                            ),
+                                                            child: Text(
+                                                              "${data.followingCount}\nFollowing",
+                                                              maxLines: null,
+                                                              textAlign: TextAlign
+                                                                  .center,
+                                                              style: TextStyle(
+                                                                color:
+                                                                ColorConstant
+                                                                    .black901,
+                                                                fontSize:
+                                                                getFontSize(
+                                                                  13,
+                                                                ),
+                                                                fontFamily:
+                                                                'Inter',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                                height: 1.46,
                                                               ),
-                                                              fontFamily:
-                                                              'Inter',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w400,
-                                                              height: 1.46,
                                                             ),
                                                           ),
                                                         ),
