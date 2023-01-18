@@ -183,7 +183,7 @@ var buttonText = "Follow";
                   GestureDetector(
                     onTap: () async{
                       await follow_status == 0?followapi.doFollow(id):unFollowapi.doUnFollow(id);
-                     // followMessage== "sucess"?  EasyLoading.show(status: 'loading...'):EasyLoading.dismiss();
+
 
                       setState(() {
                         followMessage =

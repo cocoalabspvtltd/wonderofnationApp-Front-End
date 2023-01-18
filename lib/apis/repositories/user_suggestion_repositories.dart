@@ -12,10 +12,10 @@ class UserSuggestionRepository {
 
   WebApiProvider apiProvider = WebApiProvider();
 
-  getUsersuggestionList(int page, per_page ) async {
+  getUsersuggestionList(int per_page, page ) async {
     FormData formData = FormData.fromMap({
-      "page":1,
-      "per_page":20
+      "page":page,
+      "per_page":per_page
 
     });
     try {

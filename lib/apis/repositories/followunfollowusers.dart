@@ -20,8 +20,8 @@ class FollowRepositories {
               'Authorization':"Bearer " + TOKEN,
 
       }));
-      if (followMessage=="sucess"){
-
+      if (followMessage=="success"){
+        followMessage== "success"?  EasyLoading.show(status: 'loading...'):EasyLoading.dismiss();
       }
       followMessage = resoponse.data["message"];
       print("=???${resoponse.data["message"]}");

@@ -56,7 +56,7 @@ class UserSuggestionDetailsBloc {
     }
     try {
       UserSuggestionModel response =
-      await _myresultRepository!.getUsersuggestionList(20, pageNumber);
+      await _myresultRepository!.getUsersuggestionList(100, pageNumber);
       // pageNumber = response.products!.total!;
       hasNextPage =
       response.lastPage! >= pageNumber.toInt() ? true : false;
