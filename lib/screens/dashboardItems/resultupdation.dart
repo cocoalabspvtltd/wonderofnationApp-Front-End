@@ -526,7 +526,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                     ),
                     Visibility(
                       visible: widget.win_status == 0 &&
-                          widget.status == "disapproved",
+                          widget.status == "approved",
                       child: Align(
                         alignment: Alignment.center,
                         child: Padding(
@@ -538,7 +538,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                               30.00,
                             ),
                             bottom: getVerticalSize(
-                              100.00,
+                              70.00,
                             ),
                           ),
                           child: Container(
