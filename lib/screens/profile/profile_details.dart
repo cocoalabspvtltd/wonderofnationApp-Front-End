@@ -15,8 +15,11 @@ import '../homePage/navigator.dart';
 class ProfileDetailsScreen extends StatefulWidget {
   final int fragmentToShow;
 
-  ProfileDetailsScreen({Key? key, required this.fragmentToShow,required this.UserName}) : super(key: key);
+  ProfileDetailsScreen({Key? key, required this.fragmentToShow,required this.UserName,required this.followerscount,
+  required this.followingcount}) : super(key: key);
   final String UserName;
+  final String followerscount;
+  final String followingcount;
 
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();
@@ -119,10 +122,10 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with LoadMo
       onTap: tabItemClicked,
       tabs: [
         Tab(
-          child: tabItem(context, '7 Followers'),
+          child: tabItem(context, '${widget.followerscount} Followers'),
         ),
         Tab(
-          child: tabItem(context, '100 Followings'),
+          child: tabItem(context, '${widget.followingcount} Followings'),
         ),
       ],
       labelColor: ColorConstant.green6320,

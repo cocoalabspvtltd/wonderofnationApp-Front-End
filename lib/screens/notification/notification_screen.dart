@@ -243,9 +243,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 child: Icon(Icons.notifications,color: Colors.blue[800],)
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                            notificationlist.notifications![index].data!.winStatus==0 ?
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as ${notificationlist.notifications![index].data!.winStatus==0?"Lost":"Win"} ",
+                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as Lost ",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                            ):
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as win ",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
