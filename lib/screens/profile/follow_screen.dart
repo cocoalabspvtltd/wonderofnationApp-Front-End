@@ -12,6 +12,8 @@ import 'package:oo/constants/math_utils.dart';
 import 'package:oo/constants/response.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
 
+import '../addfriends/screen_for_profile_view.dart';
+
 class FollowScreen extends StatefulWidget {
   FollowScreen({
     Key? key,
@@ -280,9 +282,18 @@ class _FollowScreenState extends State<FollowScreen>
                       width:
                       MediaQuery.of(context).size.width * 0.03,
                     ),
-                    Text(
-                      "${data[index].name}",
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                    GestureDetector(onTap: (){
+print("id->${data[index].id}");
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>  ProfileView(id: data[index].id,)),
+
+                    );
+                      },
+                      child: Text(
+                        "${data[index].name}",
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
                     ),
                     Spacer(),
                     ElevatedButton(

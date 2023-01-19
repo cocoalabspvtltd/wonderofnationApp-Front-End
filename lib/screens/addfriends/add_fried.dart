@@ -61,7 +61,7 @@ class _AddFriendsState extends State<AddFriends> {
                 (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) =>  ProfileView()),
+                MaterialPageRoute(builder: (context) =>  ProfileView(id: 0,)),
               );
             },
               child: ListView.separated(

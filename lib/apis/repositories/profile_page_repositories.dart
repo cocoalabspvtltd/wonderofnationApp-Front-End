@@ -25,7 +25,7 @@ class ProfilepageRepositories {
     print("token=${TOKEN}");
     final response = await WebApiProvider().getData(
         url: "profile-page",
-        isPost: false,
+        isPost: true,
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: false);
@@ -36,6 +36,50 @@ class ProfilepageRepositories {
         .map((x) => ProfileModelClass.fromJson(x))
         .toList();
   }
+
+  Future  getUserProfilesuggestionList(int userid ) async {
+    print("token=${TOKEN}");
+    final Map<String, dynamic> _queryParameters = <String, dynamic>{
+      "user_id":userid
+    };
+    print("_queryParameters : " + _queryParameters.toString());
+    print("token=${TOKEN}");
+    final response = await WebApiProvider().getData(
+        url: "profile-page",
+        isPost: true,
+        token: TOKEN,
+        queryParameters: _queryParameters,
+        isQueryParmeter: true);
+    print("responseee->>>${response}");
+
+
+    return (response as List)
+        .map((x) => ProfileModelClass.fromJson(x))
+        .toList();
+  }
+  // getUserProfilesuggestionList(int userid ) async {
+  //   FormData formData = FormData.fromMap({
+  //  "user_id":123
+  //
+  //   });
+  //   try {
+  //     final resoponse = await apiProvider
+  //         .getJsonInstance()
+  //         .post(baseurl + "profile-page",data: formData,options: Options(headers:{
+  //       'Accept':'application/json',
+  //       'Authorization':"Bearer " + TOKEN,
+  //
+  //     }));
+  //
+  //     print("=???${resoponse.data}");
+  //     return ProfileModelClass.fromJson(resoponse.data);
+  //   }catch(error){
+  //     print("error");
+  //     print(error.toString());
+  //   }
+  //
+  // }
+
 
   // Future  getprofileImageList(File? image) async {
   //  String fileName = image!.path.split('/').last;

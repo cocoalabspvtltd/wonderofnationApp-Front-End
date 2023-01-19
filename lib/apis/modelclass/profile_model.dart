@@ -9,8 +9,9 @@ class ProfileModelClass {
     String? email;
     String? profilePic;
     String? sport;
+    String?bio;
 
-    ProfileModelClass({this.followersCount,this.base_url,this.phone,this.email, this.followingCount, this.id, this.name, this.profilePic, this.sport,this.levelList});
+    ProfileModelClass({this.followersCount,this.base_url,this.phone,this.email, this.followingCount, this.id, this.name, this.profilePic, this.sport,this.levelList,this.bio});
 
     factory ProfileModelClass.fromJson(Map<String, dynamic> json) {
         return ProfileModelClass(
@@ -27,6 +28,7 @@ class ProfileModelClass {
             email: json['email'],
             profilePic: json['profilePic'],
             sport: json['sport'],
+            bio: json['bio'],
         );
     }
 
@@ -41,6 +43,7 @@ class ProfileModelClass {
         data['profilePic'] = this.profilePic;
         data['sport'] = this.sport;
         data['base_url'] = this.base_url;
+        data['bio']= this.bio;
 
         return data;
     }
