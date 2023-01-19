@@ -57,7 +57,6 @@ class _ResultUpdationState extends State<ResultUpdation> {
       new TextEditingController(text: DateTime.now().toString());
 
   Widget build(BuildContext context) {
-    //  print(widget.pendingamount);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -395,7 +394,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 40,
                     ),
                     Visibility(
                         visible: widget.win_status == 1 &&
@@ -440,50 +439,8 @@ class _ResultUpdationState extends State<ResultUpdation> {
                           ),
                         )),
                     Visibility(
-                        visible: widget.win_status == 1 &&
-                            widget.status == "pending",
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                30.00,
-                              ),
-                              right: getHorizontalSize(
-                                30.00,
-                              ),
-                              bottom: getVerticalSize(
-                                70.00,
-                              ),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: getVerticalSize(
-                                45.00,
-                              ),
-                              width: getHorizontalSize(
-                                300.00,
-                              ),
-                              decoration:BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.black, width: 0.5),
-                                color: Colors.green[900],
-                                borderRadius: BorderRadius.circular(
-                                  getHorizontalSize(
-                                    5.00,
-                                  ),
-                                ),
-                              ),
-                              child: Text(
-                                "Waiting for player approval",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        )),
-                    Visibility(
                       visible:
-                          widget.win_status == 0 && widget.status == "pending",
+                      widget.win_status == 1 && widget.status == "pending",
                       child: Align(
                         alignment: Alignment.center,
                         child: Padding(
@@ -508,7 +465,50 @@ class _ResultUpdationState extends State<ResultUpdation> {
                             ),
                             decoration: BoxDecoration(
                               border:
-                                  Border.all(color: Colors.black, width: 0.5),
+                              Border.all(color: Colors.black, width: 0.5),
+                              color: Colors.green[900],
+                              borderRadius: BorderRadius.circular(
+                                getHorizontalSize(
+                                  5.00,
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "Waiting for player approval",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible:
+                      widget.win_status == 0 && widget.status == "pending",
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: getHorizontalSize(
+                              30.00,
+                            ),
+                            right: getHorizontalSize(
+                              30.00,
+                            ),
+                            bottom: getVerticalSize(
+                              70.00,
+                            ),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: getVerticalSize(
+                              45.00,
+                            ),
+                            width: getHorizontalSize(
+                              300.00,
+                            ),
+                            decoration: BoxDecoration(
+                              border:
+                              Border.all(color: Colors.black, width: 0.5),
                               color: Colors.red[900],
                               borderRadius: BorderRadius.circular(
                                 getHorizontalSize(
@@ -526,7 +526,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                     ),
                     Visibility(
                       visible: widget.win_status == 0 &&
-                          widget.status == "disapproved",
+                          widget.status == "approved",
                       child: Align(
                         alignment: Alignment.center,
                         child: Padding(
@@ -538,7 +538,7 @@ class _ResultUpdationState extends State<ResultUpdation> {
                               30.00,
                             ),
                             bottom: getVerticalSize(
-                              30.00,
+                              70.00,
                             ),
                           ),
                           child: Container(
