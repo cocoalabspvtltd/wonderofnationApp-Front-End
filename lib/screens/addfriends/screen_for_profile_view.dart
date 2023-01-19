@@ -93,6 +93,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
+import '../profile/suggestionuserprofile/userprofiledetail.dart';
 
 
 var buttonText = 'Follow';
@@ -126,11 +127,11 @@ class _ProfileViewState extends State<ProfileView> {
         itemCount: data.length,
         itemBuilder: (context, index) {
 
-          return _tile(data[index].name,data[index].sport,data[index].bio,data[index].followersCount,data[index].followingCount);
+          return _tile(data[index].name,data[index].sport,data[index].bio,data[index].followersCount,data[index].followingCount,data[index].id);
         });
   }
 
-  SizedBox _tile(String name,sport,bio ,followersCount,followingCount
+  SizedBox _tile(String name,sport,bio ,followersCount,followingCount,int id
       ) =>
       SizedBox(
         height: size.height,
@@ -234,54 +235,84 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: getHorizontalSize(
-                                    59.00,
-                                  ),
-                                  margin: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      39.00,
+                                GestureDetector(onTap: (){
+                                  Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserProfileDetailsScreen(
+                                                  fragmentToShow: 0,
+                                                  UserName: name,
+                                                  followerscount:
+                                                      followersCount.toString(),
+                                                  followingcount:
+                                                      followingCount.toString(),
+                                                  id: id,
+                                                )));
+                                  },
+                                  child: Container(
+                                    width: getHorizontalSize(
+                                      59.00,
                                     ),
-                                  ),
-                                  child: Text(
-                                    "${followersCount}\nFollowers",
-                                    maxLines: null,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: ColorConstant.black900,
-                                      fontSize: getFontSize(
-                                        13,
+                                    margin: EdgeInsets.only(
+                                      left: getHorizontalSize(
+                                        39.00,
                                       ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.46,
+                                    ),
+                                    child: Text(
+                                      "${followersCount}\nFollowers",
+                                      maxLines: null,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          13,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.46,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: getHorizontalSize(
-                                    58.00,
-                                  ),
-                                  margin: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      39.00,
+                                GestureDetector(onTap: (){ Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            UserProfileDetailsScreen(
+                                              fragmentToShow: 0,
+                                              UserName: name,
+                                              followerscount:
+                                              followersCount.toString(),
+                                              followingcount:
+                                              followingCount.toString(),
+                                              id: id,
+                                            )));},
+                                  child: Container(
+                                    width: getHorizontalSize(
+                                      58.00,
                                     ),
-                                    right: getHorizontalSize(
-                                      53.00,
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "${followingCount}\nFollowing",
-                                    maxLines: null,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: ColorConstant.black900,
-                                      fontSize: getFontSize(
-                                        13,
+                                    margin: EdgeInsets.only(
+                                      left: getHorizontalSize(
+                                        39.00,
                                       ),
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.46,
+                                      right: getHorizontalSize(
+                                        53.00,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "${followingCount}\nFollowing",
+                                      maxLines: null,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          13,
+                                        ),
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.46,
+                                      ),
                                     ),
                                   ),
                                 ),

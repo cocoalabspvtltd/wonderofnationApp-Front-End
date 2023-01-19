@@ -49,4 +49,50 @@ class FollowRepository {
     print("---------->${response.data}");
     return FollowModelClass.fromJson(response.data);
   }
+  Future getUserFollowers(int page,int perPage,id) async {
+    FormData formData = FormData.fromMap({
+      "page": page,
+      "per_page": perPage,
+      "user_id":id
+    });
+    print("user->${formData.fields}");
+
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl + "followers",
+        data: formData,
+        options: Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': "Bearer " + TOKEN,
+            }
+        )
+    );
+    print("---------->${response.data}");
+    return FollowModelClass.fromJson(response.data);
+  }
+
+
+  Future getUserFollowing(int page,int perPage,id) async {
+    FormData formData = FormData.fromMap({
+      "page": page,
+      "per_page": perPage,
+      "user_id":id
+    });
+
+    final response = await apiProvider
+        .getJsonInstance()
+        .post(baseurl + "following",
+        data: formData,
+        options: Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': "Bearer " + TOKEN,
+            }
+        )
+    );
+    print("---------->${response.data}");
+    return FollowModelClass.fromJson(response.data);
+  }
+
 }

@@ -81,7 +81,64 @@ class FollowBloc {
     }
     finally {}
   }
+  getuserfollowersList(bool isPagination,int id, {int? perpage}) async {
+    if (isPagination) {
+      pagenumber = pagenumber + 1;
+      listener?.refresh(true);
+
+      print("page number" + pagenumber.toString());
+    } else {
+      followDataSink.add(Response.loading('Fetching'));
+      pagenumber = 1;
+      followDataSink.add(Response.loading('Fetching'));
+    }
+
+    try {
+      FollowModelClass? followerslist =
+      await _followRepository.getUserFollowers(pagenumber, perPage,id);
+
+      followDataSink.add(Response.success(followerslist!));
+    } catch (error, s) {
+      Completer().completeError(error, s);
+      if (isPagination) {
+        listener!.refresh(false);
+      } else {
+        followDataSink!
+            .add(Response.error(error.toString()));
+      }
+    }
+    finally {}
+  }
   dispose() {
     _followController.close();
+  }
+
+  getUserfollowingList(bool isPagination,int id, {int? perpage}) async {
+    if (isPagination) {
+      pagenumber = pagenumber + 1;
+      listener?.refresh(true);
+
+      print("page number" + pagenumber.toString());
+    } else {
+      followDataSink.add(Response.loading('Fetching'));
+      pagenumber = 1;
+      followDataSink.add(Response.loading('Fetching'));
+    }
+
+    try {
+      FollowModelClass? followinglist =
+      await _followRepository.getUserFollowing(pagenumber, perPage,id);
+
+      followDataSink.add(Response.success(followinglist!));
+    } catch (error, s) {
+      Completer().completeError(error, s);
+      if (isPagination) {
+        listener!.refresh(false);
+      } else {
+        followDataSink!
+            .add(Response.error(error.toString()));
+      }
+    }
+    finally {}
   }
 }
