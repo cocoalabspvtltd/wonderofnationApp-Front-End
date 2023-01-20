@@ -1,6 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:oo/constants/commonapierror.dart';
+import 'package:flutter/services.dart';
+import 'package:oo/apis/repositories/profile_page_repositories.dart';
+import 'package:oo/screens/dropdowns/game_list_register.dart';
+import 'package:oo/screens/homePage/levelling_Register1.dart';
+import 'package:oo/screens/homePage/register_profile.dart';
 import 'package:oo/screens/profile/profile_details.dart';
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
@@ -9,9 +13,10 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
-import '../homePage/navigator.dart';
 import 'edit_profile.dart';
-import 'liner_progress.dart';
+
+
+
 
 class ProfileUi extends StatefulWidget {
   const ProfileUi({Key? key}) : super(key: key);
@@ -27,13 +32,11 @@ class _ProfileUiState extends State<ProfileUi> {
   List<dynamic> profilelist = [];
   TextEditingController profileController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
-
   void initState() {
     super.initState();
     _bloc = ProfilePageBloc();
     setState(() {});
   }
-
   //
   @override
   ListView _jobsListView(data) {
@@ -42,12 +45,13 @@ class _ProfileUiState extends State<ProfileUi> {
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
-         // print("data[index].base_url->>>>>>${data[index].base_url}");
           return _tile(data[index]);
         });
   }
 
-  SizedBox _tile(ProfileModelClass data) => SizedBox(
+  SizedBox _tile(ProfileModelClass data
+       ) =>
+      SizedBox(
         height: size.height,
         child: Column(
           children: [
@@ -102,6 +106,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                       width: getHorizontalSize(
                                         16.00,
                                       ),
+
                                     ),
                                   ),
                                   Padding(
@@ -113,7 +118,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      MainAxisAlignment.start,
                                       children: [
                                         Align(
                                           alignment: Alignment.centerRight,
@@ -141,35 +146,25 @@ class _ProfileUiState extends State<ProfileUi> {
                                           ),
                                         ),
                                         Center(
-                                          child: Container(
-                                            height: 100,
-                                            width: 100,
-                                            child: CachedNetworkImage(
-                                              fit: BoxFit.fitWidth,
-                                              imageUrl: data.profilePic ?? "",
-                                              placeholder: (context, url) =>
-                                                  Center(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                              ),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Container(
-                                                      margin: EdgeInsets.all(5),
-                                                      child: Image(
-                                                        image: AssetImage(
-                                                            'assets/images/profile.png'),
-                                                      )),
-                                            ),
-                                          ),
-                                        ),
+                                          child: CircleAvatar(
+                                            radius: 50.0,
+                                            backgroundColor: ColorConstant.gray400,
+                                            backgroundImage: image == null ? null
+                                                :FileImage(File(image!.path)),
+                                            child: image==null ?
+                                            Image.asset(
+                                                'assets/images/profile.png') : Image.asset("${data.profilePic}") ,
+                                          )),
+                                        SizedBox(height: 10,),
                                         Align(
                                           alignment: Alignment.center,
                                           child: Padding(
                                             padding: EdgeInsets.only(
+
                                               top: getVerticalSize(
                                                 5.00,
                                               ),
+
                                             ),
                                             child: Text(
                                               "${data.name!.toUpperCase()}",
@@ -200,7 +195,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                               ),
                                             ),
                                             child: Text(
-                                              "${data.sport==null?"":data.sport     }",
+                                              "${data.sport}",
                                               overflow: TextOverflow.ellipsis,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -225,147 +220,121 @@ class _ProfileUiState extends State<ProfileUi> {
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                              CrossAxisAlignment.center,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                               children: [
                                                 Align(
                                                   alignment:
-                                                      Alignment.centerLeft,
+                                                  Alignment.centerLeft,
                                                   child: Container(
                                                     width: getHorizontalSize(
                                                       264.00,
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                       crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
+                                                      CrossAxisAlignment
+                                                          .center,
                                                       mainAxisSize:
-                                                          MainAxisSize.max,
+                                                      MainAxisSize.max,
                                                       children: [
                                                         Container(
                                                           width:
-                                                              getHorizontalSize(
+                                                          getHorizontalSize(
                                                             53.00,
                                                           ),
                                                           child: Text(
-                                                            "${data.matches}\nMatches",
+                                                            "5\nMatches",
                                                             maxLines: null,
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
                                                               color:
-                                                                  ColorConstant
-                                                                      .black901,
+                                                              ColorConstant
+                                                                  .black901,
                                                               fontSize:
-                                                                  getFontSize(
+                                                              getFontSize(
                                                                 13,
                                                               ),
                                                               fontFamily:
-                                                                  'Inter',
+                                                              'Inter',
                                                               fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              FontWeight
+                                                                  .w400,
                                                               height: 1.46,
                                                             ),
                                                           ),
                                                         ),
                                                         InkWell(
-                                                          onTap: () {
+                                                          onTap: (){
                                                             Navigator.push(
                                                               context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          ProfileDetailsScreen(
-                                                                            fragmentToShow:
-                                                                                0,
-                                                                            UserName:
-                                                                                data.name ?? "",
-                                                                            followerscount:
-                                                                                data.followersCount.toString(),
-                                                                            followingcount:
-                                                                                data.followingCount.toString(),
-                                                                            matchcount:
-                                                                                data.matches!,
-                                                                          )),
+                                                              MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 0,UserName: data.name?? "",
+                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),)),
                                                             );
                                                           },
                                                           child: Container(
                                                             width:
-                                                                getHorizontalSize(
+                                                            getHorizontalSize(
                                                               59.00,
                                                             ),
                                                             child: Text(
                                                               "${data.followersCount}\nFollowers",
                                                               maxLines: null,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
+                                                              textAlign: TextAlign
+                                                                  .center,
                                                               style: TextStyle(
                                                                 color:
-                                                                    ColorConstant
-                                                                        .black901,
+                                                                ColorConstant
+                                                                    .black901,
                                                                 fontSize:
-                                                                    getFontSize(
+                                                                getFontSize(
                                                                   13,
                                                                 ),
                                                                 fontFamily:
-                                                                    'Inter',
+                                                                'Inter',
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                                FontWeight
+                                                                    .w400,
                                                                 height: 1.46,
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                         InkWell(
-                                                          onTap: () {
+                                                          onTap: (){
                                                             Navigator.push(
                                                               context,
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          ProfileDetailsScreen(
-                                                                            fragmentToShow:
-                                                                                1,
-                                                                            UserName:
-                                                                                data.name ?? "",
-                                                                            followerscount:
-                                                                                data.followersCount.toString(),
-                                                                            followingcount:
-                                                                                data.followingCount.toString(), matchcount: data.matches!,
-                                                                          )),
+                                                              MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 1,UserName: data.name?? "",
+                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),)),
                                                             );
                                                           },
                                                           child: Container(
                                                             width:
-                                                                getHorizontalSize(
+                                                            getHorizontalSize(
                                                               58.00,
                                                             ),
                                                             child: Text(
                                                               "${data.followingCount}\nFollowing",
                                                               maxLines: null,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
+                                                              textAlign: TextAlign
+                                                                  .center,
                                                               style: TextStyle(
                                                                 color:
-                                                                    ColorConstant
-                                                                        .black901,
+                                                                ColorConstant
+                                                                    .black901,
                                                                 fontSize:
-                                                                    getFontSize(
+                                                                getFontSize(
                                                                   13,
                                                                 ),
                                                                 fontFamily:
-                                                                    'Inter',
+                                                                'Inter',
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                                FontWeight
+                                                                    .w400,
                                                                 height: 1.46,
                                                               ),
                                                             ),
@@ -387,26 +356,13 @@ class _ProfileUiState extends State<ProfileUi> {
                                                       10.00,
                                                     ),
                                                   ),
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      EditProfile(
-                                                                        UserName:
-                                                                            data.name ??
-                                                                                "",
-                                                                        UserEmail:
-                                                                            email,
-                                                                        UserPhone:
-                                                                            phone,
-                                                                      )));
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
+                                                  child: GestureDetector(onTap:()
+                                                  {
+                                                    Navigator.push(context,
+                                                        MaterialPageRoute(builder:
+                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: email, UserPhone: phone,)));
+                                                  } ,                                                   child: Container(
+                                                      alignment: Alignment.center,
                                                       height: getVerticalSize(
                                                         37.00,
                                                       ),
@@ -417,8 +373,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                         color: ColorConstant
                                                             .green6320,
                                                         borderRadius:
-                                                            BorderRadius
-                                                                .circular(
+                                                        BorderRadius.circular(
                                                           getHorizontalSize(
                                                             18.50,
                                                           ),
@@ -427,7 +382,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                       child: Text(
                                                         "Edit Profile",
                                                         textAlign:
-                                                            TextAlign.center,
+                                                        TextAlign.center,
                                                         style: TextStyle(
                                                           color: ColorConstant
                                                               .whiteA700,
@@ -436,7 +391,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                           ),
                                                           fontFamily: 'Inter',
                                                           fontWeight:
-                                                              FontWeight.w400,
+                                                          FontWeight.w400,
                                                           height: 1.36,
                                                         ),
                                                       ),
@@ -480,13 +435,79 @@ class _ProfileUiState extends State<ProfileUi> {
                                   ),
                                 ],
                               ),
+                              data.sport == null ?
+                              Align(
+                                alignment: AlignmentDirectional.topCenter,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: MediaQuery.of(context).size.width * 0.23,),
+                                      ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(ColorConstant.green6320),
+                                              shape: MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                  )
+                                              )
+                                          ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => RegisterProfile(names: '${data.name}',
+                                                )),
+                                          );
+                                        }, child: Text("You can complete your leveling here"),),
+                                      SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
+                                      Tooltip(
+                                        height: MediaQuery.of(context).size.height * 0.05 ,
+                                        message:
+                                            'If you have not completed your leveling in registration,It is completed here.',
+                                        padding: EdgeInsets.all(20),
+                                        margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                                        decoration: BoxDecoration(
+                                            color: ColorConstant.black900.withOpacity(0.6),
+                                            borderRadius: BorderRadius.circular(22)),
+                                        showDuration: Duration(seconds: 10),
+                                        textStyle: const TextStyle(
+                                            fontSize: 15,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.white),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.032,
+                                              child: ElevatedButton(
+                                                onPressed: () {},
+                                                child: Icon(
+                                                  Icons.question_mark_sharp,
+                                                  size: 15,
+                                                  color: ColorConstant.black901,
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  side: BorderSide(
+                                                    color: ColorConstant.green6320,
+                                                  ),
+                                                  primary: ColorConstant.whiteA700,
+                                                  shape: CircleBorder(),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.006,
+                                            ),
+                                            Text(
+                                              "Tap and hold to info",
+                                              style: TextStyle(
+                                                  fontSize: 8.2, fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )):
                               Container(
                                 width: double.infinity,
-                                margin: EdgeInsets.only(
-                                  top: getVerticalSize(
-                                    26.00,
-                                  ),
-                                ),
                                 decoration: BoxDecoration(
                                   color: ColorConstant.whiteA700,
                                   borderRadius: BorderRadius.only(
@@ -531,9 +552,9 @@ class _ProfileUiState extends State<ProfileUi> {
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
@@ -589,7 +610,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                 ),
                                                 style: TextStyle(
                                                   color:
-                                                      ColorConstant.green6320,
+                                                  ColorConstant.green6320,
                                                   fontSize: getFontSize(
                                                     12,
                                                   ),
@@ -598,19 +619,19 @@ class _ProfileUiState extends State<ProfileUi> {
                                                 ),
                                                 onChanged: (value) {},
                                                 items: dropdownItemList.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<
-                                                      String>(
-                                                    value: value,
-                                                    child: Text(
-                                                      value,
-                                                      textAlign:
+                                                    DropdownMenuItem<
+                                                        String>>(
+                                                        (String value) {
+                                                      return DropdownMenuItem<
+                                                          String>(
+                                                        value: value,
+                                                        child: Text(
+                                                          value,
+                                                          textAlign:
                                                           TextAlign.center,
-                                                    ),
-                                                  );
-                                                }).toList(),
+                                                        ),
+                                                      );
+                                                    }).toList(),
                                                 decoration: InputDecoration(
                                                   hintText: 'Tennis',
                                                   hintStyle: TextStyle(
@@ -618,12 +639,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                       12.0,
                                                     ),
                                                     color:
-                                                        ColorConstant.black901,
+                                                    ColorConstant.black901,
                                                   ),
                                                   border: InputBorder.none,
                                                   isDense: true,
                                                   contentPadding:
-                                                      EdgeInsets.all(0),
+                                                  EdgeInsets.all(0),
                                                 ),
                                               ),
                                             ),
@@ -669,16 +690,18 @@ class _ProfileUiState extends State<ProfileUi> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         children: [
                                           Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 12.0, right: 12),
+                                              padding: const EdgeInsets.only(left:
+                                              12.0,right:12),
                                               child: LinearProgressIndicator(
-                                                value: 10.0,
-                                              )),
+                                                value:10.0,
+                                              )
+                                          ),
+
                                           Align(
                                             alignment: Alignment.centerLeft,
                                             child: Padding(
@@ -689,10 +712,10 @@ class _ProfileUiState extends State<ProfileUi> {
                                               ),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                MainAxisAlignment
+                                                    .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                CrossAxisAlignment.center,
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Padding(
@@ -704,9 +727,9 @@ class _ProfileUiState extends State<ProfileUi> {
                                                     child: Text(
                                                       "Low reliability",
                                                       overflow:
-                                                          TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                       textAlign:
-                                                          TextAlign.center,
+                                                      TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorConstant
                                                             .green6320,
@@ -715,7 +738,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                         ),
                                                         fontFamily: 'Inter',
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                        FontWeight.w400,
                                                       ),
                                                     ),
                                                   ),
@@ -728,9 +751,9 @@ class _ProfileUiState extends State<ProfileUi> {
                                                     child: Text(
                                                       "High reliability",
                                                       overflow:
-                                                          TextOverflow.ellipsis,
+                                                      TextOverflow.ellipsis,
                                                       textAlign:
-                                                          TextAlign.center,
+                                                      TextAlign.center,
                                                       style: TextStyle(
                                                         color: ColorConstant
                                                             .green6320,
@@ -739,7 +762,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                         ),
                                                         fontFamily: 'Inter',
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                        FontWeight.w400,
                                                       ),
                                                     ),
                                                   ),
@@ -790,7 +813,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                             ),
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: Colors.black,
+                                                color:Colors.black,
                                                 width: getHorizontalSize(
                                                   1.00,
                                                 ),
@@ -798,10 +821,10 @@ class _ProfileUiState extends State<ProfileUi> {
                                             ),
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              MainAxisAlignment
+                                                  .spaceBetween,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Container(
@@ -824,17 +847,17 @@ class _ProfileUiState extends State<ProfileUi> {
                                                       children: [
                                                         TextSpan(
                                                           text:
-                                                              'Total Matches\n\n',
+                                                          'Total Matches\n\n',
                                                           style: TextStyle(
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               10,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                         TextSpan(
@@ -843,12 +866,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               14,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                       ],
@@ -877,12 +900,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               10,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                         TextSpan(
@@ -891,12 +914,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               14,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                       ],
@@ -928,12 +951,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               10,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                         TextSpan(
@@ -942,12 +965,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             color: ColorConstant
                                                                 .black900,
                                                             fontSize:
-                                                                getFontSize(
+                                                            getFontSize(
                                                               14,
                                                             ),
                                                             fontFamily: 'Inter',
                                                             fontWeight:
-                                                                FontWeight.w400,
+                                                            FontWeight.w400,
                                                           ),
                                                         ),
                                                       ],
@@ -978,7 +1001,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color:
-                                                      ColorConstant.green6320,
+                                                  ColorConstant.green6320,
                                                   fontSize: getFontSize(
                                                     12,
                                                   ),
@@ -1059,10 +1082,6 @@ class _ProfileUiState extends State<ProfileUi> {
                         width: getSize(
                           29.18,
                         ),
-                        // child: SvgPicture.asset(
-                        //   ImageConstant.imgVector9,
-                        //   fit: BoxFit.fill,
-                        // ),
                       ),
                     ),
                     Padding(
@@ -1131,58 +1150,56 @@ class _ProfileUiState extends State<ProfileUi> {
             ),
           ],
         ),
+
       );
 
-  TextEditingController searchcontroller = new TextEditingController();
 
+
+  TextEditingController searchcontroller = new TextEditingController();
+  ProfilepageRepositories profileimageupload = ProfilepageRepositories();
   Widget build(BuildContext context) {
     return Scaffold(
-        body: RefreshIndicator(
-      color: Colors.white,
-      backgroundColor: Colors.blue,
-      onRefresh: () {
-        return _bloc.getprofilesList();
-      },
-      child: StreamBuilder<Response<List<dynamic>>>(
-          stream: _bloc.profileDataStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print("sdfghjk");
-              switch (snapshot.data!.status) {
-                case Status.LOADING:
-                  return Center(
-                      child: CircularProgressIndicator(
-                    color: ColorConstant.green6320,
-                  )); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                  break;
-                case Status.SUCCESS:
-                  List<dynamic> patientappointmentList = snapshot.data!.data;
-                  profilesearchdata = patientappointmentList;
-                  return SingleChildScrollView(
-                      child: _jobsListView(profilesearchdata));
 
-                  break;
-                case Status.ERROR:
-                  return SizedBox(
-                      height: 300,
-                      child: Column(
-                        children: [
-                          Center(
-                              child: Image.asset(
-                            "assets/images/clouderror.png",
-                            color: Colors.green[900],
-                          )),
-                          Center(
-                              child: Text(
-                            "Offline",
-                            style: TextStyle(color: Colors.green[900]),
-                          )),
-                        ],
-                      ));
-              }
-            }
-            return Container();
-          }),
-    ));
+        body: RefreshIndicator(    color: Colors.white,
+          backgroundColor: Colors.blue,    onRefresh: () {
+          return _bloc.getprofilesList();
+        },
+          child: StreamBuilder<Response<List<dynamic>>>(
+              stream: _bloc.profileDataStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  print("sdfghjk");
+                  switch (snapshot.data!.status) {
+                    case Status.LOADING:
+                      return Center(child: CircularProgressIndicator(color: ColorConstant.green6320,)); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                      break;
+                    case Status.SUCCESS:
+                      List<dynamic> patientappointmentList =
+                          snapshot.data!.data;
+                      profilesearchdata = patientappointmentList;
+                      return SingleChildScrollView(
+                          child: _jobsListView(profilesearchdata)
+                      );
+
+                      break;
+                    case Status.ERROR:
+                      return
+                        SizedBox(
+                        height: 300,
+                          child: Column(
+                            children: [
+                              Center(child: Image.asset("assets/images/clouderror.png",color: Colors.green[900],)),
+
+                              Center(child: Text("Offline",style: TextStyle(color: Colors.green[900]),)),
+                            ],
+                          ));
+
+                  }
+                }
+                return Container();
+              }),
+        )
+    );
   }
+
 }
