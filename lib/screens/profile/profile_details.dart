@@ -20,7 +20,7 @@ class ProfileDetailsScreen extends StatefulWidget {
   final String UserName;
   final String followerscount;
   final String followingcount;
-  final int matchcount;
+  final String matchcount;
 
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();

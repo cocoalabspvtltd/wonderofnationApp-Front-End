@@ -24,24 +24,25 @@ class _MyHomePageState extends State<WelcomeScreen> {
     super.initState();
     Timer(
         Duration(seconds:4),
-            () =>navigateUser() );
+            () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
-  void navigateUser() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var status = prefs.getBool('isLoggedIn') ?? false;
-    print(status);
-    if (status) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DashBoard(UserName1: name,)),
-      );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
-    }
-  }
+  // void navigateUser() async{
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var status = prefs.getBool('isLoggedIn') ?? false;
+  //   print(status);
+  //   if (status) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => DashBoard(UserName1: name,)),
+  //     );
+  //   } else {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => LoginScreen()),
+  //     );
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

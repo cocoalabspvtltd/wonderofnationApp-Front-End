@@ -170,24 +170,14 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               child: InkWell(
                                 onTap: pickImage,
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.black,
-                                  radius: 48.0,
-                                  child: CircleAvatar(
-                                    radius: 48.0,
-                                    backgroundColor: Colors.white,
-                                    child: Container(
-                                      height: 150,
-                                      child: ClipOval(
-                                        child: (image != null)
-                                            ? Image.file(
-                                                image!,
-                                                fit: BoxFit.fill,
-                                              )
-                                            : Image.asset(
-                                                'assets/images/profile.png'),
-                                      ),
-                                    ),
-                                  ),
+                                  radius: 50.0,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: image == null ? null
+                                      :FileImage(File(image!.path)),
+                                  child: image==null ?
+                                  Image.asset(
+                                      'assets/images/profile.png') :
+                                 Text("  "),
                                 ),
                               )),
                           Padding(
@@ -201,7 +191,6 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                 top: 15),
                             child: GestureDetector(
                               onTap: () async{
-
                               await  profileimageupload.getprofileImageList(imageTemp!);
                                 //uploadImage(image!);
                               },
@@ -293,7 +282,10 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                 ),
-                                child: DesignationDropDown()),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10),
+                                  child: DesignationDropDown(),
+                                )),
                           ),
 
                           Padding(
