@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
 
   bool _passwordVisible = false;
-
+  //AuthBlocUser _authBloc = AuthBlocUser();
   void initState() {
     _passwordVisible = false;
     setState(() {    passwordController1.text= "";});
@@ -588,9 +588,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+
   Future<String> _getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
   }
+
+
 
 }

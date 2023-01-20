@@ -2,15 +2,10 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:oo/screens/homePage/home_page1.dart';
-import 'package:oo/screens/homePage/navigator.dart';
 
 import 'package:oo/screens/login.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
-
-import 'apis/repositories/register_Repositories.dart';
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -24,23 +19,8 @@ class _MyHomePageState extends State<WelcomeScreen> {
     super.initState();
     Timer(
         Duration(seconds:4),
-            () =>navigateUser() );
-  }
-  void navigateUser() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var status = prefs.getBool('isLoggedIn') ?? false;
-    print(status);
-    if (status) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DashBoard(UserName1: name,)),
-      );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
-    }
+            () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
   @override
   Widget build(BuildContext context) {

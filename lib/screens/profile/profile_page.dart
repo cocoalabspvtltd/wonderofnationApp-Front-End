@@ -273,7 +273,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 0,UserName: data.name?? "",
-                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),)),
+                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(), matchcount: data.matches.toString(),)),
                                                             );
                                                           },
                                                           child: Container(
@@ -309,7 +309,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 1,UserName: data.name?? "",
-                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),)),
+                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),matchcount: data.matches.toString())),
                                                             );
                                                           },
                                                           child: Container(
