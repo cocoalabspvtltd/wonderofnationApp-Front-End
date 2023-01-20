@@ -1,6 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:oo/constants/commonapierror.dart';
+import 'package:flutter/services.dart';
+import 'package:oo/apis/repositories/profile_page_repositories.dart';
+import 'package:oo/screens/dropdowns/game_list_register.dart';
+import 'package:oo/screens/homePage/levelling_Register1.dart';
+import 'package:oo/screens/homePage/register_profile.dart';
 import 'package:oo/screens/profile/profile_details.dart';
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
@@ -9,9 +13,8 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
-import '../homePage/navigator.dart';
 import 'edit_profile.dart';
-import 'liner_progress.dart';
+
 
 
 
@@ -42,7 +45,6 @@ class _ProfileUiState extends State<ProfileUi> {
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
-          print("data[index].base_url->>>>>>${data[index].base_url}");
           return _tile(data[index]);
         });
   }
@@ -144,23 +146,16 @@ class _ProfileUiState extends State<ProfileUi> {
                                           ),
                                         ),
                                         Center(
-                                          child:  Container(height:100,
-                                            width:100,
-                                            child: CachedNetworkImage(
-                                              fit: BoxFit.fitWidth,
-                                              imageUrl: data.profilePic ?? "",
-                                              placeholder: (context, url) => Center(
-                                                child: CircularProgressIndicator(),
-                                              ),
-                                              errorWidget: (context, url, error) => Container(
-                                                  margin: EdgeInsets.all(5),
-                                                  child: Image(
-                                                    image: AssetImage('assets/images/profile.png'),
-                                                  )),
-                                            ),
-                                          ),
-                                          ),
-
+                                          child: CircleAvatar(
+                                            radius: 50.0,
+                                            backgroundColor: ColorConstant.gray400,
+                                            backgroundImage: image == null ? null
+                                                :FileImage(File(image!.path)),
+                                            child: image==null ?
+                                            Image.asset(
+                                                'assets/images/profile.png') : Image.asset("${data.profilePic}") ,
+                                          )),
+                                        SizedBox(height: 10,),
                                         Align(
                                           alignment: Alignment.center,
                                           child: Padding(
@@ -173,7 +168,6 @@ class _ProfileUiState extends State<ProfileUi> {
                                             ),
                                             child: Text(
                                               "${data.name!.toUpperCase()}",
-
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 color: ColorConstant.black900,
@@ -441,13 +435,79 @@ class _ProfileUiState extends State<ProfileUi> {
                                   ),
                                 ],
                               ),
+                              data.sport == null ?
+                              Align(
+                                alignment: AlignmentDirectional.topCenter,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: MediaQuery.of(context).size.width * 0.23,),
+                                      ElevatedButton(
+                                          style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all(ColorConstant.green6320),
+                                              shape: MaterialStateProperty.all(
+                                                  RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(18.0),
+                                                  )
+                                              )
+                                          ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => RegisterProfile(names: '${data.name}',
+                                                )),
+                                          );
+                                        }, child: Text("You can complete your leveling here"),),
+                                      SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
+                                      Tooltip(
+                                        height: MediaQuery.of(context).size.height * 0.05 ,
+                                        message:
+                                            'If you have not completed your leveling in registration,It is completed here.',
+                                        padding: EdgeInsets.all(20),
+                                        margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                                        decoration: BoxDecoration(
+                                            color: ColorConstant.black900.withOpacity(0.6),
+                                            borderRadius: BorderRadius.circular(22)),
+                                        showDuration: Duration(seconds: 10),
+                                        textStyle: const TextStyle(
+                                            fontSize: 15,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.white),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.032,
+                                              child: ElevatedButton(
+                                                onPressed: () {},
+                                                child: Icon(
+                                                  Icons.question_mark_sharp,
+                                                  size: 15,
+                                                  color: ColorConstant.black901,
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  side: BorderSide(
+                                                    color: ColorConstant.green6320,
+                                                  ),
+                                                  primary: ColorConstant.whiteA700,
+                                                  shape: CircleBorder(),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context).size.height * 0.006,
+                                            ),
+                                            Text(
+                                              "Tap and hold to info",
+                                              style: TextStyle(
+                                                  fontSize: 8.2, fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )):
                               Container(
                                 width: double.infinity,
-                                margin: EdgeInsets.only(
-                                  top: getVerticalSize(
-                                    26.00,
-                                  ),
-                                ),
                                 decoration: BoxDecoration(
                                   color: ColorConstant.whiteA700,
                                   borderRadius: BorderRadius.only(
@@ -1022,10 +1082,6 @@ class _ProfileUiState extends State<ProfileUi> {
                         width: getSize(
                           29.18,
                         ),
-                        // child: SvgPicture.asset(
-                        //   ImageConstant.imgVector9,
-                        //   fit: BoxFit.fill,
-                        // ),
                       ),
                     ),
                     Padding(
@@ -1100,6 +1156,7 @@ class _ProfileUiState extends State<ProfileUi> {
 
 
   TextEditingController searchcontroller = new TextEditingController();
+  ProfilepageRepositories profileimageupload = ProfilepageRepositories();
   Widget build(BuildContext context) {
     return Scaffold(
 

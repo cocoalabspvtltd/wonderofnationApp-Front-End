@@ -7,7 +7,7 @@ import '../../constants/base_urls.dart';
 
 
 
-class ImagePicker {
+class ImagePicker1 {
 Future<String> updateUserImage(XFile? file) async {
 
   String fileName = file!.path.split('/').last;

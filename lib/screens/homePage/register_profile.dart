@@ -1,21 +1,13 @@
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/apis/repositories/profile_page_repositories.dart';
-import '../../apis/repositories/register_Repositories.dart';
-import '../../apis/repositories/user_profile.dart';
-import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../dropdowns/game_list_register.dart';
-import '../dropdowns/games_dropdown.dart';
-import '../dropdowns/register_game_dropdown.dart';
-import '../profile/edit_profile.dart';
 import 'levelling_Register1.dart';
 
 class RegisterProfile extends StatefulWidget {
@@ -48,7 +40,6 @@ class _RegisterProfileState extends State<RegisterProfile> {
 
   @override
   ProfilepageRepositories profileimageupload = ProfilepageRepositories();
-  // profileRepository profile_pic_set = profileRepository();
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

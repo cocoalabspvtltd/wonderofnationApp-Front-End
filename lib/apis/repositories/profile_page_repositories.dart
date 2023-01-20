@@ -13,7 +13,7 @@ import '../../constants/web_Api_provider.dart';
 import '../modelclass/joined_club_Model.dart';
 import '../modelclass/profile_model.dart';
  String profilename  = "";
-
+Map levelList={} ;
 class ProfilepageRepositories {
 
   Future  getprofileList() async {
@@ -29,9 +29,9 @@ class ProfilepageRepositories {
         token: TOKEN,
         queryParameters: _queryParameters,
         isQueryParmeter: false);
-    print("responseee->>>${response}");
+    //print("responseee->>>${response[0]["levels"]}");
 
-
+ // levelList = response[0]["levels"];
     return (response as List)
         .map((x) => ProfileModelClass.fromJson(x))
         .toList();
