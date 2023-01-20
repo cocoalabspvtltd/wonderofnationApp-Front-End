@@ -43,10 +43,10 @@ class drLOginRepository  {
       if (responseData.statusCode == 200) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs?.setBool("isLoggedIn", true);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
+        );
         EasyLoading.dismiss();
 
         return responseData;

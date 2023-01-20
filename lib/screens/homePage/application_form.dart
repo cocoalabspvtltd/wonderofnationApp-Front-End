@@ -121,7 +121,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-
                           Padding(
                             padding: EdgeInsets.only(
                               top: getVerticalSize(
@@ -138,7 +137,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -165,7 +164,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                 ),
                               ),
                               border: Border.all(
-                                color: ColorConstant.bluegray100,
+                                color: ColorConstant.black900,
                                 width: getHorizontalSize(
                                   1.00,
                                 ),
@@ -202,7 +201,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -225,12 +224,11 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               child: TextFormField(
                                 controller: NameController,
                                 keyboardType: TextInputType.text,
-                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'Andria Jacob',
                                   hintStyle: TextStyle(
                                     fontSize: getFontSize(
-                                      12.0,
+                                      14.0,
                                     ),
                                     color: ColorConstant.gray400,
                                   ),
@@ -241,7 +239,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -252,7 +250,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color:ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -263,7 +261,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -285,9 +283,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 style: TextStyle(
-                                  color: ColorConstant.gray400,
+                                  color:ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12.0,
+                                    14.0,
                                   ),
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -311,7 +309,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -334,15 +332,12 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               child: TextFormField(
                                 controller: DateOfBiirthController,
                                 keyboardType: TextInputType.datetime,
-                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'YYYY/MM/dd',
                                   hintStyle: TextStyle(
                                     fontSize: getFontSize(
                                       12.0,
                                     ),
-
-
                                     color: ColorConstant.gray400,
                                   ),
                                   enabledBorder: OutlineInputBorder(
@@ -352,7 +347,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -363,7 +358,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -374,7 +369,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -397,9 +392,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 style: TextStyle(
-                                  color: ColorConstant.gray400,
+                                  color: ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12.0,
+                                    14.0,
                                   ),
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -423,7 +418,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -450,7 +445,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                 ),
                               ),
                               border: Border.all(
-                                color: ColorConstant.bluegray100,
+                                color: ColorConstant.black900,
                                 width: getHorizontalSize(
                                   1.00,
                                 ),
@@ -486,7 +481,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -509,7 +504,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               child: TextFormField(
                                 controller: AddressController,
                                 keyboardType: TextInputType.text,
-                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'Enter your address',
                                   hintStyle: TextStyle(
@@ -525,7 +519,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -536,7 +530,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -547,7 +541,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -570,9 +564,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 style: TextStyle(
-                                  color: ColorConstant.gray400,
+                                  color: ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12.0,
+                                    14.0,
                                   ),
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -596,7 +590,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -619,7 +613,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               child: TextFormField(
                                 controller: Mobilenumbercontroller,
                                 keyboardType: TextInputType.phone,
-                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: '+91 8546321557',
                                   hintStyle: TextStyle(
@@ -635,7 +628,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color:ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -646,7 +639,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -657,7 +650,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -680,9 +673,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 style: TextStyle(
-                                  color: ColorConstant.gray400,
+                                  color: ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12.0,
+                                    14.0,
                                   ),
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -706,7 +699,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -729,7 +722,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               child: TextFormField(
                                 controller: EmailController,
                                 keyboardType: TextInputType.emailAddress,
-                                focusNode: FocusNode(),
                                 decoration: InputDecoration(
                                   hintText: 'andriajacob2000@gmail.com',
                                   hintStyle: TextStyle(
@@ -745,7 +737,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -756,7 +748,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -767,7 +759,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       ),
                                     ),
                                     borderSide: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: 1,
                                     ),
                                   ),
@@ -790,9 +782,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 style: TextStyle(
-                                  color: ColorConstant.gray400,
+                                  color:ColorConstant.black900,
                                   fontSize: getFontSize(
-                                    12.0,
+                                    14.0,
                                   ),
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.w400,
@@ -816,7 +808,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  14,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -864,7 +856,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   ),
                                 ),
                                 border: Border.all(
-                                  color: ColorConstant.bluegray100,
+                                  color: ColorConstant.black900,
                                   width: getHorizontalSize(
                                     1.00,
                                   ),
@@ -875,7 +867,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                 child: Icon(
                                   Icons.file_present_rounded,
                                   size: 20,
-                                  color: Colors.blueGrey,
+                                  color: ColorConstant.black900,
                                 ),
                               ),
                             ),
@@ -899,7 +891,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               style: TextStyle(
                                 color: ColorConstant.black900,
                                 fontSize: getFontSize(
-                                  12,
+                                  13,
                                 ),
                                 fontFamily: 'Inter',
                                 fontWeight: FontWeight.w400,
@@ -941,7 +933,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   color: ColorConstant.whiteA700,
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
-                                      color: ColorConstant.bluegray100,
+                                      color: ColorConstant.black900,
                                       width: getHorizontalSize(
                                         1.00,
                                       ),
@@ -980,7 +972,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                             ),
                                             child: Image.asset(
                                               "assets/images/upload.png",
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.fill,color: ColorConstant.black900,
                                             ),
                                           ),
                                         ),
@@ -1011,6 +1003,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                     _video!
                                 );
                                 Navigator.pop(context);
+
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -1186,7 +1179,7 @@ class _MyHomePageState14 extends State<MyHomePage14> {
                 value: items,
                 child: Text(
                   items,
-                  style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  style: TextStyle(color: ColorConstant.black900, fontSize: 14),
                 ));
           }).toList(),
           onChanged: (String? newValue) {
