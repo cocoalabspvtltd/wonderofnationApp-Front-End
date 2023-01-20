@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
     import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/base_urls.dart';
 import '../../screens/homePage/navigator.dart';
 
@@ -40,10 +41,12 @@ class drLOginRepository  {
       TOKEN = token["token"];
 
       if (responseData.statusCode == 200) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
-        );
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs?.setBool("isLoggedIn", true);
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: name,)),
+        // );
         EasyLoading.dismiss();
 
         return responseData;

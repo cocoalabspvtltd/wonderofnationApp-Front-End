@@ -8,13 +8,15 @@ import '../../screens/profile/profile_page.dart';
 
 
 class EditprofileRepostory{
-  getEditprofile( context, String userName,userEmail,UserMobile,bio) async {
+
+  getEditprofile( context, String userName,userEmail,UserMobile,bio,path) async {
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
-  "name":userName,
-  "email":userEmail,
-  "phone":UserMobile,
-  "bio":bio,
-  "profilePic":""
+                "name":userName,
+                "email":userEmail,
+                "phone":UserMobile,
+                 "bio":bio,
+                 "profilePic":"https://wonderofnation.com/WonderOfNations/public/storage/img/"+"image_picker828951529860627989.jpg"
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
@@ -25,8 +27,7 @@ class EditprofileRepostory{
           token:TOKEN,
           queryParameters:_queryParameters,
           isQueryParmeter:true);
-      print("object->>>>>${TOKEN}");
-      print("object0->>>>${response}");
+      print("->${response}");
       if (response["message"] == "Successfully updated") {
         Navigator.push(
           context,

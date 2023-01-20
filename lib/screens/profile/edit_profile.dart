@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController Mobilenumbercontroller  = TextEditingController();
   TextEditingController EmailController = TextEditingController();
   EditprofileRepostory editProfileApi = EditprofileRepostory();
-
+String imagpath = "";
   Widget build(BuildContext context) {
     // NameController.text = widget.UserName;
     // EmailController.text = widget.UserEmail;
@@ -54,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             onTap: () {
               image =  _image?.path;
-              editProfileApi.getEditprofile(context,NameController.text==null?widget.UserName:NameController.text , EmailController.text == null?widget.UserEmail:EmailController.text, Mobilenumbercontroller.text, BioController.text);
+       editProfileApi.getEditprofile(context,NameController.text==null?widget.UserName:NameController.text , EmailController.text == null?widget.UserEmail:EmailController.text, Mobilenumbercontroller.text, BioController.text,imagpath);
             },
           )
         ],
@@ -182,6 +182,8 @@ class _EditProfileState extends State<EditProfile> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
+      imagpath = _image!.path;
+      print("image->${_image!.path}");
     });
   }
 

@@ -16,10 +16,11 @@ class ProfileDetailsScreen extends StatefulWidget {
   final int fragmentToShow;
 
   ProfileDetailsScreen({Key? key, required this.fragmentToShow,required this.UserName,required this.followerscount,
-  required this.followingcount}) : super(key: key);
+  required this.followingcount, required this.matchcount}) : super(key: key);
   final String UserName;
   final String followerscount;
   final String followingcount;
+  final int matchcount;
 
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();

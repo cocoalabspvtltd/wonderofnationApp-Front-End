@@ -95,12 +95,12 @@ import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
 import '../profile/suggestionuserprofile/userprofiledetail.dart';
 
-
 var buttonText = 'Follow';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key, required this.id}) : super(key: key);
-final int id ;
+  final int id;
+
   @override
   State<ProfileView> createState() => _ProfileViewState();
 }
@@ -108,16 +108,18 @@ final int id ;
 class _ProfileViewState extends State<ProfileView> {
   late SuggestionProfilePageBloc _bloc;
   List<String> dropdownItemList = ["test", "test1", "test2", "test3"];
-  List <dynamic> profilesearchdata = [];
+  List<dynamic> profilesearchdata = [];
   List<dynamic> profilelist = [];
   TextEditingController profileController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
+
   void initState() {
     super.initState();
     _bloc = SuggestionProfilePageBloc();
     _bloc.getSuggestionProfileList(widget.id);
     setState(() {});
   }
+
   //
   @override
   ListView _jobsListView(data) {
@@ -126,18 +128,23 @@ class _ProfileViewState extends State<ProfileView> {
         physics: NeverScrollableScrollPhysics(),
         itemCount: data.length,
         itemBuilder: (context, index) {
-
-          return _tile(data[index].name,data[index].sport,data[index].bio,data[index].followersCount,data[index].followingCount,data[index].id);
+          return _tile(
+              data[index].name,
+              data[index].sport,
+              data[index].bio,
+              data[index].followersCount,
+              data[index].followingCount,
+              data[index].id,
+            data[index].matches,
+          );
         });
   }
 
-  SizedBox _tile(String name,sport,bio ,followersCount,followingCount,int id
-      ) =>
+  SizedBox _tile(
+          String name, sport, bio, followersCount, followingCount, int id,int matches) =>
       SizedBox(
         height: size.height,
-        child:
-
-        Column(
+        child: Column(
           children: [
             Expanded(
               child: Container(
@@ -151,7 +158,8 @@ class _ProfileViewState extends State<ProfileView> {
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 28.0),
-                            child: Image.asset("assets/images/profileimage.png"),
+                            child:
+                                Image.asset("assets/images/profileimage.png"),
                           ),
                         ),
                         Padding(
@@ -164,7 +172,7 @@ class _ProfileViewState extends State<ProfileView> {
                         Padding(
                           padding: const EdgeInsets.only(top: 18.0),
                           child: Text(
-                            "${sport==null?"":sport} Player",
+                            "${sport == null ? "" : sport} Player",
                             style: TextStyle(fontSize: 15),
                           ),
                         ),
@@ -184,7 +192,7 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           child: Text(
-                            " ${bio==null?"":bio}",
+                            " ${bio == null ? "" : bio}",
                             maxLines: null,
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -221,7 +229,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                   child: Text(
-                                    "70\nMatches",
+                                    "${matches}\nMatches",
                                     maxLines: null,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -235,8 +243,9 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                GestureDetector(onTap: (){
-                                  Navigator.push(
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -275,19 +284,22 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                 ),
-                                GestureDetector(onTap: (){ Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            UserProfileDetailsScreen(
-                                              fragmentToShow: 0,
-                                              UserName: name,
-                                              followerscount:
-                                              followersCount.toString(),
-                                              followingcount:
-                                              followingCount.toString(),
-                                              id: id,
-                                            )));},
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserProfileDetailsScreen(
+                                                  fragmentToShow: 0,
+                                                  UserName: name,
+                                                  followerscount:
+                                                      followersCount.toString(),
+                                                  followingcount:
+                                                      followingCount.toString(),
+                                                  id: id,
+                                                )));
+                                  },
                                   child: Container(
                                     width: getHorizontalSize(
                                       58.00,
@@ -338,8 +350,9 @@ class _ProfileViewState extends State<ProfileView> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                buttonText =
-                                buttonText == "Follow" ? "Unfollow" : "Follow";
+                                buttonText = buttonText == "Follow"
+                                    ? "Unfollow"
+                                    : "Follow";
                               });
                             },
                             child: Container(
@@ -349,15 +362,22 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                               width: size.width,
                               decoration: BoxDecoration(
-                                  color: buttonText == "Follow" ? ColorConstant.green6320: Colors.white10,
+                                  color: buttonText == "Follow"
+                                      ? ColorConstant.green6320
+                                      : Colors.white10,
                                   borderRadius: BorderRadius.circular(18.50),
                                   border: Border.all(
-                                    color: buttonText == "Follow" ? Colors.white : Colors.black,
-                                  )
-                              ),
-                              child: Text(buttonText,
+                                    color: buttonText == "Follow"
+                                        ? Colors.white
+                                        : Colors.black,
+                                  )),
+                              child: Text(
+                                buttonText,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: buttonText == "Follow" ? Colors.white : Colors.black,
+                                style: TextStyle(
+                                  color: buttonText == "Follow"
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontSize: getFontSize(
                                     14,
                                   ),
@@ -503,55 +523,58 @@ class _ProfileViewState extends State<ProfileView> {
             ),
           ],
         ),
-
       );
 
-
-
   TextEditingController searchcontroller = new TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
+        body: RefreshIndicator(
+      color: Colors.white,
+      backgroundColor: Colors.blue,
+      onRefresh: () {
+        return _bloc.getSuggestionProfileList(widget.id);
+      },
+      child: StreamBuilder<Response<List<dynamic>>>(
+          stream: _bloc.userprofileDataStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print("sdfghjk");
+              switch (snapshot.data!.status) {
+                case Status.LOADING:
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: ColorConstant.green6320,
+                  )); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                  break;
+                case Status.SUCCESS:
+                  List<dynamic> patientappointmentList = snapshot.data!.data;
+                  profilesearchdata = patientappointmentList;
+                  return SingleChildScrollView(
+                      child: _jobsListView(profilesearchdata));
 
-        body: RefreshIndicator(    color: Colors.white,
-          backgroundColor: Colors.blue,    onRefresh: () {
-            return _bloc.getSuggestionProfileList(widget.id);
-          },
-          child: StreamBuilder<Response<List<dynamic>>>(
-              stream: _bloc.userprofileDataStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  print("sdfghjk");
-                  switch (snapshot.data!.status) {
-                    case Status.LOADING:
-                      return Center(child: CircularProgressIndicator(color: ColorConstant.green6320,)); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
-                      break;
-                    case Status.SUCCESS:
-                    List<dynamic >patientappointmentList =
-                          snapshot.data!.data;
-                      profilesearchdata = patientappointmentList;
-                      return SingleChildScrollView(
-                          child: _jobsListView(profilesearchdata)
-                      );
-
-                      break;
-                    case Status.ERROR:
-                      return
-                        SizedBox(
-                            height: 300,
-                            child: Column(
-                              children: [
-                                Center(child: Image.asset("assets/images/clouderror.png",color: Colors.green[900],)),
-
-                                Center(child: Text("Offline",style: TextStyle(color: Colors.green[900]),)),
-                              ],
-                            ));
-
-                  }
-                }
-                return Container();
-              }),
-        )
-    );
+                  break;
+                case Status.ERROR:
+                  return SizedBox(
+                      height: 300,
+                      child: Column(
+                        children: [
+                          Center(
+                              child: Image.asset(
+                            "assets/images/clouderror.png",
+                            color: Colors.green[900],
+                          )),
+                          Center(
+                              child: Text(
+                            "Offline",
+                            style: TextStyle(color: Colors.green[900]),
+                          )),
+                        ],
+                      ));
+              }
+            }
+            return Container();
+          }),
+    ));
   }
-
 }
