@@ -483,12 +483,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Container(
-
                                       width: getHorizontalSize(
                                         320.00,
                                       ),
                                       child: Container(
-
                                         child: Padding(
                                           padding: const EdgeInsets.only(bottom: 15,),
                                           child: TextFormField(
@@ -563,12 +561,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                 ),
                                 child: Container(
-
                                   width: getHorizontalSize(
                                     320.00,
                                   ),
                                   child: Container(
-
                                     child:Padding(
                                       padding: const EdgeInsets.only(bottom: 15,),
                                       child: TextFormField(
@@ -612,9 +608,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 child: GestureDetector(
                                   onTap: () async{
-
-
-
                                     setState(() {
                                       if (_formKey.currentState!.validate()) {
                                         print("Form was Submitted Successfully");
@@ -634,6 +627,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         passwordController.text,
                                         confirmpassController.text,
                                         context);
+
+                                    usernameController.clear();
+                                    emailController.clear();
+                                    mobileController.clear();
+                                    passwordController.clear();
+                                    confirmpassController.clear();
+
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
