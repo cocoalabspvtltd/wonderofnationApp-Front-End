@@ -211,6 +211,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   // print(notificationlist.notifications![index].data!.status_id);
                   // print(notificationlist.notifications![index].data!.match_id);
                   _showDialogmatch(notificationlist.notifications![index].data!.statusId,notificationlist.notifications![index].data!.matchId);
+                  Navigator.pop(context);
                 },
                 child: Card(
                   shape: RoundedRectangleBorder(
