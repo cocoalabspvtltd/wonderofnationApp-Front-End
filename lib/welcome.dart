@@ -2,13 +2,22 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:oo/constants/user.dart';
+import 'package:oo/screens/homePage/navigator.dart';
 
 import 'package:oo/screens/login.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:simple_animations/stateless_animation/play_animation.dart';
 
+import 'constants/sharedpref.dart';
+
 
 class WelcomeScreen extends StatefulWidget {
+  final bool isFromLogout;
+
+  const WelcomeScreen({Key? key, this.isFromLogout = false}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -17,11 +26,32 @@ class _MyHomePageState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+     // setScreenDimensions(context);
+
+      setState(() {});
+
+      if (UserDetails.apiToken.isEmpty) await SharedPrefs.init();
+      await SharedPrefs.init();
+
+      Future.delayed(Duration(milliseconds: 1400), () {
+        if (UserDetails.apiToken != '') {
+
+
+            return Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
+
+        } else {
+          return Get.offAll(() => LoginScreen());
+        }
+      });
+    });
     Timer(
         Duration(seconds:4),
             () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => SecondScreen())));
   }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import '../../constants/user.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/dropdowns/game_list_register.dart';
 import '../../screens/homePage/levelling2.dart';
@@ -25,7 +26,7 @@ class LevellingRegisterRepository{
       final response = await WebApiProvider().getData(
           url:"level/store",
           isPost:true,
-          token:TOKEN,
+          token:UserDetails.apiToken,
           queryParameters:_queryParameters,
           isQueryParmeter:true);
       print("object0->>>>${response}");

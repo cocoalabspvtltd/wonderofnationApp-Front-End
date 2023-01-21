@@ -2,6 +2,7 @@
 
 import 'package:intl/intl.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 
 import '../../constants/web_Api_provider.dart';
 import '../../screens/matches/reservation_court.dart';
@@ -27,7 +28,7 @@ class GetRefferelCode {
     final response = await WebApiProvider().getData(
         url:"verify/referral-code",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     print("res->>>--------${response}");

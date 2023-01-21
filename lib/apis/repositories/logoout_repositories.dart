@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/login.dart';
 import 'club_list_repositories.dart';
@@ -18,7 +19,7 @@ class LogoutRepository{
       final response = await WebApiProvider().getData(
           url:"logout",
           isPost:false,
-          token:TOKEN,
+          token:UserDetails.apiToken,
           queryParameters:_queryParameters,
           isQueryParmeter:false);
       print("object0->>>>${response}");

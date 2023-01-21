@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:oo/apis/modelclass/follow_modelclass.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/constants/web_Api_provider.dart';
 class FollowRepository {
 
@@ -21,7 +22,7 @@ class FollowRepository {
         options: Options(
             headers: {
               'Accept': 'application/json',
-              'Authorization': "Bearer " + TOKEN,
+              'Authorization': "Bearer " + UserDetails.apiToken,
             }
         )
     );
@@ -42,7 +43,7 @@ class FollowRepository {
         options: Options(
             headers: {
               'Accept': 'application/json',
-              'Authorization': "Bearer " + TOKEN,
+              'Authorization': "Bearer " + UserDetails.apiToken,
             }
         )
     );
@@ -64,7 +65,7 @@ class FollowRepository {
         options: Options(
             headers: {
               'Accept': 'application/json',
-              'Authorization': "Bearer " + TOKEN,
+              'Authorization': "Bearer " + UserDetails.apiToken,
             }
         )
     );
@@ -87,7 +88,7 @@ class FollowRepository {
         options: Options(
             headers: {
               'Accept': 'application/json',
-              'Authorization': "Bearer " + TOKEN,
+              'Authorization': "Bearer " + UserDetails.apiToken,
             }
         )
     );

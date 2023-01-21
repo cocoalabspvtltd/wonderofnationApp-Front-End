@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:oo/constants/user.dart';
 import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
 
@@ -22,7 +23,7 @@ class _DesignationDropDownState extends State<DesignationDropDown> {
 
     http.Response response = await http.get(Uri.parse('${baseurl}get/sports'), headers: <String, String>{
       'Accept': "appilication/json",
-      'Authorization': 'Bearer $TOKEN',
+      'Authorization': 'Bearer ${UserDetails.apiToken}',
 
     },);
     if (response.statusCode == 200) {

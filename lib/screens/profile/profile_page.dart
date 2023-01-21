@@ -13,6 +13,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
+import '../../constants/user.dart';
 import 'edit_profile.dart';
 
 
@@ -309,7 +310,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                             Navigator.push(
                                                               context,
                                                               MaterialPageRoute(builder: (context) =>  ProfileDetailsScreen(fragmentToShow: 1,UserName: data.name?? "",
-                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(),matchcount: data.matches.toString())),
+                                                                followerscount:data.followersCount.toString(),followingcount: data.followingCount.toString(), matchcount: data.matches.toString())),
                                                             );
                                                           },
                                                           child: Container(
@@ -360,7 +361,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                   {
                                                     Navigator.push(context,
                                                         MaterialPageRoute(builder:
-                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: email, UserPhone: phone,)));
+                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: UserDetails.userName, UserPhone: UserDetails.userMobile,)));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(

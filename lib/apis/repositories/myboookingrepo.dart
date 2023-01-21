@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:oo/apis/modelclass/mybookingmodel.dart';
 import 'package:oo/constants/base_urls.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/constants/web_Api_provider.dart';
 
 import 'register_Repositories.dart';
@@ -30,7 +31,7 @@ class MyOrdersRepositoryUser {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -61,7 +62,7 @@ class MyOrdersRepositoryUser1 {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -93,7 +94,7 @@ class historyRepositories {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -114,7 +115,7 @@ class historyRepositories {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 

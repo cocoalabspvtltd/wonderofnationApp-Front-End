@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:oo/apis/modelclass/profile_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import '../../constants/response.dart';
 import '../repositories/profile_page_repositories.dart';
 
@@ -55,16 +56,16 @@ class SuggestionProfilePageBloc {
   SuggestionProfilePageBloc() {
     _profileRepository = ProfilepageRepositories();
 
-    getSuggestionProfileList(userid);
+    getSuggestionProfileList(UserDetails.userId);
     print("fsfds");
   }
 
-  getSuggestionProfileList(int? userid) async {
+  getSuggestionProfileList(String userid) async {
     userprofileListDataSink.add(Response.loading('Fetching...'));
     try {
       print("object");
       List<dynamic> _vitallist =
-      await _profileRepository.getUserProfilesuggestionList(userid!);
+      await _profileRepository.getUserProfilesuggestionList(userid);
 
       userprofileListDataSink.add(Response.success(_vitallist));
     } catch (e) {

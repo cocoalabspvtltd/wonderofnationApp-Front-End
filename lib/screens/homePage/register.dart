@@ -1,9 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:oo/apis/bloc/authbloc.dart';
+import 'package:oo/apis/modelclass/userloginresponse.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/homePage/register_profile.dart';
 
 
@@ -11,6 +16,8 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
+import '../../constants/sharedpref.dart';
+import '../../utilities/appdialgs.dart';
 import '../login.dart';
 
 
@@ -33,52 +40,88 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // drLOginRepository registerapi = drLOginRepository();
   late Map EditResponse;
   bool _validate = false;
+  AuthBlocUser _authBloc = AuthBlocUser();
   void initState() {
 
     setState(() { confirmpassController.clear();  passwordController.text= "";});
 
   }
-  Future register(String name, email, mobile, pass, conpass, context) async {
-    EasyLoading.show(status: 'loading...');
-    Map data = {
-      'name': name,
-      'email': email,
-      'phone': mobile,
-      'password': pass,
-      'password_confirmation': conpass,
-    };
-    print(data);
-    print("---body-->>>${data}");
-    var response = await http.post(
-      Uri.parse('${baseurl}create'),
-      body: data,
-      headers: {
-        "accept": "application/json",
-      },
-    );
-    EasyLoading.dismiss();
+  // Future register(String name, email, mobile, pass, conpass, context) async {
+  //   EasyLoading.show(status: 'loading...');
+  //   Map data = {
+  //     'name': name,
+  //     'email': email,
+  //     'phone': mobile,
+  //     'password': pass,
+  //     'password_confirmation': conpass,
+  //   };
+  //   print(data);
+  //   print("---body-->>>${data}");
+  //   var response = await http.post(
+  //     Uri.parse('${baseurl}create'),
+  //     body: data,
+  //     headers: {
+  //       "accept": "application/json",
+  //     },
+  //   );
+  //   EasyLoading.dismiss();
+  //
+  //   EditResponse = json.decode(response.body);
+  //   print("resoo000>>>>>>${EditResponse}");
+  //   name = EditResponse["user"]["name"];
+  //
+  //   print("username>>>>>>${name}");
+  //   print(response.statusCode);
+  //
+  //   if (response.statusCode == 200) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => RegisterProfile(names: name,)),
+  //     );
+  //     print('success');
+  //
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: "The given data was invalid",
+  //       gravity: ToastGravity.BOTTOM,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //     print('error');
+  //   }
+  // }
+  Future _signUp(
+      String email,
+      String name,
+      String phone,
+      String password,
+      ) async {
+    AppDialogs.loading();
 
-    EditResponse = json.decode(response.body);
-    print("resoo000>>>>>>${EditResponse}");
-    name = EditResponse["user"]["name"];
-    TOKEN = EditResponse["token"];
-    print("username>>>>>>${name}");
-    print(response.statusCode);
+    Map<String, dynamic> body = {};
+    body["name"] = name;
+    body["email"] = email;
+    body["phone"] = phone;
+    body["password"] = password;
+    body["password_confirmation"] = password;
 
-    if (response.statusCode == 200) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => RegisterProfile(names: name,)),
-      );
-      print('success');
 
-    } else {
-      Fluttertoast.showToast(
-        msg: "The given data was invalid",
-        gravity: ToastGravity.BOTTOM,
-        toastLength: Toast.LENGTH_SHORT,
-      );
-      print('error');
+    try {
+      UserSignInModel response =
+      await _authBloc!.userRegistration(json.encode(body));
+      Get.back();
+      if (response.success!) {
+        await SharedPrefs.logIn(response);
+
+          Get.offAll(() => RegisterProfile(names: UserDetails.userName,));
+
+        }
+       else {
+        Fluttertoast.showToast(msg:'${response.message!}');
+      }
+    } catch (e, s) {
+      Completer().completeError(e, s);
+      Get.back();
+      Fluttertoast.showToast(msg:'Something went wrong. Please try again');
     }
   }
   RegExp pass_valid = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
@@ -279,7 +322,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                       onSaved: (String? value){
-                                        phone = value!;
+                                        UserDetails.userMobile = value!;
                                       },
                                     ),
                                   ),
@@ -349,7 +392,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         return null;
                                       },
                                       onSaved: (String? value){
-                                        email = value!;
+                                        UserDetails.userEmail = value!;
                                       },
                                     ),
                                   ),
@@ -415,7 +458,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           return null;
                                       },
                                       onSaved: (String? value){
-                                        phone = value!;
+                                        UserDetails.userMobile = value!;
                                       },
                                     ),
                                   ),
@@ -510,7 +553,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               }
                                             },
                                             onSaved: (String? value){
-                                              pass = value!;
+                                            //  pass = value!;
                                             },
                                           ),
                                         ),
@@ -620,13 +663,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       }
 
                                     });
-                                    await  register(
-                                        usernameController.text,
+                                    await  _signUp(
                                         emailController.text,
+                                        usernameController.text,
+
                                         mobileController.text,
                                         passwordController.text,
-                                        confirmpassController.text,
-                                        context);
+                                    );
 
                                     usernameController.clear();
                                     emailController.clear();

@@ -1,10 +1,20 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:oo/apis/bloc/authbloc.dart';
+import 'package:oo/apis/modelclass/user_details.dart';
+import 'package:oo/apis/modelclass/userloginresponse.dart';
+import 'package:oo/constants/sharedpref.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/google_signin.dart';
 import 'package:http/http.dart' as http;
+import 'package:oo/screens/homePage/navigator.dart';
+import 'package:oo/utilities/appdialgs.dart';
+import 'package:oo/utilities/formvalidate.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../apis/repositories/register_Repositories.dart';
 import '../constants/colors.dart';
@@ -23,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
 
   bool _passwordVisible = false;
-  //AuthBlocUser _authBloc = AuthBlocUser();
+  AuthBlocUser _authBloc = AuthBlocUser();
   void initState() {
     _passwordVisible = false;
     setState(() {    passwordController1.text= "";});
@@ -49,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isobsucure = true;
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
-  drLOginRepository loginApiCall = new drLOginRepository();
+  AuthRepository loginApiCall = new AuthRepository();
   TextEditingController EmailLoginController = TextEditingController();
   String _email = "";
   String _pass = "";
@@ -434,22 +444,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextButton(
                                       onPressed: () async{
                                         print("loading");
+                                        await _login();
 
-                                        setState(() {
-                                          if (_formKey.currentState!.validate()) {
-                                            print("Form was Submitted Successfully");
-                                            passwordController1.text.isEmpty
-                                                ? _validate = true
-                                                : _validate = false;
-                                            passwordController1.text.isEmpty
-                                                ? _validatePassword = true
-                                                : _validatePassword = false;
-                                          }
-                                        });
+                                        // setState(() {
+                                        //   if (_formKey.currentState!.validate()) {
+                                        //     print("Form was Submitted Successfully");
+                                        //     passwordController1.text.isEmpty
+                                        //         ? _validate = true
+                                        //         : _validate = false;
+                                        //     passwordController1.text.isEmpty
+                                        //         ? _validatePassword = true
+                                        //         : _validatePassword = false;
+                                        //   }
+                                        // });
 
                                       //  EasyLoading.showProgress(0.3, status: 'downloading...');
-                                      await  loginApiCall.createUser(EmailLoginController.text,
-                                            passwordController1.text, context);
+                                      // await  loginApiCall.createUser(EmailLoginController.text,
+                                      //       passwordController1.text, context);
 
                                       },
                                       child: Container(height: 40,width: 360,
@@ -587,13 +598,53 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+  FormatAndValidate formatAndValidate = FormatAndValidate();
 
   Future<String> _getAppVersion() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
   }
 
+  // _validator() async {
+  //   var email = emailController.text;
+  //   var password = passwordController1.text;
+  //
+  //   if (formatAndValidate.validateEmailID(email) != null) {
+  //     return Fluttertoast.showToast(msg:formatAndValidate.validateEmailID(email));
+  //   } else if (password == "" || password.length < 6) {
+  //     return Fluttertoast.showToast(msg:"Password length must be more than 6");
+  //   }
+  //   return await _login(email, password);
+  // }
+
+  Future _login() async {
+    AppDialogs.loading();
+
+    Map<String, dynamic> body = {};
+    body["email"] = EmailLoginController.text;
+    body["password"] = passwordController1.text;
+
+
+    try {
+      UserSignInModel response = await _authBloc.login(json.encode(body));
+
+      Get.back();
+      if (response.message=="Login successful"!) {
+        await SharedPrefs.logIn(response);
+
+          Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
+
+
+
+      } else {
+        Fluttertoast.showToast(msg:'${response.message!}');
+      }
+    } catch (e, s) {
+      Completer().completeError(e, s);
+      Get.back();
+      Fluttertoast.showToast(msg:'Something went wrong. Please try again');
+    }
+  }
 
 
 }

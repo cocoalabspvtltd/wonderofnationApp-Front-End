@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/profile/profile_page.dart';
 
@@ -20,11 +21,11 @@ class EditprofileRepostory{
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
-      print("object->>>>>${TOKEN}");
+
       final response = await WebApiProvider().getData(
           url:"profile-update",
           isPost:true,
-          token:TOKEN,
+          token:UserDetails.apiToken,
           queryParameters:_queryParameters,
           isQueryParmeter:true);
       print("->${response}");
@@ -95,7 +96,7 @@ class ForgotPassword{
       final response = await WebApiProvider().getData(
           url:"forgot/password/app",
           isPost:true,
-          token:TOKEN,
+          token:UserDetails.apiToken,
           queryParameters:_queryParameters,
           isQueryParmeter:true);
 

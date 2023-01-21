@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:oo/constants/colors.dart';
 
 import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/base_urls.dart';
+import '../../constants/user.dart';
 
 
 String designatioids = "";
@@ -23,7 +25,7 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
 
     http.Response response = await http.get(Uri.parse('${baseurl}get/sports'), headers: <String, String>{
       'Accept': "appilication/json",
-      'Authorization': 'Bearer $TOKEN',
+      'Authorization': 'Bearer $UserDetails.apiToken',
 
     },);
     if (response.statusCode == 200) {
@@ -49,7 +51,7 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
       child: DropdownButton(
         hint: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text('Select',style: TextStyle(fontSize: 15),),
+          child: Text('Select',style: TextStyle(fontSize: 14,color: ColorConstant.black900),),
         ),
         items: categoryItemlist.map((item) {
           // int id = categoryItemlist[0]["id"];

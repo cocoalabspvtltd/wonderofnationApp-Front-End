@@ -5,6 +5,7 @@ import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 
+import '../../constants/user.dart';
 import '../dropdowns/game_list_register.dart';
 import '../dropdowns/games_dropdown.dart';
 import 'levelling2.dart';
@@ -43,7 +44,7 @@ class _LevelingFirstState extends State<LevelingFirst> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => RegisterProfile(
-                            names: name,
+                            names: UserDetails.userName
                           )));
             }),
         title: Padding(

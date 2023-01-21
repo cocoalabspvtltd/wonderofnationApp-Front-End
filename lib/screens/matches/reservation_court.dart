@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/dashboardItems/history_screen.dart';
 import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/matches/whatsappshare.dart';
@@ -1231,7 +1232,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
       'description': 'Payment',
       'retry': {'enabled': true, 'max_count': 3},
       'send_sms_hash': true,
-      'prefill': {'contact': phone, 'email': email, 'name': name},
+      'prefill': {'contact': UserDetails.userMobile, 'email': UserDetails.userEmail, 'name': UserDetails.userName},
       'external': {
         'wallets': ['paytm']
       },

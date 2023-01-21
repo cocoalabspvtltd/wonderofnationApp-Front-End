@@ -29,7 +29,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
 
-       imageTemp = File(image.path);
+      imageTemp = File(image.path);
 
       setState(() => this.image = imageTemp);
 
@@ -170,24 +170,14 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               child: InkWell(
                                 onTap: pickImage,
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.black,
-                                  radius: 48.0,
-                                  child: CircleAvatar(
-                                    radius: 48.0,
-                                    backgroundColor: Colors.white,
-                                    child: Container(
-                                      height: 150,
-                                      child: ClipOval(
-                                        child: (image != null)
-                                            ? Image.file(
-                                                image!,
-                                                fit: BoxFit.fill,
-                                              )
-                                            : Image.asset(
-                                                'assets/images/profile.png'),
-                                      ),
-                                    ),
-                                  ),
+                                  radius: 50.0,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: image == null ? null
+                                      :FileImage(File(image!.path)),
+                                  child: image==null ?
+                                  Image.asset(
+                                      'assets/images/profile.png') :
+                                  Text("  "),
                                 ),
                               )),
                           Padding(
@@ -201,8 +191,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                 top: 15),
                             child: GestureDetector(
                               onTap: () async{
-
-                              await  profileimageupload.getprofileImageList(imageTemp!);
+                                await  profileimageupload.getprofileImageList(imageTemp!);
                                 //uploadImage(image!);
                               },
                               child: Text(
@@ -293,7 +282,10 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                     ),
                                   ),
                                 ),
-                                child: DesignationDropDown()),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10,right: 10),
+                                  child: DesignationDropDown(),
+                                )),
                           ),
 
                           Padding(
@@ -314,9 +306,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LevelingFirst(
-                                            designatioids1,
-                                            user1: widget.names,
-                                          )),
+                                        designatioids1,
+                                        user1: widget.names,
+                                      )),
                                 );
                               },
                               child: Container(
@@ -363,161 +355,161 @@ class _RegisterProfileState extends State<RegisterProfile> {
     );
   }
 
-  // _buildImageSection() {
-  //   return Container(
-  //     margin: EdgeInsets.only(bottom: 20),
-  //     alignment: FractionalOffset.center,
-  //     width: double.infinity,
-  //     height: 150,
-  //     color: Colors.transparent,
-  //     child: Container(
-  //       height: 150.0,
-  //       width: 150.0,
-  //       child: Stack(children: <Widget>[
-  //         Container(
-  //           width: 150,
-  //           height: 150,
-  //           decoration: new BoxDecoration(
-  //             color: Colors.black26,
-  //             borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
-  //             border: new Border.all(
-  //               color: Colors.grey,
-  //               width: 4.0,
-  //             ),
-  //           ),
-  //           child: ClipOval(
-  //             child: SizedBox.expand(
-  //               child: showImage(),
-  //             ),
-  //           ),
-  //         ),
-  //         Positioned(
-  //           child: Align(
-  //             alignment: FractionalOffset.bottomRight,
-  //             child: GestureDetector(
-  //               child: Image.asset(
-  //                 ('assets/images/ic_camera.png'),
-  //                 height: 50,
-  //                 width: 50,
-  //               ),
-  //               onTap: () async {
-  //                 final pickedFile = await ImagePicker().pickImage(
-  //                     source: ImageSource.gallery,
-  //                     imageQuality: 60);
-  //
-  //                 if(pickedFile!=null){
-  //                   image = XFile(pickedFile.path);
-  //                   setState(() {  });
-  //                 }
-  //               },
-  //             ),
-  //           ),
-  //         )
-  //       ]),
-  //     ),
-  //   );
-  // }
-  // Widget showImage() {
-  //   return Center(
-  //     child: image == null
-  //         ? CachedNetworkImage(
-  //       width: double.infinity,
-  //       height: double.infinity,
-  //       fit: BoxFit.cover,
-  //       placeholder: (context, url) => CircularProgressIndicator(),
-  //       errorWidget: (context, url, error) => Center(
-  //         child: Image(
-  //           image:
-  //           AssetImage('assets/images/ic_avatar.png',),color: Colors.white,
-  //         ),
-  //       ), imageUrl: '',
-  //     )
-  //         : Container(
-  //       height: 140.0,
-  //       width: 140.0,
-  //       child: SizedBox.expand(
-  //         child: Image.file(
-  //           image!,
-  //           fit: BoxFit.cover,
-  //         ),
-  //       ),
-  //       decoration: BoxDecoration(
-  //         borderRadius: new BorderRadius.all(const Radius.circular(70.0)),
-  //       ),
-  //     ),
-  //   );
-  // }
-  // XFile? _image;
-  // _imagefromGallery() async {
-  //   final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     _image = image;
-  //   });
-  //   await profileimageupload.getprofileImageList(_image!);
-  // }
-  //
-  // _imagefromComera() async {
-  //   final XFile? photo = await ImagePicker().pickImage(source: ImageSource.camera);
-  //   setState(() {
-  //     _image = photo;
-  //   });
-  //   await profileimageupload.getprofileImageList(_image!);
-  // }
-  // _showpicker() {
-  //   showModalBottomSheet(
-  //       shape:
-  //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-  //       backgroundColor: Colors.white,
-  //       context: context,
-  //       builder: (context) {
-  //         return Container(
-  //           height: 100,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(15.0),
-  //             child: Row(
-  //               crossAxisAlignment: CrossAxisAlignment.center,
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 Column(
-  //                   children: [
-  //                     SizedBox(width: 100),
-  //                     CircleAvatar(
-  //                       radius: 24,
-  //                       backgroundColor: Colors.green[900],
-  //                       child: IconButton(
-  //                         onPressed: () {
-  //                           _imagefromComera();
-  //                         },
-  //                         icon: Icon(Icons.camera_alt_rounded,
-  //                             color: Colors.white),
-  //                         iconSize: 30,
-  //                       ),
-  //                     ),
-  //                     Text("Camera"),
-  //                   ],
-  //                 ),
-  //                 SizedBox(width:100),
-  //                 Column(
-  //                   children: [
-  //                     CircleAvatar(
-  //                       radius: 24,
-  //                       backgroundColor: Colors.green[900],
-  //                       child: IconButton(
-  //                         onPressed: () {
-  //                           _imagefromGallery();
-  //                         },
-  //                         icon: Icon(Icons.photo),
-  //                         color: Colors.white,
-  //                         iconSize: 30,
-  //                       ),
-  //                     ),
-  //                     Text("Gallery"),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
+// _buildImageSection() {
+//   return Container(
+//     margin: EdgeInsets.only(bottom: 20),
+//     alignment: FractionalOffset.center,
+//     width: double.infinity,
+//     height: 150,
+//     color: Colors.transparent,
+//     child: Container(
+//       height: 150.0,
+//       width: 150.0,
+//       child: Stack(children: <Widget>[
+//         Container(
+//           width: 150,
+//           height: 150,
+//           decoration: new BoxDecoration(
+//             color: Colors.black26,
+//             borderRadius: new BorderRadius.all(new Radius.circular(75.0)),
+//             border: new Border.all(
+//               color: Colors.grey,
+//               width: 4.0,
+//             ),
+//           ),
+//           child: ClipOval(
+//             child: SizedBox.expand(
+//               child: showImage(),
+//             ),
+//           ),
+//         ),
+//         Positioned(
+//           child: Align(
+//             alignment: FractionalOffset.bottomRight,
+//             child: GestureDetector(
+//               child: Image.asset(
+//                 ('assets/images/ic_camera.png'),
+//                 height: 50,
+//                 width: 50,
+//               ),
+//               onTap: () async {
+//                 final pickedFile = await ImagePicker().pickImage(
+//                     source: ImageSource.gallery,
+//                     imageQuality: 60);
+//
+//                 if(pickedFile!=null){
+//                   image = XFile(pickedFile.path);
+//                   setState(() {  });
+//                 }
+//               },
+//             ),
+//           ),
+//         )
+//       ]),
+//     ),
+//   );
+// }
+// Widget showImage() {
+//   return Center(
+//     child: image == null
+//         ? CachedNetworkImage(
+//       width: double.infinity,
+//       height: double.infinity,
+//       fit: BoxFit.cover,
+//       placeholder: (context, url) => CircularProgressIndicator(),
+//       errorWidget: (context, url, error) => Center(
+//         child: Image(
+//           image:
+//           AssetImage('assets/images/ic_avatar.png',),color: Colors.white,
+//         ),
+//       ), imageUrl: '',
+//     )
+//         : Container(
+//       height: 140.0,
+//       width: 140.0,
+//       child: SizedBox.expand(
+//         child: Image.file(
+//           image!,
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//       decoration: BoxDecoration(
+//         borderRadius: new BorderRadius.all(const Radius.circular(70.0)),
+//       ),
+//     ),
+//   );
+// }
+// XFile? _image;
+// _imagefromGallery() async {
+//   final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
+//   setState(() {
+//     _image = image;
+//   });
+//   await profileimageupload.getprofileImageList(_image!);
+// }
+//
+// _imagefromComera() async {
+//   final XFile? photo = await ImagePicker().pickImage(source: ImageSource.camera);
+//   setState(() {
+//     _image = photo;
+//   });
+//   await profileimageupload.getprofileImageList(_image!);
+// }
+// _showpicker() {
+//   showModalBottomSheet(
+//       shape:
+//       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+//       backgroundColor: Colors.white,
+//       context: context,
+//       builder: (context) {
+//         return Container(
+//           height: 100,
+//           child: Padding(
+//             padding: const EdgeInsets.all(15.0),
+//             child: Row(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Column(
+//                   children: [
+//                     SizedBox(width: 100),
+//                     CircleAvatar(
+//                       radius: 24,
+//                       backgroundColor: Colors.green[900],
+//                       child: IconButton(
+//                         onPressed: () {
+//                           _imagefromComera();
+//                         },
+//                         icon: Icon(Icons.camera_alt_rounded,
+//                             color: Colors.white),
+//                         iconSize: 30,
+//                       ),
+//                     ),
+//                     Text("Camera"),
+//                   ],
+//                 ),
+//                 SizedBox(width:100),
+//                 Column(
+//                   children: [
+//                     CircleAvatar(
+//                       radius: 24,
+//                       backgroundColor: Colors.green[900],
+//                       child: IconButton(
+//                         onPressed: () {
+//                           _imagefromGallery();
+//                         },
+//                         icon: Icon(Icons.photo),
+//                         color: Colors.white,
+//                         iconSize: 30,
+//                       ),
+//                     ),
+//                     Text("Gallery"),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         );
+//       });
+// }
 }

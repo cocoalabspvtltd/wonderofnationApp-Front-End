@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:oo/apis/modelclass/matchdescription_modelk.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/constants/web_Api_provider.dart';
 
 import '../../constants/base_urls.dart';
@@ -27,7 +28,7 @@ class DepartmentRepositoryUser {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 

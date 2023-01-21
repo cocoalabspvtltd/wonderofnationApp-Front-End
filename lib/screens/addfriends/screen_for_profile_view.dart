@@ -116,7 +116,7 @@ class _ProfileViewState extends State<ProfileView> {
   void initState() {
     super.initState();
     _bloc = SuggestionProfilePageBloc();
-    _bloc.getSuggestionProfileList(widget.id);
+    _bloc.getSuggestionProfileList(widget.id.toString());
     setState(() {});
   }
 
@@ -533,7 +533,7 @@ class _ProfileViewState extends State<ProfileView> {
       color: Colors.white,
       backgroundColor: Colors.blue,
       onRefresh: () {
-        return _bloc.getSuggestionProfileList(widget.id);
+        return _bloc.getSuggestionProfileList(widget.id.toString());
       },
       child: StreamBuilder<Response<List<dynamic>>>(
           stream: _bloc.userprofileDataStream,

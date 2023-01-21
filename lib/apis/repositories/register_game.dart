@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/forgotpassword/AlertAnimated.dart';
 import '../modelclass/sport_model.dart';
@@ -17,7 +18,7 @@ class AppointmentMeasurmentDetailsRepository1 {
     final response = await WebApiProvider().getData(
         url: "get/sports",
         isPost: false,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: false
     );

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/dashboardItems/add_match_players.dart';
 import 'package:oo/screens/dashboardItems/my_matches.dart';
 import '../../constants/web_Api_provider.dart';
@@ -15,14 +16,14 @@ int club_id = 0;
 class AddClubRepositories {
 
   Future  getaddclubList() async {
-    print("token=${TOKEN}");
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{};
     print("_queryParameters : " + _queryParameters.toString());
 
     final response = await WebApiProvider().getData(
         url: "clubs/all-list",
         isPost: false,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     // club_id = response[3]["id"];
@@ -36,7 +37,7 @@ class AddClubRepositories {
 class EditPlayerRepo {
 
   Future  getEditPlayer(int playeerID,user_id) async {
-    print("token=${TOKEN}");
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
 
       "player_id":9,
@@ -48,7 +49,7 @@ class EditPlayerRepo {
     final response = await WebApiProvider().getData(
         url: "player/update",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     // club_id = response[3]["id"];
@@ -60,7 +61,7 @@ class EditPlayerRepo {
 class Deleteplayer {
 
   Future  getDeleteplayer(int playerid,context) async {
-    print("token=${TOKEN}");
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "player_id": playerid
     };
@@ -69,7 +70,7 @@ class Deleteplayer {
     final response = await WebApiProvider().getData(
         url: "player/delete",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     // club_id = response[3]["id"];
@@ -84,7 +85,7 @@ class Deleteplayer {
 class UpdatePalyer {
 
   Future  getUpdateplayer(int userid,String name,index,context) async {
-    print("token=${TOKEN}");
+
     int bookingid = datas[index].bookingId!;
     String paymentstatus = datas[index].paymentStatus!;
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
@@ -99,7 +100,7 @@ class UpdatePalyer {
     final response = await WebApiProvider().getData(
         url: "player/store",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     // club_id = response[3]["id"];

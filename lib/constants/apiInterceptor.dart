@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:oo/constants/sharedpref.dart';
 
-import 'package:oo/utilities/user.dart';
+import '../user.dart';
+import 'sharedpref.dart';
 
 
 class ApiInterceptor extends Interceptor {
@@ -11,9 +11,9 @@ class ApiInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    if (USer1.apiToken.isNotEmpty) {
+    if (User.apiToken.isNotEmpty) {
       if (!options.headers.containsKey('authorization')) {
-        options.headers.addAll({"Authorization": "Bearer ${USer1.apiToken}"});
+        options.headers.addAll({"Authorization": "Bearer ${User.apiToken}"});
       }
 
       // options.headers.addAll({"Authorization": "Bearer $s1"});

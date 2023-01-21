@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
 import '../../constants/web_Api_provider.dart';
 import '../../screens/dropdowns/games_dropdown.dart';
@@ -37,7 +38,7 @@ class AcademyRegistrationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer "+TOKEN,
+              'Authorization':"Bearer "+UserDetails.apiToken,
             }
         )
 

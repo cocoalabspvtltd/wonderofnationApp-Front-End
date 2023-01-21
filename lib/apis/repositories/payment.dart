@@ -5,6 +5,7 @@ import 'dart:core';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/matches/add_players.dart';
 
 import '../../constants/base_urls.dart';
@@ -55,7 +56,7 @@ class Payemnt {
     final response = await WebApiProvider().getData(
         url:"court/payment",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     print("res->>>--------${response}");
@@ -81,7 +82,7 @@ class Payemnt {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 

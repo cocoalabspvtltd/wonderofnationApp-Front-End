@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:oo/apis/modelclass/notification_modelclass.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/constants/web_Api_provider.dart';
 int notificationCount=0;
 class NotificationRepository {
@@ -22,7 +23,7 @@ class NotificationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -41,7 +42,7 @@ class NotificationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -64,7 +65,7 @@ class NotificationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
     );
@@ -87,7 +88,7 @@ class NotificationRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
     );

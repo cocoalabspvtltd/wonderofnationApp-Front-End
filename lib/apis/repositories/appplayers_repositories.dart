@@ -3,6 +3,7 @@ import 'package:oo/apis/modelclass/ResultModel.dart';
 import 'package:oo/apis/modelclass/addplayers_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
+import 'package:oo/constants/user.dart';
 
 import '../../constants/web_Api_provider.dart';
 
@@ -26,7 +27,7 @@ class AddplayerRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 
@@ -49,7 +50,7 @@ class AddplayerRepository {
         options: Options(
             headers: {
               'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
             }
         )
 

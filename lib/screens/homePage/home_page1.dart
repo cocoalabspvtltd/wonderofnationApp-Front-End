@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/notification_bloc.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/homePage/sport_Academy.dart';
 import '../../apis/repositories/logoout_repositories.dart';
 import '../../apis/repositories/register_Repositories.dart';
@@ -71,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                             Text("HELLO ,",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 17),),
                             register_buuton=="Start Playing" ?
                             Text(" ${widget.RegisterName.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),):
-                            Text(" ${name.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),
+                            Text(" ${UserDetails.userName.toUpperCase()}",style: TextStyle(color: ColorConstant.green6320),),
                             Spacer(),
                           ],
                         ),

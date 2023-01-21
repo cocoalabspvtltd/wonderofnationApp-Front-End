@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
 import 'package:oo/constants/web_Api_provider.dart';
+
+import '../../constants/user.dart';
 String followMessage = "";
 class FollowRepositories {
   WebApiProvider apiProvider = WebApiProvider();
@@ -17,7 +19,7 @@ class FollowRepositories {
           .getJsonInstance()
           .post(baseurl + "follow",data: formData,options: Options(headers:{
                       'Accept':'application/json',
-              'Authorization':"Bearer " + TOKEN,
+              'Authorization':"Bearer " + UserDetails.apiToken,
 
       }));
       if (followMessage=="success"){
@@ -43,7 +45,7 @@ class FollowRepositories {
           .getJsonInstance()
           .post(baseurl + "unfollow",data: formData,options: Options(headers:{
         'Accept':'application/json',
-        'Authorization':"Bearer " + TOKEN,
+        'Authorization':"Bearer " + UserDetails.apiToken,
 
       }));
       followMessage = resoponse.data["message"];

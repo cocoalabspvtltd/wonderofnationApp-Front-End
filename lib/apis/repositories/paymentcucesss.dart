@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/payment.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/dashboardItems/creating_matches_screen.dart';
 import 'package:oo/screens/homePage/home_page1.dart';
 import '../../constants/colors.dart';
@@ -32,7 +33,7 @@ class PayemntSucess {
     final response = await WebApiProvider().getData(
         url: "payment/signature-verify",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
 
@@ -64,7 +65,7 @@ class PayemntSucess {
     final response = await WebApiProvider().getData(
         url: "player/payment/signature-verify",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
 

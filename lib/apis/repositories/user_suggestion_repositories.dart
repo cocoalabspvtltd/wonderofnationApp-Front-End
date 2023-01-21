@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
+import 'package:oo/constants/user.dart';
 import '../../constants/base_urls.dart';
 import '../../constants/web_Api_provider.dart';
 import '../modelclass/user_suggestion_model.dart';
@@ -23,7 +24,7 @@ class UserSuggestionRepository {
           .getJsonInstance()
           .post(baseurl + "suggested-users",data: formData,options: Options(headers:{
         'Accept':'application/json',
-        'Authorization':"Bearer " + TOKEN,
+        'Authorization':"Bearer " + UserDetails.apiToken,
 
       }));
 

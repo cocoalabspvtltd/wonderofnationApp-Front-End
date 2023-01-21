@@ -9,6 +9,7 @@ import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/screens/dropdowns/games_dropdown.dart';
 import '../../constants/base_urls.dart';
+import '../../constants/user.dart';
 import '../../constants/web_Api_provider.dart';
 import '../modelclass/joined_club_Model.dart';
 import '../modelclass/profile_model.dart';
@@ -17,16 +18,16 @@ Map levelList={} ;
 class ProfilepageRepositories {
 
   Future  getprofileList() async {
-    print("token=${TOKEN}");
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
 
     };
     print("_queryParameters : " + _queryParameters.toString());
-    print("token=${TOKEN}");
+
     final response = await WebApiProvider().getData(
         url: "profile-page",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: false);
     //print("responseee->>>${response[0]["levels"]}");
@@ -37,17 +38,17 @@ class ProfilepageRepositories {
         .toList();
   }
 
-  Future  getUserProfilesuggestionList(int userid ) async {
-    print("token=${TOKEN}");
+  Future  getUserProfilesuggestionList(String userid ) async {
+
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "user_id":userid
     };
     print("_queryParameters : " + _queryParameters.toString());
-    print("token=${TOKEN}");
+
     final response = await WebApiProvider().getData(
         url: "profile-page",
         isPost: true,
-        token: TOKEN,
+        token: UserDetails.apiToken,
         queryParameters: _queryParameters,
         isQueryParmeter: true);
     print("responseee->>>${response}");
@@ -113,7 +114,7 @@ class ProfilepageRepositories {
       options: Options(
      headers: {
        'Accept':'application/json',
-       'Authorization':"Bearer " + TOKEN,
+       'Authorization':"Bearer " + UserDetails.apiToken,
      }
       )
 

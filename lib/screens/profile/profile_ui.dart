@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:oo/constants/user.dart';
 import 'package:oo/screens/profile/profile_details.dart';
 
 import '../../apis/bloc/profile_page_bloc.dart';
@@ -182,7 +183,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
 
                                           ),
                                           child: Text(
-                                            "${name.toUpperCase()}",
+                                            "${UserDetails.userName.toUpperCase()}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               color: ColorConstant.black900,
