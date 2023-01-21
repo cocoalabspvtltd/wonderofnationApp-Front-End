@@ -128,7 +128,7 @@ class Followers {
   String? email;
   Null? emailVerifiedAt;
   String? phone;
-  Null profilePic;
+  Null? profilePic;
   int? role;
   String? createdAt;
   String? updatedAt;
