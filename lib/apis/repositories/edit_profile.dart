@@ -30,10 +30,7 @@ class EditprofileRepostory{
           isQueryParmeter:true);
       print("->${response}");
       if (response["message"] == "Successfully updated") {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) =>  ProfileUi()),
-        );
+       Fluttertoast.showToast(msg:'${response.message!}');
       } else {
         throw response.statusCode;
       }
