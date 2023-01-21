@@ -26,7 +26,7 @@ class _LocationDropdownState extends State<LocationDropdown> {
 
     http.Response response = await http.get(Uri.parse('${baseurl}district/list'), headers: <String, String>{
       'Accept': "appilication/json",
-      'Authorization': 'Bearer $UserDetails.apiToken',
+      'Authorization': 'Bearer ${UserDetails.apiToken}',
 
     },);
     if (response.statusCode == 200) {

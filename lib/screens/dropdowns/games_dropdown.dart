@@ -25,7 +25,7 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
 
     http.Response response = await http.get(Uri.parse('${baseurl}get/sports'), headers: <String, String>{
       'Accept': "appilication/json",
-      'Authorization': 'Bearer $UserDetails.apiToken',
+      'Authorization': 'Bearer ${UserDetails.apiToken}',
 
     },);
     if (response.statusCode == 200) {
