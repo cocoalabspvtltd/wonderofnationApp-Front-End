@@ -3,6 +3,7 @@ import 'package:oo/apis/bloc/notification_bloc.dart';
 import 'package:oo/apis/modelclass/notification_modelclass.dart';
 import 'package:oo/apis/repositories/notification_repositories.dart';
 import 'package:oo/constants/colors.dart';
+import 'package:oo/constants/commonapierror.dart';
 import 'package:oo/constants/math_utils.dart';
 import 'package:oo/constants/response.dart';
 import 'package:oo/screens/homePage/navigator.dart';
@@ -107,11 +108,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         print("sdfghjk");
                         switch (snapshot.data!.status) {
                           case Status.LOADING:
-                            return Container(); // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
+                            return Center(
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                    color: ColorConstant.green6320),
+                              ),
+                            ) ; // LoadingScreen(loadingMessage: "Fetching", loadingColor: kPrimaryColor,);
                             break;
                           case Status.SUCCESS:
                             NotificationModelClass notificationlist = snapshot.data!.data;
-                            return inviteview(notificationlist);
+                            return _bloc.notificationlist.isEmpty ?
+                            SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.4,
+                                child: CommonApiResultsEmptyWidget("Notification empty"),
+                      ):
+                            inviteview(notificationlist);
                             break;
                           case Status.ERROR:
                             return Container();
@@ -208,8 +221,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   .height * 0.15,
               child: InkWell(
                 onTap: (){
-                  // print(notificationlist.notifications![index].data!.status_id);
-                  // print(notificationlist.notifications![index].data!.match_id);
                   _showDialogmatch(notificationlist.notifications![index].data!.statusId,notificationlist.notifications![index].data!.matchId);
                   Navigator.pop(context);
                 },
