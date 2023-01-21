@@ -529,6 +529,17 @@ class _ProfileViewState extends State<ProfileView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: GestureDetector(onTap: (){
+            Navigator.pop(context);
+          },
+              child: Icon(
+                Icons.arrow_back_outlined,
+                color: Colors.black,
+              )),
+        ),
         body: RefreshIndicator(
       color: Colors.white,
       backgroundColor: Colors.blue,

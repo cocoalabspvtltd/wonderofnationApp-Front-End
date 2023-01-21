@@ -182,8 +182,6 @@ var buttonText = "Follow";
                   GestureDetector(
                     onTap: () async{
                       await follow_status == 0?followapi.doFollow(id):unFollowapi.doUnFollow(id);
-
-
                       setState(() {
                         followMessage =
                         followMessage == "Follow" ? "Unfollow" : "Follow";
@@ -197,15 +195,15 @@ var buttonText = "Follow";
                       ),
                       width: size.width,
                       decoration: BoxDecoration(
-                          color: follow_status == 0 ? ColorConstant.green6320: Colors.white10,
+                          color: ColorConstant.green6320,
                           borderRadius: BorderRadius.circular(18.50),
                           border: Border.all(
-                            color: follow_status == 1 ? Colors.white : Colors.black,
+                            color: Colors.black,
                           )
                       ),
                       child: follow_status==0?Text("Follow",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: follow_status == 0 ? Colors.white : Colors.black,
+                        style: TextStyle(color: Colors.white ,
                           fontSize: getFontSize(
                             14,
                           ),
@@ -215,7 +213,7 @@ var buttonText = "Follow";
                         ),
                       ):Text("UnFollow",
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: follow_status == 0 ? Colors.white : Colors.black,
+                        style: TextStyle(color:  Colors.white ,
                           fontSize: getFontSize(
                             14,
                           ),

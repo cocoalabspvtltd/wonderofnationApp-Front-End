@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:oo/constants/user.dart';
+import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/profile/profile_page.dart';
 
 import '../../apis/repositories/edit_profile.dart';
@@ -33,6 +35,13 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController EmailController = TextEditingController();
   EditprofileRepostory editProfileApi = EditprofileRepostory();
 String imagpath = "";
+  void initState() {
+    super.initState();
+  NameController.text = widget.UserName;
+  Mobilenumbercontroller.text=widget.UserPhone;
+    EmailController.text=widget.UserEmail;
+    setState(() {});
+  }
   Widget build(BuildContext context) {
     // NameController.text = widget.UserName;
     // EmailController.text = widget.UserEmail;
@@ -44,7 +53,7 @@ String imagpath = "";
         backgroundColor: Colors.white,
         title: Text("Edit Profile",style: TextStyle(color: ColorConstant.black901,fontSize: 17),),
         leading: IconButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileUi()),);
+          Navigator.pop(context);
         }, icon: Icon(Icons.close,size: 20,color: ColorConstant.black901)),
         actions: [
           InkWell(
@@ -54,7 +63,11 @@ String imagpath = "";
             ),
             onTap: () {
               image =  _image?.path;
-       editProfileApi.getEditprofile(context,NameController.text==null?widget.UserName:NameController.text , EmailController.text == null?widget.UserEmail:EmailController.text, Mobilenumbercontroller.text, BioController.text,imagpath);
+       editProfileApi.getEditprofile(context,
+           EmailController.text.isEmpty? widget.UserName:NameController.text,
+           EmailController.text == null?UserDetails.userEmail:EmailController.text,
+           Mobilenumbercontroller.text==null?UserDetails.userMobile:Mobilenumbercontroller.text, BioController.text,imagpath);
+              Navigator.pop(context);
             },
           )
         ],
@@ -91,8 +104,6 @@ String imagpath = "";
                   controller: NameController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: "${widget.UserName}",
-                    hintStyle: TextStyle(fontSize: 14),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
@@ -113,7 +124,6 @@ String imagpath = "";
                   controller: EmailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    hintText: "${widget.UserEmail}",
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
@@ -121,8 +131,6 @@ String imagpath = "";
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
                   ),
-
-
                 ),
               ),
               Padding(
@@ -135,7 +143,8 @@ String imagpath = "";
                   cursorHeight: 20,
                   controller: Mobilenumbercontroller,
                   keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(    hintText: "${widget.UserPhone}",
+                  decoration: InputDecoration(
+
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
@@ -164,7 +173,7 @@ String imagpath = "";
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
                     hintText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nPulvinar cursus mi diam suspendisse a in non cursus.",
-                    hintStyle: TextStyle(fontSize: 12),
+                    hintStyle: TextStyle(fontSize: 12,color: Colors.black),
                     hintMaxLines: 2,
                   ),
 

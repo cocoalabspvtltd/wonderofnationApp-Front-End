@@ -624,17 +624,13 @@ class _LoginScreenState extends State<LoginScreen> {
     body["email"] = EmailLoginController.text;
     body["password"] = passwordController1.text;
 
-
     try {
       UserSignInModel response = await _authBloc.login(json.encode(body));
-
       Get.back();
       if (response.message=="Login successful"!) {
         await SharedPrefs.logIn(response);
 
           Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
-
-
 
       } else {
         Fluttertoast.showToast(msg:'${response.message!}');
