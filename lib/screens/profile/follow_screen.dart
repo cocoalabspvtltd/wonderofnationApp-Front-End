@@ -103,7 +103,7 @@ class _FollowScreenState extends State<FollowScreen>
           child: Column(
             children: [
               StreamBuilder<Response<FollowModelClass>>(
-    stream: _bloc.followDataStream,
+               stream: _bloc.followDataStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   switch (snapshot.data!.status) {
@@ -131,15 +131,13 @@ class _FollowScreenState extends State<FollowScreen>
                                       child: Text("All Followers",
                                           style: TextStyle(fontWeight: FontWeight.w500))),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                                  followerslist.followers==null?Text("${followerslist.message}"):
+                                  followerslist.total == 0?Text("${followerslist.message}"):
                                  _followerslist(followerslist),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                                   Align(
                                       alignment: Alignment.topLeft,
                                       child: Text("Suggested for you",
                                           style: TextStyle(fontWeight: FontWeight.w500))),
-                                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-
                                 ],
                               ),
                             ),
@@ -157,6 +155,7 @@ class _FollowScreenState extends State<FollowScreen>
                   child: Center(child: Text("")),
                 );
               }),
+
           SingleChildScrollView(
             child: StreamBuilder<Response<UserSuggestionModel>>(
                 stream: _bloc1.myordersDetailsListStream,
@@ -209,7 +208,7 @@ class _FollowScreenState extends State<FollowScreen>
         physics: NeverScrollableScrollPhysics(),
         itemCount: followerlist.followers.length,
         itemBuilder: (context, index) {
-          print("----------->list${followerlist.followers}");
+          print("------------<followers${followerlist.followers}");
           return Container(
             height: MediaQuery.of(context).size.height * 0.1,
             child: Card(
@@ -228,7 +227,7 @@ class _FollowScreenState extends State<FollowScreen>
                     width: MediaQuery.of(context).size.width * 0.03,
                   ),
                   Text(
-                    "${followerlist.followers[index]..name}",
+                    "${followerlist.followers[index].name}",
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                   Spacer(),
@@ -257,96 +256,99 @@ class _FollowScreenState extends State<FollowScreen>
 
   Widget _suggestedlist(data){
     return
-      ListView.separated(
-          separatorBuilder: (context, index) => SizedBox(
-            height: 8,
-          ),
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: Card(
-                elevation: 0,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(
-                        "assets/images/user2.png",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    SizedBox(
-                      width:
-                      MediaQuery.of(context).size.width * 0.03,
-                    ),
-                    GestureDetector(onTap: (){
-print("id->${data[index].id}");
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>  ProfileView(id: data[index].id,)),
-
-                    );
-                      },
-                      child: Text(
-                        "${data[index].name}",
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Spacer(),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all(
-                              ColorConstant.green6320),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(10.0),
-                            ),
-                          ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.separated(
+            separatorBuilder: (context, index) => SizedBox(
+              height: 8,
+            ),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: Card(
+                  elevation: 0,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(
+                          "assets/images/user2.png",
+                          fit: BoxFit.fill,
                         ),
-                        onPressed: () async{
-                          await data[index].followStatus == 0?suggestionfollowapi.doFollow(data[index].id):suggestionunFollowapi.doUnFollow(data[index].id);
-                          // followMessage== "sucess"?  EasyLoading.show(status: 'loading...'):EasyLoading.dismiss();
-                          setState(() {
-                            followMessage =
-                            followMessage == "Follow" ? "Unfollow" : "Follow";
-                          });
+                      ),
+                      SizedBox(
+                        width:
+                        MediaQuery.of(context).size.width * 0.03,
+                      ),
+                      GestureDetector(onTap: (){
+print("id->${data[index].id}");
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  ProfileView(id: data[index].id,)),
 
+                      );
                         },
-                        child:data[index].followStatus==0?Text("Follow",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: data[index].followStatus == 0 ? Colors.white : Colors.black,
-                            fontSize: getFontSize(
-                              14,
+                        child: Text(
+                          "${data[index].name}",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      Spacer(),
+                      ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(
+                                ColorConstant.green6320),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(10.0),
+                              ),
                             ),
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                            height: 1.36,
                           ),
-                        ):Text("UnFollow",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: data[index].followStatus == 0 ? Colors.white : Colors.white,
-                            fontSize: getFontSize(
-                              14,
+                          onPressed: () async{
+                            await data[index].followStatus == 0?suggestionfollowapi.doFollow(data[index].id):suggestionunFollowapi.doUnFollow(data[index].id);
+                            // followMessage== "sucess"?  EasyLoading.show(status: 'loading...'):EasyLoading.dismiss();
+                            setState(() {
+                              followMessage =
+                              followMessage == "Follow" ? "Unfollow" : "Follow";
+                            });
+
+                          },
+                          child:data[index].followStatus==0?Text("Follow",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: data[index].followStatus == 0 ? Colors.white : Colors.black,
+                              fontSize: getFontSize(
+                                14,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1.36,
                             ),
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w400,
-                            height: 1.36,
-                          ),
-                        ),),
-                    SizedBox(
-                      width:
-                      MediaQuery.of(context).size.width * 0.0,
-                    ),
-                  ],
+                          ):Text("UnFollow",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: data[index].followStatus == 0 ? Colors.white : Colors.white,
+                              fontSize: getFontSize(
+                                14,
+                              ),
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w400,
+                              height: 1.36,
+                            ),
+                          ),),
+                      SizedBox(
+                        width:
+                        MediaQuery.of(context).size.width * 0.0,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          });
+              );
+            }),
+      );
   }
 }

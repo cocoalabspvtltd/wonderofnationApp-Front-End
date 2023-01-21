@@ -4,6 +4,7 @@ import 'package:oo/apis/bloc/follow_bloc.dart';
 import 'package:oo/apis/modelclass/follow_modelclass.dart';
 import 'package:oo/apis/repositories/follow_repository.dart';
 import 'package:oo/constants/colors.dart';
+import 'package:oo/screens/addfriends/screen_for_profile_view.dart';
 import '../../constants/response.dart';
 import 'package:oo/elements/LoadMoreListener.dart';
 
@@ -153,45 +154,54 @@ class _FollowingScreenState extends State<FollowingScreen>
         itemBuilder: (context, index) {
           return  Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: Card(
-                elevation: 0,
-                child: Row(
-                  children: [
-                    Container(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(
-                        "assets/images/user2.png",
-                        fit: BoxFit.fill,
+            child: InkWell(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  ProfileView(id: followinglist.following[index].id,)),
+
+                );
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height * 0.1,
+                child: Card(
+                  elevation: 0,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(
+                          "assets/images/user2.png",
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context)
-                          .size
-                          .width *
-                          0.03,
-                    ),
-                    Text(
-                      "${followinglist.following[index].name}",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Spacer(),
-                    Text(
-                      "Following",
-                      style: TextStyle(
-                          color: ColorConstant.green6320,
-                          fontSize: 16),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context)
-                          .size
-                          .width *
-                          0.0,
-                    ),
-                  ],
+                      SizedBox(
+                        width: MediaQuery.of(context)
+                            .size
+                            .width *
+                            0.03,
+                      ),
+                      Text(
+                        "${followinglist.following[index].name}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Spacer(),
+                      Text(
+                        "Following",
+                        style: TextStyle(
+                            color: ColorConstant.green6320,
+                            fontSize: 16),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context)
+                            .size
+                            .width *
+                            0.0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

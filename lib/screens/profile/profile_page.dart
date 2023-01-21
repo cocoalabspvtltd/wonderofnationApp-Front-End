@@ -361,7 +361,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                   {
                                                     Navigator.push(context,
                                                         MaterialPageRoute(builder:
-                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: UserDetails.userName, UserPhone: UserDetails.userMobile,)));
+                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: UserDetails.userEmail, UserPhone: UserDetails.userMobile,)));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(
