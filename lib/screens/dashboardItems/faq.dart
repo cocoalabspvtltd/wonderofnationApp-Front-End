@@ -11,7 +11,8 @@ class FaqPage extends StatefulWidget {
 
 class _FaqPageState extends State<FaqPage> {
   TextEditingController searchcontroller = new TextEditingController();
-  int number=0;
+  List numbering =  List.generate(10, (number) => (number + 2).toString());
+  // final List<String> numbering = List<String>.generate(500, (number) => '$number');
   List questions=["How to manage your profile ?","How to apply in Wonder of Nation Academy ?","How to book a club in specific location ?",
   "What does the colours  shown in time slot indicate ? "];
   List answers=["You can open your profile page and edit your details and save it",
@@ -58,8 +59,8 @@ class _FaqPageState extends State<FaqPage> {
                               elevation: 8,
                               borderRadius: BorderRadius.circular(15),
                               baseColor: Colors.grey[300],
-                                // leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
-                                // child: Text("j",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),)),
+                                leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
+                                child: Text(numbering[index],style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white),)),
                               title: Text(questions[index],style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                               children: <Widget>[
                                 Divider(
@@ -108,6 +109,8 @@ class _FaqPageState extends State<FaqPage> {
         elevation: 8,
         borderRadius: BorderRadius.circular(15),
         baseColor: Colors.grey[300],
+        leading: CircleAvatar(backgroundColor: ColorConstant.green6320,
+            child: Text('1',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.white),)),
         title: Text(
           "How to book a court ?",
           style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),

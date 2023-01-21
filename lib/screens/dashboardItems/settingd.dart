@@ -1,11 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
-
-import '../../constants/colors.dart';
-
-
+import 'package:oo/constants/colors.dart';
 
 class Settingpage extends StatefulWidget {
   const Settingpage({Key? key}) : super(key: key);
@@ -33,7 +28,7 @@ class _SettingpageState extends State<Settingpage> {
             Navigator.pop(context);
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
           title: Padding(
-            padding: const EdgeInsets.only(left: 30,right: 30),
+            padding: const EdgeInsets.only(left: 40,right: 30),
             child: Text("Settings",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
           )
       ),
@@ -72,6 +67,7 @@ class _SettingpageState extends State<Settingpage> {
                           }),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -93,7 +89,9 @@ class _SettingpageState extends State<Settingpage> {
                   Text("Blocked accounts",style: TextStyle( color: ColorConstant.green6320,
                       fontSize: 15),),
                   Spacer(),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15, color: ColorConstant.black901,)),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,
+                    color: ColorConstant.black901,)),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -125,6 +123,7 @@ class _SettingpageState extends State<Settingpage> {
                           }),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -156,6 +155,7 @@ class _SettingpageState extends State<Settingpage> {
                           }),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -187,6 +187,7 @@ class _SettingpageState extends State<Settingpage> {
                           }),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -225,6 +226,7 @@ class _SettingpageState extends State<Settingpage> {
                           }),
                     ),
                   ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02,)
                 ],
               ),
               Padding(
@@ -241,6 +243,7 @@ class _SettingpageState extends State<Settingpage> {
                       fontSize: 15),),
                   Spacer(),
                   IconButton(onPressed: (){}, icon: Icon(CupertinoIcons.delete,size: 18, color: ColorConstant.green6320,)),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03,)
                 ],
               ),
             ],
