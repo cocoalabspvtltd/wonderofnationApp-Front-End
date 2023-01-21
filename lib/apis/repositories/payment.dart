@@ -40,7 +40,6 @@ class Payemnt {
       i+=1;
     });
     final Map<String, dynamic> _queryParameters = <String, dynamic>
-
     {
       "court_id":court_id,
       "type":type,

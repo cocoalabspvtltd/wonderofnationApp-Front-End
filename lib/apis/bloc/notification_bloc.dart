@@ -28,6 +28,7 @@ class NotificationBloc {
       _notificationRepository = NotificationRepository();
 
   }
+  List<Notifications> notificationlist = [];
 
   getNotification(bool isPagination, {int? perpage}) async {
     if (isPagination) {
