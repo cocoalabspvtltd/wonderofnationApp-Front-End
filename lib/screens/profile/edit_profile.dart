@@ -30,11 +30,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController Mobilenumbercontroller  = TextEditingController();
   TextEditingController EmailController = TextEditingController();
   EditprofileRepostory editProfileApi = EditprofileRepostory();
-  void initState() {
-    super.initState();
-    NameController.text = widget.UserName;
-    setState(() {});
-  }
+
   @override
 
   final ImagePicker _picker = ImagePicker();
