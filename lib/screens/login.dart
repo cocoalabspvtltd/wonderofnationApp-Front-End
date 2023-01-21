@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:oo/constants/app_dialogs.dart';
 import 'package:oo/screens/google_signin.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
@@ -50,9 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = new GlobalKey<FormState>();
   drLOginRepository loginApiCall = new drLOginRepository();
   TextEditingController EmailLoginController = TextEditingController();
-  String _email = "";
-  String _pass = "";
   Future login() async {
+    // AppDialogs.loading();
     Map data = {
       'name': emailController.text,
       'password': passwordController1.text,
@@ -91,7 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-
     final _formKey = GlobalKey<FormState>();
     return  Form(
       key: formKey,
@@ -101,11 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
           body: SingleChildScrollView(
             child: Container(
               width: size.width,
-
-
-                child: Container(
-
-                  decoration: BoxDecoration(
+              child: Container(
+                decoration: BoxDecoration(
                     color: Colors.white,
                   ),
                   child: Column(
@@ -433,7 +429,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextButton(
                                       onPressed: () async{
                                         print("loading");
-
                                         setState(() {
                                           if (_formKey.currentState!.validate()) {
                                             print("Form was Submitted Successfully");
@@ -446,7 +441,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           }
                                         });
 
-                                      //  EasyLoading.showProgress(0.3, status: 'downloading...');
                                       await  loginApiCall.createUser(EmailLoginController.text,
                                             passwordController1.text, context);
 
@@ -591,5 +585,6 @@ class _LoginScreenState extends State<LoginScreen> {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.version;
   }
+
 
 }

@@ -115,8 +115,8 @@ class _FollowScreenState extends State<FollowScreen>
                       );
                       break;
                     case Status.SUCCESS:
-                      FollowModelClass followinglist = snapshot.data!.data;
-                      print("response->${followinglist}");
+                      FollowModelClass followerslist = snapshot.data!.data;
+                      print("response->${followerslist}");
                       return SingleChildScrollView(
                         child: Column(
                           children: [
@@ -131,7 +131,8 @@ class _FollowScreenState extends State<FollowScreen>
                                       child: Text("All Followers",
                                           style: TextStyle(fontWeight: FontWeight.w500))),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                                 followinglist.followers==null?Text("${followinglist.message}"): _followerslist(followinglist),
+                                  followerslist.followers==null?Text("${followerslist.message}"):
+                                 _followerslist(followerslist),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                                   Align(
                                       alignment: Alignment.topLeft,
@@ -145,7 +146,6 @@ class _FollowScreenState extends State<FollowScreen>
                           ],
                         ),
                       );
-
                       break;
                     case Status.ERROR:
                       return Container(
@@ -154,7 +154,7 @@ class _FollowScreenState extends State<FollowScreen>
                   }
                 }
                 return Container(
-                  child: Center(child: Text("Currently no data")),
+                  child: Center(child: Text("")),
                 );
               }),
           SingleChildScrollView(
@@ -209,6 +209,7 @@ class _FollowScreenState extends State<FollowScreen>
         physics: NeverScrollableScrollPhysics(),
         itemCount: followerlist.followers.length,
         itemBuilder: (context, index) {
+          print("----------->list${followerlist.followers}");
           return Container(
             height: MediaQuery.of(context).size.height * 0.1,
             child: Card(

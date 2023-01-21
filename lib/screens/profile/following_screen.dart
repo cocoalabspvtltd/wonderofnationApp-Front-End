@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:oo/apis/bloc/follow_bloc.dart';
 import 'package:oo/apis/modelclass/follow_modelclass.dart';
 import 'package:oo/apis/repositories/follow_repository.dart';
@@ -135,9 +136,7 @@ class _FollowingScreenState extends State<FollowingScreen>
                     );
                 }
               }
-              return Container(
-                child: Center(child: Text("Currently no followings")),
-              );
+              return   Text("");
             })
         );
   }
