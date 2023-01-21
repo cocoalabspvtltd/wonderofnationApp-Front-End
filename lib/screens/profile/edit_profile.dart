@@ -23,15 +23,20 @@ final String UserPhone;
 }
 
 class _EditProfileState extends State<EditProfile> {
-
-  @override
-
-  final ImagePicker _picker = ImagePicker();
   TextEditingController NameController = TextEditingController();
   TextEditingController BioController  = TextEditingController();
   TextEditingController Mobilenumbercontroller  = TextEditingController();
   TextEditingController EmailController = TextEditingController();
   EditprofileRepostory editProfileApi = EditprofileRepostory();
+  void initState() {
+    super.initState();
+    NameController.text = widget.UserName;
+    setState(() {});
+  }
+  @override
+
+  final ImagePicker _picker = ImagePicker();
+
 String imagpath = "";
   Widget build(BuildContext context) {
     // NameController.text = widget.UserName;
