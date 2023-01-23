@@ -27,10 +27,13 @@ String? PendingOrderRazorpayId = "";
 List<Map<String, String>> forAddPlayers = [];
 
 class AddMatchPlayers extends StatefulWidget {
-  AddMatchPlayers({Key? key,required this.Amount,required this.PaymentDone,required this.Nopaycount}) : super(key: key);
+  AddMatchPlayers({Key? key,required this.Amount,required this.PaymentDone,required this.Nopaycount,required this.bookingid}) : super(key: key);
 String Amount;
 String PaymentDone;
 String Nopaycount;
+String? bookingid;
+
+
 
   @override
   State<AddMatchPlayers> createState() => _AddMatchPlayersState();
@@ -39,10 +42,6 @@ String Nopaycount;
 class _AddMatchPlayersState extends State<AddMatchPlayers> {
   myplayerbloc? _bloc;
 
-  List<Players>? patientappointmentsearchdata = [];
-  List<Players>? patientappointmentserachlist = [];
-
-  TextEditingController patientappointmentController = TextEditingController();
   ClubjoinedbuttonRepository joinclubapi = ClubjoinedbuttonRepository();
   Payemnt pendingPayment = Payemnt();
   EditPlayerRepo Upadateplayer = EditPlayerRepo();
@@ -111,29 +110,12 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
     _bloc?.getmyordersDetailsList(true);
   }
 
-  onSearchTextChanged(String text) async {
-    patientappointmentserachlist!.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-
-    patientappointmentsearchdata!.forEach((data) {
-      if (data!.name!.toLowerCase().contains(text) || data.name!.contains(text))
-        patientappointmentserachlist?.add(data);
-    });
-
-    setState(() {});
-  }
 
   @override
   TextEditingController searchcontroller = new TextEditingController();
   Widget build(BuildContext context) {
-    // print(widget.Nopaycount);
-    // print(int.parse(widget.Nopaycount));
-    // print((int.parse(widget.Amount))/(int.parse(widget.Nopaycount)));
-    // int? test =int.parse(widget.Amount,radix: 10);
-    // print("${test}");
+     print(widget.bookingid);
+     print(widget.PaymentDone);
     return Scaffold(
         appBar: AppBar(
             elevation: 0,
@@ -169,7 +151,7 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(
-                        builder: (context) => AddPlayersforMatchplayer()));
+                        builder: (context) => AddPlayersforMatchplayer(bookingid:widget.bookingid,paymentstatus:widget.PaymentDone)));
 
                 // Add your onPressed code here!
               },
@@ -179,139 +161,85 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
         ),
         body:
         SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                  width: 370,
-                  color: Colors.white,
-                  // decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  margin: EdgeInsets.all(15),
-                  child: Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: Material(
-                      color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView.separated(
+                separatorBuilder: (context, index) =>
+                    SizedBox(
+                      height: 8,
+                    ),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: datas.length,
+                itemBuilder: (context, index) {
+                  print("data->>>>>>${datas[index].name}");
+                  return Container(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.1,
+                    child: Card(
+                      elevation: 0,
                       child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-                                controller:
-                                patientappointmentController,
-                                textAlign: TextAlign.center,
+                        children: [
+                          Container(
+                            height: 50,
+                            width: 50,
+                            child: Image.asset(
+                              "assets/images/user2.png",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.03,
+                          ),
+                          Text(
+                            "${datas[index].name}",
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Spacer(),
+                          datas[index].paymentStatus == "0"  && widget.PaymentDone != "paid"? TextButton(
+                              onPressed: () async {
+                                playerid = datas[index].playerId!;
+                                await pendingPayment.getpendingpayment(
+                                    playerid, widget.Amount);
+                                openCheckout();
+                              },
+                              child: Text(
+                                "Pay",
                                 style: TextStyle(
-                                  color: Colors.black54,
-                                ),
-                                decoration: InputDecoration(
-                                    hintText:
-                                    "Search your player name",
-                                    contentPadding: EdgeInsets.only(
-                                      left: 80,
-                                    ),
-                                    prefixIcon: Icon(Icons.search),
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.black54,
-                                            width: 32.0),
-                                        borderRadius:
-                                        BorderRadius
-                                            .circular(5.0)),
-                                    focusedBorder:
-                                    OutlineInputBorder(
-                                        borderSide:
-                                        BorderSide(
-                                            color: Colors
-                                                .black54,
-                                            width: 32.0),
-                                        borderRadius:
-                                        BorderRadius
-                                            .circular(
-                                            25.0))),
-                                onChanged: onSearchTextChanged),
+                                    color: Colors.green, fontSize: 16),
+                              )) : Text(""),
+                          SizedBox(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.0,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                DeletePlayer.getDeleteplayer(
+                                    datas[index].playerId!, context);
+                              },
+                              child: Text(
+                                "Remove",
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 16),
+                              )),
+                          SizedBox(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.01,
                           ),
                         ],
                       ),
                     ),
-                  )),
-              ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      SizedBox(
-                        height: 8,
-                      ),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: datas.length,
-                  itemBuilder: (context, index) {
-                    print("data->>>>>>${datas[index].name}");
-                    return Container(
-                      height: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.1,
-                      child: Card(
-                        elevation: 0,
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 50,
-                              width: 50,
-                              child: Image.asset(
-                                "assets/images/user2.png",
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.03,
-                            ),
-                            Text(
-                              "${datas[index].name}",
-                              style: TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            Spacer(),
-                            datas[index].paymentStatus == "0"  && widget.PaymentDone != "paid"? TextButton(
-                                onPressed: () async {
-                                  playerid = datas[index].playerId!;
-                                  await pendingPayment.getpendingpayment(
-                                      playerid, widget.Amount);
-                                  openCheckout();
-                                },
-                                child: Text(
-                                  "Pay",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 16),
-                                )) : Text(""),
-                            SizedBox(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.0,
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  DeletePlayer.getDeleteplayer(
-                                      datas[index].playerId!, context);
-                                },
-                                child: Text(
-                                  "Remove",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 16),
-                                )),
-                            SizedBox(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.01,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  })
-            ],
+                  );
+                }),
           ),
         )
     );

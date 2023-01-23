@@ -67,8 +67,8 @@ print("id-??${widget.id}");
                  count= clubdetailsList.match!.playerCount!;
                   paymentDone=clubdetailsList!.match!.paymentDone!;
                     datas = clubdetailsList.match!.players!;
-                     // ClubDetailsModelserachlist = clubdetailsList;
-                      return SingleChildScrollView(child: Container(
+                      return SingleChildScrollView(
+                        child: Container(
                         width: size.width,
                         child:
                         Container(
@@ -476,7 +476,10 @@ print("id-??${widget.id}");
                                           ),
                                           child: GestureDetector(onTap: (){
                                             Navigator.push(context,
-                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,PaymentDone: paymentDone,Nopaycount:widget.nopaycount)));
+                                                MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: widget.pendingamount,
+                                                  PaymentDone: paymentDone,Nopaycount:widget.nopaycount,
+                                                  bookingid:clubdetailsList.match!.booking_id,
+                                                )));
 
                                           },
                                             child: Container(
