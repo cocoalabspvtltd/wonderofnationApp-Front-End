@@ -61,15 +61,15 @@ class Following {
   int? id;
   String? name;
   String? email;
-  Null? emailVerifiedAt;
+  Null emailVerifiedAt;
   String? phone;
-  Null? profilePic;
+  String? profilePic;
   int? role;
   String? createdAt;
   String? updatedAt;
   String? authType;
-  String? bio;
-  Null? isVerified;
+  Null bio;
+  Null isVerified;
   int? laravelThroughKey;
 
   Following(
@@ -126,16 +126,17 @@ class Followers {
   int? id;
   String? name;
   String? email;
-  Null? emailVerifiedAt;
+  Null emailVerifiedAt;
   String? phone;
-  Null? profilePic;
+  String? profilePic;
   int? role;
   String? createdAt;
   String? updatedAt;
   String? authType;
   String? bio;
-  Null? isVerified;
+  Null isVerified;
   int? laravelThroughKey;
+  int? status;
 
   Followers(
       {this.id,
@@ -150,7 +151,8 @@ class Followers {
         this.authType,
         this.bio,
         this.isVerified,
-        this.laravelThroughKey});
+        this.laravelThroughKey,
+        this.status});
 
   Followers.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -166,6 +168,7 @@ class Followers {
     bio = json['bio'];
     isVerified = json['is_verified'];
     laravelThroughKey = json['laravel_through_key'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -183,6 +186,7 @@ class Followers {
     data['bio'] = this.bio;
     data['is_verified'] = this.isVerified;
     data['laravel_through_key'] = this.laravelThroughKey;
+    data['status'] = this.status;
     return data;
   }
 }

@@ -159,7 +159,6 @@ class _FollowingScreenState extends State<FollowingScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) =>  ProfileView(id: followinglist.following[index].id,)),
-
                 );
               },
               child: Container(
