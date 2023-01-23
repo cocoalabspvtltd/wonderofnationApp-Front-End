@@ -21,7 +21,8 @@ class _FollowingScreenState extends State<FollowingScreen>
     with LoadMoreListener, SingleTickerProviderStateMixin {
   late FollowBloc _bloc;
   late ScrollController _followingScrollController;
-  List<Following> followinglist = [];
+  List<Following>? follwingsearchdata = [];
+   List<Following>? followingserachlist = [];
   FollowRepository followapi = FollowRepository();
   void initState() {
     super.initState();
@@ -49,6 +50,21 @@ class _FollowingScreenState extends State<FollowingScreen>
       print("reach the top");
     }
   }
+
+  onSearchTextChanged(String text) async {
+    followingserachlist!.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    follwingsearchdata!.forEach((data) {
+      if (data.name!.toLowerCase().contains(text) || data.name!.contains(text))
+        followingserachlist?.add(data);
+    });
+
+    setState(() {});
+  }
   @override
   refresh(bool isLoading) {
     if (mounted) {
@@ -74,8 +90,10 @@ class _FollowingScreenState extends State<FollowingScreen>
                     );
                     break;
                   case Status.SUCCESS:
-                    FollowModelClass followinglist = snapshot.data!.data;
-                    print("response->${followinglist}");
+                    FollowModelClass follow_list = snapshot.data!.data;
+                    List<Following>? followinglist = follow_list.following;
+                    // print("response->${followinglist}");
+                    follwingsearchdata =followinglist;
                     return SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -118,6 +136,7 @@ class _FollowingScreenState extends State<FollowingScreen>
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           25.0))),
+                                          onChanged: onSearchTextChanged,
                                         ),
                                       ),
                                     ],
@@ -125,7 +144,10 @@ class _FollowingScreenState extends State<FollowingScreen>
                                 ),
                               )),
                           SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
-                          _followingListView(followinglist),
+                          followingserachlist!.length != 0 ||
+                                  searchcontroller.text.isNotEmpty
+                              ? _followingListView(followingserachlist)
+                              : _followingListView(followinglist)
                         ],
                       ),
                     );
@@ -137,20 +159,19 @@ class _FollowingScreenState extends State<FollowingScreen>
                     );
                 }
               }
-              return   Text("");
+              return  Text("");
             })
         );
   }
 
   Widget _followingListView(followinglist) {
-
     return ListView.separated(
         separatorBuilder: (context, index) => SizedBox(
           height: 8,
         ),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
-        itemCount:followinglist.following.length ,
+        itemCount:followinglist.length ,
         itemBuilder: (context, index) {
           return  Padding(
             padding: const EdgeInsets.only(left: 10,right: 10),
@@ -182,7 +203,7 @@ class _FollowingScreenState extends State<FollowingScreen>
                             0.03,
                       ),
                       Text(
-                        "${followinglist.following[index].name}",
+                        "${followinglist[index].name}",
                         style: TextStyle(
                             fontWeight: FontWeight.w500),
                       ),

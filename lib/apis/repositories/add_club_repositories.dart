@@ -84,7 +84,7 @@ class Deleteplayer {
 }
 class UpdatePalyer {
 
-  Future  getUpdateplayer(int userid,String name,index,context) async {
+  Future  getUpdateplayer(int userid,String name, index,context) async {
 
     int bookingid = datas[index].bookingId!;
     String paymentstatus = datas[index].paymentStatus!;
@@ -107,8 +107,8 @@ class UpdatePalyer {
 
     if(response["success"]==true){Fluttertoast.showToast(msg: "Player Added");
 
-      Navigator.push(context,
-        MaterialPageRoute(builder: (context)=>AddMatchPlayers(Amount: '', PaymentDone: '', Nopaycount: '',)));}
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>AddMatchPlayers(
+        Amount: '', PaymentDone: '', Nopaycount: '', bookingid: '',)));}
 
     return response;
   }
