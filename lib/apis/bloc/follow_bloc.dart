@@ -22,6 +22,7 @@ class FollowBloc {
 
   Stream<Response<FollowModelClass>>? get followDataStream =>
       _followController.stream;
+  List<Following>followinglist=[];
 
 
   getfollowingList(bool isPagination, {int? perpage}) async {

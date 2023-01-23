@@ -131,8 +131,10 @@ class _FollowScreenState extends State<FollowScreen>
                                       child: Text("All Followers",
                                           style: TextStyle(fontWeight: FontWeight.w500))),
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                                  followerslist.total == 0?Text("${followerslist.message}"):
-                                 _followerslist(followerslist),
+                      
+                        followerslist.followers!=null ?
+                      _followerslist(followerslist):  Text("${followerslist.message}"),
+
                                   SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                                   Align(
                                       alignment: Alignment.topLeft,
@@ -198,7 +200,6 @@ class _FollowScreenState extends State<FollowScreen>
 
     );
   }
-
   Widget _followerslist(followerlist) {
     return ListView.separated(
         separatorBuilder: (context, index) => SizedBox(
@@ -209,48 +210,54 @@ class _FollowScreenState extends State<FollowScreen>
         itemCount: followerlist.followers.length,
         itemBuilder: (context, index) {
           print("------------<followers${followerlist.followers}");
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.1,
-            child: Card(
-              elevation: 0,
-              child: Row(
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Image.asset(
-                      "assets/images/user2.png",
-                      fit: BoxFit.fill,
+          if(followerlist.followers.length == null){
+            return Text("jnknmklm");
+          }
+          else{
+             return Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Card(
+                elevation: 0,
+                child: Row(
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset(
+                        "assets/images/user2.png",
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.03,
-                  ),
-                  Text(
-                    "${followerlist.followers[index].name}",
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  Spacer(),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black45),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ))),
-                      onPressed: () {},
-                      child: Text(
-                        "Remove",
-                        style: TextStyle(color: ColorConstant.whiteA700),
-                      )),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.0,
-                  ),
-                ],
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.03,
+                    ),
+                    Text(
+                      "${followerlist.followers[index].name}",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    Spacer(),
+                    ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                            MaterialStateProperty.all(Colors.black45),
+                            shape:
+                            MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ))),
+                        onPressed: () {},
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(color: ColorConstant.whiteA700),
+                        )),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.0,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          }
+
         });
   }
 

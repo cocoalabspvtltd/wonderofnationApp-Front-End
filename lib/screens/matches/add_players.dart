@@ -382,7 +382,7 @@ class _AddPlayersState extends State<AddPlayers>
           title: Padding(
             padding: const EdgeInsets.only(left: 70.0),
             child: Text(
-              "My Matches",
+              "Add Friends",
               style: TextStyle(fontSize: 18, color: Colors.black),
             ),
           ),
