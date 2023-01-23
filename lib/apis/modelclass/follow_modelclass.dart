@@ -5,7 +5,7 @@ class FollowModelClass {
   int? total;
   String? page;
   int? lastPage;
-  List<Following>? following;
+  List<dynamic>? following;
   List<Followers>? followers;
 
   FollowModelClass(
@@ -25,12 +25,7 @@ class FollowModelClass {
     total = json['total'];
     page = json['page'];
     lastPage = json['last_page'];
-    if (json['following'] != null) {
-      following =  <Following>[];
-      json['following'].forEach((v) {
-        following!.add(new Following.fromJson(v));
-      });
-    }
+    following = json["following"];
     if (json['followers'] != null) {
       followers = <Followers>[] ;
       json['followers'].forEach((v) {
