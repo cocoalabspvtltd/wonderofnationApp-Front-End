@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:oo/apis/repositories/profile_page_repositories.dart';
 import 'package:oo/screens/dropdowns/game_list_register.dart';
 import 'package:oo/screens/homePage/levelling_Register1.dart';
@@ -72,7 +75,7 @@ class _ProfileUiState extends State<ProfileUi> {
                           width: double.infinity,
                           margin: EdgeInsets.only(
                             top: getVerticalSize(
-                              30.75,
+                              20.75,
                             ),
                           ),
                           decoration: BoxDecoration(
@@ -146,16 +149,34 @@ class _ProfileUiState extends State<ProfileUi> {
                                             ),
                                           ),
                                         ),
-                                        Center(
-                                          child: CircleAvatar(
-                                            radius: 50.0,
-                                            backgroundColor: ColorConstant.gray400,
-                                            backgroundImage: image == null ? null
-                                                :FileImage(File(image!.path)),
-                                            child: image==null ?
-                                            Image.asset(
-                                                'assets/images/profile.png') : Image.asset("${data.profilePic}") ,
-                                          )),
+                                        Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Container(
+                                            width: 120,
+                                            height: 120,
+                                            padding: EdgeInsets.all(1),
+                                            decoration: BoxDecoration(
+                                              color: Colors.black87,
+                                              borderRadius: BorderRadius.circular(60),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(60),
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl: '${data.profilePic}',
+                                                placeholder: (context, url) => Center(
+                                                  child: CircularProgressIndicator(),
+                                                ),
+                                                errorWidget: (context, url, error) => CircleAvatar(
+                                                  radius: 46.0,
+                                                  backgroundImage:
+                                                  AssetImage('assets/images/profile.png'),
+                                                  backgroundColor: Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         SizedBox(height: 10,),
                                         Align(
                                           alignment: Alignment.center,
@@ -356,12 +377,15 @@ class _ProfileUiState extends State<ProfileUi> {
                                                     right: getHorizontalSize(
                                                       10.00,
                                                     ),
+                                                    bottom: getVerticalSize(
+                                                      20.00,
+                                                    ),
                                                   ),
                                                   child: GestureDetector(onTap:()
                                                   {
                                                     Navigator.push(context,
                                                         MaterialPageRoute(builder:
-                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: UserDetails.userEmail, UserPhone: UserDetails.userMobile,)));
+                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: data.email??"", UserPhone:data.phone??"",UserPic: data.profilePic??"")));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(

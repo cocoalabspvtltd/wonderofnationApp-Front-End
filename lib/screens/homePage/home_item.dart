@@ -74,7 +74,6 @@ var buttonText = "Follow";
         physics: BouncingScrollPhysics(),
         itemCount:data.length,
         itemBuilder: (context, index) {
-
           return _tile(
             data[index].name,
             data[index].id,data[index].followStatus
@@ -244,7 +243,7 @@ var buttonText = "Follow";
               case Status.LOADING:
                 return Center(
                   child: SizedBox(
-                      width: MediaQuery.of(context).size.height * 0.05,
+                      width: MediaQuery.of(context).size.width * 0.05,
                       child: CircularProgressIndicator()),
                 );
               case Status.COMPLETED:
@@ -266,7 +265,7 @@ var buttonText = "Follow";
           }
           return Center(
             child: SizedBox(
-                width: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.05,
                 child: CircularProgressIndicator()),
           );
         });

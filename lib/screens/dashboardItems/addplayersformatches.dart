@@ -291,59 +291,9 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer>
                           style:
                           TextStyle(color: ColorConstant.green6320, fontSize: 16),
                         )),
-                    // TextButton(
-                    //     onPressed: () {
-                    //       bool flag = false;
-                    //       if (forAddPlayers.isNotEmpty) {
-                    //         for (Map element in forAddPlayers) {
-                    //           {
-                    //             print("object");
-                    //             print(element['id']);
-                    //             if (element["id"] == playerlist[index].id.toString()) {
-                    //               Fluttertoast.showToast(msg: "Player Already Exist");
-                    //               flag = true;
-                    //               break;
-                    //             }
-                    //           }
-                    //         }
-                    //       } else {
-                    //         playerUpadtion.getUpdateplayer(
-                    //             playerlist[index].id!,widget.bookingid.toString(),playerlist[index].name!,widget.paymentstatus,index, context);
-                    //         Fluttertoast.showToast(msg: "Player Added");
-                    //         return;
-                    //       }
-                    //       if (flag == false) {
-                    //         playerUpadtion.getUpdateplayer(
-                    //             playerlist[index].id!,widget.bookingid.toString(),playerlist[index].name!,widget.paymentstatus,index, context);
-                    //         Fluttertoast.showToast(msg: "Player Added");
-                    //         return;
-                    //       }
-                    //
-                    //       //  print(forAddPlayers[0]["name"]);
-                    //     },
-                    //     child: Text(
-                    //       "Add",
-                    //       style:
-                    //       TextStyle(color: ColorConstant.green6320, fontSize: 16),
-                    //     )),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.0,
                     ),
-                    // TextButton(
-                    //     onPressed: () {
-                    //       print(forAddPlayers
-                    //           .contains({"name": title, "dp": profilepic}));
-                    //       forAddPlayers
-                    //           .removeWhere((element) => element["name"] == title);
-                    //       Fluttertoast.showToast(msg: "Player Deleted");
-                    //       forAddPlayers.forEach((element) {
-                    //         print(element);
-                    //       });
-                    //     },
-                    //     child: Text(
-                    //       "Remove",
-                    //       style: TextStyle(color: Colors.red, fontSize: 16),
-                    //     )),
                   ],
                 ),
               ),

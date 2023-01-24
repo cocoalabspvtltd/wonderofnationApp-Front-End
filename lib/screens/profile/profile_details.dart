@@ -85,7 +85,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with LoadMo
         title: Padding(
           padding: const EdgeInsets.only(left: 100.0),
           child: Text(
-            "${widget.UserName}",
+            "${widget.UserName.toUpperCase()}",
             style: TextStyle(fontSize: 18, color: Colors.black),
           ),
         ),
