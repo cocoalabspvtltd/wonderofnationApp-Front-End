@@ -1,12 +1,13 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/constants/user.dart';
 import 'package:oo/screens/homePage/register.dart';
 import 'package:oo/screens/profile/profile_page.dart';
 
 import '../../apis/repositories/edit_profile.dart';
+import '../../apis/repositories/profile_page_repositories.dart';
 import '../../constants/colors.dart';
 
 
@@ -17,11 +18,10 @@ import '../../constants/colors.dart';
 XFile? _image;
 var image ;
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone,required this.UserPic}) : super(key: key);
+  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone}) : super(key: key);
 final String UserName;
 final String UserEmail;
 final String UserPhone;
-final String UserPic;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController Mobilenumbercontroller  = TextEditingController();
   TextEditingController EmailController = TextEditingController();
   EditprofileRepostory editProfileApi = EditprofileRepostory();
-
+  ProfilepageRepositories getedit = ProfilepageRepositories();
   @override
 
   final ImagePicker _picker = ImagePicker();
@@ -40,15 +40,30 @@ class _EditProfileState extends State<EditProfile> {
 String imagpath = "";
   void initState() {
     super.initState();
-   NameController.text = widget.UserName.toUpperCase();
-   Mobilenumbercontroller.text=widget.UserPhone;
-   EmailController.text=widget.UserEmail;
+  NameController.text = widget.UserName;
+  Mobilenumbercontroller.text=widget.UserPhone;
+    EmailController.text=widget.UserEmail;
     setState(() {});
   }
+  File? image;
+  late File imageTemp;
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+
+      imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
   Widget build(BuildContext context) {
-    print("${widget.UserName}");
-    print("${widget.UserEmail}");
-    print("${widget.UserPhone}");
+    // NameController.text = widget.UserName;
+    // EmailController.text = widget.UserEmail;
+    // Mobilenumbercontroller.text = widget.UserPhone;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -65,13 +80,13 @@ String imagpath = "";
               child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 15),),
             ),
             onTap: () {
-              image =  _image?.path;
-       editProfileApi.getEditprofile(context,
-           NameController.text==null? widget.UserName:NameController.text,
-           EmailController.text.isEmpty ?widget.UserEmail:EmailController.text,
-           Mobilenumbercontroller.text==null?widget.UserPhone:Mobilenumbercontroller.text,
-           BioController.text,imagpath);
-       Navigator.pop(context);
+
+             // print("image=>${image}");
+       getedit.getEditprofile(context,
+           EmailController.text.isEmpty? widget.UserName:NameController.text,
+           EmailController.text == null?UserDetails.userEmail:EmailController.text,
+           Mobilenumbercontroller.text==null?UserDetails.userMobile:Mobilenumbercontroller.text, BioController.text,imageTemp);
+              Navigator.pop(context);
             },
           )
         ],
@@ -83,18 +98,19 @@ String imagpath = "";
             children: [
               SizedBox(height: 40,),
               Center(
-                child:  GestureDetector(
-                  onTap: (){
-                    _showpicker();
-                  },
+                child:   InkWell(
+                  onTap: pickImage,
                   child: CircleAvatar(
                     radius: 50.0,
-                    backgroundColor: ColorConstant.gray400,
-                    backgroundImage: _image == null ? null
-                        :FileImage(File(_image!.path)),
-                    child: _image==null ? Icon(Icons.camera_alt,color: ColorConstant.black901,size: 30,) : null,
+                    backgroundColor: Colors.white,
+                    backgroundImage: image == null ? null
+                        :FileImage(File(image!.path)),
+                    child: image==null ?
+                    Image.asset(
+                        'assets/images/profile.png') :
+                    Text("  "),
                   ),
-                ),
+                )
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20,top: 30),
