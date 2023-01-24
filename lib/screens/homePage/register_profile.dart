@@ -191,7 +191,7 @@ class _RegisterProfileState extends State<RegisterProfile> {
                                 top: 15),
                             child: GestureDetector(
                               onTap: () async{
-                                await  profileimageupload.getprofileImageList(imageTemp!);
+                                // await  profileimageupload.getprofileImageList(imageTemp!);
                                 //uploadImage(image!);
                               },
                               child: Text(
@@ -301,7 +301,9 @@ class _RegisterProfileState extends State<RegisterProfile> {
                               ),
                             ),
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
+                                await  profileimageupload.getprofileImageList(imageTemp!);
+                                //uploadImage(image!);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

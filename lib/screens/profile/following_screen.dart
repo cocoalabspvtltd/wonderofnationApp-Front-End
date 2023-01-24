@@ -92,8 +92,7 @@ class _FollowingScreenState extends State<FollowingScreen>
                   case Status.SUCCESS:
                     FollowModelClass follow_list = snapshot.data!.data;
                     List<Following>? followinglist = follow_list.following;
-                    // print("response->${followinglist}");
-                    follwingsearchdata =followinglist;
+                    follwingsearchdata = followinglist;
                     return SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +158,12 @@ class _FollowingScreenState extends State<FollowingScreen>
                     );
                 }
               }
-              return  Text("");
+              return Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.height * 0.05,
+                    child: CircularProgressIndicator()),
+              );
             })
         );
   }

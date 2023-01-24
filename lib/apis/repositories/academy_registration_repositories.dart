@@ -45,8 +45,7 @@ class AcademyRegistrationRepository {
     );
     print("->>>>>>>>>>>${response}");
     if (response.statusCode==200){
-      return Fluttertoast.showToast(msg:"Application Submitted");
-
+      return Fluttertoast.showToast(msg:response.data);
     }
     else
     {

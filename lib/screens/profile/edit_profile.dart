@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/constants/user.dart';
@@ -16,10 +17,11 @@ import '../../constants/colors.dart';
 XFile? _image;
 var image ;
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone}) : super(key: key);
+  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone,required this.UserPic}) : super(key: key);
 final String UserName;
 final String UserEmail;
 final String UserPhone;
+final String UserPic;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -38,15 +40,15 @@ class _EditProfileState extends State<EditProfile> {
 String imagpath = "";
   void initState() {
     super.initState();
-  NameController.text = widget.UserName;
-  Mobilenumbercontroller.text=widget.UserPhone;
-    EmailController.text=widget.UserEmail;
+   NameController.text = widget.UserName.toUpperCase();
+   Mobilenumbercontroller.text=widget.UserPhone;
+   EmailController.text=widget.UserEmail;
     setState(() {});
   }
   Widget build(BuildContext context) {
-    // NameController.text = widget.UserName;
-    // EmailController.text = widget.UserEmail;
-    // Mobilenumbercontroller.text = widget.UserPhone;
+    print("${widget.UserName}");
+    print("${widget.UserEmail}");
+    print("${widget.UserPhone}");
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -65,10 +67,11 @@ String imagpath = "";
             onTap: () {
               image =  _image?.path;
        editProfileApi.getEditprofile(context,
-           EmailController.text.isEmpty? widget.UserName:NameController.text,
-           EmailController.text == null?UserDetails.userEmail:EmailController.text,
-           Mobilenumbercontroller.text==null?UserDetails.userMobile:Mobilenumbercontroller.text, BioController.text,imagpath);
-              Navigator.pop(context);
+           NameController.text==null? widget.UserName:NameController.text,
+           EmailController.text.isEmpty ?widget.UserEmail:EmailController.text,
+           Mobilenumbercontroller.text==null?widget.UserPhone:Mobilenumbercontroller.text,
+           BioController.text,imagpath);
+       Navigator.pop(context);
             },
           )
         ],
@@ -91,7 +94,6 @@ String imagpath = "";
                         :FileImage(File(_image!.path)),
                     child: _image==null ? Icon(Icons.camera_alt,color: ColorConstant.black901,size: 30,) : null,
                   ),
-
                 ),
               ),
               Padding(

@@ -10,14 +10,14 @@ import '../../screens/profile/profile_page.dart';
 
 class EditprofileRepostory{
 
-  getEditprofile( context, String userName,userEmail,UserMobile,bio,path) async {
-
+  getEditprofile( context, String userName,userEmail,UserMobile,bio,reportFile) async {
+    String fileName = reportFile.path.split('/').last;
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
                 "name":userName,
                 "email":userEmail,
                 "phone":UserMobile,
                  "bio":bio,
-                 "profilePic":"https://wonderofnation.com/WonderOfNations/public/storage/img/"+"image_picker828951529860627989.jpg"
+                 "profilePic":"https://wonderofnation.com/WonderOfNations/public/storage/img/"+fileName,
     };
     print("_queryParameters : " + _queryParameters.toString());
     try {
@@ -28,12 +28,7 @@ class EditprofileRepostory{
           token:UserDetails.apiToken,
           queryParameters:_queryParameters,
           isQueryParmeter:true);
-      print("->${response}");
-      if (response["message"] == "Successfully updated") {
-       Fluttertoast.showToast(msg:'${response.message!}');
-      } else {
-        throw response.statusCode;
-      }
+      Fluttertoast.showToast(msg: '${response['message']}');
     } catch (error) {
       print(error);
     }
