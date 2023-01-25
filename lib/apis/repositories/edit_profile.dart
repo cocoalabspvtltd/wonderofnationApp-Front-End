@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/user.dart';
 import '../../constants/web_Api_provider.dart';
@@ -10,29 +13,7 @@ import '../../screens/profile/profile_page.dart';
 
 class EditprofileRepostory{
 
-  getEditprofile( context, String userName,userEmail,UserMobile,bio,reportFile) async {
-    String fileName = reportFile.path.split('/').last;
-    final Map<String, dynamic> _queryParameters = <String, dynamic>{
-                "name":userName,
-                "email":userEmail,
-                "phone":UserMobile,
-                 "bio":bio,
-                 "profilePic":"https://wonderofnation.com/WonderOfNations/public/storage/img/"+fileName,
-    };
-    print("_queryParameters : " + _queryParameters.toString());
-    try {
 
-      final response = await WebApiProvider().getData(
-          url:"profile-update",
-          isPost:true,
-          token:UserDetails.apiToken,
-          queryParameters:_queryParameters,
-          isQueryParmeter:true);
-      Fluttertoast.showToast(msg: '${response['message']}');
-    } catch (error) {
-      print(error);
-    }
-  }
 }
 
 _showDialog(BuildContext context) {

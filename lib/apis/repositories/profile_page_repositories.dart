@@ -123,4 +123,29 @@ class ProfilepageRepositories {
     return response;
   }
 
+  Future getEditprofile(context, String userName,userEmail,UserMobile,bio,File reportFile) async {
+    print("file->$reportFile");
+    String fileName = reportFile.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "name":userName,
+      "email":userEmail,
+      "phone":UserMobile,
+      "bio":bio,
+      "profilePic":
+      await MultipartFile.fromFile(reportFile.path, filename:fileName),
+    });
+    final response = await apiProvider
+        .getMultipartInstance()
+        .post(baseurl+"profile-update", data: formData,
+        options: Options(
+            headers: {
+              'Accept':'application/json',
+              'Authorization':"Bearer " + UserDetails.apiToken,
+            }
+        )
+
+    );
+    print("->>>>>>>>>>>${response}");
+    return response;
+  }
 }
