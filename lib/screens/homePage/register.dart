@@ -229,8 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               fontSize: getFontSize(
                                                 18,
                                               ),
-                                              fontFamily: 'Inter',
-                                              fontWeight: FontWeight.w400,
+                                              fontFamily: 'Inter', fontWeight: FontWeight.w400,
                                             ),
                                           ),
                                         ),

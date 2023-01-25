@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:oo/apis/modelclass/club_list_model.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
@@ -146,6 +147,7 @@ class ProfilepageRepositories {
 
     );
     print("->>>>>>>>>>>${response}");
+    Fluttertoast.showToast(msg: '${response.data['message']}');
     return response;
   }
 }

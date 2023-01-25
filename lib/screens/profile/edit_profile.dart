@@ -1,27 +1,19 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:oo/constants/user.dart';
-import 'package:oo/screens/homePage/register.dart';
-import 'package:oo/screens/profile/profile_page.dart';
-
 import '../../apis/repositories/edit_profile.dart';
 import '../../apis/repositories/profile_page_repositories.dart';
 import '../../constants/colors.dart';
 
-
-
-
-
-
-XFile? _image;
 var image ;
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone}) : super(key: key);
+  const EditProfile({Key? key, required this.UserName, required this.UserEmail, required this.UserPhone,required this.UserPic}) : super(key: key);
 final String UserName;
 final String UserEmail;
 final String UserPhone;
+final String UserPic;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
@@ -48,16 +40,13 @@ String imagpath = "";
   File? image;
   late File imageTemp;
   Future pickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-
-      imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-
+     try {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    imageTemp = File(image.path);
+    setState(() => this.image = imageTemp);
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+    print('Failed to pick image: $e');
     }
   }
   Widget build(BuildContext context) {
@@ -84,8 +73,8 @@ String imagpath = "";
              // print("image=>${image}");
        getedit.getEditprofile(context,
            EmailController.text.isEmpty? widget.UserName:NameController.text,
-           EmailController.text == null?UserDetails.userEmail:EmailController.text,
-           Mobilenumbercontroller.text==null?UserDetails.userMobile:Mobilenumbercontroller.text, BioController.text,imageTemp);
+           EmailController.text.isEmpty?widget.UserEmail:EmailController.text,
+           Mobilenumbercontroller.text.isEmpty?widget.UserPhone:Mobilenumbercontroller.text, BioController.text,imageTemp);
               Navigator.pop(context);
             },
           )
@@ -98,20 +87,62 @@ String imagpath = "";
             children: [
               SizedBox(height: 40,),
               Center(
-                child:   InkWell(
-                  onTap: pickImage,
-                  child: CircleAvatar(
-                    radius: 50.0,
-                    backgroundColor: Colors.white,
-                    backgroundImage: image == null ? null
-                        :FileImage(File(image!.path)),
-                    child: image==null ?
-                    Image.asset(
-                        'assets/images/profile.png') :
-                    Text("  "),
+                child: InkWell(
+                  onTap:
+                     pickImage,
+                  child: Container(
+                    height: 130,
+                    width: 150,
+                    child: Stack(children: [
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          padding: EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                            color: Colors.black87,
+                            borderRadius: BorderRadius.circular(60),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(60),
+                            child: image==null?
+                            CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              imageUrl: '${widget.UserPic}',
+                              placeholder: (context, url) => Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => CircleAvatar(
+                                radius: 46.0,
+                                backgroundImage:
+                                AssetImage('assets/images/profile.png'),
+                                backgroundColor: Colors.grey,
+                              ),
+                        ):
+                            Center(
+                                child:  InkWell(
+                                  onTap: pickImage,
+                                  child: CircleAvatar(
+                                    radius: 60.0,
+                                    backgroundColor: Colors.white,
+                                    backgroundImage: image == null ? null
+                                        :FileImage(File(image!.path)),
+                                    child: image==null ?
+                                    Image.asset(
+                                        'assets/images/profile.png') :
+                                    Text("") ,
+                                  ),
+                                )
+                            ),
+                      ),
+                      ),
+                      ),
+                    ]),
                   ),
-                )
+                ),
               ),
+
               Padding(
                 padding: const EdgeInsets.only(left: 20,top: 30),
                 child: Text("Name",style: TextStyle(color: ColorConstant.black901,fontSize: 15,),),
@@ -163,7 +194,6 @@ String imagpath = "";
                   controller: Mobilenumbercontroller,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorConstant.gray600),
                     ),
@@ -206,72 +236,80 @@ String imagpath = "";
       ),
     );
   }
-  _imagefromGallery() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-      imagpath = _image!.path;
-      print("image->${_image!.path}");
-    });
-  }
-
-  _imagefromComera() async {
-    final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = photo;
-    });
-  }
-  _showpicker() {
-    showModalBottomSheet(
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        backgroundColor: Colors.white,
-        context: context,
-        builder: (context) {
-          return Container(
-            height: 100,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          _imagefromComera();
-                        },
-                        icon: Icon(Icons.camera_alt_rounded,
-                            color: Colors.orangeAccent),
-                        iconSize: 30,
-                      ),
-                      Text("Camera"),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          _imagefromGallery();
-                        },
-                        icon: Icon(Icons.photo),
-                        color: Colors.indigo,
-                        iconSize: 30,
-                      ),
-                      Text("Gallery"),
-                    ],
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  // _imagefromGallery() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (image == null) return;
+  //     imageTemp = File(image.path);
+  //     setState(() => this.image = imageTemp);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
+  //
+  // _imagefromComera() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (image == null) return;
+  //     imageTemp = File(image.path);
+  //     setState(() { this.image = imageTemp;
+  //     }
+  //     );
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
+  // _showpicker() {
+  //   showModalBottomSheet(
+  //       shape:
+  //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+  //       backgroundColor: Colors.white,
+  //       context: context,
+  //       builder: (context) {
+  //         return Container(
+  //           height: 100,
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(15.0),
+  //             child: Row(
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Column(
+  //                   children: [
+  //                     IconButton(
+  //                       onPressed: () {
+  //                         _imagefromComera();
+  //                       },
+  //                       icon: Icon(Icons.camera_alt_rounded,
+  //                           color: Colors.orangeAccent),
+  //                       iconSize: 30,
+  //                     ),
+  //                     Text("Camera"),
+  //                   ],
+  //                 ),
+  //                 SizedBox(
+  //                   width: 30,
+  //                 ),
+  //                 Column(
+  //                   children: [
+  //                     IconButton(
+  //                       onPressed: () {
+  //                         _imagefromGallery();
+  //                       },
+  //                       icon: Icon(Icons.photo),
+  //                       color: Colors.indigo,
+  //                       iconSize: 30,
+  //                     ),
+  //                     Text("Gallery"),
+  //                   ],
+  //                 ),
+  //                 SizedBox(
+  //                   width: 30,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         );
+  //       });
+  // }
 }

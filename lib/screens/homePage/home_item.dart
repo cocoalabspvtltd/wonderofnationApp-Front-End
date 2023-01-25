@@ -224,10 +224,6 @@ var buttonText = "Follow";
                     ),
                   ),
                 ),
-
-
-
-
               ],
             ),
           ),

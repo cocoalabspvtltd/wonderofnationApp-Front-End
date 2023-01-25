@@ -73,7 +73,7 @@ class _ProfileUiState extends State<ProfileUi> {
                           width: double.infinity,
                           margin: EdgeInsets.only(
                             top: getVerticalSize(
-                              30.75,
+                              15.75,
                             ),
                           ),
                           decoration: BoxDecoration(
@@ -98,7 +98,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                         0.25,
                                       ),
                                       bottom: getVerticalSize(
-                                        301.00,
+                                        280.00,
                                       ),
                                     ),
                                     child: Container(
@@ -370,9 +370,12 @@ class _ProfileUiState extends State<ProfileUi> {
                                                       10.00,
                                                     ),
                                                     top: getVerticalSize(
-                                                      32.00,
+                                                      25.00,
                                                     ),
                                                     right: getHorizontalSize(
+                                                      10.00,
+                                                    ),
+                                                    bottom: getHorizontalSize(
                                                       10.00,
                                                     ),
                                                   ),
@@ -380,7 +383,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                                   {
                                                     Navigator.push(context,
                                                         MaterialPageRoute(builder:
-                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: UserDetails.userEmail, UserPhone: UserDetails.userMobile)));
+                                                            (context)=>EditProfile(UserName: data.name ?? "", UserEmail: data.email ??"", UserPhone: data.phone??"",UserPic:data.profilePic??"")));
                                                   } ,                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       height: getVerticalSize(
@@ -437,7 +440,7 @@ class _ProfileUiState extends State<ProfileUi> {
                                         17.00,
                                       ),
                                       bottom: getVerticalSize(
-                                        297.53,
+                                        200.53,
                                       ),
                                     ),
                                     child: Container(

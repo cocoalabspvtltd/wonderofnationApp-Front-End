@@ -45,11 +45,11 @@ class AcademyRegistrationRepository {
     );
     print("->>>>>>>>>>>${response}");
     if (response.statusCode==200){
-      return Fluttertoast.showToast(msg:response.data);
+      return Fluttertoast.showToast(msg:response.data['message']);
     }
     else
     {
-      return Fluttertoast.showToast(msg:response.data);
+      return Fluttertoast.showToast(msg:response.data['message']);
     }
 
     return response;
