@@ -69,8 +69,6 @@ String imagpath = "";
               child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 15),),
             ),
             onTap: () {
-
-             // print("image=>${image}");
        getedit.getEditprofile(context,
            EmailController.text.isEmpty? widget.UserName:NameController.text,
            EmailController.text.isEmpty?widget.UserEmail:EmailController.text,
@@ -106,7 +104,7 @@ String imagpath = "";
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(60),
-                            child: image==null?
+                            child: image == null ?
                             CachedNetworkImage(
                               fit: BoxFit.cover,
                               imageUrl: '${widget.UserPic}',
