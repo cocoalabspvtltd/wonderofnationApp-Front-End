@@ -73,7 +73,7 @@ class NotificationRepository {
     return NotificationModelClass.fromJson(response.data);
 
   }
-  Future statusAcceptInvitation(int statusid,matchid,int invitestatus) async {
+  Future statusAcceptInvitation(int? statusid,matchid,int? invitestatus) async {
 
     FormData formData = FormData.fromMap({
       "status_id":statusid,

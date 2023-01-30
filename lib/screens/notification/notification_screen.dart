@@ -70,10 +70,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => DashBoard(UserName1: '',)),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DashBoard(UserName1: '',)),
+              );
             },
             icon: Icon(
               Icons.arrow_back,
@@ -119,7 +119,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             break;
                           case Status.SUCCESS:
                             NotificationModelClass notificationlist = snapshot.data!.data;
-                            return _bloc.notificationlist.isEmpty ?
+                            print("noti->>>>>>>${notificationlist.notifications}");
+                            return _bloc.notificationlist==null ?
                             SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.4,
                                 child: CommonApiResultsEmptyWidget("Notification empty"),
@@ -139,7 +140,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     );
   }
-  ListView inviteview(notificationlist){
+  ListView inviteview( NotificationModelClass notificationlist){
     return ListView.separated(
       separatorBuilder: (context, index) =>
           SizedBox(
@@ -149,7 +150,62 @@ class _NotificationScreenState extends State<NotificationScreen> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: notificationlist.notifications!.length,
       itemBuilder: (context, index) {
-        if(notificationlist.notifications![index].data!.type == "match_invite") {
+        if (notificationlist.notifications![index].data!.type == "new_follow") {
+          return  SizedBox(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.15,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadowColor: ColorConstant.green6320,
+              elevation: 2,
+              color: Colors.grey[300],
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        '${notificationlist.notifications![index].time}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.grey[400],
+                            child: Icon(Icons.notifications,color: Colors.blue[800],)
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("  ${notificationlist.notifications![index].data!.followName} following you ",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+        else if(notificationlist.notifications![index].data!.type == "match_invite") {
           return SizedBox(
             height: MediaQuery
                 .of(context)
@@ -193,9 +249,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text("${notificationlist.notifications![index]
-                                  .data!.name!} has invited you to the match on \n"
-                                "${notificationlist.notifications![index].data!
-                                    .date}",
+                                  .data!.name!} has invited you to \nthe match on"
+                                  "${notificationlist.notifications![index].data!
+                                  .date}",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -213,78 +269,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           );
         }
         else if(notificationlist.notifications![index].data!.type == "win_status")
-          {
-            return  SizedBox(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height * 0.15,
-              child: InkWell(
-                onTap: (){
-                  _showDialogmatch(notificationlist.notifications![index].data!.statusId,notificationlist.notifications![index].data!.matchId);
-                  Navigator.pop(context);
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  shadowColor: ColorConstant.green6320,
-                  elevation: 2,
-                  color: Colors.grey[300],
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Text(
-                            '${notificationlist.notifications![index].time}',
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
-                        Row(
-                          children: [
-                            CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Colors.grey[400],
-                                child: Icon(Icons.notifications,color: Colors.blue[800],)
-                            ),
-                            SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
-                            notificationlist.notifications![index].data!.winStatus==0 ?
-                            Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as Lost ",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                            ):
-                            Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as win ",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }
-        else{
+        {
           return  SizedBox(
             height: MediaQuery
                 .of(context)
@@ -292,7 +277,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 .height * 0.15,
             child: InkWell(
               onTap: (){
-                // _showDialog();
+                _showDialogmatch(notificationlist.notifications![index].data!.statusId,notificationlist.notifications![index].data!.matchId);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -325,9 +310,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               child: Icon(Icons.notifications,color: Colors.blue[800],)
                           ),
                           SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                          notificationlist.notifications![index].data!.winStatus==0 ?
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text("Your invitation ${notificationlist.notifications![index].data!.status}\n by ${notificationlist.notifications![index].data!.name}",
+                              child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as Lost ",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                          ):
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(" Player ${notificationlist.notifications![index].data!.name} updated the status\n of match as win ",
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -344,10 +339,66 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
           );
         }
+        else{
+          return  SizedBox(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.15,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadowColor: ColorConstant.green6320,
+              elevation: 2,
+              color: Colors.grey[300],
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        '${notificationlist.notifications![index].time}',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.005,),
+                    Row(
+                      children: [
+                        CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.grey[400],
+                            child: Icon(Icons.notifications,color: Colors.blue[800],)
+                        ),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02,),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("Your invitation ${notificationlist.notifications![index].data!.status}\n by ${notificationlist.notifications![index].data!.name}",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.01,),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
       },
+
     ) ;
   }
-  void _showDialog(int notificationId) {
+  void _showDialog(int? notificationId) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -367,7 +418,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                  ),
                 child:  Text("Accept",style: TextStyle(color: Colors.white),),
                 onPressed: () {
-                   notifi_api.acceptInvitation(notificationId,"accepted");
+                  notifi_api.acceptInvitation(notificationId!,"accepted");
+                  Navigator.pop(context);
                    inviationaccept();
                 },
             ),
@@ -380,7 +432,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
                 child:  Text("Reject",style: TextStyle(color: Colors.white),),
                 onPressed: () {
-                  notifi_api.acceptInvitation(notificationId,"rejected");
+                 notifi_api.acceptInvitation(notificationId!,"rejected");
+                 Navigator.pop(context);
                   inviationreject();
                 },
               ),
@@ -431,7 +484,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  void _showDialogmatch(int statusid,int match_id) {
+  void _showDialogmatch(int? statusid,int? match_id) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -453,8 +506,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 onPressed: ()async {
                   print(statusid);
                   print(match_id);
-                   await   notifi_api.statusAcceptInvitation(statusid,match_id, 1);
-
+                   await  notifi_api.statusAcceptInvitation(statusid,match_id, 1);
+                  Navigator.pop(context);
                 },
               ),
             ),
@@ -469,6 +522,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   print(statusid);
                   print(match_id);
                   await   notifi_api.statusAcceptInvitation(statusid,match_id, 0);
+                  Navigator.pop(context);
                 },
               ),
             ),
