@@ -63,19 +63,13 @@ String imagpath = "";
           Navigator.pop(context);
         }, icon: Icon(Icons.close,size: 20,color: ColorConstant.black901)),
         actions: [
-          InkWell(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 17,right: 10),
-              child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 15),),
-            ),
-            onTap: () {
-       getedit.getEditprofile(context,
-           EmailController.text.isEmpty? widget.UserName:NameController.text,
-           EmailController.text.isEmpty?widget.UserEmail:EmailController.text,
-           Mobilenumbercontroller.text.isEmpty?widget.UserPhone:Mobilenumbercontroller.text, BioController.text,imageTemp);
-              Navigator.pop(context);
-            },
-          )
+          TextButton(onPressed: (){
+            getedit.getEditprofile(context,
+                EmailController.text.isEmpty? widget.UserName:NameController.text,
+                EmailController.text.isEmpty?widget.UserEmail:EmailController.text,
+                Mobilenumbercontroller.text.isEmpty?widget.UserPhone:Mobilenumbercontroller.text, BioController.text,imageTemp);
+            Navigator.pop(context);
+          }, child: Text("Save",style: TextStyle(color: ColorConstant.green6320,fontSize: 17),),)
         ],
       ),
       body: SingleChildScrollView(

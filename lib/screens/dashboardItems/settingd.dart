@@ -27,10 +27,7 @@ class _SettingpageState extends State<Settingpage> {
           leading: IconButton(onPressed: (){
             Navigator.pop(context);
           }, icon: Icon(Icons.arrow_back,color: Colors.black,)),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 40,right: 30),
-            child: Text("Settings",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),),
-          )
+          title: Text("Settings",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w500),)
       ),
       body: SingleChildScrollView(
         child: SafeArea(

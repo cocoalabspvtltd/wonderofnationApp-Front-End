@@ -79,18 +79,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Text(
-            "Notifications",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: getFontSize(
-                22,
-              ),
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
+        title: Text(
+          "Notifications",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: getFontSize(
+              22,
             ),
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),

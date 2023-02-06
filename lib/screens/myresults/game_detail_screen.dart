@@ -33,11 +33,9 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                   MaterialPageRoute(builder: (context) => DashBoard(UserName1: '')));
             }
         ),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 100 ),
-          child: Text(
-            "Results", style: TextStyle(color: Colors.black, fontSize: 15),),
-        ),),
+        centerTitle: true,
+        title: Text(
+          "Results", style: TextStyle(color: Colors.black, fontSize: 15),),),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(

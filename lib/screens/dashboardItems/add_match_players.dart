@@ -132,15 +132,12 @@ class _AddMatchPlayersState extends State<AddMatchPlayers> {
                   Icons.arrow_back,
                   color: Colors.black,
                 )),
-            title: Padding(
-              padding: const EdgeInsets.only(left: 30, right: 30),
-              child: Text(
-                "Players List",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
-              ),
+            title: Text(
+              "Players List",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400),
             )),
         floatingActionButton: Row(mainAxisAlignment: MainAxisAlignment.end,
           children: [

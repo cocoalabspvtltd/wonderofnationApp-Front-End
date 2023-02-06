@@ -131,11 +131,11 @@ class _MyClubsState extends State<MyClubs> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
-        title: Center(
-            child: Text(
-              "My clubs",
-              style: TextStyle(color: Colors.black,fontSize: 15),
-            )),
+        centerTitle: true,
+        title: Text(
+          "My clubs",
+          style: TextStyle(color: Colors.black,fontSize: 15),
+        ),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,

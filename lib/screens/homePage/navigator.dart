@@ -70,14 +70,6 @@ class _DashBoardState extends State<DashBoard> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 10),
-              child:
-              Container(
-                  child:
-                  Icon(Icons.search,size: 25,color: ColorConstant.black901)
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
               child: InkWell(
                 onTap: (){
                   Navigator.push(context,  MaterialPageRoute(builder: (context) => NotificationScreen()));

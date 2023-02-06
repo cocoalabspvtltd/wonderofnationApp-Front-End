@@ -70,7 +70,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             elevation: 1,
             centerTitle: true,
             backgroundColor: Colors.white,
-            iconTheme: const IconThemeData(color: Colors.black),
+            iconTheme:  IconThemeData(color: Colors.black),
             title: Row(
               children: [
                 Container(

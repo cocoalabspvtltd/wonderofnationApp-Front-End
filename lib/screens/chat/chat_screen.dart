@@ -32,12 +32,10 @@ class _ChatScreenState extends State<ChatScreen> {
  return Scaffold( appBar: AppBar(
    backgroundColor: Colors.white,
    elevation: 0,
-   title: Padding(
-     padding: const EdgeInsets.only(left: 68.0),
-     child: Text(
-       "Chats",
-       style: TextStyle(fontSize: 18, color: Colors.black),
-     ),
+   centerTitle: true,
+   title: Text(
+     "Chats",
+     style: TextStyle(fontSize: 18, color: Colors.black),
    ),
    leading: GestureDetector(onTap: (){
      Navigator.push(

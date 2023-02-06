@@ -177,12 +177,10 @@ class _AddClubsState extends State<AddClubs> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: Padding(
-            padding: const EdgeInsets.all(95.0),
-            child: Text(
-              "Join",
-              style: TextStyle(color: Colors.black,fontSize: 15),
-            ),
+          centerTitle: true,
+          title: Text(
+            "Join",
+            style: TextStyle(color: Colors.black,fontSize: 15),
           ),
           leading: IconButton(
               icon: Icon(

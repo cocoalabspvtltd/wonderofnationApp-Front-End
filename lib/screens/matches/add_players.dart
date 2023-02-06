@@ -103,15 +103,12 @@ class AddPlayers extends StatefulWidget {
                    Icons.arrow_back,
                    color: Colors.black,
                  )),
-             title: Padding(
-               padding: const EdgeInsets.only(left: 30, right: 30),
-               child: Text(
-                 "Players List",
-                 style: TextStyle(
-                     color: Colors.black,
-                     fontSize: 15,
-                     fontWeight: FontWeight.w400),
-               ),
+             title: Text(
+               "Players List",
+               style: TextStyle(
+                   color: Colors.black,
+                   fontSize: 15,
+                   fontWeight: FontWeight.w400),
              )),
          body: StreamBuilder<Response<AddPlayersModel>>(
              stream: _bloc.myplayerDetailsListStream,

@@ -82,12 +82,10 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> with LoadMo
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left:80.0),
-          child: Text(
-            "${widget.UserName.toUpperCase()}",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
+        centerTitle: true,
+        title: Text(
+          "${widget.UserName.toUpperCase()}",
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
         leading: GestureDetector(onTap: (){
          Navigator.pop(context);

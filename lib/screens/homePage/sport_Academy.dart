@@ -10,7 +10,8 @@ class WonScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteA700,
-        appBar: AppBar(backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(onPressed: (){
             Navigator.push(

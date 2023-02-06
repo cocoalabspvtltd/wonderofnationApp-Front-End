@@ -21,11 +21,9 @@ class _ContactPageState extends State<ContactPage> {
             size: 23
         ),
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 80),
-          child: Text("Contact Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
-          ),),
-        ),
+        centerTitle: true,
+        title: Text("Contact Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
+        ),),
       ),body: SafeArea(
       child: SingleChildScrollView(
         child: Column(

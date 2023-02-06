@@ -83,12 +83,10 @@ class _MyMatchesState extends State<MyMatches> with LoadMoreListener , SingleTic
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70.0),
-          child: Text(
-            "My Matches",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
+        centerTitle: true,
+        title: Text(
+          "My Matches",
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
         leading: GestureDetector(onTap: (){
           Navigator.push(

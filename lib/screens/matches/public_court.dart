@@ -58,7 +58,6 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
         height: size.height,
         child:    Column(
           children: [
-
             SizedBox(height: 30,),
             Center(child: Image.asset("assets/images/success_pay.png",height: 100,width: 700,)),
             Padding(
@@ -148,20 +147,6 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 Icons.arrow_back,
                 color: Colors.black,
               )),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Text(
-              "",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: getFontSize(
-                  22,
-                ),
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
 
         body: StreamBuilder<Response<List<InvoiceModelClass>>>(

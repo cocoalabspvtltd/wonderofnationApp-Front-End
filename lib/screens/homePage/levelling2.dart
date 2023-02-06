@@ -45,12 +45,10 @@ class _LevelingsecondState extends State<Levelingsecond> {
                   MaterialPageRoute(
                       builder: (context) => LevelingFirst(0, user1: "")));
             }),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70, right: 50),
-          child: Text(
-            "Leveling",
-            style: TextStyle(color: Colors.black, fontSize: 18),
-          ),
+        centerTitle: true,
+        title: Text(
+          "Leveling",
+          style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
       body: SingleChildScrollView(
