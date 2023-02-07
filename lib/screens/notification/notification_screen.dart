@@ -20,7 +20,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   late ScrollController _notificationScrollController;
   List<dynamic> notificationdata = [];
   bool isLoadingMore = false;
-  // int ucount= 100;
   NotificationRepository notifi_api= NotificationRepository();
   void initState() {
     super.initState();
