@@ -67,6 +67,8 @@ dependencies:
   expansion_tile_card: ^2.0.0
   package_info_plus: ^1.4.3+1
   onesignal_flutter: ^3.5.0
+  font_awesome_flutter: ^10.4.0
+
 
 
 

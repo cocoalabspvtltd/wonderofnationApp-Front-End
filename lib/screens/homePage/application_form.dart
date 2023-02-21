@@ -1,13 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:oo/apis/repositories/academy_registration_repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
-
 import '../dropdowns/games_dropdown.dart';
-import 'application_form_Submitted.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 

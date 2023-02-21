@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/notification_bloc.dart';
 import 'package:oo/constants/user.dart';
+import 'package:oo/screens/homePage/navigator.dart';
 import 'package:oo/screens/homePage/sport_Academy.dart';
 import '../../apis/repositories/logoout_repositories.dart';
-import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../addfriends/add_fried.dart';
@@ -322,7 +322,7 @@ class _HomePageState extends State<HomePage> {
                                       child: GestureDetector(onTap:(){
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) =>  ClubList()),
+                                          MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: widget.RegisterName,selectedIndex: 2,)),
                                         );
                                       },
                                         child: Container(

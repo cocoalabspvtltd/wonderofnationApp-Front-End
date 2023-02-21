@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:oo/apis/bloc/authbloc.dart';
-import 'package:oo/apis/modelclass/user_details.dart';
 import 'package:oo/apis/modelclass/userloginresponse.dart';
 import 'package:oo/constants/sharedpref.dart';
 import 'package:oo/constants/user.dart';
@@ -112,10 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
           body: SingleChildScrollView(
             child: Container(
               width: size.width,
-
-
                 child: Container(
-
                   decoration: BoxDecoration(
                     color: Colors.white,
                   ),

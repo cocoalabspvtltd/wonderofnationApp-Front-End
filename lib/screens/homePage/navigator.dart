@@ -26,12 +26,12 @@ import 'package:oo/screens/profile/profile_page.dart';
 import '../../constants/sharedpref.dart';
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({Key? key, required this.UserName1,}) : super(key: key);
+  final int selectedIndex;
+  const DashBoard({Key? key, required this.UserName1, this.selectedIndex= 0,}) : super(key: key);
   final String UserName1;
   @override
   State<DashBoard> createState() => _DashBoardState();
 }
-
 class _DashBoardState extends State<DashBoard> {
   @override
   late NotificationBloc _bloc;
@@ -41,9 +41,9 @@ class _DashBoardState extends State<DashBoard> {
     _bloc =NotificationBloc();
     _bloc.getNotification(false);
     notifi_api.getnotification(1, 20);
+    _selectedIndex = widget.selectedIndex;
     setState(() {});
   }
-
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   int _selectedIndex = 0;
@@ -54,8 +54,6 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
   Widget build(BuildContext context) {
-    print("username->${widget.UserName1}");
-    print("=============count--${notificationCount}");
     return Scaffold(
       key: _scaffoldKey,
       appBar:AppBar(

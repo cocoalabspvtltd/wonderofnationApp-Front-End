@@ -50,9 +50,6 @@ String imagpath = "";
     }
   }
   Widget build(BuildContext context) {
-    // NameController.text = widget.UserName;
-    // EmailController.text = widget.UserEmail;
-    // Mobilenumbercontroller.text = widget.UserPhone;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

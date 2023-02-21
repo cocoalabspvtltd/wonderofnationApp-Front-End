@@ -131,10 +131,7 @@ class _ProfilrScreenState extends State<ProfilrScreen> {
                                             width: getHorizontalSize(
                                               19.50,
                                             ),
-                                            // child: SvgPicture.asset(
-                                            //   ImageConstant.imgVector7,
-                                            //   fit: BoxFit.fill,
-                                            // ),
+
                                           ),
                                         ),
                                       ),
