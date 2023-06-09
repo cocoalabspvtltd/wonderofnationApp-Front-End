@@ -125,8 +125,6 @@ var buttonText = "Follow";
                       left: getHorizontalSize(
                         0.00,
                       ),
-
-
                       top: getVerticalSize(
                         19.00,
                       ),

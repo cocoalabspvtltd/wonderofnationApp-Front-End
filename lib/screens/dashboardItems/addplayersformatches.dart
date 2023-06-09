@@ -273,12 +273,14 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer>
                             playerUpadtion.getUpdateplayer(
                                 playerlist[index].id!, playerlist[index].name!, index, context);
                             Fluttertoast.showToast(msg: "Player Added");
+                            Navigator.pop(context);
                             return;
                           }
                           if (flag == false) {
                             playerUpadtion.getUpdateplayer(
                                 playerlist[index].id!, playerlist[index].name!, index, context);
                             Fluttertoast.showToast(msg: "Player Added");
+                            Navigator.pop(context);
                             return;
                           }
 

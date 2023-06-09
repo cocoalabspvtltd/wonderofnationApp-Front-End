@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/base_urls.dart';
 import 'package:oo/constants/web_Api_provider.dart';
@@ -27,6 +28,7 @@ class FollowRepositories {
       }
       followMessage = resoponse.data["message"];
       print("=???${resoponse.data["message"]}");
+      Fluttertoast.showToast(msg:"Start to follow");
       return resoponse.data;
       }catch(error){
       print("error");
@@ -50,12 +52,11 @@ class FollowRepositories {
       }));
       followMessage = resoponse.data["message"];
       print("=?${resoponse.data["message"]}");
+      Fluttertoast.showToast(msg:"Start to unfollow");
       return resoponse.data;
     }catch(error){
       print("error");
       print(error.toString());
     }
-
   }
-
       }

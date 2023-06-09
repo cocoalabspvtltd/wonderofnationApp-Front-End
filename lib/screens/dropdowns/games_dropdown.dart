@@ -70,7 +70,6 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
         onChanged: (newVal) {
           setState(() {
             dropdownvalue = newVal;
-
           });
         },
         value: dropdownvalue,

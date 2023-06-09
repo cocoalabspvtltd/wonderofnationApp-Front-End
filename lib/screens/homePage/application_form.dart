@@ -8,7 +8,6 @@ import '../dropdowns/games_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
-import 'home_page1.dart';
 
 class ApplicationFormScreen extends StatefulWidget {
   @override
@@ -21,10 +20,9 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   File? ImgPath;
   VideoPlayerController? _videoPlayerController;
   AcademyRegistrationRepository AppicationformApi =
-      AcademyRegistrationRepository();
+  AcademyRegistrationRepository();
   final ImagePicker _picker = ImagePicker();
 
-  String dropdownvalue = 'Select';
 
   String videoPath = "";
   late final Function()? onChanged;
@@ -67,7 +65,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
             elevation: 1,
             centerTitle: true,
             backgroundColor: Colors.white,
-            iconTheme:  IconThemeData(color: Colors.black),
+            iconTheme: const IconThemeData(color: Colors.black),
             title: Row(
               children: [
                 Container(
@@ -78,12 +76,12 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                   ),
                   child: Center(
                       child: Text(
-                    "Application Form",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )),
+                        "Application Form",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )),
                 ),
                 SizedBox(
                   width: 27,
@@ -399,8 +397,8 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                     if (value!.isEmpty) {
                                       return 'Please a Enter Date of birth';
                                     }
-                                    if (!RegExp('^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])')
-                                        .hasMatch(value)) {
+                                    if (value!.isEmpty || value.length > 10 ||
+                                        value.length < 8 ){
                                       return 'Please a Enter Date of birth';
                                     }
                                     return null;
@@ -816,7 +814,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                       return 'Please a Enter';
                                     }
                                     if (!RegExp(
-                                            "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                        "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
                                         .hasMatch(value)) {
                                       return 'Please a valid Email';
                                     }
@@ -862,58 +860,58 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                               },
                               child: _image != null
                                   ? Container(
-                                      height: getVerticalSize(
-                                        50.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        150.00,
-                                      ),
-                                      margin: EdgeInsets.only(
-                                        top: getVerticalSize(
-                                          13.00,
-                                        ),
-                                      ),
-                                      child: Image.file(
-                                        File(_image!.path),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )
+                                height: getVerticalSize(
+                                  50.00,
+                                ),
+                                width: getHorizontalSize(
+                                  150.00,
+                                ),
+                                margin: EdgeInsets.only(
+                                  top: getVerticalSize(
+                                    13.00,
+                                  ),
+                                ),
+                                child: Image.file(
+                                  File(_image!.path),
+                                  fit: BoxFit.fill,
+                                ),
+                              )
                                   : Container(
-                                      height: getVerticalSize(
-                                        39.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        320.00,
-                                      ),
-                                      margin: EdgeInsets.only(
-                                        top: getVerticalSize(
-                                          13.00,
-                                        ),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: ColorConstant.whiteA700,
-                                        borderRadius: BorderRadius.circular(
-                                          getHorizontalSize(
-                                            5.00,
-                                          ),
-                                        ),
-                                        border: Border.all(
-                                          color: ColorConstant.black900,
-                                          width: getHorizontalSize(
-                                            1.00,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 230),
-                                        child: Icon(
-                                          Icons.file_present_rounded,
-                                          size: 20,
-                                          color: ColorConstant.black900,
-                                        ),
-                                      ),
+                                height: getVerticalSize(
+                                  39.00,
+                                ),
+                                width: getHorizontalSize(
+                                  320.00,
+                                ),
+                                margin: EdgeInsets.only(
+                                  top: getVerticalSize(
+                                    13.00,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: ColorConstant.whiteA700,
+                                  borderRadius: BorderRadius.circular(
+                                    getHorizontalSize(
+                                      5.00,
                                     ),
+                                  ),
+                                  border: Border.all(
+                                    color: ColorConstant.black900,
+                                    width: getHorizontalSize(
+                                      1.00,
+                                    ),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 230),
+                                  child: Icon(
+                                    Icons.file_present_rounded,
+                                    size: 20,
+                                    color: ColorConstant.black900,
+                                  ),
+                                ),
+                              ),
                             ),
                             Container(
                               width: getHorizontalSize(
@@ -944,11 +942,11 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                             if (_video != null)
                               _videoPlayerController!.value.isInitialized
                                   ? AspectRatio(
-                                      aspectRatio: _videoPlayerController!
-                                          .value.aspectRatio,
-                                      child:
-                                          VideoPlayer(_videoPlayerController!),
-                                    )
+                                aspectRatio: _videoPlayerController!
+                                    .value.aspectRatio,
+                                child:
+                                VideoPlayer(_videoPlayerController!),
+                              )
                                   : Container()
                             else
                               GestureDetector(
@@ -1040,16 +1038,17 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
                                   }
                                   await AppicationformApi
                                       .getacademyregistration(
-                                          context,
-                                          designatioids.toString(),
-                                          NameController.text,
-                                          DateOfBiirthController.text,
-                                          "female",
-                                          AddressController.text,
-                                          Mobilenumbercontroller.text,
-                                          EmailController.text,
-                                          _image!,
-                                          _video!);
+                                      context,
+                                      designatioids.toString(),
+                                      NameController.text,
+                                      DateOfBiirthController.text,
+                                      "female",
+                                      AddressController.text,
+                                      Mobilenumbercontroller.text,
+                                      EmailController.text,
+                                      _image!,
+                                      _video!);
+
                                   Navigator.pop(context);
                                 },
                                 child: Container(
@@ -1097,7 +1096,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
 
   _pickVideo() async {
     PickedFile? pickedFile =
-        await _picker.getVideo(source: ImageSource.gallery);
+    await _picker.getVideo(source: ImageSource.gallery);
     _video = File(pickedFile!.path);
     print("video=>>>$_video");
     videoPath = _video!.path;
@@ -1110,22 +1109,6 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
       });
   }
 
-  // _imagefromGallery() async {
-  //   final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     _image = image;
-  //     ImgPath = _image!.path ;
-  //     print("Path >.........${_image}");
-  //     print("Path >.........${ImgPath}");
-  //   });
-  // }
-
-  // _imagefromComera() async {
-  //   final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
-  //   setState(() {
-  //     _image = photo;
-  //   });
-  // }
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -1140,7 +1123,7 @@ class _ApplicationFormScreenState extends State<ApplicationFormScreen> {
   _showpicker() {
     showModalBottomSheet(
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         backgroundColor: Colors.white,
         context: context,
         builder: (context) {
