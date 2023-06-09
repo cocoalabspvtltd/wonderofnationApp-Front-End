@@ -18,11 +18,9 @@ class _AboutIUsPageState extends State<AboutIUsPage> {
             size: 23
         ),
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70),
-          child: Text("About Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
-          ),),
-        ),
+        centerTitle: true,
+        title: Text("About Us",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
+        ),),
       ),body: SingleChildScrollView(
       child: SafeArea(
         child: Column(

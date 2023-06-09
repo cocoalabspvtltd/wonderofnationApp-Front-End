@@ -28,11 +28,8 @@ class _RegisterProfileState extends State<RegisterProfile> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
-
       imageTemp = File(image.path);
-
       setState(() => this.image = imageTemp);
-
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }

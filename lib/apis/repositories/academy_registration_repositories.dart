@@ -52,8 +52,5 @@ class AcademyRegistrationRepository {
       return Fluttertoast.showToast(msg:response.data['message']);
     }
 
-    return response;
   }
-
-
 }

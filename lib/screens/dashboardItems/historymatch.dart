@@ -84,12 +84,10 @@ class _HistoryMyMatchesState extends State<HistoryMyMatches> with LoadMoreListen
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70.0),
-          child: Text(
-            "My History ",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
+        centerTitle: true,
+        title: Text(
+          "My History ",
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
         leading: GestureDetector(onTap: (){
           Navigator.push(

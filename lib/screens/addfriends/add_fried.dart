@@ -28,10 +28,8 @@ class _AddFriendsState extends State<AddFriends> {
             context,
             MaterialPageRoute(builder: (context) =>  DashBoard(UserName1: '',)),);
         }, icon: Icon(Icons.arrow_back_outlined,color: Colors.black,),),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 58.0),
-          child: Text("Follow Request",style: TextStyle(color: Colors.black,fontSize: 17),),
-        ),
+        centerTitle: true,
+        title: Text("Follow Request",style: TextStyle(color: Colors.black,fontSize: 17),),
       ),
       body: SingleChildScrollView(
         child: Column(

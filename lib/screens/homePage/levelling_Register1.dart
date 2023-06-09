@@ -47,12 +47,10 @@ class _LevelingFirstState extends State<LevelingFirst> {
                             names: UserDetails.userName
                           )));
             }),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 70, right: 50),
-          child: Text(
-            "Leveling",
-            style: TextStyle(color: Colors.black, fontSize: 18),
-          ),
+        centerTitle: true,
+        title: Text(
+          "Leveling",
+          style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
       body: SingleChildScrollView(

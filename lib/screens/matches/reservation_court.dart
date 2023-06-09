@@ -5,8 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
+import 'package:oo/constants/app_dialogs.dart';
 import 'package:oo/constants/user.dart';
-import 'package:oo/screens/dashboardItems/history_screen.dart';
 import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/matches/whatsappshare.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -248,7 +248,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                       double x = (price / slot);
                                       y = x.toStringAsFixed(0);
                                       print("y2 ->>>>>>>.${y}");
-
                                       //
                                     });
                                     //selectedIndex2 == index;
@@ -279,7 +278,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       'Players will not be able to see and join your match,unless you share the private link.\n'
                       '\n'
                       'Public  : Book a court for a public match and play with other players.'
-                      'All players in public match will have to play their share in the app',
+                      'All players in public match will have to pay their share in the app',
                   padding: EdgeInsets.all(20),
                   margin: EdgeInsets.only(top: 30, left: 30, right: 30),
                   decoration: BoxDecoration(
@@ -386,11 +385,9 @@ class _ReservationCourtState extends State<ReservationCourt> {
                                     await getTimeSlot(title[index]["id"]);
                                     setState(() {
                                       print("tfgh");
-
                                       price = title[index]["price"];
                                       courtid = title[index]['id'];
                                       slot = title[index]["slots"];
-
                                       double x = (price / slot);
                                       y = x.toStringAsFixed(0);
                                       print("y2 ->>>>>>>.${y}");
@@ -495,7 +492,52 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             timeSlotView(patientappointmentsearchdata),
+                         Padding(
+                           padding: const EdgeInsets.only(left:8.0),
+                           child: Container(
+                             child: Column(
+                               children: [
+                                 Row(
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 28.0),
+                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.green[900]),),
+                                     ),
+                                     Text("   Available slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                   ],
+                                 ),
+                                 Row(
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 28.0),
+                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.red[900]),),
+                                     ),
+                                     Text("  Unavailable slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                   ],
+                                 ),
+                                 Row(
+                                   children: [
+                                     Padding(
+                                       padding: const EdgeInsets.only(left: 28.0),
+                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.blue[400]),),
+                                     ),
+                                     Text("  Holded slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                                   ],
+                                 ),
+
+                               ],
+                             ),
+                           ),
+                         )
+                         //   Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
                           ],
+
                         );
                         break;
                       case Status.ERROR:
@@ -587,6 +629,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                   itemCount: forAddPlayers.length >=5 ? 5: forAddPlayers.length, itemBuilder: (context, index){
                 return Row(
                   children: [
+
                     Checkbox(
                       value: isChecked[index],
                       activeColor: ColorConstant.green6320,
@@ -602,6 +645,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         });
                       },
                     ),
+
                     CachedNetworkImage(imageUrl: forAddPlayers[index]['dp']!,
                       placeholder: (context, url) =>
                           CircularProgressIndicator(),
@@ -610,6 +654,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                         backgroundImage: imageProvider,),
                       errorWidget:(context, strin, dy)=> Icon(Icons.account_box_outlined),
                     ),
+
                     SizedBox(width: 10,),
                     Text(forAddPlayers[index]['name']!)
                   ],
@@ -744,7 +789,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                               ? Colors.blue[900]
                               : (slotColor == "red")
                               ? Colors.red[900]
-                              : (slotColor =="grey")?Colors.grey:Colors.green:Colors.grey,
+                              : (slotColor =="grey")?Colors.grey:Colors.green:Colors.grey[700],
 
                           tileColor:
                           selectedIndex ==1? (slotColor == "green")
@@ -1073,6 +1118,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                       //Checkbox
                     ], //<Widget>[]
                   ),
+
               ],
             ),
           ),
@@ -1175,12 +1221,11 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 ),
                 child:  Text("Pay",style: TextStyle(color: Colors.white,fontSize: 17),),
                 onPressed: () async {
+                  AppDialogs.loading();
                   await  pay.getpaymentList(courtid, selectedIndex,
                     widget.date, TimeId, c.toInt(),);
                   openCheckout();
                 },
-
-
               ),
             ),
           ],
@@ -1223,6 +1268,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
   }
 
   void openCheckout() async {
+    print("keyyy-->${key}");
 
     var options = {
       'key': key,
@@ -1438,7 +1484,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
     print(response.statusCode);
     print("response${response.body}");
     if (response.statusCode == 200) {
-      // OrderSuccess();
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => OrderPlaced()),

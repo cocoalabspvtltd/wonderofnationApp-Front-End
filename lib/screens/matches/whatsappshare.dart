@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum Share {
   whatsapp,
   share_instagram,
@@ -28,7 +29,7 @@ class _WhatsappShareState extends State<WhatsappShare> {
               const SizedBox(height: 30),
               IconButton(
                 onPressed: () => onButtonTap(Share.whatsapp),
-                  icon: Icon(Icons.whatsapp,color: Colors.green,),
+                  icon: Icon(FontAwesomeIcons.whatsapp,color: Colors.green,),
               ),
               IconButton(
                 onPressed: () => onButtonTap(Share.share_telegram),

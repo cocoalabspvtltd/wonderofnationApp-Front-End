@@ -30,11 +30,9 @@ class _FaqPageState extends State<FaqPage> {
             size: 23
         ),
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 90),
-          child: Text("FAQ",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
-          ),),
-        ),
+        centerTitle: true,
+        title: Text("FAQ",style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w400
+        ),),
       ),body: SafeArea(
       child: SingleChildScrollView(
         child: Padding(

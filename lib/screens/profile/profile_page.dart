@@ -1,24 +1,16 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:oo/apis/repositories/profile_page_repositories.dart';
-import 'package:oo/screens/dropdowns/game_list_register.dart';
-import 'package:oo/screens/homePage/levelling_Register1.dart';
 import 'package:oo/screens/homePage/register_profile.dart';
 import 'package:oo/screens/profile/profile_details.dart';
 import '../../apis/bloc/profile_page_bloc.dart';
 import '../../apis/modelclass/profile_model.dart';
 import '../../apis/repositories/joined_clubs.dart';
-import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
-import '../../constants/user.dart';
 import 'edit_profile.dart';
-
-
-
 
 class ProfileUi extends StatefulWidget {
   const ProfileUi({Key? key}) : super(key: key);
@@ -140,10 +132,6 @@ class _ProfileUiState extends State<ProfileUi> {
                                               width: getHorizontalSize(
                                                 19.50,
                                               ),
-                                              // child: SvgPicture.asset(
-                                              //   ImageConstant.imgVector7,
-                                              //   fit: BoxFit.fill,
-                                              // ),
                                             ),
                                           ),
                                         ),

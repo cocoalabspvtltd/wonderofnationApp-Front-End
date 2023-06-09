@@ -487,9 +487,7 @@ print("object=>>>>>${Imagelist}");
 
   Widget build(BuildContext context) {
     return Scaffold(
-
         backgroundColor: ColorConstant.whiteA700,
-
         body: RefreshIndicator(
           color: Colors.white,
           backgroundColor: Colors.blue,

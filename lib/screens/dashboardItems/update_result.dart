@@ -32,11 +32,9 @@ class _UpdateResultState extends State<UpdateResult> {
                   MaterialPageRoute(builder: (context) => Pastmatches()));
             }
         ),
-        title: Padding(
-          padding: const EdgeInsets.only(right: 100, left: 80),
-          child: Text(
-            "Score Borad", style: TextStyle(color: Colors.black, fontSize: 15),),
-        ),),
+        centerTitle: true,
+        title: Text(
+          "Score Borad", style: TextStyle(color: Colors.black, fontSize: 15),),),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Column(

@@ -82,12 +82,10 @@ class _UserProfileDetailsScreenState extends State<UserProfileDetailsScreen> wit
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 100.0),
-          child: Text(
-            "${widget.UserName}",
-            style: TextStyle(fontSize: 18, color: Colors.black),
-          ),
+        centerTitle: true,
+        title: Text(
+          "${widget.UserName}",
+          style: TextStyle(fontSize: 18, color: Colors.black),
         ),
         leading: GestureDetector(onTap: (){
           Navigator.pop(context);

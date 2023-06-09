@@ -1,6 +1,4 @@
 import 'dart:async';
-
-
 import 'package:oo/apis/repositories/register_Repositories.dart';
 import 'package:oo/constants/user.dart';
 import '../../constants/web_Api_provider.dart';

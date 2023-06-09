@@ -89,11 +89,9 @@ class _MyResultScreenState extends State<MyResultScreen> with LoadMoreListener {
                   MaterialPageRoute(builder: (context) => DashBoard(UserName1: '')));
             }
         ),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 100 ),
-          child: Text(
-            "Results", style: TextStyle(color: Colors.black, fontSize: 15),),
-        ),),
+        centerTitle: true,
+        title: Text(
+          "Results", style: TextStyle(color: Colors.black, fontSize: 15),),),
       body: RefreshIndicator(
         color: Colors.white,
         backgroundColor: Colors.white,

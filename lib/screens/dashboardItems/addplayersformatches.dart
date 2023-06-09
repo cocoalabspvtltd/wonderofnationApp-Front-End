@@ -103,12 +103,10 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer>
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.only(left: 70.0),
-            child: Text(
-              "Add Players",
-              style: TextStyle(fontSize: 18, color: Colors.black),
-            ),
+          centerTitle: true,
+          title: Text(
+            "Add Players",
+            style: TextStyle(fontSize: 18, color: Colors.black),
           ),
           leading: GestureDetector(
               onTap: () {
@@ -275,12 +273,14 @@ class _AddPlayersforMatchplayerState extends State<AddPlayersforMatchplayer>
                             playerUpadtion.getUpdateplayer(
                                 playerlist[index].id!, playerlist[index].name!, index, context);
                             Fluttertoast.showToast(msg: "Player Added");
+                            Navigator.pop(context);
                             return;
                           }
                           if (flag == false) {
                             playerUpadtion.getUpdateplayer(
                                 playerlist[index].id!, playerlist[index].name!, index, context);
                             Fluttertoast.showToast(msg: "Player Added");
+                            Navigator.pop(context);
                             return;
                           }
 

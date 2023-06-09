@@ -20,7 +20,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   late ScrollController _notificationScrollController;
   List<dynamic> notificationdata = [];
   bool isLoadingMore = false;
-  // int ucount= 100;
   NotificationRepository notifi_api= NotificationRepository();
   void initState() {
     super.initState();
@@ -79,18 +78,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: Padding(
-          padding: const EdgeInsets.only(left: 12),
-          child: Text(
-            "Notifications",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: getFontSize(
-                22,
-              ),
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w400,
+        title: Text(
+          "Notifications",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: getFontSize(
+              22,
             ),
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),
