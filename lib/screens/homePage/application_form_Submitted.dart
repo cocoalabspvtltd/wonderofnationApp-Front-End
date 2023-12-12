@@ -29,7 +29,6 @@ class Won1Screen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
                   Align(
                     alignment: Alignment.center,
                     child: Padding(

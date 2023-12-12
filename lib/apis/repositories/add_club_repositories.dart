@@ -85,8 +85,9 @@ class Deleteplayer {
 class UpdatePalyer {
 
   Future  getUpdateplayer(int userid,String name, index,context) async {
-
+    print("index--->${index}");
     int bookingid = datas[index].bookingId!;
+    print("bookingid : ${bookingid}");
     String paymentstatus = datas[index].paymentStatus!;
     final Map<String, dynamic> _queryParameters = <String, dynamic>{
       "user_id":userid,

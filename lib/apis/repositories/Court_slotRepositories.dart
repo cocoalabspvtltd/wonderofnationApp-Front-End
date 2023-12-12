@@ -21,7 +21,6 @@ class Court_clubRepository {
       "date":formatted,
       "type":bookingMethod,
       "court_id":court_id,
-
     };
     print("_queryParameters : " + _queryParameters.toString());
     print("_queryParameters : " + _queryParameters.toString());

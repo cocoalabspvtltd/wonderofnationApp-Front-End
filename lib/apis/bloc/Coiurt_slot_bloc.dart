@@ -22,7 +22,8 @@ class CourtSlotBloc {
 
   getReservationCourtsDetailsList(String date,int method, int courtId, ) async {
     Court_clubListDataSink.add(Response.loading('Fetching...'));
-    try {print("object");
+    try {
+      print("object");
     List<dynamic> _reservationcourt =
     await _court_clubRepository.getcourtclubList(date,method, courtId);
 

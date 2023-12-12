@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:oo/apis/bloc/reservation_court_bloc.dart';
 import 'package:oo/apis/repositories/joined_clubs.dart';
-import 'package:oo/constants/app_dialogs.dart';
 import 'package:oo/constants/user.dart';
 import 'package:oo/screens/matches/add_players.dart';
 import 'package:oo/screens/matches/whatsappshare.dart';
@@ -14,7 +13,6 @@ import '../../apis/bloc/Coiurt_slot_bloc.dart';
 import '../../apis/repositories/payment.dart';
 import '../../apis/repositories/paymentcucesss.dart';
 import '../../apis/repositories/refferel_user.dart';
-import '../../apis/repositories/register_Repositories.dart';
 import '../../constants/colors.dart';
 import '../../constants/math_utils.dart';
 import '../../constants/response.dart';
@@ -492,49 +490,49 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             timeSlotView(patientappointmentsearchdata),
-                         Padding(
-                           padding: const EdgeInsets.only(left:8.0),
-                           child: Container(
-                             child: Column(
-                               children: [
-                                 Row(
-                                   children: [
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 28.0),
-                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.green[900]),),
-                                     ),
-                                     Text("   Available slots",style: TextStyle(fontSize: 18,color: Colors.black),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                   ],
-                                 ),
-                                 Row(
-                                   children: [
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 28.0),
-                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.red[900]),),
-                                     ),
-                                     Text("  Unavailable slots",style: TextStyle(fontSize: 18,color: Colors.black),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                   ],
-                                 ),
-                                 Row(
-                                   children: [
-                                     Padding(
-                                       padding: const EdgeInsets.only(left: 28.0),
-                                       child: Text("->",style: TextStyle(fontSize: 30,color: Colors.blue[400]),),
-                                     ),
-                                     Text("  Holded slots",style: TextStyle(fontSize: 18,color: Colors.black),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                     // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
-                                   ],
-                                 ),
-
-                               ],
-                             ),
-                           ),
-                         )
+                         // Padding(
+                         //   padding: const EdgeInsets.only(left:8.0),
+                         //   child: Container(
+                         //     child: Column(
+                         //       children: [
+                         //         Row(
+                         //           children: [
+                         //             Padding(
+                         //               padding: const EdgeInsets.only(left: 28.0),
+                         //               child: Text("->",style: TextStyle(fontSize: 30,color: Colors.green[900]),),
+                         //             ),
+                         //             Text("   Available slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //           ],
+                         //         ),
+                         //         Row(
+                         //           children: [
+                         //             Padding(
+                         //               padding: const EdgeInsets.only(left: 28.0),
+                         //               child: Text("->",style: TextStyle(fontSize: 30,color: Colors.red[900]),),
+                         //             ),
+                         //             Text("  Unavailable slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //           ],
+                         //         ),
+                         //         Row(
+                         //           children: [
+                         //             Padding(
+                         //               padding: const EdgeInsets.only(left: 28.0),
+                         //               child: Text("->",style: TextStyle(fontSize: 30,color: Colors.blue[400]),),
+                         //             ),
+                         //             Text("  Holded slots",style: TextStyle(fontSize: 18,color: Colors.black),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //             // Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
+                         //           ],
+                         //         ),
+                         //
+                         //       ],
+                         //     ),
+                         //   ),
+                         // )
                          //   Text(".",style: TextStyle(fontSize: 45,color: Colors.green[900]),),
                           ],
 
@@ -629,7 +627,6 @@ class _ReservationCourtState extends State<ReservationCourt> {
                   itemCount: forAddPlayers.length >=5 ? 5: forAddPlayers.length, itemBuilder: (context, index){
                 return Row(
                   children: [
-
                     Checkbox(
                       value: isChecked[index],
                       activeColor: ColorConstant.green6320,
@@ -911,7 +908,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
           ),
           elevation: 6,
           child: Container(
-            height: 114,
+            height: 118,
             width: 400,
             decoration: BoxDecoration(
               color: Colors.grey[200],
@@ -1036,6 +1033,11 @@ class _ReservationCourtState extends State<ReservationCourt> {
                           _showDialog(price, Playercount);
                         }
                         else {
+                          print("courtid ${courtid}, "
+                              "selectedIndex $selectedIndex,"
+                              "date ${widget.date}, "
+                              "TimeId ${TimeId}, "
+                              "y ${y}");
                           pay.getpaymentList(courtid, selectedIndex, widget.date, TimeId, y) ;
                           openCheckout();
                         }
@@ -1221,7 +1223,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
                 ),
                 child:  Text("Pay",style: TextStyle(color: Colors.white,fontSize: 17),),
                 onPressed: () async {
-                  AppDialogs.loading();
+                  // AppDialogs.loading();
                   await  pay.getpaymentList(courtid, selectedIndex,
                     widget.date, TimeId, c.toInt(),);
                   openCheckout();
@@ -1304,7 +1306,7 @@ class _ReservationCourtState extends State<ReservationCourt> {
     Fluttertoast.showToast(
         msg: "Payment SuccessFully Completed",
         toastLength: Toast.LENGTH_SHORT);
-    selectedIndex == 1? showAlertDialogrefferel(context):Container();
+    selectedIndex == 1 && holdSlotvalue == true ? showAlertDialogrefferel(context):Container();
     print("${b}");
     // sucess == "Payment successful"
 

@@ -43,7 +43,7 @@ class _FaqPageState extends State<FaqPage> {
                       _howtobook(),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
                       Theme(
-                        data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
+                        data: Theme.of(context).copyWith(hintColor: ColorConstant.green6320),
                         child: ListView.separated(
                             separatorBuilder: (context, index) =>
                                 SizedBox(height: 15,),
@@ -100,7 +100,7 @@ class _FaqPageState extends State<FaqPage> {
   }
   _howtobook() {
     return Theme(
-      data: Theme.of(context).copyWith(accentColor: ColorConstant.green6320),
+      data: Theme.of(context).copyWith(hintColor: ColorConstant.green6320),
       child: ExpansionTileCard(
         contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         shadowColor:ColorConstant.green6320 ,

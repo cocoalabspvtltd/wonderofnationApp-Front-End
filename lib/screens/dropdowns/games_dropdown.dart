@@ -50,7 +50,7 @@ class _DesignationDropdownState extends State<DesignationDropdown> {
     return DropdownButtonHideUnderline(
       child: DropdownButton(
         hint: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 5.0),
           child: Text('Select',style: TextStyle(fontSize: 14,color: ColorConstant.black900),),
         ),
         items: categoryItemlist.map((item) {

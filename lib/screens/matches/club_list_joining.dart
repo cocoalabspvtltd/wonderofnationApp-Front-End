@@ -72,7 +72,7 @@ class _ClubListState extends State<ClubList> {
                 subtitle1: TextStyle(color: Colors.black),
                 button: TextStyle(color: Colors.black),
               ),
-              accentColor: Colors.black,
+              hintColor: Colors.black,
               colorScheme: ColorScheme.light(
                   primary: ColorConstant.green6320,
                   primaryVariant: Colors.black,
@@ -268,11 +268,8 @@ class _ClubListState extends State<ClubList> {
                                           ),
                                         ),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(6.0),
-                                        child: DesignationDropdown(),
-                                      )),
-                      Spacer(),
+                                      child: DesignationDropdown()),
+                                Spacer(),
                                   Container(
                                     width: screenWidth * 0.3,
                                     child: TextField(
@@ -340,10 +337,7 @@ class _ClubListState extends State<ClubList> {
                                             ),
                                           ),
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(6.0),
-                                          child: LocationDropdown(),
-                                        )),
+                                        child: LocationDropdown()),
                                   ),
                                 ],
                               ),
