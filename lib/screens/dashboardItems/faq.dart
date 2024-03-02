@@ -143,6 +143,7 @@ class _FaqPageState extends State<FaqPage> {
       ),
     );
   }
+
   _buildInfo(String title, String subTitle) {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
