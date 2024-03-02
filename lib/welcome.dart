@@ -33,17 +33,20 @@ class _MyHomePageState extends State<WelcomeScreen> {
       setState(() {});
 
       if (UserDetails.apiToken.isEmpty) await SharedPrefs.init();
-      await SharedPrefs.init();
 
       Future.delayed(Duration(milliseconds: 1400), () {
-        if (UserDetails.apiToken != '') {
-
-
-            return Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
-
-        } else {
+        if (UserDetails.apiToken.isEmpty) {
           return Get.offAll(() => LoginScreen());
+        } else {
+          return Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
         }
+        // if (UserDetails.apiToken != '') {
+        //
+        //   return Get.offAll(() => DashBoard(UserName1: UserDetails.userName));
+        //
+        // } else {
+        //   return Get.offAll(() => LoginScreen());
+        // }
       });
     });
     Timer(

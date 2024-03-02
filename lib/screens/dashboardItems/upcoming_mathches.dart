@@ -159,7 +159,7 @@ print("id-??${widget.id}");
                                       Padding(
                                         padding: EdgeInsets.only(
                                           top: getVerticalSize(
-                                            50.00,
+                                            30.00,
                                           ),
                                         ),
                                         child: Row(
@@ -186,7 +186,7 @@ print("id-??${widget.id}");
                                                     24,
                                                   ),
                                                   fontFamily: 'Inter',
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
                                             ),
@@ -208,10 +208,10 @@ print("id-??${widget.id}");
                                                   31.00,
                                                 ),
                                                 width: getHorizontalSize(
-                                                  102.00,
+                                                  106.00,
                                                 ),
                                                 decoration: BoxDecoration(
-                                                  color: ColorConstant.green6320,
+                                                  color: ColorConstant.gray600,
                                                   borderRadius: BorderRadius.circular(
                                                     getHorizontalSize(
                                                       10.00,
@@ -219,15 +219,15 @@ print("id-??${widget.id}");
                                                   ),
                                                 ),
                                                 child: Text(
-                                                  "Entry fee: ₹500 ",
+                                                  "Court price : ${clubdetailsList.match?.courtPrice}",
                                                   textAlign: TextAlign.left,
                                                   style: TextStyle(
                                                     color: ColorConstant.whiteA700,
                                                     fontSize: getFontSize(
-                                                      12,
+                                                      13,
                                                     ),
                                                     fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
+                                                    fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
@@ -274,55 +274,27 @@ print("id-??${widget.id}");
                                             Padding(
                                               padding: EdgeInsets.only(
                                                 left: getHorizontalSize(
-                                                  13.34,
+                                                  10.33,
                                                 ),
-                                                right: getHorizontalSize(
-                                                  135.00,
+                                                top: getVerticalSize(
+                                                  4.67,
+                                                ),
+                                                bottom: getVerticalSize(
+                                                  11.66,
                                                 ),
                                               ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Club Name/ Sports Center",
-                                                    overflow: TextOverflow.ellipsis,
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                      color: ColorConstant.black900,
-                                                      fontSize: getFontSize(
-                                                        13,
-                                                      ),
-                                                      fontFamily: 'Inter',
-                                                      fontWeight: FontWeight.w400,
-                                                    ),
+                                              child: Text(
+                                                "${clubdetailsList.match?.cityName}/ ${clubdetailsList.match?.stateName}",
+                                                overflow: TextOverflow.ellipsis,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: ColorConstant.black900,
+                                                  fontSize: getFontSize(
+                                                    14,
                                                   ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(
-                                                      top: getVerticalSize(
-                                                        2.00,
-                                                      ),
-                                                      right: getHorizontalSize(
-                                                        10.00,
-                                                      ),
-                                                    ),
-                                                    child: Text(
-                                                      "3.5 km away",
-                                                      overflow: TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        color: ColorConstant.black900,
-                                                        fontSize: getFontSize(
-                                                          12,
-                                                        ),
-                                                        fontFamily: 'Inter',
-                                                        fontWeight: FontWeight.w400,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                  fontFamily: 'Inter',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -368,16 +340,16 @@ print("id-??${widget.id}");
                                                 ),
                                               ),
                                               child: Text(
-                                                "21.08.2022  Monday , 19.00",
+                                                "${clubdetailsList.match?.date}",
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
                                                 style: TextStyle(
                                                   color: ColorConstant.black900,
                                                   fontSize: getFontSize(
-                                                    12,
+                                                    14,
                                                   ),
                                                   fontFamily: 'Inter',
-                                                  fontWeight: FontWeight.w400,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                               ),
                                             ),
@@ -385,7 +357,7 @@ print("id-??${widget.id}");
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 28.0,top: 18),
+                                        padding: const EdgeInsets.only(left: 28.0,top: 20),
                                         child: Text("BOOKINGID : ${clubdetailsList.match?.booking_id}",style: TextStyle(fontWeight: FontWeight.bold)),
                                       ),
                                       Padding(
@@ -394,7 +366,7 @@ print("id-??${widget.id}");
                                             30.00,
                                           ),
                                           top: getVerticalSize(
-                                            30.00,
+                                            20.00,
                                           ),
                                           right: getHorizontalSize(
                                             30.00,
@@ -425,14 +397,14 @@ print("id-??${widget.id}");
                                               30.00,
                                             ),
                                             top: getVerticalSize(
-                                              7.00,
+                                              10.00,
                                             ),
                                             right: getHorizontalSize(
                                               30.00,
                                             ),
                                           ),
                                           child: Text(
-                                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus in dolor volutpat facilisi fringilla amet aliquam  rhoncus elit. Eget bibendum proin habitant pellentesque  lectus ut vitae. Sed mollis euismod malesuada.",
+                                            "${clubdetailsList.match?.description}",
                                             maxLines: null,
                                             textAlign: TextAlign.justify,
                                             style: TextStyle(
@@ -456,7 +428,6 @@ print("id-??${widget.id}");
 
                                            ],
                                          ),
-
                                       Align(
                                         alignment: Alignment.center,
                                         child: Padding(

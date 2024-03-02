@@ -93,7 +93,6 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
                       );
                     case Status.COMPLETED:
                       AddPlayersModel resp = snapshot.data!.data;
-
                       return _bloc.myordersDetailsList.isEmpty
                           ? SizedBox(
                         height: MediaQuery.of(context).size.height - 180,
@@ -140,10 +139,8 @@ class _creatingmatchesscreenState extends State<creatingmatchesscreen> with Load
               },
               physics: BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
-
               shrinkWrap: true,
               itemBuilder: (context, index) {
-
                 return GestureDetector(
                   onTap: (){
                     print("object");

@@ -132,8 +132,7 @@ class ProfilepageRepositories {
       "email":userEmail,
       "phone":UserMobile,
       "bio":bio,
-      "profilePic":
-      await MultipartFile.fromFile(reportFile.path, filename:fileName),
+      "profilePic": await MultipartFile.fromFile(reportFile.path, filename:fileName),
     });
     final response = await apiProvider
         .getMultipartInstance()

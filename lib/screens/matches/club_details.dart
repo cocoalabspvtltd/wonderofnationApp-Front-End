@@ -102,7 +102,6 @@ print("object=>>>>>${Imagelist}");
               width: size.width,
               child:
               Container(
-
                 width: size.width,
                 decoration: BoxDecoration(
                   color: ColorConstant.gray200,
@@ -129,7 +128,12 @@ print("object=>>>>>${Imagelist}");
                               alignment: Alignment.centerLeft,
                               child: CachedNetworkImage(
                                 imageUrl: img ?? "",
-                                placeholder: (context, url) => CircularProgressIndicator(),
+                                placeholder: (context, url) => Center(
+                                  child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator()),
+                                ),
                                 errorWidget: (context, url, error) => Image.asset("assets/images/football.jpg",fit: BoxFit.fill,),
                                 height: getVerticalSize(
                                   400.00,
@@ -410,7 +414,7 @@ print("object=>>>>>${Imagelist}");
                                     ),
                                     errorWidget: (context, url, error) =>Container(
                                         margin: EdgeInsets.all(5),
-                                        child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.fill,)
+                                        child: Image.asset("assets/images/clubmixed.jpg",fit: BoxFit.cover,)
                                     ),
                                   ),
                                 );

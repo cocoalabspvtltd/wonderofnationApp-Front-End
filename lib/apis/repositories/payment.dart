@@ -30,7 +30,7 @@ class Payemnt {
     DateTime gettingDate = format.parse( date);
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String formatted = formatter.format(gettingDate);
-    //  print("formatted-<>>>>>>>${playerid}");
+    print("formatted-<>>>>>>>${court_id}");
     int i =0;
     List<Map> playerData =[];
     forAddPlayers.forEach((element) {
@@ -39,6 +39,14 @@ class Payemnt {
 
       i+=1;
     });
+    print("hold_court ${holdSlotvalue}");
+    print("courtid ${court_id}, "
+        "selectedIndex $type,"
+        "date ${date}, "
+        "TimeId ${time_slot}, "
+        "ammount ${amount},"
+        "hol ${holdSlotvalue},"
+        "players ${playerData}");
     final Map<String, dynamic> _queryParameters = <String, dynamic>
     {
       "court_id":court_id,
@@ -47,8 +55,7 @@ class Payemnt {
       "time_slot_id":time_slot,
       "amount":amount,
       "hold_court":holdSlotvalue,
-      "players": addplayersvalue==true?
-      playerData:null,
+      "players": addplayersvalue==true? playerData:null,
     };
     print("court/payment");
     print("_queryParameters : " + _queryParameters.toString());
